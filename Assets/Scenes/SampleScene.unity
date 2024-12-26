@@ -957,8 +957,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a309096ef48f3c34f82b5722d4e480e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groqApiKey: 
-  elevenlabsApiKey: 
+  groqApiKey: [API_REMOVED]
+  elevenlabsApiKey: [API_REMOVED]
 --- !u!114 &944846798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1010,67 +1010,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &948039158
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 948039160}
-  - component: {fileID: 948039159}
-  - component: {fileID: 948039161}
-  m_Layer: 0
-  m_Name: redis
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &948039159
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 948039158}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2412a2c468d8bbe469386c64e5a33b6d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ipServer: 
-  port: 
-  password: 
---- !u!4 &948039160
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 948039158}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 18.730635, y: -116.31083, z: -448.0748}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &948039161
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 948039158}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06f6724beb0d0e54b8e2e93575e60d7c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  apiKey: 
 --- !u!1 &1097734477 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1000011419228686, guid: d7b762e2efec15745a46d6a07c9c119e, type: 3}
@@ -1659,8 +1598,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a309096ef48f3c34f82b5722d4e480e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groqApiKey: 
-  elevenlabsApiKey: 
+  groqApiKey: [API_REMOVED]
+  elevenlabsApiKey: [API_REMOVED]
 --- !u!82 &1928990227
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1844,4 +1783,3 @@ SceneRoots:
   - {fileID: 741346868}
   - {fileID: 1186625802}
   - {fileID: 944846801}
-  - {fileID: 948039160}

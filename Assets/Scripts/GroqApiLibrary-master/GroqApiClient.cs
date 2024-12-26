@@ -66,7 +66,7 @@ namespace GroqApiLibrary
         }
 
 
-        public async Task<JsonObject?> CreateTranscriptionAsync(Stream audioFile, string fileName, string model,
+        public async Task<JObject?> CreateTranscriptionAsync(Stream audioFile, string fileName, string model,
             string? prompt = null, string responseFormat = "json", string? language = null, float? temperature = null)
         {
             using var content = new MultipartFormDataContent();
@@ -86,7 +86,9 @@ namespace GroqApiLibrary
 
             var response = await _httpClient.PostAsync(BaseUrl + TranscriptionsEndpoint, content);
             response.EnsureSuccessStatusCode();
-            return await response.Content.ReadFromJsonAsync<JsonObject>();
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+            return JObject.Parse(responseContent);
         }
 
         public async Task<JsonObject?> CreateTranslationAsync(Stream audioFile, string fileName, string model,
@@ -126,20 +128,5 @@ namespace GroqApiLibrary
             _httpClient.Dispose();
             GC.SuppressFinalize(this);
         }
-    }
-
-
-    public class Tool
-    {
-        public string Type { get; set; } = "function";
-        public Function Function { get; set; }
-    }
-
-    public class Function
-    {
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public JsonObject Parameters { get; set; }
-        public Func<string, Task<string>> ExecuteAsync { get; set; }
     }
 }

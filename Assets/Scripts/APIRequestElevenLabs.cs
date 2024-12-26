@@ -59,7 +59,7 @@ public class APIRequestElevenLabs : MonoBehaviour
             /// 1 - normal latency optimizations (about 50% of possible latency improvement of option 3)<br/>
             /// 2 - strong latency optimizations (about 75% of possible latency improvement of option 3)<br/>
             /// 3 - max latency optimizations<br/>
-            int ? optimizeStreamingLatency = 0;
+            int? optimizeStreamingLatency = 0;
 
             streamClipQueue.Clear();
             var streamQueueCts = CancellationTokenSource.CreateLinkedTokenSource(destroyCancellationToken);

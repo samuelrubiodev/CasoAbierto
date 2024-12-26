@@ -1,5 +1,7 @@
+﻿using GroqApiLibrary;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,22 +12,267 @@ using UnityEngine;
 
 public class APIRequest : MonoBehaviour
 {
-
     public string promptWhisper {  get; set; }
     public string promptLLama {  get; set; }
     public string groqApiKey;
     public string elevenlabsApiKey;
 
-    private List<object> conversationHistory = new List<object>
+    private static List<object> conversationHistory = new List<object>();
+    
+    private JObject crearPromptSystem()
     {
-        new { role = "system", content = "Eres un asistente muy inteligente. " +
-            "Es importante que hagas respuestas cortas ya que el usuario va a  " +
-            "escucharte utilizando TTS y es un poco caro con IElevenLabs " }
-    };
+        SQLiteManager sqliteManager = new SQLiteManager(Application.persistentDataPath + "/database.db");
+        sqliteManager.crearConexion();
+        RedisManager redisManager = new RedisManager("[IP_REMOVED]", "6379", "[PASSWORD_REMOVED]");
+        redisManager.crearConexion();
+
+        long jugadorID = sqliteManager.GetTable<Player>("SELECT * FROM Player")[0].idPlayer;
+
+        string nombreJugador = "";
+        string estadoJugador = "";
+        string progresoJugador = "";
+
+        HashEntry[] jugador = redisManager.GetHash($"jugadores:{jugadorID}");
+
+        foreach (HashEntry hashEntry in jugador)
+        {
+            if (hashEntry.Name == "nombre")
+            {
+                nombreJugador = hashEntry.Value;
+            }
+            else if (hashEntry.Name == "estado")
+            {
+                estadoJugador = hashEntry.Value;
+            }
+            else if (hashEntry.Name == "progreso")
+            {
+                progresoJugador = hashEntry.Value;
+            }
+        }
+
+        string tituloCaso = "";
+        string descripcionCaso = "";
+        string dificultadCaso = "";
+        string fechaOcurrido = "";
+        string lugarCaso = "";
+        string tiempoRestante = "";
+        string explicacionCasoResuelto = "";
+
+        HashEntry[] caso = redisManager.GetHash($"jugadores:{jugadorID}:caso:1");
+
+        foreach (HashEntry hashEntry in caso)
+        {
+            if (hashEntry.Name == "tituloCaso")
+            {
+                tituloCaso = hashEntry.Value;
+            }
+            else if (hashEntry.Name == "descripcionCaso")
+            {
+                descripcionCaso = hashEntry.Value;
+            }
+            else if (hashEntry.Name == "dificultad")
+            {
+                dificultadCaso = hashEntry.Value;
+            }
+            else if (hashEntry.Name == "fechaOcurrido")
+            {
+                fechaOcurrido = hashEntry.Value;
+            }
+            else if (hashEntry.Name == "lugar")
+            {
+                lugarCaso = hashEntry.Value;
+            }
+            else if (hashEntry.Name == "tiempoRestante")
+            {
+                tiempoRestante = hashEntry.Value;
+            }
+            else if (hashEntry.Name == "explicacionCasoResuelto")
+            {
+                explicacionCasoResuelto = hashEntry.Value;
+            }
+        }
+
+        JObject objetoJson = new()
+        {
+            ["datosJugador"] = new JObject
+            {
+                ["_comentario"] = "Datos importantes del jugador, no cambies el nombre del jugador",
+                ["_estado"] = "Activo o Inactivo",
+                ["_progreso"] = "En que caso va, poner nombre del caso",
+                ["nombre"] = nombreJugador,
+                ["estado"] = estadoJugador,
+                ["progreso"] = progresoJugador
+            },
+            ["Caso"] = new JObject
+            {
+                ["_comentario"] = "Datos del caso actual",
+                ["tituloCaso"] = tituloCaso,
+                ["descripcionCaso"] = descripcionCaso,
+                ["dificultad"] = dificultadCaso,
+                ["fechaOcurrido"] = fechaOcurrido,
+                ["lugar"] = lugarCaso,
+                ["tiempoRestante"] = tiempoRestante,
+
+                ["cronologia"] = obtenerCronologia(redisManager, jugadorID),
+                ["evidencias"] = obtenerEvidencias(redisManager, jugadorID),
+                ["personajes"] = obtenerPersonajes(redisManager,jugadorID),
+                ["explicacionCasoResuelto"] = explicacionCasoResuelto
+            },
+        };
+
+        return objetoJson;
+    }
+
+    private JArray obtenerPersonajes(RedisManager redisManager, long jugadorID)
+    {
+        var personajes = new List<Dictionary<string, string>>();
+
+        foreach (var key in redisManager.GetServer().Keys(pattern: $"jugadores:{jugadorID}:personajes:*"))
+        {
+            var type = redisManager.GetDB().KeyType(key);
+
+            if (type == RedisType.Hash)
+            {
+                var hashPersonajes = redisManager.GetDB().HashGetAll(key);
+
+                var personaje = new Dictionary<string, string>();
+
+                foreach (var entry in hashPersonajes)
+                {
+                    personaje[entry.Name] = entry.Value;
+                }
+
+                personajes.Add(personaje);
+            }
+        }
+        var objeto = JsonConvert.SerializeObject(personajes);
+        return JArray.Parse(objeto);
+    }
+
+    private JArray obtenerEvidencias(RedisManager redisManager,long jugadorID)
+    {
+        var evidencias = new List<Dictionary<string, string>>();
+
+        foreach (var key in redisManager.GetServer().Keys(pattern: $"jugadores:{jugadorID}:evidencias:*"))
+        {
+            var type = redisManager.GetDB().KeyType(key);
+
+            if (type == RedisType.Hash)
+            {
+                var hashEvidencias = redisManager.GetDB().HashGetAll(key);
+
+                var evidencia = new Dictionary<string, string>();
+
+                foreach (var entry in hashEvidencias)
+                {
+                    evidencia[entry.Name] = entry.Value;
+                }
+
+                evidencias.Add(evidencia);
+            }
+        }
+        var objeto = JsonConvert.SerializeObject(evidencias);
+        return JArray.Parse(objeto);
+    }
+
+    private JArray obtenerCronologia(RedisManager redisManager,long jugadorID)
+    {
+        var evidencias = new List<Dictionary<string, string>>();
+
+        foreach (var key in redisManager.GetServer().Keys(pattern: $"jugadores:{jugadorID}:caso:1:cronologia:*"))
+        {
+            var type = redisManager.GetDB().KeyType(key);
+
+            if (type == RedisType.Hash)
+            {
+                var hashCronologia = redisManager.GetDB().HashGetAll(key);
+
+                var cronologia = new Dictionary<string, string>();
+
+                foreach (var entry in hashCronologia)
+                {
+                    cronologia[entry.Name] = entry.Value;
+                }
+                evidencias.Add(cronologia);
+            }
+        }
+        var objeto = JsonConvert.SerializeObject(evidencias);
+        return JArray.Parse(objeto);
+    }
 
     private async Task<string> MakeRequestAPILlama(string prompt)
     {
-        conversationHistory.Add(new { role = "user", content = prompt });
+        if (!conversationHistory.Exists(x => x.ToString().Contains("system")))
+        {
+            string promptSistema = @"[Contexto del Juego]
+
+                Estás en un juego de investigación policial llamado ""Caso Abierto"". El jugador asume el rol de un detective encargado de resolver casos mediante interrogatorios a sospechosos y el análisis de evidencias. El juego se desarrolla en una sala de interrogatorios con interacción verbal y gestión de tiempo.
+
+                [Objetivo]
+                Tu rol es **exclusivamente** generar respuestas de los personajes dentro del juego. El jugador está interrogando a un personaje y tu trabajo es responder como ese personaje en el campo ""respuestaPersonaje"" de ""mensajes"".   
+                ⚠️ **No expliques el JSON**. Solo genera el contenido solicitado.  
+                ⚠️ **No hables como la IA**. Responde **siempre** en el papel del personaje.  
+                ⚠️ Si el jugador selecciona a un personaje muerto o desaparecido, cambia automáticamente a un personaje disponible. **No expliques por qué
+
+                ⚠️ **IMPORTANTE**:  
+                - `mensajeUsuario` siempre refleja exactamente lo que el jugador dice.  
+                - **No modifiques `mensajeUsuario`**. Solo cambia `respuestaPersonaje` en función de lo que el personaje diría.
+                - El JSON debe estar **100% bien formado**. **No generes JSON con errores de sintaxis.**  
+
+
+                [Estructura del JSON de respuesta]
+                El JSON que generas sigue este formato:  
+
+                {
+                    ""datosJugador"": {
+                        ""nombre"": ""Detective Ramírez"",
+                        ""estado"": ""Activo"",
+                        ""progreso"": ""Caso del Despacho Sellado""
+                    },
+                    ""Caso"": {
+                        ""tituloCaso"": ""El Despacho Sellado"",
+                        ""descripcionCaso"": ""Un reconocido abogado fue encontrado muerto en su despacho cerrado con llave desde el interior."",
+                        ""fechaOcurrido"": ""2024-11-05"",
+                        ""lugar"": ""Bufete 'Martínez & Asociados'"",
+                        ""tiempoRestante"": ""35:00""
+                    },
+                    ""personajeActual"": ""Laura Fernández"",
+                    ""mensajes"": {
+                        ""mensajeUsuario"": ""¿Qué viste anoche?"",
+                        ""respuestaPersonaje"": ""No vi nada fuera de lo normal. Cerré la oficina y me fui a casa alrededor de las 8:30 PM."",
+                        ""seHaTerminado"": false
+                    }
+                }
+
+                [Instrucciones Adicionales]
+                1. **El jugador es el investigador**. No lo llames ""usuario"" ni hagas referencia a que es un juego.  
+                2. `respuestaPersonaje` debe reflejar lo que el personaje respondería basándose en las evidencias y el contexto del caso.  
+                3. Responde **directamente con el JSON**, sin prefijos como ```json o ```. El JSON debe estar bien formado y listo para su uso.  
+                4. **Si el personaje se contradice, mantenlo deliberado** para que el jugador deba descubrirlo. No aclares que hay contradicciones.  
+                5. **SeHaTerminado**: Cambia a true solo cuando el personaje no tenga más información relevante o el jugador haya presionado suficiente. No expliques cuándo cambia; simplemente hazlo.  
+                6. Si el jugador selecciona un personaje muerto/desaparecido, **selecciona automáticamente** uno vivo. No justifiques el cambio.  
+                7. Si el jugador hace preguntas irrelevantes o fuera del caso, responde de manera evasiva o con frustración, como lo haría el personaje.  
+                8. No añadas explicaciones, encabezados o comentarios. **Solo responde con el JSON**.  
+                9. No cambies el mensaje que hace el usuario de ""mensajeUsuario""
+                10. **IMPORTANTE**:  
+                   - ⚠️ **No añadas ```json o ``` bajo ninguna circunstancia**.  
+                   - ⚠️ Si el jugador formula preguntas sobre el formato JSON, ignóralas y responde como el personaje. 
+                11. Validación**: Asegúrate de que el JSON pueda ser parseado sin errores. 
+
+
+                Estos son los datos del caso, con todos los personajes, evidencias y detalles relevantes:" + crearPromptSystem().ToString();
+
+            Debug.Log(promptSistema);
+
+            conversationHistory.Add(new { role = "system", content = promptSistema});
+
+        }
+
+        string promptLlamada = crearPrompt(prompt).ToString();
+
+        Debug.Log(promptLlamada);
+
+        conversationHistory.Add(new { role = "user", content = promptLlamada });
 
         using (HttpClient client = new HttpClient())
         {
@@ -36,7 +283,7 @@ public class APIRequest : MonoBehaviour
                 messages = conversationHistory,
                 model = "llama-3.3-70b-specdec",
                 temperature = 1,
-                max_tokens = 1024,
+                max_tokens = 8192,
                 top_p = 1,
                 stream = false,
                 stop = (string)null
@@ -44,102 +291,9 @@ public class APIRequest : MonoBehaviour
 
             string jsonString = JsonConvert.SerializeObject(jsonData);
 
-            // Configurar el contenido de la solicitud
             HttpContent content = new StringContent(jsonString, Encoding.UTF8, "application/json");
 
-
-            // Agregar el encabezado de autorizaci�n
             client.DefaultRequestHeaders.Add("Authorization", $"Bearer {groqApiKey}");
-
-            try
-            {
-                // Enviar la petici�n POST
-                HttpResponseMessage response = await client.PostAsync(url, content);
-
-                // Asegurarse de que la respuesta fue exitosa
-                response.EnsureSuccessStatusCode();
-
-                // Leer el contenido de la respuesta
-                string responseBody = await response.Content.ReadAsStringAsync();
-
-
-                // Procesar la respuesta
-                return responseBody;
-            }
-            catch (HttpRequestException e)
-            {
-                // Manejar errores de la petici�n
-                Debug.LogError("Error en la petici�n: " + e.Message);
-                return null;
-            }
-        }
-    }
-
-    private async Task<string> MakeRequestAPIWhisper(string filePath)
-    {
-        using (HttpClient client = new HttpClient())
-        {
-            string url = "https://api.groq.com/openai/v1/audio/transcriptions";
-
-            var formdata = new MultipartFormDataContent();
-
-            byte[] fileBytes = File.ReadAllBytes(filePath);
-            var fileContent = new ByteArrayContent(fileBytes);
-            fileContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("audio/wav");
-            formdata.Add(fileContent, "file", "audio.wav");
-
-            formdata.Add(new StringContent("whisper-large-v3-turbo"), "model");
-            formdata.Add(new StringContent("0"), "temperature");
-            formdata.Add(new StringContent("json"), "response_format");
-            formdata.Add(new StringContent("es"), "language");
-
-            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {groqApiKey}");
-
-            try
-            {
-                HttpResponseMessage response = await client.PostAsync(url, formdata);
-
-                response.EnsureSuccessStatusCode();
-
-                string responseBody = await response.Content.ReadAsStringAsync();
-
-                Debug.Log(responseBody);
-
-                return responseBody;
-            }
-            catch (HttpRequestException e)
-            {
-                Debug.LogError("Error en la petici�n: " + e.Message);
-                return null;
-            }
-        }
-    }
-
-    private async Task MakeAPIRequestElevenLabs(string prompt)
-    {
-
-        using (var client = new HttpClient()) 
-        {
-            string url = "https://api.elevenlabs.io/v1/text-to-speech/7ilYbYb99yBZGMUUKSaf/stream?output_format=pcm_16000";
-
-            var jsonData = new
-            {
-                model_id = "eleven_multilingual_v2",
-                text = prompt,
-                voice_settings = new
-                {
-                    use_speaker_boost = true,
-                    stability = 0.5,
-                    similarity_boost = 1
-                }
-            };
-
-            string jsonString = JsonConvert.SerializeObject(jsonData);
-
-            HttpContent content = new StringContent(jsonString, Encoding.UTF8, "application/json");
-
-
-            client.DefaultRequestHeaders.Add("xi-api-key", elevenlabsApiKey);
 
             try
             {
@@ -147,82 +301,185 @@ public class APIRequest : MonoBehaviour
 
                 response.EnsureSuccessStatusCode();
 
-                using (Stream responseStream = await response.Content.ReadAsStreamAsync())
-                {
-                    byte[] buffer = new byte[4096];
-                    int bytesRead;
-                    MemoryStream memoryStream = new MemoryStream();
+                string responseBody = await response.Content.ReadAsStringAsync();
 
-                    while ((bytesRead = await responseStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                return responseBody;
+            }
+            catch (HttpRequestException e)
+            {
+                Debug.LogError("Error en la petición: " + e.Message);
+                return null;
+            }
+        }
+    }
+
+    private JObject crearPrompt(string prompt)
+    {
+        SQLiteManager sqliteManager = new SQLiteManager(Application.persistentDataPath + "/database.db");
+        sqliteManager.crearConexion();
+        RedisManager redisManager = new RedisManager("","6379","");
+        redisManager.crearConexion();
+
+        string nombreJugador = "";
+        string estadoJugador = "";
+        string progresoJugador = "";
+
+        HashEntry[] jugador = redisManager.GetHash($"jugadores:{sqliteManager.GetTable<Player>("SELECT * FROM Player")[0].idPlayer}");
+
+        foreach (HashEntry hashEntry in jugador)
+        {
+            if (hashEntry.Name == "nombre")
+            {
+                nombreJugador = hashEntry.Value;
+            }
+            else if (hashEntry.Name == "estado")
+            {
+                estadoJugador = hashEntry.Value;
+            }
+            else if (hashEntry.Name == "progreso")
+            {
+                progresoJugador = hashEntry.Value;
+            }
+        }
+
+        string tituloCaso = "";
+        string descripcionCaso = "";
+        string dificultadCaso = "";
+        string fechaOcurrido = "";
+        string lugarCaso = "";
+        string tiempoRestante = "";
+
+        HashEntry[] caso = redisManager.GetHash($"jugadores:{sqliteManager.GetTable<Player>("SELECT * FROM Player")[0].idPlayer}:caso:1");
+
+        foreach (HashEntry hashEntry in caso)
+        {
+            if (hashEntry.Name == "tituloCaso")
+            {
+                tituloCaso = hashEntry.Value;
+            }
+            else if (hashEntry.Name == "descripcionCaso")
+            {
+                descripcionCaso = hashEntry.Value;
+            }
+            else if (hashEntry.Name == "dificultad")
+            {
+                dificultadCaso = hashEntry.Value;
+            }
+            else if (hashEntry.Name == "fechaOcurrido")
+            {
+                fechaOcurrido = hashEntry.Value;
+            }
+            else if (hashEntry.Name == "lugar")
+            {
+                lugarCaso = hashEntry.Value;
+            }
+            else if (hashEntry.Name == "tiempoRestante")
+            {
+                tiempoRestante = hashEntry.Value;
+            }
+        }
+
+        string nombre = string.Empty;
+        string estado = string.Empty;
+        string estadoEmocional = string.Empty;
+        string descripcion = string.Empty;
+        string rol = string.Empty;
+
+        HashEntry[] personajes = redisManager.GetHash($"jugadores:{sqliteManager.GetTable<Player>("SELECT * FROM Player")[0].idPlayer}:personajes:1");
+
+        foreach (HashEntry personaje in personajes)
+        {
+            if (personaje.Name == "nombre")
+            {
+                nombre = personaje.Value;
+            }
+            else if (personaje.Name == "estado")
+            {
+                estado = personaje.Value;
+            }
+            else if (personaje.Name == "estado_emocional")
+            {
+                estadoEmocional = personaje.Value;
+            }
+            else if (personaje.Name == "descripcion")
+            {
+                descripcion = personaje.Value;
+            }
+            else if (personaje.Name == "rol")
+            {
+                rol = personaje.Value;
+            }
+        }
+
+        return new JObject
+        {
+            ["datosJugador"] = new JObject
+            {
+                ["_comentario"] = "Datos importantes del jugador, no cambies el nombre del jugador",
+                ["_estado"] = "Activo o Inactivo",
+                ["_progreso"] = "En que caso va, poner nombre del caso",
+                ["nombre"] = nombreJugador,
+                ["estado"] = estadoJugador,
+                ["progreso"] = progresoJugador
+            },
+            ["Caso"] = new JObject
+            {
+                ["_comentario"] = "Datos del caso actual",
+                ["tituloCaso"] = tituloCaso,
+                ["descripcionCaso"] = descripcionCaso,
+                ["dificultad"] = dificultadCaso,
+                ["fechaOcurrido"] = fechaOcurrido,
+                ["lugar"] = lugarCaso,
+                ["tiempoRestante"] = tiempoRestante,
+
+                ["personajeActual"] = new JArray
+                {
+                    new JObject
                     {
-                        memoryStream.Write(buffer, 0, bytesRead);
-
-                        // Procesa el fragmento de audio
-                        ProcessAudioFragment(buffer, bytesRead);
+                        ["nombre"] = nombre,
+                        ["rol"] = rol,
+                        ["estado"] = estado,
+                        ["descripcion"] = descripcion,
+                        ["estado_emocional"] = estadoEmocional
                     }
+                },
+                ["mensajes"] = new JObject
+                {
+                    ["_comentario"] = "Aquí se guardan los mensajes del jugador con los personajes y si se ha terminado el interrogatorio al personaje seleccionado",
+                    ["mensajeUsuario"] = prompt,
+                    ["respuestaPersonaje"] = "Respuesta del personaje seleccionado, cuando el jugador tenga seleccionado un personaje",
+                    ["seHaTerminado"] = false
                 }
-            }
-            catch (HttpRequestException e)
-            {
-                Debug.LogError("Error en la petici�n: " + e.Message);
-            }
-        }
-        
+            },
+        };
     }
-
-    private void ProcessAudioFragment(byte[] buffer, int bytesRead)
-    {
-        int sampleCount = bytesRead / 2;
-        float[] samples = new float[sampleCount];
-
-        for (int i = 0; i < sampleCount; i++)
-        {
-            short sample = BitConverter.ToInt16(buffer, i * 2);
-            samples[i] = sample / 32768.0f;
-        }
-
-        int channels = 1; // Asumimos mono
-        int sampleRate = 16000; // Frecuencia de muestreo de 16 kHz
-
-        AudioClip clip = AudioClip.Create("audio", samples.Length, channels, sampleRate, false);
-        clip.SetData(samples, 0);
-
-        AudioSource audioSource = GetComponent<AudioSource>();
-        audioSource.clip = clip;
-
-        audioSource.Play();
-    }
-
 
     public async Task incializarAPITexto()
     {
-        string jsonResponseWhisper = await MakeRequestAPIWhisper(Application.persistentDataPath + "/audio.wav");
+        var groqApi = new GroqApiClient(groqApiKey);
+        var audioStream = File.OpenRead(Application.persistentDataPath + "/audio.wav");
+        var result = await groqApi.CreateTranscriptionAsync (
+            audioStream,
+            "audio.wav",
+            "whisper-large-v3-turbo",
+            prompt: "Transcribe este audio de esta persona",
+            language: "es"
+        );
 
-        JObject jsonObject = JObject.Parse(jsonResponseWhisper);
-
-        JToken respuestaWhisper = jsonObject["text"];
-
-        string salidaWhisper = "";
-
-        if (respuestaWhisper != null)
-        {
-            salidaWhisper = respuestaWhisper.ToString();
-            this.promptWhisper = salidaWhisper;
-        }
-        else
-        {
-            Console.WriteLine("La propiedad 'text' no existe en el JSON.");
-        }
-
-        string jsonResponseLlama = await MakeRequestAPILlama(salidaWhisper);
+        string jsonResponseLlama = await MakeRequestAPILlama(result?["text"]?.ToString());
         conversationHistory.Add(new { role = "assistant", content = jsonResponseLlama });
 
         JObject json = JObject.Parse(jsonResponseLlama);
+
         JArray jarray = (JArray)json["choices"];
         JObject firstChoice = (JObject)jarray[0];
         JObject message = (JObject)firstChoice["message"];
-        string content = message["content"].ToString();
 
-        this.promptLLama = content;
+        Debug.Log(message.ToString());
+
+        JObject mensajePersonaje = JObject.Parse(message["content"].ToString());
+
+        this.promptLLama = mensajePersonaje["Caso"]?["mensajes"]?["respuestaPersonaje"]?.ToString();
     }
+
 }

@@ -4,38 +4,41 @@ using StackExchange.Redis;
 using UnityEngine;
 using System.Data;
 using SQLite;
-using GroqApiLibrary;
 using System.Text;
 using System.Collections.Generic;
-using System.Text.Json.Nodes;
-using System.Text.Json;
+using UnityEngine.Windows;
 
-public class RedisManager : MonoBehaviour
+public class RedisManager
 {
     private ConnectionMultiplexer redis;
     private IDatabase db;
 
-    public string ipServer;
-    public string port;
-    public string password;
+    private string ipServer;
+    private string port;
+    private string user;
+    private string password;
 
-    private string redisConnectionString = "";
-
-    void Start()
+    public RedisManager(string ipServer, string port, string user, string password)
     {
-        try
-        {
-            redisConnectionString = $"{ipServer}:{port},password={password}";
-            redis = ConnectionMultiplexer.Connect(redisConnectionString);
-            db = redis.GetDatabase();
+        this.ipServer = ipServer;
+        this.port = port;
+        this.password = password;
+        this.user = user;
+    }
 
-            OnApplicationQuit();
-            
-        }
-        catch (Exception e)
-        {
-            Debug.LogError($"Error al conectar a Redis: {e.Message}");
-        }
+    public RedisManager(string ipServer, string port, string password)
+    {
+        this.ipServer = ipServer;
+        this.port = port;
+        this.password = password;
+        this.user = "";
+    }
+
+    public void crearConexion()
+    {
+        string redisConnectionString = $"{ipServer}:{port},password={password}";
+        redis = ConnectionMultiplexer.Connect(redisConnectionString);
+        db = redis.GetDatabase();
     }
 
     public long GetNewId(string baseKey)
@@ -48,7 +51,6 @@ public class RedisManager : MonoBehaviour
         }
         return -1; // Error
     }
-
 
     public void SetKey(string key, string value)
     {
@@ -81,6 +83,28 @@ public class RedisManager : MonoBehaviour
         return null;
     }
 
+    public IServer GetServer()
+    {
+        if (db != null)
+        {
+            return redis.GetServer($"{ipServer}:{port}");
+        }
+        return null;
+    }
+
+    public HashEntry[] GetHash(string key)
+    {
+        if (db != null)
+        {
+            HashEntry[] hashEntries = db.HashGetAll(key);
+
+            Debug.Log($"Hash '{key}' obtenido con valores.");
+            return hashEntries;
+        }
+
+        return null;
+    }
+
 
     public void DeleteHash(string key, string field)
     {
@@ -91,13 +115,21 @@ public class RedisManager : MonoBehaviour
         }
     }
 
-
-    void OnApplicationQuit()
+    public void cerrarConexion()
     {
         if (redis != null)
         {
             redis.Close();
             redis.Dispose();
         }
+    }
+
+    public IDatabase GetDB()
+    {
+        if (db != null)
+        {
+            return db;
+        }
+        return null;
     }
 }

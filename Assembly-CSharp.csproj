@@ -92,9 +92,11 @@
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\PostEffectsBase.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\GlobalFog.cs" />
     <Compile Include="Assets\Scripts\ControllerGame.cs" />
+    <Compile Include="Assets\Scripts\Crypt.cs" />
     <Compile Include="Assets\Scripts\WavUtility.cs" />
     <Compile Include="Assets\Scripts\GroqApiLibrary-master\IGroqApiClient.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\ColorCorrectionCurves.cs" />
+    <Compile Include="Assets\Scripts\Inicializacion.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\CinematicEffects(BETA)\Common\RenderTexureUtility.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\TiltShift.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\SepiaTone.cs" />
@@ -105,6 +107,7 @@
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\SunShafts.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\CinematicEffects(BETA)\Common\ImageEffectHelper.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\Triangles.cs" />
+    <Compile Include="Assets\Scripts\Tables\ApiKey.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\Quads.cs" />
     <Compile Include="Assets\Packages\sqlite-net.1.6.292\content\SQLite.cs" />
     <Compile Include="Assets\Scripts\GroqApiLibrary-master\GroqLlmProvider.cs" />
@@ -124,13 +127,15 @@
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\Bloom.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\ColorCorrectionLookup.cs" />
     <Compile Include="Assets\Scripts\Door.cs" />
-    <Compile Include="Assets\Scripts\Prueba.cs" />
+    <Compile Include="Assets\Scripts\Tables\Server.cs" />
     <Compile Include="Assets\Scripts\RedisManager.cs" />
+    <Compile Include="Assets\Scripts\VaultTransist.cs" />
     <Compile Include="Assets\Scripts\DetectionCharacter.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\Vortex.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\MotionBlur.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\ScreenSpaceAmbientObscurance.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\ColorCorrectionRamp.cs" />
+    <Compile Include="Assets\Scripts\Tables\Player.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\ScreenSpaceAmbientOcclusion.cs" />
     <Compile Include="Assets\ModularFirstPersonController\FirstPersonController\FirstPersonController.cs" />
     <Compile Include="Assets\Scripts\FootSteps.cs" />
@@ -140,6 +145,7 @@
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\Blur.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\NoiseAndGrain.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\CreaseShading.cs" />
+    <Compile Include="Assets\Scripts\MessageManager.cs" />
     <Compile Include="Assets\Scripts\SQLiteManager.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\DepthOfFieldDeprecated.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\CameraMotionBlur.cs" />

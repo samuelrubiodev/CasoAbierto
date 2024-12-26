@@ -13,6 +13,8 @@ public class ControllerGame : MonoBehaviour
     void Start()
     {
         controllerMicrophone = GetComponent<ControllerMicrophone>(); 
+        
+        
     }
 
     void Update()
@@ -21,7 +23,6 @@ public class ControllerGame : MonoBehaviour
         {
             if (!isRecordingStarted)
             {
-                Debug.Log("Dentro del IF");
                 controllerMicrophone = this.GetComponent<ControllerMicrophone>();
                 if (controllerMicrophone != null)
                 {

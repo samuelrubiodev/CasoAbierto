@@ -7,8 +7,6 @@ using UnityEngine;
 public class ControllerMicrophone : MonoBehaviour
 {
     private MicrophoneRecorder recorder;
-
-
     public IEnumerator RecordAudio()
     {
         // Obtén la referencia al componente MicrophoneRecorder en el mismo GameObject
