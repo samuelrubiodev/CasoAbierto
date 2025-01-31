@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using SQLite;
 using System.IO;
 using UnityEngine;
+using System;
 
 /**
  * Clase que se encarga de la gestión de la base de datos SQLite
@@ -86,6 +87,22 @@ public class SQLiteManager
         return connection.Query<T>(query);
     }
 
+    public Boolean ExistsTable(string tabla)
+    {
+        string sqlStatement = @"SELECT COUNT(*) FROM " + tabla;
+        SQLiteCommand command = connection.CreateCommand(sqlStatement);
+
+        try
+        {
+            command.ExecuteScalar<int>();
+            return true;
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+    }
+
     /**
      * Inserta un objeto en la base de datos
      * 
@@ -94,5 +111,10 @@ public class SQLiteManager
     public void Insert<T>(T obj)
     {
         connection.Insert(obj);
+    }
+
+    public void update<T>(T obj)
+    {
+        connection.Update(obj);
     }
 }

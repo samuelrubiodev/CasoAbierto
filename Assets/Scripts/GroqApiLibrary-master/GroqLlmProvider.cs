@@ -20,7 +20,7 @@ namespace GroqApiLibrary
 
         public GroqLlmProvider(string apiKey, string model)
         {
-            _client = new GroqApiClient(apiKey);
+            _client = new GroqApiClient(apiKey, "https://api.groq.com/openai/v1");
             _model = model;
         }
 

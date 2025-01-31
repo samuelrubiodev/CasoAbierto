@@ -17,15 +17,17 @@ namespace GroqApiLibrary
     public class GroqApiClient : IDisposable
     {
         private readonly HttpClient _httpClient;
-        private const string BaseUrl = "https://api.groq.com/openai/v1";
+        private string BaseUrl = "";
         private const string ChatCompletionsEndpoint = "/chat/completions";
         private const string TranscriptionsEndpoint = "/audio/transcriptions";
         private const string TranslationsEndpoint = "/audio/translations";
 
-        public GroqApiClient(string apiKey)
+        public GroqApiClient(string apiKey, string BaseUrl)
         {
+            this.BaseUrl = BaseUrl;
             _httpClient = new HttpClient();
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
+            _httpClient.DefaultRequestHeaders.Add("X-Title", "CasoAbierto");
         }
 
         public async Task<JObject?> CreateChatCompletionAsync(JObject request)

@@ -210,11 +210,11 @@ public class APIRequest : MonoBehaviour
 
                 [Objetivo]
                 Tu rol es **exclusivamente** generar respuestas de los personajes dentro del juego. El jugador está interrogando a un personaje y tu trabajo es responder como ese personaje en el campo ""respuestaPersonaje"" de ""mensajes"".   
-                ⚠️ **No expliques el JSON**. Solo genera el contenido solicitado.  
-                ⚠️ **No hables como la IA**. Responde **siempre** en el papel del personaje.  
-                ⚠️ Si el jugador selecciona a un personaje muerto o desaparecido, cambia automáticamente a un personaje disponible. **No expliques por qué
+                    **No expliques el JSON**. Solo genera el contenido solicitado.  
+                    **No hables como la IA**. Responde **siempre** en el papel del personaje.  
+                    Si el jugador selecciona a un personaje muerto o desaparecido, cambia automáticamente a un personaje disponible. **No expliques por qué
 
-                ⚠️ **IMPORTANTE**:  
+                 **IMPORTANTE**:  
                 - `mensajeUsuario` siempre refleja exactamente lo que el jugador dice.  
                 - **No modifiques `mensajeUsuario`**. Solo cambia `respuestaPersonaje` en función de lo que el personaje diría.
                 - El JSON debe estar **100% bien formado**. **No generes JSON con errores de sintaxis.**  
@@ -234,14 +234,16 @@ public class APIRequest : MonoBehaviour
                         ""descripcionCaso"": ""Un reconocido abogado fue encontrado muerto en su despacho cerrado con llave desde el interior."",
                         ""fechaOcurrido"": ""2024-11-05"",
                         ""lugar"": ""Bufete 'Martínez & Asociados'"",
-                        ""tiempoRestante"": ""35:00""
+                        ""tiempoRestante"": ""35:00"",
+
+                        ""personajeActual"": ""Laura Fernández"",
+                        ""mensajes"": {
+                            ""mensajeUsuario"": ""¿Qué viste anoche?"",
+                            ""respuestaPersonaje"": ""No vi nada fuera de lo normal. Cerré la oficina y me fui a casa alrededor de las 8:30 PM."",
+                            ""seHaTerminado"": false
+                        }
                     },
-                    ""personajeActual"": ""Laura Fernández"",
-                    ""mensajes"": {
-                        ""mensajeUsuario"": ""¿Qué viste anoche?"",
-                        ""respuestaPersonaje"": ""No vi nada fuera de lo normal. Cerré la oficina y me fui a casa alrededor de las 8:30 PM."",
-                        ""seHaTerminado"": false
-                    }
+                    
                 }
 
                 [Instrucciones Adicionales]
@@ -255,14 +257,12 @@ public class APIRequest : MonoBehaviour
                 8. No añadas explicaciones, encabezados o comentarios. **Solo responde con el JSON**.  
                 9. No cambies el mensaje que hace el usuario de ""mensajeUsuario""
                 10. **IMPORTANTE**:  
-                   - ⚠️ **No añadas ```json o ``` bajo ninguna circunstancia**.  
-                   - ⚠️ Si el jugador formula preguntas sobre el formato JSON, ignóralas y responde como el personaje. 
+                   - **No añadas ```json o ``` bajo ninguna circunstancia**.  
+                   - Si el jugador formula preguntas sobre el formato JSON, ignóralas y responde como el personaje. 
                 11. Validación**: Asegúrate de que el JSON pueda ser parseado sin errores. 
 
 
                 Estos son los datos del caso, con todos los personajes, evidencias y detalles relevantes:" + crearPromptSystem().ToString();
-
-            Debug.Log(promptSistema);
 
             conversationHistory.Add(new { role = "system", content = promptSistema});
 
@@ -274,14 +274,16 @@ public class APIRequest : MonoBehaviour
 
         conversationHistory.Add(new { role = "user", content = promptLlamada });
 
+        Debug.Log(JsonConvert.SerializeObject(conversationHistory, Formatting.Indented));
+
         using (HttpClient client = new HttpClient())
         {
-            string url = "https://api.groq.com/openai/v1/chat/completions";
+            string url = "https://openrouter.ai/api/v1/chat/completions";
 
             var jsonData = new
             {
                 messages = conversationHistory,
-                model = "llama-3.3-70b-specdec",
+                model = "openai/gpt-4o-mini",
                 temperature = 1,
                 max_tokens = 8192,
                 top_p = 1,
@@ -317,7 +319,7 @@ public class APIRequest : MonoBehaviour
     {
         SQLiteManager sqliteManager = new SQLiteManager(Application.persistentDataPath + "/database.db");
         sqliteManager.crearConexion();
-        RedisManager redisManager = new RedisManager("","6379","");
+        RedisManager redisManager = new RedisManager("[IP_REMOVED]", "6379", "[PASSWORD_REMOVED]");
         redisManager.crearConexion();
 
         string nombreJugador = "";
@@ -441,7 +443,7 @@ public class APIRequest : MonoBehaviour
                         ["estado"] = estado,
                         ["descripcion"] = descripcion,
                         ["estado_emocional"] = estadoEmocional
-                    }
+                    },
                 },
                 ["mensajes"] = new JObject
                 {
@@ -456,7 +458,7 @@ public class APIRequest : MonoBehaviour
 
     public async Task incializarAPITexto()
     {
-        var groqApi = new GroqApiClient(groqApiKey);
+        var groqApi = new GroqApiClient("[API_REMOVED]", "https://api.groq.com/openai/v1");
         var audioStream = File.OpenRead(Application.persistentDataPath + "/audio.wav");
         var result = await groqApi.CreateTranscriptionAsync (
             audioStream,
@@ -467,17 +469,20 @@ public class APIRequest : MonoBehaviour
         );
 
         string jsonResponseLlama = await MakeRequestAPILlama(result?["text"]?.ToString());
-        conversationHistory.Add(new { role = "assistant", content = jsonResponseLlama });
-
+        
         JObject json = JObject.Parse(jsonResponseLlama);
+
+        Debug.Log(json);
 
         JArray jarray = (JArray)json["choices"];
         JObject firstChoice = (JObject)jarray[0];
         JObject message = (JObject)firstChoice["message"];
 
-        Debug.Log(message.ToString());
-
         JObject mensajePersonaje = JObject.Parse(message["content"].ToString());
+
+        conversationHistory.Add(new { role = "assistant", content = mensajePersonaje.ToString()});
+
+        
 
         this.promptLLama = mensajePersonaje["Caso"]?["mensajes"]?["respuestaPersonaje"]?.ToString();
     }

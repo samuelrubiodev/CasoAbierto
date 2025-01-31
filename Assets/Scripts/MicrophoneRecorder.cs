@@ -12,7 +12,7 @@ public class MicrophoneRecorder : MonoBehaviour
     {
         if (Microphone.devices.Length > 0)
         {
-            microphoneName = Microphone.devices[0];
+            microphoneName = PlayerPrefs.GetString("microfono");
         }
         else
         {

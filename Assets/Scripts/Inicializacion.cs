@@ -20,11 +20,11 @@ public class Inicializacion
         Tu tarea es generar un archivo JSON que defina los detalles de un caso de investigación. Responde directamente con el JSON, sin añadir texto adicional ni marcas como json o.
 
         [IMPORTANTE]
-        ⚠️ NO AÑADAS ```json o ``` BAJO NINGUNA CIRCUNSTANCIA.
-        ⚠️ SOLO el JSON puro, sin formato adicional.  
-        ⚠️ Es extremadamente importante que la respuesta NO tenga marcas de código.  
-        ⚠️ SI se añaden accidentalmente, genera el JSON nuevamente desde cero.  
-        ⚠️ Esta instrucción es prioritaria y se repetirá para asegurarte de que la respuesta es correcta.
+        NO AÑADAS ```json o ``` BAJO NINGUNA CIRCUNSTANCIA.
+        SOLO el JSON puro, sin formato adicional.  
+        Es extremadamente importante que la respuesta NO tenga marcas de código.  
+        SI se añaden accidentalmente, genera el JSON nuevamente desde cero.  
+        Esta instrucción es prioritaria y se repetirá para asegurarte de que la respuesta es correcta.
 
 
         [Creatividad y Realismo]
@@ -113,7 +113,7 @@ public class Inicializacion
 
         foreach (ApiKey apiKey in sqLiteManager.GetTable<ApiKey>("SELECT * FROM ApiKeys"))
         {
-            if (apiKey.name == "Groq")
+            if (apiKey.name == "OpenRouter")
             {
                 apiKeyGroq = await vaultTransit.DecryptAsync("api-key-encrypt", apiKey.apiKey);
                 break;
@@ -124,9 +124,9 @@ public class Inicializacion
 
         messageManager.AddMessage("system", PROMPT_SYSTEM_GENERACION_CASO + "\n" + enviarPromptSystemGeneracionCaso(nombreJugador).ToString());
 
-        GroqApiClient groqApiClient = new GroqApiClient(apiKeyGroq);
+        GroqApiClient groqApiClient = new GroqApiClient(apiKeyGroq, "https://openrouter.ai/api/v1");
 
-        JObject respuesta = await groqApiClient.CreateChatCompletionAsync(messageManager.AgregarRequest("llama-3.3-70b-specdec", 1, 8192));
+        JObject respuesta = await groqApiClient.CreateChatCompletionAsync(messageManager.AgregarRequest("openai/gpt-4o-mini", 1, 8192));
         
         Debug.Log(respuesta.ToString());
 
