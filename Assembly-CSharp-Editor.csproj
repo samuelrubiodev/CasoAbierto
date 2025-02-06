@@ -595,6 +595,10 @@
       <HintPath>Assets\Packages\Microsoft.Bcl.AsyncInterfaces.9.0.0\lib\netstandard2.1\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="OpenAI">
+      <HintPath>Assets\Packages\OpenAI.2.1.0\lib\netstandard2.0\OpenAI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System.Text.Encodings.Web">
       <HintPath>Assets\Packages\System.Text.Encodings.Web.9.0.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
       <Private>False</Private>
@@ -605,6 +609,10 @@
     </Reference>
     <Reference Include="System.Text.Json">
       <HintPath>Assets\Packages\System.Text.Json.9.0.0\lib\netstandard2.0\System.Text.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Memory.Data">
+      <HintPath>Assets\Packages\System.Memory.Data.6.0.0\lib\netstandard2.0\System.Memory.Data.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.VisualScripting.IonicZip">
@@ -619,12 +627,20 @@
       <HintPath>Library\PackageCache\com.utilities.encoder.ogg@efed90234e6b\Plugins\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.ClientModel">
+      <HintPath>Assets\Packages\System.ClientModel.1.2.1\lib\netstandard2.0\System.ClientModel.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Microsoft.Extensions.Logging.Abstractions">
       <HintPath>Assets\Packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
       <HintPath>Library\PackageCache\com.unity.visualscripting@1b53f46e931b\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Diagnostics.DiagnosticSource">
+      <HintPath>Assets\Packages\System.Diagnostics.DiagnosticSource.6.0.1\lib\netstandard2.0\System.Diagnostics.DiagnosticSource.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Net.Http.Json">

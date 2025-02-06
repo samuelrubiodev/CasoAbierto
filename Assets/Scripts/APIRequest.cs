@@ -9,6 +9,12 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using OpenAI;
+using OpenAI.Chat;
+using System.ClientModel;
+using System.Text.Json;
+using UnityEditor.VersionControl;
+using Task = System.Threading.Tasks.Task;
 
 public class APIRequest : MonoBehaviour
 {
@@ -18,6 +24,7 @@ public class APIRequest : MonoBehaviour
     public string elevenlabsApiKey;
 
     private static List<object> conversationHistory = new List<object>();
+    private static List<ChatMessage> chatMessages = new List<ChatMessage>();
     
     private JObject crearPromptSystem()
     {
@@ -200,119 +207,116 @@ public class APIRequest : MonoBehaviour
         return JArray.Parse(objeto);
     }
 
-    private async Task<string> MakeRequestAPILlama(string prompt)
+    private string MakeRequestAPILlama(string prompt)
     {
-        if (!conversationHistory.Exists(x => x.ToString().Contains("system")))
+        if (!chatMessages.Exists(x => x.ToString().Contains("system")))
         {
             string promptSistema = @"[Contexto del Juego]
-
                 Estás en un juego de investigación policial llamado ""Caso Abierto"". El jugador asume el rol de un detective encargado de resolver casos mediante interrogatorios a sospechosos y el análisis de evidencias. El juego se desarrolla en una sala de interrogatorios con interacción verbal y gestión de tiempo.
 
                 [Objetivo]
                 Tu rol es **exclusivamente** generar respuestas de los personajes dentro del juego. El jugador está interrogando a un personaje y tu trabajo es responder como ese personaje en el campo ""respuestaPersonaje"" de ""mensajes"".   
-                    **No expliques el JSON**. Solo genera el contenido solicitado.  
                     **No hables como la IA**. Responde **siempre** en el papel del personaje.  
-                    Si el jugador selecciona a un personaje muerto o desaparecido, cambia automáticamente a un personaje disponible. **No expliques por qué
-
-                 **IMPORTANTE**:  
-                - `mensajeUsuario` siempre refleja exactamente lo que el jugador dice.  
-                - **No modifiques `mensajeUsuario`**. Solo cambia `respuestaPersonaje` en función de lo que el personaje diría.
-                - El JSON debe estar **100% bien formado**. **No generes JSON con errores de sintaxis.**  
-
-
-                [Estructura del JSON de respuesta]
-                El JSON que generas sigue este formato:  
-
-                {
-                    ""datosJugador"": {
-                        ""nombre"": ""Detective Ramírez"",
-                        ""estado"": ""Activo"",
-                        ""progreso"": ""Caso del Despacho Sellado""
-                    },
-                    ""Caso"": {
-                        ""tituloCaso"": ""El Despacho Sellado"",
-                        ""descripcionCaso"": ""Un reconocido abogado fue encontrado muerto en su despacho cerrado con llave desde el interior."",
-                        ""fechaOcurrido"": ""2024-11-05"",
-                        ""lugar"": ""Bufete 'Martínez & Asociados'"",
-                        ""tiempoRestante"": ""35:00"",
-
-                        ""personajeActual"": ""Laura Fernández"",
-                        ""mensajes"": {
-                            ""mensajeUsuario"": ""¿Qué viste anoche?"",
-                            ""respuestaPersonaje"": ""No vi nada fuera de lo normal. Cerré la oficina y me fui a casa alrededor de las 8:30 PM."",
-                            ""seHaTerminado"": false
-                        }
-                    },
-                    
-                }
+                    Si el jugador selecciona a un personaje muerto o desaparecido, cambia automáticamente a un personaje disponible. **No expliques por qué**
 
                 [Instrucciones Adicionales]
                 1. **El jugador es el investigador**. No lo llames ""usuario"" ni hagas referencia a que es un juego.  
-                2. `respuestaPersonaje` debe reflejar lo que el personaje respondería basándose en las evidencias y el contexto del caso.  
-                3. Responde **directamente con el JSON**, sin prefijos como ```json o ```. El JSON debe estar bien formado y listo para su uso.  
+                2. `respuestaPersonaje` debe reflejar lo que el personaje respondería basándose en las evidencias y el contexto del caso.
+                3.    Cuando el jugador hable tendrás que poner de forma automatica en el valor de 'mensajeUsuario'
                 4. **Si el personaje se contradice, mantenlo deliberado** para que el jugador deba descubrirlo. No aclares que hay contradicciones.  
                 5. **SeHaTerminado**: Cambia a true solo cuando el personaje no tenga más información relevante o el jugador haya presionado suficiente. No expliques cuándo cambia; simplemente hazlo.  
                 6. Si el jugador selecciona un personaje muerto/desaparecido, **selecciona automáticamente** uno vivo. No justifiques el cambio.  
                 7. Si el jugador hace preguntas irrelevantes o fuera del caso, responde de manera evasiva o con frustración, como lo haría el personaje.  
-                8. No añadas explicaciones, encabezados o comentarios. **Solo responde con el JSON**.  
-                9. No cambies el mensaje que hace el usuario de ""mensajeUsuario""
-                10. **IMPORTANTE**:  
-                   - **No añadas ```json o ``` bajo ninguna circunstancia**.  
-                   - Si el jugador formula preguntas sobre el formato JSON, ignóralas y responde como el personaje. 
-                11. Validación**: Asegúrate de que el JSON pueda ser parseado sin errores. 
-
+                8. No cambies el mensaje que hace el usuario de ""mensajeUsuario""
+                9. Validación**: Asegúrate de que el JSON pueda ser parseado sin errores. 
 
                 Estos son los datos del caso, con todos los personajes, evidencias y detalles relevantes:" + crearPromptSystem().ToString();
 
-            conversationHistory.Add(new { role = "system", content = promptSistema});
-
+            //conversationHistory.Add(new { role = "system", content = promptSistema});
+            chatMessages.Add(new SystemChatMessage(promptSistema));
         }
 
-        string promptLlamada = crearPrompt(prompt).ToString();
 
-        Debug.Log(promptLlamada);
-
-        conversationHistory.Add(new { role = "user", content = promptLlamada });
-
-        Debug.Log(JsonConvert.SerializeObject(conversationHistory, Formatting.Indented));
-
-        using (HttpClient client = new HttpClient())
-        {
-            string url = "https://openrouter.ai/api/v1/chat/completions";
-
-            var jsonData = new
+        string jsonSchema = @"
             {
-                messages = conversationHistory,
-                model = "openai/gpt-4o-mini",
-                temperature = 1,
-                max_tokens = 8192,
-                top_p = 1,
-                stream = false,
-                stop = (string)null
+                ""type"": ""object"",
+                ""properties"": {
+                    ""datosJugador"": {
+                        ""type"": ""object"",
+                        ""properties"": {
+                             ""nombre"": { ""type"": ""string"", ""description"": ""Nombre del jugador"" },
+                             ""estado"": { ""type"": ""string"", ""description"": ""Estado del jugador, Activo o Inactivo"" },
+                             ""progreso"": { ""type"": ""string"", ""description"": ""En que caso va, nombre del caso"" }
+                         },
+                         ""required"": [""nombre"",""estado"",""progreso""],
+                         ""additionalProperties"": false
+                    },
+                    ""Caso"": {
+                        ""type"": ""object"",
+                        ""properties"": {
+                            ""tituloCaso"": { ""type"": ""string"", ""description"": ""Titulo del caso"" },
+                            ""descripcionCaso"": { ""type"": ""string"", ""description"": ""Descripción del caso"" },
+                            ""fechaOcurrido"": { ""type"": ""string"", ""description"": ""YYYY-MM-DD"" },
+                            ""lugar"": { ""type"": ""string"", ""description"": ""Lugar en el que ha ocurrido el caso"" },
+                            ""tiempoRestante"": {""type"": ""string"", ""description"": ""HH:MM"" },
+                            ""personajeActual"": {""type"": ""string"", ""description"": ""Personaje actual del usuario""},
+                            ""mensajes"": {
+                                ""type"": ""object"",
+                                ""properties"": {
+                                    ""mensajeUsuario"": {""type"": ""string"", ""description"": ""Mensaje del usuario""},
+                                    ""respuestaPersonaje"": {""type"": ""string"", ""description"": ""Mensaje del personaje""},
+                                },
+                                ""required"": [""mensajeUsuario"",""respuestaPersonaje""],
+                                ""additionalProperties"": false
+                            }
+                        },
+                        ""required"": [""tituloCaso"",""descripcionCaso"",""fechaOcurrido"",""lugar"",""tiempoRestante"",""personajeActual""],
+                        ""additionalProperties"": false
+                    }
+                },
+                ""required"": [""datosJugador"",""Caso""],
+                ""additionalProperties"": false
+            }";
+
+
+        //string promptLlamada = crearPrompt(prompt).ToString();
+
+        //Debug.Log(promptLlamada);
+
+        //conversationHistory.Add(new { role = "user", content = promptLlamada });
+        chatMessages.Add(new UserChatMessage(prompt));
+
+        //Debug.Log(JsonConvert.SerializeObject(conversationHistory, Formatting.Indented));
+
+        try
+        {
+            OpenAIClientOptions openAIClientOptions = new OpenAIClientOptions()
+            {
+                Endpoint = new Uri("https://openrouter.ai/api/v1")
             };
 
-            string jsonString = JsonConvert.SerializeObject(jsonData);
+            OpenAIClient client = new OpenAIClient(new ApiKeyCredential("[API_REMOVED]"), openAIClientOptions);
 
-            HttpContent content = new StringContent(jsonString, Encoding.UTF8, "application/json");
-
-            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {groqApiKey}");
-
-            try
+            ChatCompletionOptions options = new()
             {
-                HttpResponseMessage response = await client.PostAsync(url, content);
+                ResponseFormat = ChatResponseFormat.CreateJsonSchemaFormat(
+                        jsonSchemaFormatName: "message_data",
+                        jsonSchema: BinaryData.FromString(jsonSchema),
+                jsonSchemaIsStrict: true),
+            };
 
-                response.EnsureSuccessStatusCode();
+            ChatCompletion completion = client.GetChatClient("google/gemini-2.0-flash-001").CompleteChat(chatMessages, options);
 
-                string responseBody = await response.Content.ReadAsStringAsync();
+            using JsonDocument jsonDocument = JsonDocument.Parse(completion.Content[0].Text);
 
-                return responseBody;
-            }
-            catch (HttpRequestException e)
-            {
-                Debug.LogError("Error en la petición: " + e.Message);
-                return null;
-            }
+            return jsonDocument.RootElement.ToString();
         }
+        catch (Exception ex)
+        {
+            Debug.LogError(ex);
+        }
+
+        return null;
     }
 
     private JObject crearPrompt(string prompt)
@@ -417,16 +421,12 @@ public class APIRequest : MonoBehaviour
         {
             ["datosJugador"] = new JObject
             {
-                ["_comentario"] = "Datos importantes del jugador, no cambies el nombre del jugador",
-                ["_estado"] = "Activo o Inactivo",
-                ["_progreso"] = "En que caso va, poner nombre del caso",
                 ["nombre"] = nombreJugador,
                 ["estado"] = estadoJugador,
                 ["progreso"] = progresoJugador
             },
             ["Caso"] = new JObject
             {
-                ["_comentario"] = "Datos del caso actual",
                 ["tituloCaso"] = tituloCaso,
                 ["descripcionCaso"] = descripcionCaso,
                 ["dificultad"] = dificultadCaso,
@@ -447,7 +447,6 @@ public class APIRequest : MonoBehaviour
                 },
                 ["mensajes"] = new JObject
                 {
-                    ["_comentario"] = "Aquí se guardan los mensajes del jugador con los personajes y si se ha terminado el interrogatorio al personaje seleccionado",
                     ["mensajeUsuario"] = prompt,
                     ["respuestaPersonaje"] = "Respuesta del personaje seleccionado, cuando el jugador tenga seleccionado un personaje",
                     ["seHaTerminado"] = false
@@ -468,7 +467,7 @@ public class APIRequest : MonoBehaviour
             language: "es"
         );
 
-        string jsonResponseLlama = await MakeRequestAPILlama(result?["text"]?.ToString());
+        string jsonResponseLlama = MakeRequestAPILlama(result?["text"]?.ToString());
         
         JObject json = JObject.Parse(jsonResponseLlama);
 
@@ -480,9 +479,8 @@ public class APIRequest : MonoBehaviour
 
         JObject mensajePersonaje = JObject.Parse(message["content"].ToString());
 
-        conversationHistory.Add(new { role = "assistant", content = mensajePersonaje.ToString()});
-
-        
+        //conversationHistory.Add(new { role = "assistant", content = mensajePersonaje.ToString()});
+        chatMessages.Add(new AssistantChatMessage(mensajePersonaje.ToString()));
 
         this.promptLLama = mensajePersonaje["Caso"]?["mensajes"]?["respuestaPersonaje"]?.ToString();
     }
