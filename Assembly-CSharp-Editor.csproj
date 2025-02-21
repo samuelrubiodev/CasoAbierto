@@ -595,6 +595,10 @@
       <HintPath>Assets\Packages\Microsoft.Bcl.AsyncInterfaces.9.0.0\lib\netstandard2.1\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="SQLitePCLRaw.core">
+      <HintPath>Assets\Packages\SQLitePCLRaw.core.2.1.2\lib\netstandard2.0\SQLitePCLRaw.core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="OpenAI">
       <HintPath>Assets\Packages\OpenAI.2.1.0\lib\netstandard2.0\OpenAI.dll</HintPath>
       <Private>False</Private>
@@ -603,12 +607,24 @@
       <HintPath>Assets\Packages\System.Text.Encodings.Web.9.0.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="SQLite-net">
+      <HintPath>Assets\Packages\sqlite-net-pcl.1.9.172\lib\netstandard2.0\SQLite-net.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="StackExchange.Redis">
       <HintPath>Assets\Packages\StackExchange.Redis.2.8.22\lib\netstandard2.0\StackExchange.Redis.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Text.Json">
       <HintPath>Assets\Packages\System.Text.Json.9.0.0\lib\netstandard2.0\System.Text.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SQLitePCLRaw.provider.e_sqlite3">
+      <HintPath>Assets\Packages\SQLitePCLRaw.provider.e_sqlite3.2.1.2\lib\netstandard2.0\SQLitePCLRaw.provider.e_sqlite3.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SQLitePCLRaw.batteries_v2">
+      <HintPath>Assets\Packages\SQLitePCLRaw.bundle_green.2.1.2\lib\netstandard2.0\SQLitePCLRaw.batteries_v2.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Memory.Data">

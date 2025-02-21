@@ -15,6 +15,7 @@ using System.ClientModel;
 using System.Text.Json;
 using UnityEditor.VersionControl;
 using Task = System.Threading.Tasks.Task;
+using System.Linq;
 
 public class APIRequest : MonoBehaviour
 {
@@ -207,9 +208,9 @@ public class APIRequest : MonoBehaviour
         return JArray.Parse(objeto);
     }
 
-    private string MakeRequestAPILlama(string prompt)
+    private string MakeRequestOpenRouter(string prompt)
     {
-        if (!chatMessages.Exists(x => x.ToString().Contains("system")))
+        if (!chatMessages.Any(x => x is SystemChatMessage))
         {
             string promptSistema = @"[Contexto del Juego]
                 Estás en un juego de investigación policial llamado ""Caso Abierto"". El jugador asume el rol de un detective encargado de resolver casos mediante interrogatorios a sospechosos y el análisis de evidencias. El juego se desarrolla en una sala de interrogatorios con interacción verbal y gestión de tiempo.
@@ -232,10 +233,8 @@ public class APIRequest : MonoBehaviour
 
                 Estos son los datos del caso, con todos los personajes, evidencias y detalles relevantes:" + crearPromptSystem().ToString();
 
-            //conversationHistory.Add(new { role = "system", content = promptSistema});
             chatMessages.Add(new SystemChatMessage(promptSistema));
         }
-
 
         string jsonSchema = @"
             {
@@ -278,15 +277,7 @@ public class APIRequest : MonoBehaviour
                 ""additionalProperties"": false
             }";
 
-
-        //string promptLlamada = crearPrompt(prompt).ToString();
-
-        //Debug.Log(promptLlamada);
-
-        //conversationHistory.Add(new { role = "user", content = promptLlamada });
         chatMessages.Add(new UserChatMessage(prompt));
-
-        //Debug.Log(JsonConvert.SerializeObject(conversationHistory, Formatting.Indented));
 
         try
         {
@@ -467,11 +458,9 @@ public class APIRequest : MonoBehaviour
             language: "es"
         );
 
-        string jsonResponseLlama = MakeRequestAPILlama(result?["text"]?.ToString());
+        string jsonResponseLlama = MakeRequestOpenRouter(result?["text"]?.ToString());
         
         JObject json = JObject.Parse(jsonResponseLlama);
-
-        Debug.Log(json);
 
         JArray jarray = (JArray)json["choices"];
         JObject firstChoice = (JObject)jarray[0];
@@ -479,7 +468,6 @@ public class APIRequest : MonoBehaviour
 
         JObject mensajePersonaje = JObject.Parse(message["content"].ToString());
 
-        //conversationHistory.Add(new { role = "assistant", content = mensajePersonaje.ToString()});
         chatMessages.Add(new AssistantChatMessage(mensajePersonaje.ToString()));
 
         this.promptLLama = mensajePersonaje["Caso"]?["mensajes"]?["respuestaPersonaje"]?.ToString();

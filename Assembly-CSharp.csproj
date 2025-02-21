@@ -104,7 +104,6 @@
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\Triangles.cs" />
     <Compile Include="Assets\Scripts\Tables\ApiKey.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
-    <Compile Include="Assets\Packages\sqlite-net.1.6.292\content\SQLite.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
@@ -148,7 +147,6 @@
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\SepiaTone.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\ImageEffects.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\ContrastEnhance.cs" />
-    <Compile Include="Assets\Packages\sqlite-net.1.6.292\content\SQLiteAsync.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\CinematicEffects(BETA)\DepthOfField\DepthOfField.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\CinematicEffects(BETA)\Common\ImageEffectHelper.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\Quads.cs" />
@@ -254,6 +252,7 @@
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Anton OFL.txt" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.0\cs\zh-Hans\System.Text.Json.SourceGeneration.resources.dll" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\_Antialiasing\SSAA.shader" />
+    <None Include="Assets\Packages\SQLitePCLRaw.core.2.1.2\lib\netstandard2.0\SQLitePCLRaw.core.dll" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\SunShaftsComposite.shader" />
     <None Include="Assets\Packages\System.Threading.Channels.5.0.0\LICENSE.TXT" />
@@ -268,6 +267,7 @@
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.4\cs\de\System.Text.Json.SourceGeneration.resources.dll" />
     <None Include="Assets\Packages\System.Text.Encodings.Web.9.0.0\LICENSE.TXT" />
     <None Include="Assets\Packages\Microsoft.Bcl.AsyncInterfaces.9.0.0\LICENSE.TXT" />
+    <None Include="Assets\Packages\sqlite-net-pcl.1.9.172\lib\netstandard2.0\SQLite-net.dll" />
     <None Include="Assets\Packages\StackExchange.Redis.2.8.22\lib\netstandard2.0\StackExchange.Redis.dll" />
     <None Include="Assets\Packages\StackExchange.Redis.2.8.22\lib\netstandard2.0\StackExchange.Redis.xml" />
     <None Include="Assets\Packages\System.Text.Encodings.Web.9.0.0\THIRD-PARTY-NOTICES.TXT" />
@@ -275,8 +275,10 @@
     <None Include="Assets\Packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\analyzers\dotnet\roslyn4.0\cs\cs\Microsoft.Extensions.Logging.Generators.resources.dll" />
     <None Include="Assets\Packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\analyzers\dotnet\roslyn4.0\cs\es\Microsoft.Extensions.Logging.Generators.resources.dll" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\Contrast Stretch\Apply.shader" />
+    <None Include="Assets\Packages\SQLitePCLRaw.provider.e_sqlite3.2.1.2\lib\netstandard2.0\SQLitePCLRaw.provider.e_sqlite3.dll" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ToonShading\Shaders\ToonLitOutline.shader" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.4\cs\ko\System.Text.Json.SourceGeneration.resources.dll" />
+    <None Include="Assets\Packages\SQLitePCLRaw.bundle_green.2.1.2\lib\netstandard2.0\SQLitePCLRaw.batteries_v2.dll" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\Contrast Stretch\Adaptation.shader" />
     <None Include="Assets\Packages\System.Diagnostics.DiagnosticSource.6.0.1\THIRD-PARTY-NOTICES.TXT" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\CinematicEffects(ALPHA)\AntiAliasing\Shaders\SMAA.shader" />
@@ -290,6 +292,7 @@
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.4\cs\zh-Hans\System.Text.Json.SourceGeneration.resources.dll" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\CreaseApply.shader" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\_Antialiasing\FXAA3Console.shader" />
+    <None Include="Assets\Packages\sqlite-net-pcl.1.9.172\lib\netstandard2.0\SQLite-net.xml" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.0\cs\ru\System.Text.Json.SourceGeneration.resources.dll" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\ColorCorrectionSelective.shader" />
     <None Include="Assets\Packages\System.Memory.Data.6.0.0\THIRD-PARTY-NOTICES.TXT" />
@@ -399,14 +402,17 @@
     <None Include="Assets\Packages\System.Net.Http.Json.9.0.0\THIRD-PARTY-NOTICES.TXT" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.0\cs\pl\System.Text.Json.SourceGeneration.resources.dll" />
     <None Include="Assets\Packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\analyzers\dotnet\roslyn4.0\cs\pl\Microsoft.Extensions.Logging.Generators.resources.dll" />
+    <None Include="Assets\Packages\SQLitePCLRaw.lib.e_sqlite3.2.1.2\runtimes\win-x86\native\e_sqlite3.dll" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\NoiseEffectShaderRGB.shader" />
     <None Include="Assets\Packages\System.Diagnostics.DiagnosticSource.6.0.1\useSharedDesignerContext.txt" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn3.11\cs\System.Text.Json.SourceGeneration.dll" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.4\cs\cs\System.Text.Json.SourceGeneration.resources.dll" />
     <None Include="Assets\Packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\analyzers\dotnet\roslyn3.11\cs\zh-Hans\Microsoft.Extensions.Logging.Generators.resources.dll" />
+    <None Include="Assets\Packages\sqlite-net-pcl.1.9.172\LICENSE.txt" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\_Antialiasing\FXAA2.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\NoiseEffectShaderYUV.shader" />
+    <None Include="Assets\Packages\SQLitePCLRaw.lib.e_sqlite3.2.1.2\runtimes\win-x64\native\e_sqlite3.dll" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\CinematicEffects(BETA)\TonemappingColorGrading\Shaders\Histogram.compute" />
     <None Include="Assets\Packages\System.Diagnostics.DiagnosticSource.6.0.1\lib\netstandard2.0\System.Diagnostics.DiagnosticSource.xml" />
@@ -912,6 +918,10 @@
       <HintPath>Assets\Packages\Microsoft.Bcl.AsyncInterfaces.9.0.0\lib\netstandard2.1\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="SQLitePCLRaw.core">
+      <HintPath>Assets\Packages\SQLitePCLRaw.core.2.1.2\lib\netstandard2.0\SQLitePCLRaw.core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="OpenAI">
       <HintPath>Assets\Packages\OpenAI.2.1.0\lib\netstandard2.0\OpenAI.dll</HintPath>
       <Private>False</Private>
@@ -920,12 +930,24 @@
       <HintPath>Assets\Packages\System.Text.Encodings.Web.9.0.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="SQLite-net">
+      <HintPath>Assets\Packages\sqlite-net-pcl.1.9.172\lib\netstandard2.0\SQLite-net.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="StackExchange.Redis">
       <HintPath>Assets\Packages\StackExchange.Redis.2.8.22\lib\netstandard2.0\StackExchange.Redis.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Text.Json">
       <HintPath>Assets\Packages\System.Text.Json.9.0.0\lib\netstandard2.0\System.Text.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SQLitePCLRaw.provider.e_sqlite3">
+      <HintPath>Assets\Packages\SQLitePCLRaw.provider.e_sqlite3.2.1.2\lib\netstandard2.0\SQLitePCLRaw.provider.e_sqlite3.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SQLitePCLRaw.batteries_v2">
+      <HintPath>Assets\Packages\SQLitePCLRaw.bundle_green.2.1.2\lib\netstandard2.0\SQLitePCLRaw.batteries_v2.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Memory.Data">

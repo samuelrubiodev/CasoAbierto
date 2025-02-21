@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using UnityEngine;
 
 public class VaultTransit
 {
@@ -52,6 +53,9 @@ public class VaultTransit
         var response = await _httpClient.PostAsync($"{VaultAddress}/v1/transit/decrypt/{keyName}", content);
         var jsonResponse = await response.Content.ReadAsStringAsync();
 
+        // Imprime la respuesta completa
+        Debug.Log("Respuesta de Vault: " + jsonResponse);
+
         try
         {
             using var doc = JsonDocument.Parse(jsonResponse);
@@ -60,6 +64,7 @@ public class VaultTransit
         }
         catch (KeyNotFoundException ex)
         {
+            Debug.LogError("KeyNotFoundException: " + ex.Message);
             throw;
         }
     }
