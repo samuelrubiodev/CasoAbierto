@@ -6,6 +6,8 @@ using UnityEngine;
 [Table("Server")]
 public class Server
 {
+    public const int REDIS = 0;
+
     [PrimaryKey, AutoIncrement]
     [Column("id")]
     public int id { get; set; }

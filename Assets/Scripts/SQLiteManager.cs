@@ -117,4 +117,57 @@ public class SQLiteManager
     {
         connection.Update(obj);
     }
+
+    public RedisManager GetRedisManager()
+    {
+        List<Server> servers = GetTable<Server>("SELECT * FROM Server");
+
+        foreach (Server server in servers)
+        {
+            if (server.nombreServicio == "Redis")
+            {
+                return new RedisManager(server.ipServer,server.portServer.ToString(),server.password);
+            }
+        }
+        return null;
+    }
+
+    public ApiKey[] GetAPIS()
+    {
+        List<ApiKey> apiKeys = GetTable<ApiKey>("SELECT * FROM ApiKeys");
+        ApiKey[] apis = new ApiKey[apiKeys.Count];
+    
+        foreach (ApiKey apiKey in apiKeys)
+        {
+            if (apiKey.name == "OpenRouter")
+            {
+                apis[0] = apiKey;
+            }
+            else if (apiKey.name == "ElevenLabs")
+            {
+                apis[1] = apiKey;
+            }
+            else if (apiKey.name == "Groq")
+            {
+                apis[2] = apiKey;
+            }
+        }
+        return apis;
+    }
+
+    public Server[] GetServers()
+    {
+        List<Server> servers = GetTable<Server>("SELECT * FROM Server");
+        Server[] serversArray = new Server[servers.Count];
+
+        for (int i = 0; i < servers.Count; i++)
+        {
+            if (servers[i].nombreServicio == "Redis")
+            {
+                serversArray[Server.REDIS] = servers[i];
+            }
+        }
+
+        return serversArray;
+    }
 }

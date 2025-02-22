@@ -21,17 +21,18 @@ public class APIRequest : MonoBehaviour
 {
     public string promptWhisper {  get; set; }
     public string promptLLama {  get; set; }
-    public string groqApiKey;
-    public string elevenlabsApiKey;
 
-    private static List<object> conversationHistory = new List<object>();
+    private string openRouterApiKey;
+    private string groqApiKey;
+    private string elevenlabsApiKey;
+
     private static List<ChatMessage> chatMessages = new List<ChatMessage>();
     
     private JObject crearPromptSystem()
     {
         SQLiteManager sqliteManager = new SQLiteManager(Application.persistentDataPath + "/database.db");
         sqliteManager.crearConexion();
-        RedisManager redisManager = new RedisManager("[IP_REMOVED]", "6379", "[PASSWORD_REMOVED]");
+        RedisManager redisManager = sqliteManager.GetRedisManager();
         redisManager.crearConexion();
 
         long jugadorID = sqliteManager.GetTable<Player>("SELECT * FROM Player")[0].idPlayer;
@@ -286,7 +287,7 @@ public class APIRequest : MonoBehaviour
                 Endpoint = new Uri("https://openrouter.ai/api/v1")
             };
 
-            OpenAIClient client = new OpenAIClient(new ApiKeyCredential("[API_REMOVED]"), openAIClientOptions);
+            OpenAIClient client = new OpenAIClient(new ApiKeyCredential(openRouterApiKey), openAIClientOptions);
 
             ChatCompletionOptions options = new()
             {
@@ -314,7 +315,8 @@ public class APIRequest : MonoBehaviour
     {
         SQLiteManager sqliteManager = new SQLiteManager(Application.persistentDataPath + "/database.db");
         sqliteManager.crearConexion();
-        RedisManager redisManager = new RedisManager("[IP_REMOVED]", "6379", "[PASSWORD_REMOVED]");
+
+        RedisManager redisManager = sqliteManager.GetRedisManager();
         redisManager.crearConexion();
 
         string nombreJugador = "";
@@ -448,7 +450,14 @@ public class APIRequest : MonoBehaviour
 
     public async Task incializarAPITexto()
     {
-        var groqApi = new GroqApiClient("[API_REMOVED]", "https://api.groq.com/openai/v1");
+        SQLiteManager sqliteManager = new SQLiteManager(Application.persistentDataPath + "/database.db");
+        sqliteManager.crearConexion();
+
+        openRouterApiKey = sqliteManager.GetAPIS()[ApiKey.OPEN_ROUTER].apiKey;
+        elevenlabsApiKey = sqliteManager.GetAPIS()[ApiKey.ELEVENLABS].apiKey;
+        groqApiKey = sqliteManager.GetAPIS()[ApiKey.GROQ].apiKey;
+
+        var groqApi = new GroqApiClient(groqApiKey, "https://api.groq.com/openai/v1");
         var audioStream = File.OpenRead(Application.persistentDataPath + "/audio.wav");
         var result = await groqApi.CreateTranscriptionAsync (
             audioStream,

@@ -13,21 +13,6 @@ public class ControllerGame : MonoBehaviour
     void Start()
     {
         controllerMicrophone = GetComponent<ControllerMicrophone>();
-
-        /*
-         * Inicializacion inicializacion = new("Samuel");
-
-        // Prueba de creación de bases de datos SQLite y Redis
-        await inicializacion.crearBaseDatosSQLite("OpenRouter", "[API_REMOVED]");
-        await inicializacion.crearBaseDatosSQLite("ElevenLabs", "[API_REMOVED]");
-        await inicializacion.crearBaseDatosRedis("[IP_REMOVED]", "6379", "", "[PASSWORD_REMOVED]");
-         * 
-         * 
-         * 
-         * 
-        */
-
-
     }
 
     void Update()

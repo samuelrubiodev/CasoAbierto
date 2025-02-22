@@ -9,11 +9,12 @@ using UnityEngine;
 public class VaultTransit
 {
     private readonly HttpClient _httpClient = new();
-    private const string VaultAddress = "http://[IP_REMOVED]:8200";
-    private const string VaultToken = "root";
+    private string VaultAddress = "";
+    private string VaultToken = "";
 
     public async Task<string> EncryptAsync(string keyName, string plainText)
     {
+        leerConfig();
         var payload = new
         {
             plaintext = Convert.ToBase64String(Encoding.UTF8.GetBytes(plainText))
@@ -26,7 +27,6 @@ public class VaultTransit
 
         var response = await _httpClient.PostAsync($"{VaultAddress}/v1/transit/encrypt/{keyName}", content);
         var jsonResponse = await response.Content.ReadAsStringAsync();
-
 
         try
         {
@@ -43,6 +43,7 @@ public class VaultTransit
 
     public async Task<string> DecryptAsync(string keyName, string cipherText)
     {
+        leerConfig();
         var payload = new { ciphertext = cipherText };
 
         _httpClient.DefaultRequestHeaders.Remove("X-Vault-Token");
@@ -66,4 +67,16 @@ public class VaultTransit
         }
     }
 
+    private void leerConfig()
+    {
+        TextAsset config = Resources.Load<TextAsset>("config");
+        if (config != null)
+        {
+            foreach (string line in config.text.Split('\n'))
+            {
+                if (line.Contains("VAULT_IP=")) VaultAddress = line.Split('=')[1].Trim();
+                if (line.Contains("VAULT_TOKEN=")) VaultToken = line.Split('=')[1].Trim();
+            }
+        }
+    }
 }

@@ -104,16 +104,8 @@ public class MenuInicial : MonoBehaviour
         sqLiteManager.crearConexion();
         if (sqLiteManager.ExistsTable("Server"))
         {
-            List<Server> servidores = sqLiteManager.GetTable<Server>("SELECT * FROM Server");
-            foreach (Server servidorRedis in servidores)
-            {
-                if (servidorRedis.nombreServicio == "Redis")
-                {
-                    servidorInput.text = await vaultTransit.DecryptAsync("api-key-encrypt", servidorRedis.ipServer);
-                    contrasenaRedisInput.text = await vaultTransit.DecryptAsync("api-key-encrypt", servidorRedis.password);
-                    break;
-                }
-            }
+            servidorInput.text = await vaultTransit.DecryptAsync("api-key-encrypt", sqLiteManager.GetServers()[Server.REDIS].ipServer);
+            contrasenaRedisInput.text = await vaultTransit.DecryptAsync("api-key-encrypt", sqLiteManager.GetServers()[Server.REDIS].password);
         }
         sqLiteManager.cerrarConexion();
     }
@@ -220,9 +212,11 @@ public class MenuInicial : MonoBehaviour
     {
         GameObject elevenLabs = GameObject.Find("inputElevenLabs");
         GameObject openRouter = GameObject.Find("inputOpenRouter");
+        GameObject groq = GameObject.Find("inputGroq");
 
         TMP_InputField elevenLabsInput = elevenLabs.GetComponent<TMP_InputField>();
         TMP_InputField openRouterInput = openRouter.GetComponent<TMP_InputField>();
+        TMP_InputField groqInput = groq.GetComponent<TMP_InputField>();
 
         SQLiteManager sqLiteManager = new SQLiteManager(Application.persistentDataPath + "/database.db");
         sqLiteManager.crearConexion();
@@ -231,18 +225,9 @@ public class MenuInicial : MonoBehaviour
 
         if (sqLiteManager.ExistsTable("ApiKeys"))
         {
-            List<ApiKey> apiKeys = sqLiteManager.GetTable<ApiKey>("SELECT * FROM ApiKeys");
-            foreach (ApiKey apiKey in apiKeys)
-            {
-                if (apiKey.name == "ElevenLabs")
-                {
-                    elevenLabsInput.text = await vaultTransit.DecryptAsync("api-key-encrypt", apiKey.apiKey);
-                }
-                else if (apiKey.name == "OpenRouter")
-                {
-                    openRouterInput.text = await vaultTransit.DecryptAsync("api-key-encrypt", apiKey.apiKey);
-                }
-            }
+            elevenLabsInput.text = await vaultTransit.DecryptAsync("api-key-encrypt", sqLiteManager.GetAPIS()[ApiKey.ELEVENLABS].apiKey);
+            openRouterInput.text = await vaultTransit.DecryptAsync("api-key-encrypt", sqLiteManager.GetAPIS()[ApiKey.OPEN_ROUTER].apiKey);
+            groqInput.text = await vaultTransit.DecryptAsync("api-key-encrypt", sqLiteManager.GetAPIS()[ApiKey.GROQ].apiKey);
         }
         sqLiteManager.cerrarConexion();
     }
@@ -252,9 +237,11 @@ public class MenuInicial : MonoBehaviour
     { 
         GameObject elevenLabs = GameObject.Find("inputElevenLabs");
         GameObject openRouter = GameObject.Find("inputOpenRouter");
+        GameObject groq = GameObject.Find("inputGroq");
 
         TMP_InputField elevenLabsInput = elevenLabs.GetComponent<TMP_InputField>();
         TMP_InputField openRouterInput = openRouter.GetComponent<TMP_InputField>();
+        TMP_InputField groqInput = groq.GetComponent<TMP_InputField>();
 
         var vaultTransit = new VaultTransit();
 
@@ -269,6 +256,7 @@ public class MenuInicial : MonoBehaviour
 
                 string apiKeyElevenLabs = await vaultTransit.EncryptAsync("api-key-encrypt", elevenLabsInput.text);
                 string apiKeyOpenRouter = await vaultTransit.EncryptAsync("api-key-encrypt", openRouterInput.text);
+                string apiKeyGroq = await vaultTransit.EncryptAsync("api-key-encrypt", groqInput.text);
 
                 var objetoElevenLabs = new ApiKey
                 {
@@ -282,8 +270,15 @@ public class MenuInicial : MonoBehaviour
                     apiKey = apiKeyOpenRouter
                 };
 
+                var objetoGroq = new ApiKey
+                {
+                    name = "Groq",
+                    apiKey = apiKeyGroq
+                };
+
                 sqLiteManager.Insert(objetoElevenLabs);
                 sqLiteManager.Insert(objetoOpenRouter);
+                sqLiteManager.Insert(objetoGroq);
             }
             else 
             {
@@ -298,6 +293,10 @@ public class MenuInicial : MonoBehaviour
                     else if (apiKey.name == "OpenRouter")
                     {
                         apiKey.apiKey = await vaultTransit.EncryptAsync("api-key-encrypt", openRouterInput.text);
+                    }
+                    else if (apiKey.name == "Groq")
+                    {
+                        apiKey.apiKey = await vaultTransit.EncryptAsync("api-key-encrypt", groqInput.text);
                     }
                     sqLiteManager.update(apiKey);
                 }
@@ -341,6 +340,24 @@ public class MenuInicial : MonoBehaviour
                 openRouterInput.contentType = TMP_InputField.ContentType.Password;
             }
             openRouterInput.ForceLabelUpdate();
+        }
+    }
+
+    public void mostrarAPIGroq()
+    {
+        GameObject groq = GameObject.Find("inputGroq");
+        TMP_InputField groqInput = groq.GetComponent<TMP_InputField>();
+        if (groqInput.text != "")
+        {
+            if (groqInput.contentType == TMP_InputField.ContentType.Password)
+            {
+                groqInput.contentType = TMP_InputField.ContentType.Standard;
+            }
+            else
+            {
+                groqInput.contentType = TMP_InputField.ContentType.Password;
+            }
+            groqInput.ForceLabelUpdate();
         }
     }
 
