@@ -53,9 +53,6 @@ public class VaultTransit
         var response = await _httpClient.PostAsync($"{VaultAddress}/v1/transit/decrypt/{keyName}", content);
         var jsonResponse = await response.Content.ReadAsStringAsync();
 
-        // Imprime la respuesta completa
-        Debug.Log("Respuesta de Vault: " + jsonResponse);
-
         try
         {
             using var doc = JsonDocument.Parse(jsonResponse);

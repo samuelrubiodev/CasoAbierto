@@ -18,25 +18,25 @@ public class Inicializacion
 {
     public const string PROMPT_SYSTEM_GENERACION_CASO = @"
         [Contexto del Juego]
-        Estás desarrollando un juego de investigación policial llamado ""Caso Abierto"". 
-        El jugador asume el rol de un detective encargado de resolver casos mediante interrogatorios a sospechosos y el análisis de evidencias. 
+        Estás desarrollando un juego de investigación policial llamado ""Caso Abierto"".
+        El jugador asume el rol de un detective, el se dedicará a resolver casos mediante interrogatorios a sospechosos y el análisis de evidencias.
         El juego se desarrolla en una sala de interrogatorios con interacción verbal y gestión de tiempo.
 
         [Objetivo de la IA]
-        Tu tarea es generar un JSON que defina los detalles de un caso de investigación
+        Definir los detalles de un caso de investigación
 
         [Creatividad y Realismo]
         Los casos deben ser realistas, variados y originales, pero siempre dentro de los límites de lo posible en un entorno policial o criminalístico. Evita cualquier elemento de ciencia ficción, paranormal o sobrenatural. Los misterios deben resolverse con lógica, deducción y evidencia.
         
-        [Instrucciones Adicionales]
-
+        [Instrucciones importantes
         1. Los casos deben ser variados y originales. Evita repetir tramas como asesinatos en oficinas, robos en museos o crímenes domésticos. 
         2. Las tramas deben explorar distintos tipos de delitos plausibles: fraudes financieros, extorsión, secuestros, tráfico de arte, desapariciones, estafas, corrupción o espionaje industrial.
         3. Evita cualquier explicación que involucre artefactos misteriosos, alucinaciones inexplicables o elementos paranormales.
         4. Inspírate en casos reales o crímenes complejos que requieran análisis detallado. Los giros argumentales deben basarse en evidencia forense, testimonios y contradicciones de los sospechosos.
         5. Obliga a que al menos uno de los personajes tenga un secreto o un motivo oculto que no sea evidente a simple vista.
         6. Las evidencias deben ser variadas: huellas digitales, grabaciones de cámaras, registros telefónicos, documentos, armas, testimonios contradictorios o pruebas forenses.     
-        7. Asegúrate de que los eventos y personajes sean coherentes con el caso descrito.";
+        7. Asegúrate de que los eventos y personajes sean coherentes con el caso descrito.
+        8. El jugador no debe morir, el es el detective";
 
     public string nombreJugador;
     private SQLiteManager sqLiteManager;
@@ -45,22 +45,6 @@ public class Inicializacion
         this.nombreJugador = nombreJugador;
         sqLiteManager = new SQLiteManager(Application.persistentDataPath + "/database.db");
         sqLiteManager.crearConexion();
-    }
-
-    public async Task crearBaseDatosSQLite(string servicio, string apiKey)
-    {
-        var vaultTransit = new VaultTransit();
-
-        sqLiteManager.CreateTable<ApiKey>();
-
-        string apiKey_cifrada = await vaultTransit.EncryptAsync("api-key-encrypt", apiKey);
-
-        var objetoApiKey = new ApiKey { 
-            name = servicio,
-            apiKey = apiKey_cifrada
-        };
-
-        sqLiteManager.Insert(objetoApiKey);
     }
 
     public async Task crearBaseDatosRedis(string ip, string port, string user, string password)
@@ -84,12 +68,10 @@ public class Inicializacion
         string apiKeyGroq = "";
 
         sqLiteManager.CreateTable<Player>();
-
         var player = new Player
         {
             idPlayer = jugadorID,
         };
-
         sqLiteManager.Insert(player);
 
         foreach (ApiKey apiKey in sqLiteManager.GetTable<ApiKey>("SELECT * FROM ApiKeys"))
@@ -100,7 +82,6 @@ public class Inicializacion
                 break;
             }
         }
-
 
         JObject respuestaCaso = null;
 
@@ -274,73 +255,5 @@ public class Inicializacion
         using JsonDocument jsonDocument = JsonDocument.Parse(completion.Content[0].Text);
 
         return jsonDocument.RootElement.ToString();
-    }
-
-    private JObject enviarPromptSystemGeneracionCaso(string nombreJugador) 
-    { 
-        return new JObject
-        {
-            ["datosJugador"] = new JObject
-            {
-                ["_comentario"] = "Datos importantes del jugador, no cambies el nombre del jugador",
-                ["_estado"] = "Activo o Inactivo",
-                ["_progreso"] = "En que caso va, poner nombre del caso",
-                ["nombre"] = nombreJugador,
-                ["estado"] = "",
-                ["progreso"] = ""
-            },
-            ["Caso"] = new JObject
-            {
-                ["_comentario"] = "Datos del caso actual",
-                ["tituloCaso"] = "",
-                ["descripcionCaso"] = "",
-                ["dificultad"] = "Facil, Medio y Dificil",
-                ["fechaOcurrido"] = "YYYY-MM-DD",
-                ["lugar"] = "",
-                ["tiempoRestante"] = "",
-
-                ["cronologia"] = new JArray
-                {
-                    new JObject
-                    {
-                        ["fecha"] = "YYYY-MM-DD",
-                        ["hora"] = "HH:MM",
-                        ["evento"] = "Descripcion breve del evento"
-                    },
-                    new JObject
-                    {
-                        ["fecha"] = "YYYY-MM-DD",
-                        ["hora"] = "HH:MM",
-                        ["evento"] = "Otro evento relevante del caso"
-                    }
-                },
-
-                ["evidencias"] = new JArray
-                {
-                    new JObject
-                    {
-                        ["_comentario"] = "Estos son ejemplos, no los copies",
-                        ["nombre"] = "Nombre de la evidencia",
-                        ["descripcion"] = "Una carta manchada de sangre, un cuchillo con huellas dactilares, una foto de la víctima con un mensaje amenazante, un diario con una página arrancada, etc..",
-                        ["analisis"] = "Un análisis de la evidencia, puede ser una descripción de lo que se encontró, una conclusión de lo que significa, etc..",
-                        ["tipo"] = "Arma, Documento, Objeto personal, Foto, Video, etc..",
-                        ["ubicacion"] = "Donde se encontro la evidencia"
-                    }
-                },
-                ["personajes"] = new JArray
-                {
-                    new JObject
-                    {
-                        ["_comentario"] = "Estos son ejemplos, no los copies",
-                        ["nombre"] = "Nombre del personaje",
-                        ["rol"] = "Testigo, Victima, Cómplice, Informante, Periodista, Familia del sospechoso, etc..",
-                        ["estado"] = "Vivo, Muerto o Desaparecido",
-                        ["descripcion"] = "Un hombre mayor con un aire autoritario y una cicatriz prominente en la mejilla. Una mujer joven con gafas grandes y un nerviosismo evidente al hablar. Una ancina amable pero con un comportamiento claramente evasivo. Una joven madre que abraza una foto familiar mientras habla contigo, etc..",
-                        ["estado_emocional"] = "Nervioso,Tranquilo,Confiado,Arrogante,Asustado,Confuso,Defensivo,Culpable,etc.."
-                    }
-                },
-                ["explicacionCasoResuelto"] = "Explicación de como se resuelve el caso"
-            },
-        };
     }
 }

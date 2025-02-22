@@ -16,12 +16,126 @@ using UnityEditor.EditorTools;
 public class MenuInicial : MonoBehaviour
 {
     TMP_Dropdown dropbownMicrofonos;
+    SQLiteManager sqLiteManager;
+    VaultTransit vaultTransit;
+
+    void Start()
+    {
+        sqLiteManager = new SQLiteManager(Application.persistentDataPath + "/database.db");
+        vaultTransit = new VaultTransit();
+    }
 
     public async void Jugar()
     {
+
         Inicializacion inicializacion = new("Samuel");
-        await inicializacion.crearBaseDatosRedis("[IP_REMOVED]", "6379", "", "[PASSWORD_REMOVED]");
+
+        sqLiteManager.crearConexion();
+
+        string ipServer = "";
+        string password = "";
+        
+        if (sqLiteManager.ExistsTable("Server"))
+        {
+            List<Server> servidores = sqLiteManager.GetTable<Server>("SELECT * FROM Server");
+            foreach (Server servidorRedis in servidores)
+            {
+                if (servidorRedis.nombreServicio == "Redis")
+                {
+                    ipServer = await vaultTransit.DecryptAsync("api-key-encrypt", servidorRedis.ipServer);
+                    password = await vaultTransit.DecryptAsync("api-key-encrypt", servidorRedis.password);
+                    break;
+                }
+            }
+        }
+
+        await inicializacion.crearBaseDatosRedis(ipServer, "6379", "", password);
     }
+
+    public async void guardarServidor()
+    {
+        GameObject servidor = GameObject.Find("inputServidorRedis");
+        TMP_InputField servidorInput = servidor.GetComponent<TMP_InputField>();
+
+        GameObject contrasenaRedis = GameObject.Find("inputContrasenaRedis");
+        TMP_InputField contrasenaRedisInput = contrasenaRedis.GetComponent<TMP_InputField>();
+
+        sqLiteManager.crearConexion();
+        
+        if (servidorInput.text != "" && contrasenaRedisInput.text != "")
+        {
+            if (!sqLiteManager.ExistsTable("Server"))
+            {
+                sqLiteManager.CreateTable<Server>();
+                var objeto = new Server
+                {
+                    nombreServicio = "Redis",
+                    ipServer = await vaultTransit.EncryptAsync("api-key-encrypt", servidorInput.text),
+                    portServer = 6379,
+                    nombreUsuario = "",
+                    password = await vaultTransit.EncryptAsync("api-key-encrypt", contrasenaRedisInput.text)
+                };
+                sqLiteManager.Insert(objeto);
+            }
+            else
+            {
+                List<Server> servidores = sqLiteManager.GetTable<Server>("SELECT * FROM Server");
+                foreach (Server servidorRedis in servidores)
+                {
+                    if (servidorRedis.nombreServicio ==  "Redis")
+                    {
+                        servidorRedis.ipServer = await vaultTransit.EncryptAsync("api-key-encrypt", servidorInput.text);
+                        servidorRedis.password = await vaultTransit.EncryptAsync("api-key-encrypt", contrasenaRedisInput.text);
+                        sqLiteManager.update(servidorRedis);
+                        break;
+                    }
+                }
+            }
+        }
+        sqLiteManager.cerrarConexion();
+    }
+
+    public async void listarServidor()
+    {
+        GameObject servidor = GameObject.Find("inputServidorRedis");
+        TMP_InputField servidorInput = servidor.GetComponent<TMP_InputField>();
+        GameObject contrasenaRedis = GameObject.Find("inputContrasenaRedis");
+        TMP_InputField contrasenaRedisInput = contrasenaRedis.GetComponent<TMP_InputField>();
+        sqLiteManager.crearConexion();
+        if (sqLiteManager.ExistsTable("Server"))
+        {
+            List<Server> servidores = sqLiteManager.GetTable<Server>("SELECT * FROM Server");
+            foreach (Server servidorRedis in servidores)
+            {
+                if (servidorRedis.nombreServicio == "Redis")
+                {
+                    servidorInput.text = await vaultTransit.DecryptAsync("api-key-encrypt", servidorRedis.ipServer);
+                    contrasenaRedisInput.text = await vaultTransit.DecryptAsync("api-key-encrypt", servidorRedis.password);
+                    break;
+                }
+            }
+        }
+        sqLiteManager.cerrarConexion();
+    }
+
+    public void mostrarContrasenaRedis()
+    {
+        GameObject contrasenaRedis = GameObject.Find("inputContrasenaRedis");
+        TMP_InputField contrasenaRedisInput = contrasenaRedis.GetComponent<TMP_InputField>();
+        if (contrasenaRedisInput.text != "")
+        {
+            if (contrasenaRedisInput.contentType == TMP_InputField.ContentType.Password)
+            {
+                contrasenaRedisInput.contentType = TMP_InputField.ContentType.Standard;
+            }
+            else
+            {
+                contrasenaRedisInput.contentType = TMP_InputField.ContentType.Password;
+            }
+            contrasenaRedisInput.ForceLabelUpdate();
+        }
+    }
+
 
     // MENU AUDIO
 
