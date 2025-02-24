@@ -25,9 +25,12 @@ public class MenuInicial : MonoBehaviour
         vaultTransit = new VaultTransit();
     }
 
-    public async void Jugar()
+    public void Jugar()
     {
 
+        SceneManager.LoadScene("SampleScene");
+
+        /*
         Inicializacion inicializacion = new("Samuel");
 
         sqLiteManager.crearConexion();
@@ -50,6 +53,8 @@ public class MenuInicial : MonoBehaviour
         }
 
         await inicializacion.crearBaseDatosRedis(ipServer, "6379", "", password);
+
+        */
     }
 
     public async void guardarServidor()
