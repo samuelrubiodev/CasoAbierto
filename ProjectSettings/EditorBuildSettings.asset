@@ -9,6 +9,10 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: e913090dccb82514b94b4fa9b6df883a
   - enabled: 1
+    path: Assets/Scenes/PantallaCarga.unity
+    guid: 000b82b17bff11e419eee4d62f7d599f
+  - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}
+  m_UseUCBPForAssetBundles: 0

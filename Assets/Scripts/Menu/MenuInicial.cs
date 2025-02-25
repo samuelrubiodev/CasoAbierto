@@ -27,32 +27,9 @@ public class MenuInicial : MonoBehaviour
         vaultTransit = new VaultTransit();
     }
 
-    public async void Jugar()
+    public void Jugar()
     {
-        sqLiteManager.crearConexion();
-        Debug.Log("Botón Jugar presionado");
-        RedisManager redisManger = new RedisManager(
-            await vaultTransit.DecryptAsync("api-key-encrypt", sqLiteManager.GetServers()[Server.REDIS].ipServer), "6379", "", 
-            await vaultTransit.EncryptAsync("api-key-encrypt", sqLiteManager.GetServers()[Server.REDIS].password));
-
-        await CrearCaso(redisManger, vaultTransit, await vaultTransit.DecryptAsync("api-key-encrypt", sqLiteManager.GetAPIS()[ApiKey.OPEN_ROUTER].apiKey));
-        Debug.Log("Caso creado correctamente");
-    }
-
-    async Task CrearCaso( RedisManager redisManager, VaultTransit vaultTransit, string apiKeyOpenRouter)
-    {
-        await Task.Run(async () =>
-        {
-            sqLiteManager.crearConexion();
-            Inicializacion inicializacion = new("Samuel");
-
-            inicializacion.setSQliteManager(sqLiteManager);
-            inicializacion.setRedisManager(redisManager);
-            inicializacion.setVaultTransit(vaultTransit);
-            inicializacion.setApiKeyOpenRouter(apiKeyOpenRouter);
-
-            await inicializacion.crearBaseDatosRedis();
-        });
+        SceneManager.LoadScene("PantallaCarga");
     }
 
     public async void guardarServidor()
