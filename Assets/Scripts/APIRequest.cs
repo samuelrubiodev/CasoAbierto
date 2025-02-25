@@ -28,11 +28,11 @@ public class APIRequest : MonoBehaviour
 
     private static List<ChatMessage> chatMessages = new List<ChatMessage>();
     
-    private JObject crearPromptSystem()
+    private async Task<JObject> crearPromptSystem()
     {
         SQLiteManager sqliteManager = new SQLiteManager(Application.persistentDataPath + "/database.db");
         sqliteManager.crearConexion();
-        RedisManager redisManager = sqliteManager.GetRedisManager();
+        RedisManager redisManager = await sqliteManager.GetRedisManager();
         redisManager.crearConexion();
 
         long jugadorID = sqliteManager.GetTable<Player>("SELECT * FROM Player")[0].idPlayer;
@@ -311,12 +311,12 @@ public class APIRequest : MonoBehaviour
         return null;
     }
 
-    private JObject crearPrompt(string prompt)
+    private async Task<JObject> crearPrompt(string prompt)
     {
         SQLiteManager sqliteManager = new SQLiteManager(Application.persistentDataPath + "/database.db");
         sqliteManager.crearConexion();
 
-        RedisManager redisManager = sqliteManager.GetRedisManager();
+        RedisManager redisManager = await sqliteManager.GetRedisManager();
         redisManager.crearConexion();
 
         string nombreJugador = "";

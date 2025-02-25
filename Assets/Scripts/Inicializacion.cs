@@ -40,16 +40,36 @@ public class Inicializacion
 
     public string nombreJugador;
     private SQLiteManager sqLiteManager;
+    private RedisManager redisManager;
+    private VaultTransit vaultTransit;
+    private string apiKeyOpenRouter;
     public Inicializacion(string nombreJugador)
     {
         this.nombreJugador = nombreJugador;
-        sqLiteManager = new SQLiteManager(Application.persistentDataPath + "/database.db");
-        sqLiteManager.crearConexion();
     }
 
-    public async Task crearBaseDatosRedis(string ip, string port, string user, string password)
+    public void setSQliteManager(SQLiteManager sqLiteManager)
     {
-        RedisManager redisManager = new RedisManager(ip,port,password);
+        this.sqLiteManager = sqLiteManager;
+    }
+
+    public void setRedisManager(RedisManager redisManager)
+    {
+        this.redisManager = redisManager;
+    }
+
+    public void setVaultTransit(VaultTransit vaultTransit)
+    {
+        this.vaultTransit = vaultTransit;
+    }
+
+    public void setApiKeyOpenRouter(string apiKeyOpenRouter)
+    {
+        this.apiKeyOpenRouter = apiKeyOpenRouter;
+    }
+
+    public async Task crearBaseDatosRedis()
+    {
         redisManager.crearConexion();
 
         HashEntry[] hashEntries = new HashEntry[]
@@ -63,8 +83,6 @@ public class Inicializacion
         long jugadorID = redisManager.GetNewId("jugadores");
         redisManager.SetHash($"jugadores:{jugadorID}", hashEntries);
 
-        VaultTransit vaultTransit = new VaultTransit();
-
         string apiKeyGroq = "";
 
         sqLiteManager.CreateTable<Player>();
@@ -74,14 +92,7 @@ public class Inicializacion
         };
         sqLiteManager.Insert(player);
 
-        foreach (ApiKey apiKey in sqLiteManager.GetTable<ApiKey>("SELECT * FROM ApiKeys"))
-        {
-            if (apiKey.name == "OpenRouter")
-            {
-                apiKeyGroq = await vaultTransit.DecryptAsync("api-key-encrypt", apiKey.apiKey);
-                break;
-            }
-        }
+        apiKeyGroq = apiKeyOpenRouter;
 
         JObject respuestaCaso = null;
 
@@ -90,45 +101,39 @@ public class Inicializacion
             string respuestaCasoOpenRouter = obtenerRespuestaIA(PROMPT_SYSTEM_GENERACION_CASO, nombreJugador, apiKeyGroq);
             JObject json = JObject.Parse(respuestaCasoOpenRouter);
             respuestaCaso = json;
-        }
-        catch (JsonReaderException ex)
-        {
-            Debug.LogError("Error al parsear la respuesta de OpenRouter: " + ex.Message);
-            return;
-        }
 
-        foreach (JObject personaje in respuestaCaso["Caso"]?["personajes"])
-        {
-            HashEntry[] hashPersonajes = new HashEntry[]
+            foreach (JObject personaje in respuestaCaso["Caso"]?["personajes"])
             {
+                HashEntry[] hashPersonajes = new HashEntry[]
+                {
                 new HashEntry("nombre", personaje["nombre"].ToString()),
                 new HashEntry("rol", personaje["rol"].ToString()),
                 new HashEntry ("descripcion",personaje["descripcion"].ToString()),
                 new HashEntry("estado", personaje["estado"].ToString()),
                 new HashEntry("estado_emocional", personaje["estado_emocional"].ToString())
-            };
+                };
 
-            long personajeID = redisManager.GetNewId($"jugadores:{jugadorID}:personajes");
-            redisManager.SetHash($"jugadores:{jugadorID}:personajes:{personajeID}", hashPersonajes);
-        }
+                long personajeID = redisManager.GetNewId($"jugadores:{jugadorID}:personajes");
+                redisManager.SetHash($"jugadores:{jugadorID}:personajes:{personajeID}", hashPersonajes);
+            }
 
-        foreach (JObject evidencia in respuestaCaso["Caso"]?["evidencias"])
-        {
-            HashEntry[] hashEvidencias = new HashEntry[]
+            foreach (JObject evidencia in respuestaCaso["Caso"]?["evidencias"])
             {
+                HashEntry[] hashEvidencias = new HashEntry[]
+                {
                 new HashEntry("nombre", evidencia["nombre"].ToString()),
                 new HashEntry("descripcion", evidencia["descripcion"].ToString()),
                 new HashEntry("analisis", evidencia["analisis"].ToString()),
                 new HashEntry("tipo", evidencia["tipo"].ToString()),
                 new HashEntry("ubicacion", evidencia["ubicacion"].ToString())
-            };
+                };
 
-            long evidenciaID = redisManager.GetNewId($"jugadores:{jugadorID}:evidencias");
-            redisManager.SetHash($"jugadores:{jugadorID}:evidencias:{evidenciaID}", hashEvidencias);
-        }
+                long evidenciaID = redisManager.GetNewId($"jugadores:{jugadorID}:evidencias");
+                redisManager.SetHash($"jugadores:{jugadorID}:evidencias:{evidenciaID}", hashEvidencias);
+            }
 
-        HashEntry[] hashCaso = new HashEntry[]
-        {
+            HashEntry[] hashCaso = new HashEntry[]
+            {
             new HashEntry("tituloCaso", respuestaCaso["Caso"]["tituloCaso"].ToString()),
             new HashEntry("descripcionCaso", respuestaCaso["Caso"]["descripcionCaso"].ToString()),
             new HashEntry("dificultad", respuestaCaso["Caso"]["dificultad"].ToString()),
@@ -136,24 +141,29 @@ public class Inicializacion
             new HashEntry("lugar", respuestaCaso["Caso"]["lugar"].ToString()),
             new HashEntry("tiempoRestante", respuestaCaso["Caso"]["tiempoRestante"].ToString()),
             new HashEntry("explicacionCasoResuelto", respuestaCaso["Caso"]["explicacionCasoResuelto"].ToString())
-        };
+            };
 
-        long casoID = redisManager.GetNewId($"jugadores:{jugadorID}:caso");
-        redisManager.SetHash($"jugadores:{jugadorID}:caso:{casoID}", hashCaso);
+            long casoID = redisManager.GetNewId($"jugadores:{jugadorID}:caso");
+            redisManager.SetHash($"jugadores:{jugadorID}:caso:{casoID}", hashCaso);
 
-        foreach (JObject cronologia in respuestaCaso["Caso"]["cronologia"])
-        {
-            HashEntry[] hashCronologia = new HashEntry[]
+            foreach (JObject cronologia in respuestaCaso["Caso"]["cronologia"])
             {
+                HashEntry[] hashCronologia = new HashEntry[]
+                {
                 new HashEntry("fecha", cronologia["fecha"].ToString()),
                 new HashEntry("hora", cronologia["hora"].ToString()),
                 new HashEntry("evento", cronologia["evento"].ToString())
-            };
+                };
 
-            long cronologiaID = redisManager.GetNewId($"jugadores:{jugadorID}:caso:{casoID}:cronologia");
-            redisManager.SetHash($"jugadores:{jugadorID}:caso:{casoID}:cronologia:{cronologiaID}", hashCronologia);
+                long cronologiaID = redisManager.GetNewId($"jugadores:{jugadorID}:caso:{casoID}:cronologia");
+                redisManager.SetHash($"jugadores:{jugadorID}:caso:{casoID}:cronologia:{cronologiaID}", hashCronologia);
+            }
         }
-
+        catch (JsonReaderException ex)
+        {
+            Debug.LogError("Error al parsear la respuesta de OpenRouter: " + ex.Message);
+            return;
+        }
     }
 
     public string obtenerRespuestaIA(string promptSystem,string nombreJugador, string apiKeyOpenRouter)

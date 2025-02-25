@@ -4,6 +4,7 @@ using SQLite;
 using System.IO;
 using UnityEngine;
 using System;
+using System.Threading.Tasks;
 
 /**
  * Clase que se encarga de la gestión de la base de datos SQLite
@@ -118,15 +119,21 @@ public class SQLiteManager
         connection.Update(obj);
     }
 
-    public RedisManager GetRedisManager()
+    public async Task<RedisManager> GetRedisManager()
     {
+        VaultTransit vaultTransit = new VaultTransit();
+
         List<Server> servers = GetTable<Server>("SELECT * FROM Server");
 
         foreach (Server server in servers)
         {
-            if (server.nombreServicio == "Redis")
+            if (server.nombreServicio.Equals("Redis"))
             {
-                return new RedisManager(server.ipServer,server.portServer.ToString(),server.password);
+                string ipServer = await vaultTransit.DecryptAsync("api-key-encrypt",server.ipServer);
+                string portServer = await vaultTransit.DecryptAsync("api-key-encrypt", server.portServer.ToString());
+                string password = await vaultTransit.DecryptAsync("api-key-encrypt", server.password);
+
+                return new RedisManager(ipServer,portServer,password);
             }
         }
         return null;
@@ -136,7 +143,7 @@ public class SQLiteManager
     {
         List<ApiKey> apiKeys = GetTable<ApiKey>("SELECT * FROM ApiKeys");
         ApiKey[] apis = new ApiKey[apiKeys.Count];
-    
+
         foreach (ApiKey apiKey in apiKeys)
         {
             if (apiKey.name == "OpenRouter")
@@ -165,6 +172,7 @@ public class SQLiteManager
             if (servers[i].nombreServicio == "Redis")
             {
                 serversArray[Server.REDIS] = servers[i];
+                break;
             }
         }
 

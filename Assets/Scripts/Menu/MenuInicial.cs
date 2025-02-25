@@ -12,6 +12,8 @@ using UnityEngine.UI;
 using Newtonsoft;
 using Newtonsoft.Json.Linq;
 using UnityEditor.EditorTools;
+using System.Threading;
+using System.Threading.Tasks;
 
 public class MenuInicial : MonoBehaviour
 {
@@ -25,36 +27,32 @@ public class MenuInicial : MonoBehaviour
         vaultTransit = new VaultTransit();
     }
 
-    public void Jugar()
+    public async void Jugar()
     {
-
-        SceneManager.LoadScene("SampleScene");
-
-        /*
-        Inicializacion inicializacion = new("Samuel");
-
         sqLiteManager.crearConexion();
+        Debug.Log("Botón Jugar presionado");
+        RedisManager redisManger = new RedisManager(
+            await vaultTransit.DecryptAsync("api-key-encrypt", sqLiteManager.GetServers()[Server.REDIS].ipServer), "6379", "", 
+            await vaultTransit.EncryptAsync("api-key-encrypt", sqLiteManager.GetServers()[Server.REDIS].password));
 
-        string ipServer = "";
-        string password = "";
-        
-        if (sqLiteManager.ExistsTable("Server"))
+        await CrearCaso(redisManger, vaultTransit, await vaultTransit.DecryptAsync("api-key-encrypt", sqLiteManager.GetAPIS()[ApiKey.OPEN_ROUTER].apiKey));
+        Debug.Log("Caso creado correctamente");
+    }
+
+    async Task CrearCaso( RedisManager redisManager, VaultTransit vaultTransit, string apiKeyOpenRouter)
+    {
+        await Task.Run(async () =>
         {
-            List<Server> servidores = sqLiteManager.GetTable<Server>("SELECT * FROM Server");
-            foreach (Server servidorRedis in servidores)
-            {
-                if (servidorRedis.nombreServicio == "Redis")
-                {
-                    ipServer = await vaultTransit.DecryptAsync("api-key-encrypt", servidorRedis.ipServer);
-                    password = await vaultTransit.DecryptAsync("api-key-encrypt", servidorRedis.password);
-                    break;
-                }
-            }
-        }
+            sqLiteManager.crearConexion();
+            Inicializacion inicializacion = new("Samuel");
 
-        await inicializacion.crearBaseDatosRedis(ipServer, "6379", "", password);
+            inicializacion.setSQliteManager(sqLiteManager);
+            inicializacion.setRedisManager(redisManager);
+            inicializacion.setVaultTransit(vaultTransit);
+            inicializacion.setApiKeyOpenRouter(apiKeyOpenRouter);
 
-        */
+            await inicializacion.crearBaseDatosRedis();
+        });
     }
 
     public async void guardarServidor()
@@ -87,7 +85,7 @@ public class MenuInicial : MonoBehaviour
                 List<Server> servidores = sqLiteManager.GetTable<Server>("SELECT * FROM Server");
                 foreach (Server servidorRedis in servidores)
                 {
-                    if (servidorRedis.nombreServicio ==  "Redis")
+                    if (servidorRedis.nombreServicio == "Redis")
                     {
                         servidorRedis.ipServer = await vaultTransit.EncryptAsync("api-key-encrypt", servidorInput.text);
                         servidorRedis.password = await vaultTransit.EncryptAsync("api-key-encrypt", contrasenaRedisInput.text);
@@ -364,6 +362,11 @@ public class MenuInicial : MonoBehaviour
             }
             groqInput.ForceLabelUpdate();
         }
+    }
+
+    public void volverMenuPrincipal()
+    {
+        SceneManager.LoadScene("Menu");
     }
 
     public void Salir()
