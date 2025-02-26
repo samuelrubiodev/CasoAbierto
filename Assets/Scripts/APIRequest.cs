@@ -28,78 +28,15 @@ public class APIRequest : MonoBehaviour
 
     private static List<ChatMessage> chatMessages = new List<ChatMessage>();
     
-    private async Task<JObject> crearPromptSystem()
+    private async Task<JObject> CrearPromptSystem()
     {
         SQLiteManager sqliteManager = new SQLiteManager(Application.persistentDataPath + "/database.db");
         sqliteManager.crearConexion();
         RedisManager redisManager = await sqliteManager.GetRedisManager();
         redisManager.crearConexion();
 
-        long jugadorID = sqliteManager.GetTable<Player>("SELECT * FROM Player")[0].idPlayer;
-
-        string nombreJugador = "";
-        string estadoJugador = "";
-        string progresoJugador = "";
-
-        HashEntry[] jugador = redisManager.GetHash($"jugadores:{jugadorID}");
-
-        foreach (HashEntry hashEntry in jugador)
-        {
-            if (hashEntry.Name == "nombre")
-            {
-                nombreJugador = hashEntry.Value;
-            }
-            else if (hashEntry.Name == "estado")
-            {
-                estadoJugador = hashEntry.Value;
-            }
-            else if (hashEntry.Name == "progreso")
-            {
-                progresoJugador = hashEntry.Value;
-            }
-        }
-
-        string tituloCaso = "";
-        string descripcionCaso = "";
-        string dificultadCaso = "";
-        string fechaOcurrido = "";
-        string lugarCaso = "";
-        string tiempoRestante = "";
-        string explicacionCasoResuelto = "";
-
-        HashEntry[] caso = redisManager.GetHash($"jugadores:{jugadorID}:caso:1");
-
-        foreach (HashEntry hashEntry in caso)
-        {
-            if (hashEntry.Name == "tituloCaso")
-            {
-                tituloCaso = hashEntry.Value;
-            }
-            else if (hashEntry.Name == "descripcionCaso")
-            {
-                descripcionCaso = hashEntry.Value;
-            }
-            else if (hashEntry.Name == "dificultad")
-            {
-                dificultadCaso = hashEntry.Value;
-            }
-            else if (hashEntry.Name == "fechaOcurrido")
-            {
-                fechaOcurrido = hashEntry.Value;
-            }
-            else if (hashEntry.Name == "lugar")
-            {
-                lugarCaso = hashEntry.Value;
-            }
-            else if (hashEntry.Name == "tiempoRestante")
-            {
-                tiempoRestante = hashEntry.Value;
-            }
-            else if (hashEntry.Name == "explicacionCasoResuelto")
-            {
-                explicacionCasoResuelto = hashEntry.Value;
-            }
-        }
+        Jugador jugador1 = Jugador.jugador;
+        Caso caso = jugador1.casos[Jugador.indexCaso];
 
         JObject objetoJson = new()
         {
@@ -108,104 +45,91 @@ public class APIRequest : MonoBehaviour
                 ["_comentario"] = "Datos importantes del jugador, no cambies el nombre del jugador",
                 ["_estado"] = "Activo o Inactivo",
                 ["_progreso"] = "En que caso va, poner nombre del caso",
-                ["nombre"] = nombreJugador,
-                ["estado"] = estadoJugador,
-                ["progreso"] = progresoJugador
+                ["nombre"] = jugador1.nombre,
+                ["estado"] = jugador1.estado,
+                ["progreso"] = jugador1.progreso
             },
             ["Caso"] = new JObject
             {
                 ["_comentario"] = "Datos del caso actual",
-                ["tituloCaso"] = tituloCaso,
-                ["descripcionCaso"] = descripcionCaso,
-                ["dificultad"] = dificultadCaso,
-                ["fechaOcurrido"] = fechaOcurrido,
-                ["lugar"] = lugarCaso,
-                ["tiempoRestante"] = tiempoRestante,
+                ["tituloCaso"] = caso.tituloCaso,
+                ["descripcionCaso"] = caso.descripcion,
+                ["dificultad"] = caso.dificultad,
+                ["fechaOcurrido"] = caso.fechaOcurrido,
+                ["lugar"] = caso.lugar,
+                ["tiempoRestante"] = caso.tiempoRestante,
 
-                ["cronologia"] = obtenerCronologia(redisManager, jugadorID),
-                ["evidencias"] = obtenerEvidencias(redisManager, jugadorID),
-                ["personajes"] = obtenerPersonajes(redisManager,jugadorID),
-                ["explicacionCasoResuelto"] = explicacionCasoResuelto
+                ["cronologia"] = ObtenerCronologias(caso.cronologia),
+                ["evidencias"] = ObtenerEvidencias(caso.evidencias),
+                ["personajes"] = ObtenerPersonajes(caso.personajes),
+                ["explicacionCasoResuelto"] = caso.explicacionCasoResuelto
             },
         };
 
         return objetoJson;
     }
 
-    private JArray obtenerPersonajes(RedisManager redisManager, long jugadorID)
+    private JArray ObtenerPersonajes(List<Personaje> personajesLista)
     {
         var personajes = new List<Dictionary<string, string>>();
 
-        foreach (var key in redisManager.GetServer().Keys(pattern: $"jugadores:{jugadorID}:personajes:*"))
+        foreach (Personaje personaje in personajesLista)
         {
-            var type = redisManager.GetDB().KeyType(key);
-
-            if (type == RedisType.Hash)
+            var personajeDiccionario = new Dictionary<string, string>
             {
-                var hashPersonajes = redisManager.GetDB().HashGetAll(key);
+                { "nombre", personaje.nombre },
+                { "rol", personaje.rol },
+                { "estado", personaje.estado },
+                { "descripcion", personaje.descripcion },
+                { "estado_emocional", personaje.estadoEmocional }
+            };
 
-                var personaje = new Dictionary<string, string>();
-
-                foreach (var entry in hashPersonajes)
-                {
-                    personaje[entry.Name] = entry.Value;
-                }
-
-                personajes.Add(personaje);
-            }
+            personajes.Add(personajeDiccionario);
         }
+       
         var objeto = JsonConvert.SerializeObject(personajes);
         return JArray.Parse(objeto);
     }
 
-    private JArray obtenerEvidencias(RedisManager redisManager,long jugadorID)
+    private JArray ObtenerEvidencias(List<Evidencia> evidenciasLista)
     {
         var evidencias = new List<Dictionary<string, string>>();
 
-        foreach (var key in redisManager.GetServer().Keys(pattern: $"jugadores:{jugadorID}:evidencias:*"))
+        foreach (Evidencia evidencia in evidenciasLista)
         {
-            var type = redisManager.GetDB().KeyType(key);
-
-            if (type == RedisType.Hash)
+            var evidenciaDiccionario = new Dictionary<string, string>
             {
-                var hashEvidencias = redisManager.GetDB().HashGetAll(key);
+                { "nombre", evidencia.nombre },
+                { "descripcion", evidencia.descripcion },
+                { "tipo", evidencia.tipo },
+                { "analisis", evidencia.analisis },
+                {"ubicacion", evidencia.ubicacion }
+            };
 
-                var evidencia = new Dictionary<string, string>();
-
-                foreach (var entry in hashEvidencias)
-                {
-                    evidencia[entry.Name] = entry.Value;
-                }
-
-                evidencias.Add(evidencia);
-            }
+            evidencias.Add(evidenciaDiccionario);
         }
+        
         var objeto = JsonConvert.SerializeObject(evidencias);
         return JArray.Parse(objeto);
     }
 
-    private JArray obtenerCronologia(RedisManager redisManager,long jugadorID)
+    private JArray ObtenerCronologias(List<Cronologia> cronologiasLista)
     {
-        var evidencias = new List<Dictionary<string, string>>();
+        var cronologias = new List<Dictionary<string, string>>();
 
-        foreach (var key in redisManager.GetServer().Keys(pattern: $"jugadores:{jugadorID}:caso:1:cronologia:*"))
+        foreach (Cronologia cronologia in cronologiasLista)
         {
-            var type = redisManager.GetDB().KeyType(key);
-
-            if (type == RedisType.Hash)
+            var cronologiaDiccionario = new Dictionary<string, string>
             {
-                var hashCronologia = redisManager.GetDB().HashGetAll(key);
+                { "fecha", cronologia.fecha.ToString() },
+                { "hora", cronologia.hora },
+                { "evento", cronologia.evento }
+            };
 
-                var cronologia = new Dictionary<string, string>();
-
-                foreach (var entry in hashCronologia)
-                {
-                    cronologia[entry.Name] = entry.Value;
-                }
-                evidencias.Add(cronologia);
-            }
+            cronologias.Add(cronologiaDiccionario);
         }
-        var objeto = JsonConvert.SerializeObject(evidencias);
+
+        var objeto = JsonConvert.SerializeObject(cronologias);
         return JArray.Parse(objeto);
     }
 
@@ -232,7 +156,7 @@ public class APIRequest : MonoBehaviour
                 8. No cambies el mensaje que hace el usuario de ""mensajeUsuario""
                 9. Validación**: Asegúrate de que el JSON pueda ser parseado sin errores. 
 
-                Estos son los datos del caso, con todos los personajes, evidencias y detalles relevantes:" + crearPromptSystem().ToString();
+                Estos son los datos del caso, con todos los personajes, evidencias y detalles relevantes:" + CrearPromptSystem().ToString();
 
             chatMessages.Add(new SystemChatMessage(promptSistema));
         }
@@ -311,131 +235,36 @@ public class APIRequest : MonoBehaviour
         return null;
     }
 
-    private async Task<JObject> crearPrompt(string prompt)
+    private JObject CrearPrompt(string prompt, Jugador jugador)
     {
-        SQLiteManager sqliteManager = new SQLiteManager(Application.persistentDataPath + "/database.db");
-        sqliteManager.crearConexion();
-
-        RedisManager redisManager = await sqliteManager.GetRedisManager();
-        redisManager.crearConexion();
-
-        string nombreJugador = "";
-        string estadoJugador = "";
-        string progresoJugador = "";
-
-        HashEntry[] jugador = redisManager.GetHash($"jugadores:{sqliteManager.GetTable<Player>("SELECT * FROM Player")[0].idPlayer}");
-
-        foreach (HashEntry hashEntry in jugador)
-        {
-            if (hashEntry.Name == "nombre")
-            {
-                nombreJugador = hashEntry.Value;
-            }
-            else if (hashEntry.Name == "estado")
-            {
-                estadoJugador = hashEntry.Value;
-            }
-            else if (hashEntry.Name == "progreso")
-            {
-                progresoJugador = hashEntry.Value;
-            }
-        }
-
-        string tituloCaso = "";
-        string descripcionCaso = "";
-        string dificultadCaso = "";
-        string fechaOcurrido = "";
-        string lugarCaso = "";
-        string tiempoRestante = "";
-
-        HashEntry[] caso = redisManager.GetHash($"jugadores:{sqliteManager.GetTable<Player>("SELECT * FROM Player")[0].idPlayer}:caso:1");
-
-        foreach (HashEntry hashEntry in caso)
-        {
-            if (hashEntry.Name == "tituloCaso")
-            {
-                tituloCaso = hashEntry.Value;
-            }
-            else if (hashEntry.Name == "descripcionCaso")
-            {
-                descripcionCaso = hashEntry.Value;
-            }
-            else if (hashEntry.Name == "dificultad")
-            {
-                dificultadCaso = hashEntry.Value;
-            }
-            else if (hashEntry.Name == "fechaOcurrido")
-            {
-                fechaOcurrido = hashEntry.Value;
-            }
-            else if (hashEntry.Name == "lugar")
-            {
-                lugarCaso = hashEntry.Value;
-            }
-            else if (hashEntry.Name == "tiempoRestante")
-            {
-                tiempoRestante = hashEntry.Value;
-            }
-        }
-
-        string nombre = string.Empty;
-        string estado = string.Empty;
-        string estadoEmocional = string.Empty;
-        string descripcion = string.Empty;
-        string rol = string.Empty;
-
-        HashEntry[] personajes = redisManager.GetHash($"jugadores:{sqliteManager.GetTable<Player>("SELECT * FROM Player")[0].idPlayer}:personajes:1");
-
-        foreach (HashEntry personaje in personajes)
-        {
-            if (personaje.Name == "nombre")
-            {
-                nombre = personaje.Value;
-            }
-            else if (personaje.Name == "estado")
-            {
-                estado = personaje.Value;
-            }
-            else if (personaje.Name == "estado_emocional")
-            {
-                estadoEmocional = personaje.Value;
-            }
-            else if (personaje.Name == "descripcion")
-            {
-                descripcion = personaje.Value;
-            }
-            else if (personaje.Name == "rol")
-            {
-                rol = personaje.Value;
-            }
-        }
+        Caso caso = jugador.casos[Jugador.indexCaso];
 
         return new JObject
         {
             ["datosJugador"] = new JObject
             {
-                ["nombre"] = nombreJugador,
-                ["estado"] = estadoJugador,
-                ["progreso"] = progresoJugador
+                ["nombre"] = jugador.nombre,
+                ["estado"] = jugador.estado,
+                ["progreso"] = jugador.progreso
             },
             ["Caso"] = new JObject
             {
-                ["tituloCaso"] = tituloCaso,
-                ["descripcionCaso"] = descripcionCaso,
-                ["dificultad"] = dificultadCaso,
-                ["fechaOcurrido"] = fechaOcurrido,
-                ["lugar"] = lugarCaso,
-                ["tiempoRestante"] = tiempoRestante,
+                ["tituloCaso"] = caso.tituloCaso,
+                ["descripcionCaso"] = caso.descripcion,
+                ["dificultad"] = caso.dificultad,
+                ["fechaOcurrido"] = caso.fechaOcurrido,
+                ["lugar"] = caso.lugar,
+                ["tiempoRestante"] = caso.tiempoRestante,
 
                 ["personajeActual"] = new JArray
                 {
                     new JObject
                     {
-                        ["nombre"] = nombre,
-                        ["rol"] = rol,
-                        ["estado"] = estado,
-                        ["descripcion"] = descripcion,
-                        ["estado_emocional"] = estadoEmocional
+                        ["nombre"] = caso.personajes[0].nombre,
+                        ["rol"] = caso.personajes[0].rol,
+                        ["estado"] = caso.personajes[0].estado,
+                        ["descripcion"] = caso.personajes[0].descripcion,
+                        ["estado_emocional"] = caso.personajes[0].estadoEmocional
                     },
                 },
                 ["mensajes"] = new JObject
@@ -479,7 +308,7 @@ public class APIRequest : MonoBehaviour
 
         chatMessages.Add(new AssistantChatMessage(mensajePersonaje.ToString()));
 
-        this.promptLLama = mensajePersonaje["Caso"]?["mensajes"]?["respuestaPersonaje"]?.ToString();
+        promptLLama = mensajePersonaje["Caso"]?["mensajes"]?["respuestaPersonaje"]?.ToString();
     }
 
 }

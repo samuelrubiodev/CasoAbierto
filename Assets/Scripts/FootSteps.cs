@@ -31,5 +31,4 @@ public class FootSteps : MonoBehaviour
             footsteps.enabled = false;
         }
     }
-
 }

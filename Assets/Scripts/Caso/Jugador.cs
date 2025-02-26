@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class Jugador
 {
     public static Jugador jugador { get; set; }
+    public static int indexCaso { get; set; }
     public long idJugador { get; set; }
     public string nombre { get; set; }
     public string estado { get; set; }

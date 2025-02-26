@@ -35,20 +35,21 @@ public class MenuGestionPartidas : MonoBehaviour
         RectTransform rt = content.GetComponent<RectTransform>();
         rt.sizeDelta = new Vector2(rt.sizeDelta.x, 100 * jugador.casos.Count);
 
-        foreach (Caso caso in jugador.casos)
+        for (int i = 0; i < jugador.casos.Count; i++)
         {
             GameObject button = Instantiate(buttonPrefab, content.transform);
-            button.name = caso.idCaso.ToString();
-            button.GetComponentInChildren<TextMeshProUGUI>().text = caso.tituloCaso;
+            button.name = jugador.casos[i].idCaso;
+            button.GetComponentInChildren<TextMeshProUGUI>().text = jugador.casos[i].tituloCaso;
             button.SetActive(true);
 
-            button.GetComponent<Button>().onClick.AddListener(() => CargarPartida(jugador));
+            button.GetComponent<Button>().onClick.AddListener(() => CargarPartida(jugador,i.ToString()));
         }
     }
 
-    public void CargarPartida(Jugador jugador)
+    public void CargarPartida(Jugador jugador, string indexCaso)
     {
         Jugador.jugador = jugador;
+        Jugador.indexCaso = int.Parse(indexCaso);
         SceneManager.LoadScene("SampleScene");
     }
 
