@@ -21,7 +21,7 @@ public class ControllerCarga : MonoBehaviour
         Debug.Log("Caso creado correctamente");
         SceneManager.LoadScene("SampleScene");
     }
-
+    
     async Task CrearCaso(RedisManager redisManager, VaultTransit vaultTransit, string apiKeyOpenRouter)
     {
         await Task.Run(async () =>

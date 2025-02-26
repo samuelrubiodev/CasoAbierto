@@ -1,20 +1,8 @@
-using OpenAI.Chat;
-using OpenAI;
-using System;
-using System.ClientModel;
-using System.Collections;
 using System.Collections.Generic;
-using System.Text.Json;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Newtonsoft;
-using Newtonsoft.Json.Linq;
-using UnityEditor.EditorTools;
-using System.Threading;
-using System.Threading.Tasks;
-
 public class MenuInicial : MonoBehaviour
 {
     TMP_Dropdown dropbownMicrofonos;
@@ -25,11 +13,6 @@ public class MenuInicial : MonoBehaviour
     {
         sqLiteManager = new SQLiteManager(Application.persistentDataPath + "/database.db");
         vaultTransit = new VaultTransit();
-    }
-
-    public void Jugar()
-    {
-        SceneManager.LoadScene("PantallaCarga");
     }
 
     public async void guardarServidor()

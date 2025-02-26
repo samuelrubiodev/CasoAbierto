@@ -102,6 +102,21 @@ public class Inicializacion
             JObject json = JObject.Parse(respuestaCasoOpenRouter);
             respuestaCaso = json;
 
+            HashEntry[] hashCaso = new HashEntry[]
+            {
+                new HashEntry("tituloCaso", respuestaCaso["Caso"]["tituloCaso"].ToString()),
+                new HashEntry("descripcionCaso", respuestaCaso["Caso"]["descripcionCaso"].ToString()),
+                new HashEntry("dificultad", respuestaCaso["Caso"]["dificultad"].ToString()),
+                new HashEntry("fechaOcurrido", respuestaCaso["Caso"]["fechaOcurrido"].ToString()),
+                new HashEntry("lugar", respuestaCaso["Caso"]["lugar"].ToString()),
+                new HashEntry("tiempoRestante", respuestaCaso["Caso"]["tiempoRestante"].ToString()),
+                new HashEntry("explicacionCasoResuelto", respuestaCaso["Caso"]["explicacionCasoResuelto"].ToString())
+            };
+
+            long casoID = redisManager.GetNewId($"jugadores:{jugadorID}:caso");
+            redisManager.SetHash($"jugadores:{jugadorID}:caso:{casoID}", hashCaso);
+
+
             foreach (JObject personaje in respuestaCaso["Caso"]?["personajes"])
             {
                 HashEntry[] hashPersonajes = new HashEntry[]
@@ -113,8 +128,8 @@ public class Inicializacion
                 new HashEntry("estado_emocional", personaje["estado_emocional"].ToString())
                 };
 
-                long personajeID = redisManager.GetNewId($"jugadores:{jugadorID}:personajes");
-                redisManager.SetHash($"jugadores:{jugadorID}:personajes:{personajeID}", hashPersonajes);
+                long personajeID = redisManager.GetNewId($"jugadores:{jugadorID}:caso:{casoID}:personajes");
+                redisManager.SetHash($"jugadores:{jugadorID}:caso:{casoID}:personajes:{personajeID}", hashPersonajes);
             }
 
             foreach (JObject evidencia in respuestaCaso["Caso"]?["evidencias"])
@@ -128,24 +143,10 @@ public class Inicializacion
                 new HashEntry("ubicacion", evidencia["ubicacion"].ToString())
                 };
 
-                long evidenciaID = redisManager.GetNewId($"jugadores:{jugadorID}:evidencias");
-                redisManager.SetHash($"jugadores:{jugadorID}:evidencias:{evidenciaID}", hashEvidencias);
+                long evidenciaID = redisManager.GetNewId($"jugadores:{jugadorID}:caso:{casoID}:evidencias");
+                redisManager.SetHash($"jugadores:{jugadorID}:caso:{casoID}:evidencias:{evidenciaID}", hashEvidencias);
             }
-
-            HashEntry[] hashCaso = new HashEntry[]
-            {
-            new HashEntry("tituloCaso", respuestaCaso["Caso"]["tituloCaso"].ToString()),
-            new HashEntry("descripcionCaso", respuestaCaso["Caso"]["descripcionCaso"].ToString()),
-            new HashEntry("dificultad", respuestaCaso["Caso"]["dificultad"].ToString()),
-            new HashEntry("fechaOcurrido", respuestaCaso["Caso"]["fechaOcurrido"].ToString()),
-            new HashEntry("lugar", respuestaCaso["Caso"]["lugar"].ToString()),
-            new HashEntry("tiempoRestante", respuestaCaso["Caso"]["tiempoRestante"].ToString()),
-            new HashEntry("explicacionCasoResuelto", respuestaCaso["Caso"]["explicacionCasoResuelto"].ToString())
-            };
-
-            long casoID = redisManager.GetNewId($"jugadores:{jugadorID}:caso");
-            redisManager.SetHash($"jugadores:{jugadorID}:caso:{casoID}", hashCaso);
-
+            
             foreach (JObject cronologia in respuestaCaso["Caso"]["cronologia"])
             {
                 HashEntry[] hashCronologia = new HashEntry[]
@@ -238,32 +239,40 @@ public class Inicializacion
                 ""additionalProperties"": false
             }";
 
-
-        OpenAIClientOptions openAIClientOptions = new OpenAIClientOptions()
+        try
         {
-            Endpoint = new Uri("https://openrouter.ai/api/v1")
-        };
+            OpenAIClientOptions openAIClientOptions = new OpenAIClientOptions()
+            {
+                Endpoint = new Uri("https://openrouter.ai/api/v1")
+            };
 
-        OpenAIClient client = new OpenAIClient(new ApiKeyCredential(apiKeyOpenRouter), openAIClientOptions);
+            OpenAIClient client = new OpenAIClient(new ApiKeyCredential(apiKeyOpenRouter), openAIClientOptions);
 
-        List<ChatMessage> messages = new List<ChatMessage>
+            List<ChatMessage> messages = new List<ChatMessage>
             {
                 new SystemChatMessage(promptSystem),
                 new UserChatMessage("Generame un nuevo caso con el nombre de jugador llamado: " + nombreJugador)
             };
 
-        ChatCompletionOptions options = new()
+            ChatCompletionOptions options = new()
+            {
+                ResponseFormat = ChatResponseFormat.CreateJsonSchemaFormat(
+                        jsonSchemaFormatName: "caso_data",
+                        jsonSchema: BinaryData.FromString(jsonSchema),
+                        jsonSchemaIsStrict: true),
+            };
+
+            ChatCompletion completion = client.GetChatClient("google/gemini-2.0-flash-exp:free").CompleteChat(messages, options);
+
+            using JsonDocument jsonDocument = JsonDocument.Parse(completion.Content[0].Text);
+
+            return jsonDocument.RootElement.ToString();
+        } 
+        catch (Exception e)
         {
-            ResponseFormat = ChatResponseFormat.CreateJsonSchemaFormat(
-                    jsonSchemaFormatName: "caso_data",
-                    jsonSchema: BinaryData.FromString(jsonSchema),
-                    jsonSchemaIsStrict: true),
-        };
-
-        ChatCompletion completion = client.GetChatClient("google/gemini-2.0-flash-exp:free").CompleteChat(messages, options);
-
-        using JsonDocument jsonDocument = JsonDocument.Parse(completion.Content[0].Text);
-
-        return jsonDocument.RootElement.ToString();
+            Debug.LogError("Error al parsear el JSON Schema: " + e.Message);
+            return null;
+        }
+       
     }
 }

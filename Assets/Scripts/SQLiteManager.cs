@@ -7,7 +7,7 @@ using System;
 using System.Threading.Tasks;
 
 /**
- * Clase que se encarga de la gestión de la base de datos SQLite
+ * Clase que se encarga de la gestiï¿½n de la base de datos SQLite
  * 
  */
 public class SQLiteManager
@@ -16,10 +16,15 @@ public class SQLiteManager
     private string path = string.Empty;
     private SQLiteConnection connection = null;
 
+    public SQLiteManager()
+    {
+        this.path = Application.persistentDataPath + "/database.db";
+    }
+
     /**
      * Constructor de la clase
      * 
-     * @param path: Ruta donde se creará la base de datos
+     * @param path: Ruta donde se crearï¿½ la base de datos
      */
     public SQLiteManager(string path)
     {
@@ -27,7 +32,7 @@ public class SQLiteManager
     }
 
     /**
-     * Crea la conexión a la base de datos y crea la base de datos si no existe
+     * Crea la conexiï¿½n a la base de datos y crea la base de datos si no existe
      * 
      */
     public void crearConexion()
@@ -36,7 +41,7 @@ public class SQLiteManager
     }
 
     /**
-     * Cierra la conexión a la base de datos
+     * Cierra la conexiï¿½n a la base de datos
      * 
      */
     public void cerrarConexion()
