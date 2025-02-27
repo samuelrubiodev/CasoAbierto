@@ -30,7 +30,7 @@ public class APIRequestElevenLabs : MonoBehaviour
         }
     }
 
-    public async void StreamAudio(String message)
+    public async void StreamAudio(string message)
     {
         this.message = message;
 

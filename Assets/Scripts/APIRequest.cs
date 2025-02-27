@@ -138,7 +138,7 @@ public class APIRequest : MonoBehaviour
 
                 [Instrucciones Adicionales]
                 1. **El jugador es el investigador**. No lo llames ""usuario"" ni hagas referencia a que es un juego.  
-                2. `respuestaPersonaje` debe reflejar lo que el personaje respondería basándose en las evidencias y el contexto del caso.
+                2. `respuestaPersonaje` debe reflejar lo que el personaje respondería basándose en las evidencias y el contexto del caso. Solo responde con texto.
                 3.  Cuando el jugador hable tendrás que poner de forma automatica en el valor de 'mensajeUsuario'
                 4. **Si el personaje se contradice, mantenlo deliberado** para que el jugador deba descubrirlo. No aclares que hay contradicciones.  
                 5. **SeHaTerminado**: Cambia a true solo cuando el personaje no tenga más información relevante o el jugador haya presionado suficiente. No expliques cuándo cambia; simplemente hazlo.  
@@ -146,6 +146,9 @@ public class APIRequest : MonoBehaviour
                 7. Si el jugador hace preguntas irrelevantes o fuera del caso, responde de manera evasiva o con frustración, como lo haría el personaje.  
                 8. No cambies el mensaje que hace el usuario de ""mensajeUsuario""
                 9. No contestes con emoticonos ni tildes, solo texto ya que ElevenLabs no soporta emoticonos ni tildes.
+
+                [IMPORTANTE]
+                1.Es importante que no envíes mas de 200 caracteres en la respuesta del personaje.
 
                 Estos son los datos del caso, con todos los personajes, evidencias y detalles relevantes:" + CrearPromptSystem().ToString();
 
@@ -209,7 +212,7 @@ public class APIRequest : MonoBehaviour
                 ResponseFormat = ChatResponseFormat.CreateJsonSchemaFormat(
                         jsonSchemaFormatName: "message_data",
                         jsonSchema: BinaryData.FromString(jsonSchema),
-                jsonSchemaIsStrict: true),
+                jsonSchemaIsStrict: true)
             };
 
             ChatCompletion completion = client.GetChatClient("google/gemini-2.0-flash-exp:free").CompleteChat(chatMessages, options);
@@ -232,39 +235,20 @@ public class APIRequest : MonoBehaviour
 
         return new JObject
         {
-            ["datosJugador"] = new JObject
+            ["personajeActual"] = new JObject
             {
-                ["nombre"] = jugador.nombre,
-                ["estado"] = jugador.estado,
-                ["progreso"] = jugador.progreso
+                ["nombre"] = caso.personajes[0].nombre,
+                ["rol"] = caso.personajes[0].rol,
+                ["estado"] = caso.personajes[0].estado,
+                ["descripcion"] = caso.personajes[0].descripcion,
+                ["estado_emocional"] = caso.personajes[0].estadoEmocional
             },
-            ["Caso"] = new JObject
+            ["mensajes"] = new JObject
             {
-                ["tituloCaso"] = caso.tituloCaso,
-                ["descripcionCaso"] = caso.descripcion,
-                ["dificultad"] = caso.dificultad,
-                ["fechaOcurrido"] = caso.fechaOcurrido,
-                ["lugar"] = caso.lugar,
-                ["tiempoRestante"] = caso.tiempoRestante,
-
-                ["personajeActual"] = new JArray
-                {
-                    new JObject
-                    {
-                        ["nombre"] = caso.personajes[0].nombre,
-                        ["rol"] = caso.personajes[0].rol,
-                        ["estado"] = caso.personajes[0].estado,
-                        ["descripcion"] = caso.personajes[0].descripcion,
-                        ["estado_emocional"] = caso.personajes[0].estadoEmocional
-                    },
-                },
-                ["mensajes"] = new JObject
-                {
-                    ["mensajeUsuario"] = prompt,
-                    ["respuestaPersonaje"] = "Respuesta del personaje seleccionado, cuando el jugador tenga seleccionado un personaje",
-                    ["seHaTerminado"] = false
-                }
-            },
+                ["mensajeUsuario"] = prompt,
+                ["respuestaPersonaje"] = "Respuesta del personaje seleccionado, cuando el jugador tenga seleccionado un personaje",
+                ["seHaTerminado"] = false
+            }
         };
     }
 
@@ -289,12 +273,10 @@ public class APIRequest : MonoBehaviour
             language: "es"
         );
 
-        Debug.Log(result);
-        Debug.Log(result?["text"]?.ToString());
+        string prompt = CrearPrompt(result?["text"]?.ToString(), Jugador.jugador).ToString();
+        string jsonRespuesta = MakeRequestOpenRouter("Responde correctamente: " + prompt);
+        JObject json = JObject.Parse(jsonRespuesta);
 
-        string jsonResponseLlama = MakeRequestOpenRouter(result?["text"]?.ToString());
-        
-        JObject json = JObject.Parse(jsonResponseLlama);
         string mensajePersonaje = json["Caso"]?["mensajes"]?["respuestaPersonaje"]?.ToString();
 
         chatMessages.Add(new AssistantChatMessage(mensajePersonaje));
