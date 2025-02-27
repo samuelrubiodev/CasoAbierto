@@ -7,7 +7,6 @@ using UnityEngine;
 public class ControllerMicrophone : MonoBehaviour
 {
     private MicrophoneRecorder recorder;
-    public ElevenlabsAPI tts;
     public IEnumerator RecordAudio()
     {
         recorder = GetComponent<MicrophoneRecorder>();
