@@ -10,17 +10,11 @@ using Utilities.Async;
 [RequireComponent(typeof(AudioSource))]
 public class APIRequestElevenLabs : MonoBehaviour
 {
-    [SerializeField]
-    private ElevenLabsConfiguration configuration;
 
     [SerializeField]
     private bool debug = true;
 
-    [SerializeField]
     private Voice voice;
-
-    [TextArea(3, 10)]
-    [SerializeField]
     private string message;
 
     [SerializeField]
@@ -42,16 +36,22 @@ public class APIRequestElevenLabs : MonoBehaviour
 
         OnValidate();
 
+        SQLiteManager sQLiteManager = new ();
+        sQLiteManager.crearConexion();
+        VaultTransit vaultTransit = new ();
+
+        string apiKey = await vaultTransit.DecryptAsync("api-key-encrypt",sQLiteManager.GetAPIS()[ApiKey.ELEVENLABS].apiKey);
+
         try
         {
-            var api = new ElevenLabsClient(configuration)
+            var api = new ElevenLabsClient(new ElevenLabsAuthentication(apiKey))
             {
                 EnableDebug = debug
             };
 
             if (voice == null)
             {
-                voice = (await api.VoicesEndpoint.GetVoiceAsync("7ilYbYb99yBZGMUUKSaf"));
+                voice = await api.VoicesEndpoint.GetVoiceAsync("HYlEvvU9GMan5YdjFYpg");
             }
 
 
@@ -67,7 +67,7 @@ public class APIRequestElevenLabs : MonoBehaviour
             var voiceClip = await api.TextToSpeechEndpoint.StreamTextToSpeechAsync(message, this.voice, partialClip =>
             {
                 streamClipQueue.Enqueue(partialClip);
-            }, model: Model.TurboV2_5, optimizeStreamingLatency: optimizeStreamingLatency, outputFormat: OutputFormat.PCM_24000, cancellationToken: destroyCancellationToken);
+            }, model: new Model("eleven_flash_v2_5"), optimizeStreamingLatency: optimizeStreamingLatency, outputFormat: OutputFormat.PCM_24000, cancellationToken: destroyCancellationToken);
             audioSource.clip = voiceClip.AudioClip;
             await new WaitUntil(() => streamClipQueue.Count == 0 && !audioSource.isPlaying);
             streamQueueCts.Cancel();

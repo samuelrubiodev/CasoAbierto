@@ -43,7 +43,7 @@ public class DetectionCharacter : MonoBehaviour
 
         if (!subtitleFound)
         {
-            Debug.LogWarning("No se encontró un subtítulo con el ID: " + id);
+            Debug.LogWarning("No se encontrÃ³ un subtÃ­tulo con el ID: " + id);
         }
     }
 
@@ -51,7 +51,7 @@ public class DetectionCharacter : MonoBehaviour
     {
         if (!isPlaying)
         {
-            SubtitleManager subtitleManager = new SubtitleManager(Application.dataPath + "/Speechs/JSON_Subtitles/subtitles.json");
+            SubtitleManager subtitleManager = new SubtitleManager(Application.dataPath + "/Sounds/Speechs/JSON_Subtitles/subtitles.json");
 
             SubtitleList subtitulos = subtitleManager.ReadJSON();
 

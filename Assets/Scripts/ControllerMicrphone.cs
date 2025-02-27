@@ -7,42 +7,39 @@ using UnityEngine;
 public class ControllerMicrophone : MonoBehaviour
 {
     private MicrophoneRecorder recorder;
+    public ElevenlabsAPI tts;
     public IEnumerator RecordAudio()
     {
-        // Obtén la referencia al componente MicrophoneRecorder en el mismo GameObject
         recorder = GetComponent<MicrophoneRecorder>();
 
         if (recorder != null)
         {
-            Debug.Log("Iniciando grabación...");
+            Debug.Log("Iniciando grabaciÃ³n...");
             recorder.StartRecording();
 
-            // Espera unos segundos para grabar audio
             yield return new WaitForSeconds(5);
 
-            Debug.Log("Deteniendo grabación...");
+            Debug.Log("Deteniendo grabaciÃ³n...");
             recorder.StopRecording();
 
-            // Guarda el archivo en la ubicación deseada
             recorder.SaveRecording(Application.persistentDataPath + "/audio.wav");
-            Debug.Log("Grabación guardada.");
+            Debug.Log("GrabaciÃ³n guardada.");
 
             APIRequest aPIRequest = GetComponent<APIRequest>();
 
-            llamarApis(aPIRequest);
+            LlamarApis(aPIRequest);
         }
         else
         {
-            Debug.LogError("No se encontró el componente MicrophoneRecorder.");
+            Debug.LogError("No se encontrÃ³ el componente MicrophoneRecorder.");
         }
     }
 
-    private async void llamarApis(APIRequest aPIRequest)
+    private async void LlamarApis(APIRequest aPIRequest)
     {
         await aPIRequest.incializarAPITexto();
 
         APIRequestElevenLabs aPIRequestElevenLabs = GetComponent<APIRequestElevenLabs>();
-
         aPIRequestElevenLabs.StreamAudio(aPIRequest.promptLLama);
     }
 }

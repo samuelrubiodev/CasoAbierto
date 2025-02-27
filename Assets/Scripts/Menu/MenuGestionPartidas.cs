@@ -49,7 +49,7 @@ public class MenuGestionPartidas : MonoBehaviour
     public void CargarPartida(Jugador jugador, string indexCaso)
     {
         Jugador.jugador = jugador;
-        Jugador.indexCaso = int.Parse(indexCaso);
+        Jugador.indexCaso = int.Parse(indexCaso) - 1;
         SceneManager.LoadScene("SampleScene");
     }
 

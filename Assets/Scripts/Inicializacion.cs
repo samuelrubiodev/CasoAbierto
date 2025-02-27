@@ -1,17 +1,13 @@
-﻿using GroqApiLibrary;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using OpenAI.Chat;
 using OpenAI;
 using StackExchange.Redis;
 using System;
 using System.ClientModel;
-using System.Collections;
 using System.Collections.Generic;
-using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using UnityEngine;
-using Utilities.WebRequestRest;
 using System.Text.Json;
 
 public class Inicializacion

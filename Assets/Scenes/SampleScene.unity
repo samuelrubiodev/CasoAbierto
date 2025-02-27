@@ -9481,13 +9481,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: add9f32496126294a8543087696b5fcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  configuration: {fileID: 11400000, guid: b11b64971a6669146a1af7df59c136d1, type: 2}
   debug: 1
-  voice:
-    name: Alex
-    id: 7ilYbYb99yBZGMUUKSaf
-  message: 
-  audioSource: {fileID: 944846796}
+  audioSource: {fileID: 1928990227}
 --- !u!82 &944846796
 AudioSource:
   m_ObjectHideFlags: 0
@@ -9609,6 +9604,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96ff8290ae55d0347b4eb16f777ead04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tts: {fileID: 0}
 --- !u!114 &944846799
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20300,6 +20296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96ff8290ae55d0347b4eb16f777ead04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tts: {fileID: 0}
 --- !u!114 &1928990223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20334,7 +20331,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1928990221}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a309096ef48f3c34f82b5722d4e480e9, type: 3}
   m_Name: 
@@ -20346,7 +20343,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1928990221}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
@@ -20443,17 +20440,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1928990221}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: add9f32496126294a8543087696b5fcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  configuration: {fileID: 11400000, guid: b11b64971a6669146a1af7df59c136d1, type: 2}
   debug: 1
-  voice:
-    name: 
-    id: 
-  message: 
   audioSource: {fileID: 1928990227}
 --- !u!1 &1934161612
 GameObject:

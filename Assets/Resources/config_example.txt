@@ -1,4 +1,4 @@
-# Es importante copiar este archivo como "config.conf" para que el juego pueda conectarse al servidor Redis
+# Es importante copiar este archivo como "config.txt" para que el juego pueda conectarse al servidor Redis
 
 VAULT_IP=
 VAULT_TOKEN=

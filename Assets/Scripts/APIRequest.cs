@@ -1,19 +1,14 @@
 ﻿using GroqApiLibrary;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using OpenAI;
 using OpenAI.Chat;
 using System.ClientModel;
 using System.Text.Json;
-using UnityEditor.VersionControl;
 using Task = System.Threading.Tasks.Task;
 using System.Linq;
 
@@ -28,12 +23,8 @@ public class APIRequest : MonoBehaviour
 
     private static List<ChatMessage> chatMessages = new List<ChatMessage>();
     
-    private async Task<JObject> CrearPromptSystem()
+    private JObject CrearPromptSystem()
     {
-        SQLiteManager sqliteManager = new SQLiteManager(Application.persistentDataPath + "/database.db");
-        sqliteManager.crearConexion();
-        RedisManager redisManager = await sqliteManager.GetRedisManager();
-        redisManager.crearConexion();
 
         Jugador jugador1 = Jugador.jugador;
         Caso caso = jugador1.casos[Jugador.indexCaso];
@@ -63,7 +54,7 @@ public class APIRequest : MonoBehaviour
                 ["evidencias"] = ObtenerEvidencias(caso.evidencias),
                 ["personajes"] = ObtenerPersonajes(caso.personajes),
                 ["explicacionCasoResuelto"] = caso.explicacionCasoResuelto
-            },
+            }
         };
 
         return objetoJson;
@@ -148,13 +139,13 @@ public class APIRequest : MonoBehaviour
                 [Instrucciones Adicionales]
                 1. **El jugador es el investigador**. No lo llames ""usuario"" ni hagas referencia a que es un juego.  
                 2. `respuestaPersonaje` debe reflejar lo que el personaje respondería basándose en las evidencias y el contexto del caso.
-                3.    Cuando el jugador hable tendrás que poner de forma automatica en el valor de 'mensajeUsuario'
+                3.  Cuando el jugador hable tendrás que poner de forma automatica en el valor de 'mensajeUsuario'
                 4. **Si el personaje se contradice, mantenlo deliberado** para que el jugador deba descubrirlo. No aclares que hay contradicciones.  
                 5. **SeHaTerminado**: Cambia a true solo cuando el personaje no tenga más información relevante o el jugador haya presionado suficiente. No expliques cuándo cambia; simplemente hazlo.  
                 6. Si el jugador selecciona un personaje muerto/desaparecido, **selecciona automáticamente** uno vivo. No justifiques el cambio.  
                 7. Si el jugador hace preguntas irrelevantes o fuera del caso, responde de manera evasiva o con frustración, como lo haría el personaje.  
                 8. No cambies el mensaje que hace el usuario de ""mensajeUsuario""
-                9. Validación**: Asegúrate de que el JSON pueda ser parseado sin errores. 
+                9. No contestes con emoticonos ni tildes, solo texto ya que ElevenLabs no soporta emoticonos ni tildes.
 
                 Estos son los datos del caso, con todos los personajes, evidencias y detalles relevantes:" + CrearPromptSystem().ToString();
 
@@ -188,13 +179,13 @@ public class APIRequest : MonoBehaviour
                                 ""type"": ""object"",
                                 ""properties"": {
                                     ""mensajeUsuario"": {""type"": ""string"", ""description"": ""Mensaje del usuario""},
-                                    ""respuestaPersonaje"": {""type"": ""string"", ""description"": ""Mensaje del personaje""},
+                                    ""respuestaPersonaje"": {""type"": ""string"", ""description"": ""Mensaje del personaje""}
                                 },
                                 ""required"": [""mensajeUsuario"",""respuestaPersonaje""],
                                 ""additionalProperties"": false
                             }
                         },
-                        ""required"": [""tituloCaso"",""descripcionCaso"",""fechaOcurrido"",""lugar"",""tiempoRestante"",""personajeActual""],
+                        ""required"": [""tituloCaso"",""descripcionCaso"",""fechaOcurrido"",""lugar"",""tiempoRestante"",""personajeActual"",""mensajes""],
                         ""additionalProperties"": false
                     }
                 },
@@ -206,12 +197,12 @@ public class APIRequest : MonoBehaviour
 
         try
         {
-            OpenAIClientOptions openAIClientOptions = new OpenAIClientOptions()
+            OpenAIClientOptions openAIClientOptions = new ()
             {
                 Endpoint = new Uri("https://openrouter.ai/api/v1")
             };
 
-            OpenAIClient client = new OpenAIClient(new ApiKeyCredential(openRouterApiKey), openAIClientOptions);
+            OpenAIClient client = new (new ApiKeyCredential(openRouterApiKey), openAIClientOptions);
 
             ChatCompletionOptions options = new()
             {
@@ -221,7 +212,7 @@ public class APIRequest : MonoBehaviour
                 jsonSchemaIsStrict: true),
             };
 
-            ChatCompletion completion = client.GetChatClient("google/gemini-2.0-flash-001").CompleteChat(chatMessages, options);
+            ChatCompletion completion = client.GetChatClient("google/gemini-2.0-flash-exp:free").CompleteChat(chatMessages, options);
 
             using JsonDocument jsonDocument = JsonDocument.Parse(completion.Content[0].Text);
 
@@ -279,12 +270,14 @@ public class APIRequest : MonoBehaviour
 
     public async Task incializarAPITexto()
     {
-        SQLiteManager sqliteManager = new SQLiteManager(Application.persistentDataPath + "/database.db");
+        SQLiteManager sqliteManager = new (Application.persistentDataPath + "/database.db");
         sqliteManager.crearConexion();
 
-        openRouterApiKey = sqliteManager.GetAPIS()[ApiKey.OPEN_ROUTER].apiKey;
-        elevenlabsApiKey = sqliteManager.GetAPIS()[ApiKey.ELEVENLABS].apiKey;
-        groqApiKey = sqliteManager.GetAPIS()[ApiKey.GROQ].apiKey;
+        VaultTransit vaultTransit = new ();
+
+        openRouterApiKey = await vaultTransit.DecryptAsync("api-key-encrypt", sqliteManager.GetAPIS()[ApiKey.OPEN_ROUTER].apiKey);
+        elevenlabsApiKey = await vaultTransit.DecryptAsync("api-key-encrypt", sqliteManager.GetAPIS()[ApiKey.ELEVENLABS].apiKey);
+        groqApiKey =  await vaultTransit.DecryptAsync("api-key-encrypt", sqliteManager.GetAPIS()[ApiKey.GROQ].apiKey);
 
         var groqApi = new GroqApiClient(groqApiKey, "https://api.groq.com/openai/v1");
         var audioStream = File.OpenRead(Application.persistentDataPath + "/audio.wav");
@@ -296,19 +289,16 @@ public class APIRequest : MonoBehaviour
             language: "es"
         );
 
+        Debug.Log(result);
+        Debug.Log(result?["text"]?.ToString());
+
         string jsonResponseLlama = MakeRequestOpenRouter(result?["text"]?.ToString());
         
         JObject json = JObject.Parse(jsonResponseLlama);
+        string mensajePersonaje = json["Caso"]?["mensajes"]?["respuestaPersonaje"]?.ToString();
 
-        JArray jarray = (JArray)json["choices"];
-        JObject firstChoice = (JObject)jarray[0];
-        JObject message = (JObject)firstChoice["message"];
+        chatMessages.Add(new AssistantChatMessage(mensajePersonaje));
 
-        JObject mensajePersonaje = JObject.Parse(message["content"].ToString());
-
-        chatMessages.Add(new AssistantChatMessage(mensajePersonaje.ToString()));
-
-        promptLLama = mensajePersonaje["Caso"]?["mensajes"]?["respuestaPersonaje"]?.ToString();
+        promptLLama = mensajePersonaje;
     }
-
 }

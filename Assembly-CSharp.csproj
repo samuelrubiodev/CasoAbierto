@@ -101,6 +101,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
     <Compile Include="Assets\Scripts\Caso\Personaje.cs" />
     <Compile Include="Assets\Scripts\WavUtility.cs" />
+    <Compile Include="Assets\UI Toolkit\Prueba.cs" />
     <Compile Include="Assets\Scripts\GroqApiLibrary-master\IGroqApiClient.cs" />
     <Compile Include="Assets\Scripts\Inicializacion.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\CinematicEffects(BETA)\Common\RenderTexureUtility.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
     <Compile Include="Assets\Scripts\Tables\Server.cs" />
     <Compile Include="Assets\Scripts\RedisManager.cs" />
+    <Compile Include="Assets\Scripts\ElevenLabs\ElevenlabsAPI.cs" />
     <Compile Include="Assets\Scripts\Caso\Evidencia.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\ScreenSpaceAmbientOcclusion.cs" />
@@ -242,6 +244,7 @@
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Unity - OFL.txt" />
     <None Include="Assets\Packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\analyzers\dotnet\roslyn3.11\cs\fr\Microsoft.Extensions.Logging.Generators.resources.dll" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\UI Toolkit\MenuPrincipalStyle.uss" />
     <None Include="Assets\Packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.xml" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\VignettingShader.shader" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\ColorCorrectionCurves.shader" />
@@ -421,6 +424,7 @@
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\NoiseEffectShaderRGB.shader" />
     <None Include="Assets\Packages\System.Diagnostics.DiagnosticSource.6.0.1\useSharedDesignerContext.txt" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn3.11\cs\System.Text.Json.SourceGeneration.dll" />
+    <None Include="Assets\UI Toolkit\MenuPrincipal.uxml" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.4\cs\cs\System.Text.Json.SourceGeneration.resources.dll" />
     <None Include="Assets\Packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\analyzers\dotnet\roslyn3.11\cs\zh-Hans\Microsoft.Extensions.Logging.Generators.resources.dll" />
     <None Include="Assets\Packages\sqlite-net-pcl.1.9.172\LICENSE.txt" />
