@@ -7,6 +7,7 @@ using SQLite;
 using System.Text;
 using System.Collections.Generic;
 using UnityEngine.Windows;
+using System.Threading.Tasks;
 
 public class RedisManager
 {
@@ -16,6 +17,8 @@ public class RedisManager
     private string port;
     private string user;
     private string password;
+    private static RedisManager instance;
+
 
     public RedisManager(string ipServer, string port, string user, string password)
     {
@@ -31,6 +34,30 @@ public class RedisManager
         this.port = port;
         this.password = password;
         this.user = "";
+    }
+
+    public async static Task<RedisManager> GetRedisManager()
+    {
+        VaultTransit vaultTransit = new ();
+
+        if (instance == null)
+        {
+            SQLiteManager sqliteManager = SQLiteManager.GetSQLiteManager();
+
+            string ipServer = "";
+            string password = ""; 
+
+            await Task.Run(async () =>
+            {
+                ipServer = await vaultTransit.DecryptAsync("api-key-encrypt", sqliteManager.GetServers()[Server.REDIS].ipServer);
+                password = await vaultTransit.EncryptAsync("api-key-encrypt", sqliteManager.GetServers()[Server.REDIS].password);
+            });
+            
+            instance = new RedisManager(ipServer, "6379", password);
+            instance.crearConexion();
+            return instance;
+        }
+        return instance;
     }
 
     public void crearConexion()

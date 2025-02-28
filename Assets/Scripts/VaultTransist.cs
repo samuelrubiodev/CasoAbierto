@@ -11,10 +11,20 @@ public class VaultTransit
     private readonly HttpClient _httpClient = new();
     private string VaultAddress = "";
     private string VaultToken = "";
+    private static TextAsset config;
+
+    public static void CargarConfiguracion()
+    {
+        config = Resources.Load<TextAsset>("config");
+    }
+
+    public VaultTransit()
+    {
+        LeerConfiguracion();
+    }
 
     public async Task<string> EncryptAsync(string keyName, string plainText)
     {
-        leerConfig();
         var payload = new
         {
             plaintext = Convert.ToBase64String(Encoding.UTF8.GetBytes(plainText))
@@ -34,7 +44,7 @@ public class VaultTransit
             var cipherText = doc.RootElement.GetProperty("data").GetProperty("ciphertext").GetString();
             return cipherText;
         }
-        catch (KeyNotFoundException ex)
+        catch (KeyNotFoundException)
         {
             throw;
         }
@@ -43,7 +53,6 @@ public class VaultTransit
 
     public async Task<string> DecryptAsync(string keyName, string cipherText)
     {
-        leerConfig();
         var payload = new { ciphertext = cipherText };
 
         _httpClient.DefaultRequestHeaders.Remove("X-Vault-Token");
@@ -67,9 +76,8 @@ public class VaultTransit
         }
     }
 
-    private void leerConfig()
+    private void LeerConfiguracion()
     {
-        TextAsset config = Resources.Load<TextAsset>("config");
         if (config != null)
         {
             foreach (string line in config.text.Split('\n'))

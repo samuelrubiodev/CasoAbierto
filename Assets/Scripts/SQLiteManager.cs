@@ -16,9 +16,21 @@ public class SQLiteManager
     private string path = string.Empty;
     private SQLiteConnection connection = null;
 
+    private static SQLiteManager instance;
+
     public SQLiteManager()
     {
         this.path = Application.persistentDataPath + "/database.db";
+    }
+
+    public static SQLiteManager GetSQLiteManager()
+    {
+        if (instance == null)
+        {
+            instance = new SQLiteManager();
+            instance.crearConexion();
+        }
+        return instance;
     }
 
     /**
@@ -32,7 +44,7 @@ public class SQLiteManager
     }
 
     /**
-     * Crea la conexi�n a la base de datos y crea la base de datos si no existe
+     * Crea la conexión a la base de datos y crea la base de datos si no existe
      * 
      */
     public void crearConexion()
@@ -41,7 +53,7 @@ public class SQLiteManager
     }
 
     /**
-     * Cierra la conexi�n a la base de datos
+     * Cierra la conexión a la base de datos
      * 
      */
     public void cerrarConexion()
@@ -93,7 +105,7 @@ public class SQLiteManager
         return connection.Query<T>(query);
     }
 
-    public Boolean ExistsTable(string tabla)
+    public bool ExistsTable(string tabla)
     {
         string sqlStatement = @"SELECT COUNT(*) FROM " + tabla;
         SQLiteCommand command = connection.CreateCommand(sqlStatement);
@@ -103,7 +115,7 @@ public class SQLiteManager
             command.ExecuteScalar<int>();
             return true;
         }
-        catch (Exception e)
+        catch (Exception)
         {
             return false;
         }
@@ -122,26 +134,6 @@ public class SQLiteManager
     public void update<T>(T obj)
     {
         connection.Update(obj);
-    }
-
-    public async Task<RedisManager> GetRedisManager()
-    {
-        VaultTransit vaultTransit = new VaultTransit();
-
-        List<Server> servers = GetTable<Server>("SELECT * FROM Server");
-
-        foreach (Server server in servers)
-        {
-            if (server.nombreServicio.Equals("Redis"))
-            {
-                string ipServer = await vaultTransit.DecryptAsync("api-key-encrypt",server.ipServer);
-                string portServer = await vaultTransit.DecryptAsync("api-key-encrypt", server.portServer.ToString());
-                string password = await vaultTransit.DecryptAsync("api-key-encrypt", server.password);
-
-                return new RedisManager(ipServer,portServer,password);
-            }
-        }
-        return null;
     }
 
     public ApiKey[] GetAPIS()

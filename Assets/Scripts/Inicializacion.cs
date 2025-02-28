@@ -12,6 +12,8 @@ using System.Text.Json;
 
 public class Inicializacion
 {
+
+    public static int idCasoGenerado = 0;
     public const string PROMPT_SYSTEM_GENERACION_CASO = @"
         [Contexto del Juego]
         Estás desarrollando un juego de investigación policial llamado ""Caso Abierto"".
@@ -155,6 +157,7 @@ public class Inicializacion
                 long cronologiaID = redisManager.GetNewId($"jugadores:{jugadorID}:caso:{casoID}:cronologia");
                 redisManager.SetHash($"jugadores:{jugadorID}:caso:{casoID}:cronologia:{cronologiaID}", hashCronologia);
             }
+            idCasoGenerado = (int)casoID;
         }
         catch (JsonReaderException ex)
         {

@@ -1,0 +1,3 @@
+.header {
+    -unity-font-definition: url("project://database/Assets/Fonts/SpecialElite-Regular.ttf?fileID=12800000&guid=075782180ab24fa4f9be002f96db4b05&type=3#SpecialElite-Regular");
+}

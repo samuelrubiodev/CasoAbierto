@@ -243,7 +243,6 @@
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Unity - OFL.txt" />
     <None Include="Assets\Packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\analyzers\dotnet\roslyn3.11\cs\fr\Microsoft.Extensions.Logging.Generators.resources.dll" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
-    <None Include="Assets\UI Toolkit\MenuPrincipalStyle.uss" />
     <None Include="Assets\Packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.xml" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\VignettingShader.shader" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\ColorCorrectionCurves.shader" />
@@ -335,6 +334,7 @@
     <None Include="Assets\Packages\System.IO.Pipelines.9.0.0\THIRD-PARTY-NOTICES.TXT" />
     <None Include="Assets\Packages\System.IO.Pipelines.9.0.0\lib\netstandard2.0\System.IO.Pipelines.xml" />
     <None Include="Assets\Packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\analyzers\dotnet\roslyn4.0\cs\de\Microsoft.Extensions.Logging.Generators.resources.dll" />
+    <None Include="Assets\UI Toolkit\MenuPrincipalSytle.uss" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\ContrastComposite.shader" />
     <None Include="Assets\Packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\analyzers\dotnet\roslyn3.11\cs\Microsoft.Extensions.Logging.Generators.dll" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.0\cs\ja\System.Text.Json.SourceGeneration.resources.dll" />

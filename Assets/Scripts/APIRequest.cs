@@ -229,6 +229,7 @@ public class APIRequest : MonoBehaviour
         return null;
     }
 
+    // Este metodo hace crashear el juego, se debe de revisar
     private JObject CrearPrompt(string prompt, Jugador jugador)
     {
         Caso caso = jugador.casos[Jugador.indexCaso];
@@ -273,8 +274,8 @@ public class APIRequest : MonoBehaviour
             language: "es"
         );
 
-        string prompt = CrearPrompt(result?["text"]?.ToString(), Jugador.jugador).ToString();
-        string jsonRespuesta = MakeRequestOpenRouter("Responde correctamente: " + prompt);
+        //string prompt = CrearPrompt(result?["text"]?.ToString(), Jugador.jugador).ToString();
+        string jsonRespuesta = MakeRequestOpenRouter(result?["text"]?.ToString());
         JObject json = JObject.Parse(jsonRespuesta);
 
         string mensajePersonaje = json["Caso"]?["mensajes"]?["respuestaPersonaje"]?.ToString();

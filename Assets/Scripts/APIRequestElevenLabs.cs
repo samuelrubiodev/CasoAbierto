@@ -51,7 +51,7 @@ public class APIRequestElevenLabs : MonoBehaviour
 
             if (voice == null)
             {
-                voice = await api.VoicesEndpoint.GetVoiceAsync("HYlEvvU9GMan5YdjFYpg");
+                voice = await api.VoicesEndpoint.GetVoiceAsync("BPoDAH7n4gFrnGY27Jkj");
             }
 
 
