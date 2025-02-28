@@ -15,7 +15,6 @@ public class MenuGestionPartidas : MonoBehaviour
     private RedisManager redisManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    
     async void Start()
     {
         VaultTransit.CargarConfiguracion();

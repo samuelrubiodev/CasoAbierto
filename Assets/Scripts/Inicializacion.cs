@@ -68,35 +68,38 @@ public class Inicializacion
 
     public async Task crearBaseDatosRedis()
     {
-        redisManager.crearConexion();
+        long jugadorID = 0;
 
-        HashEntry[] hashEntries = new HashEntry[]
+        if (sqLiteManager.ExistsTable("Player"))
         {
-            new HashEntry("nombre", nombreJugador),
-            new HashEntry("estado", "inactivo"),
-            new HashEntry ("progreso","SinCaso"),
-            new HashEntry("ultima_conexion", DateTime.Now.ToString())
-        };
-
-        long jugadorID = redisManager.GetNewId("jugadores");
-        redisManager.SetHash($"jugadores:{jugadorID}", hashEntries);
-
-        string apiKeyGroq = "";
-
-        sqLiteManager.CreateTable<Player>();
-        var player = new Player
+            jugadorID = sqLiteManager.GetTable<Player>("SELECT * FROM Player")[0].idPlayer;
+        }
+        else
         {
-            idPlayer = jugadorID,
-        };
-        sqLiteManager.Insert(player);
+            HashEntry[] hashEntries = new HashEntry[]
+            {
+                new HashEntry("nombre", nombreJugador),
+                new HashEntry("estado", "inactivo"),
+                new HashEntry ("progreso","SinCaso"),
+                new HashEntry("ultima_conexion", DateTime.Now.ToString())
+            };
 
-        apiKeyGroq = apiKeyOpenRouter;
+            jugadorID = redisManager.GetNewId("jugadores");
+            redisManager.SetHash($"jugadores:{jugadorID}", hashEntries);
 
+            sqLiteManager.CreateTable<Player>();
+            var player = new Player
+            {
+                idPlayer = jugadorID,
+            };
+            sqLiteManager.Insert(player);
+        }
+        
         JObject respuestaCaso = null;
 
         try
         {
-            string respuestaCasoOpenRouter = obtenerRespuestaIA(PROMPT_SYSTEM_GENERACION_CASO, nombreJugador, apiKeyGroq);
+            string respuestaCasoOpenRouter = obtenerRespuestaIA(PROMPT_SYSTEM_GENERACION_CASO, nombreJugador, apiKeyOpenRouter);
             JObject json = JObject.Parse(respuestaCasoOpenRouter);
             respuestaCaso = json;
 
