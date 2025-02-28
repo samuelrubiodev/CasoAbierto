@@ -26,18 +26,25 @@ public class ControllerCarga : MonoBehaviour
         else
         {
             RedisManager redisManger = await RedisManager.GetRedisManager();
+            long jugadorID = GetJugadorID();
 
-            await CrearCaso(redisManger, vaultTransit, await vaultTransit.DecryptAsync("api-key-encrypt", sqLiteManager.GetAPIS()[ApiKey.OPEN_ROUTER].apiKey));
-            await CargarPartida(sqLiteManager, redisManger);
+            await CrearCaso(redisManger, vaultTransit, await vaultTransit.DecryptAsync("api-key-encrypt", sqLiteManager.GetAPIS()[ApiKey.OPEN_ROUTER].apiKey),jugadorID);
+            
+            if (Inicializacion.jugadorID != -1)
+            {
+                PlayerPrefs.SetInt("jugadorID", (int)Inicializacion.jugadorID);
+                PlayerPrefs.Save();
+            }  
+
+            await CargarPartida(redisManger, GetJugadorID());
             SceneManager.LoadScene("SampleScene");
         }
     }
 
-    async Task CargarPartida(SQLiteManager sqliteManager, RedisManager redisManager)
+    async Task CargarPartida(RedisManager redisManager, long jugadorID)
     {
         Jugador jugador = await Task.Run(() =>
         {
-            long jugadorID = sqliteManager.GetTable<Player>("SELECT * FROM Player")[0].idPlayer;
             return redisManager.getJugador(jugadorID);
         });
         
@@ -52,11 +59,10 @@ public class ControllerCarga : MonoBehaviour
         }
     }
     
-    async Task CrearCaso(RedisManager redisManager, VaultTransit vaultTransit, string apiKeyOpenRouter)
+    async Task CrearCaso(RedisManager redisManager, VaultTransit vaultTransit, string apiKeyOpenRouter, long jugadorID)
     {
         await Task.Run(async () =>
         {
-            sqLiteManager.crearConexion();
             Inicializacion inicializacion = new("Samuel");
 
             inicializacion.setSQliteManager(sqLiteManager);
@@ -64,7 +70,7 @@ public class ControllerCarga : MonoBehaviour
             inicializacion.setVaultTransit(vaultTransit);
             inicializacion.setApiKeyOpenRouter(apiKeyOpenRouter);
 
-            await inicializacion.crearBaseDatosRedis();
+            await inicializacion.crearBaseDatosRedis(jugadorID);
         });
     }
 
@@ -76,6 +82,19 @@ public class ControllerCarga : MonoBehaviour
 
         Server.IP_SERVER_REDIS = await vaultTransit.DecryptAsync("api-key-encrypt", sqLiteManager.GetServers()[Server.REDIS].ipServer);
         Server.CONTRASENA_REDIS = await vaultTransit.DecryptAsync("api-key-encrypt", sqLiteManager.GetServers()[Server.REDIS].password);
+    }
+
+    private long GetJugadorID()
+    {
+        if (PlayerPrefs.HasKey("jugadorID"))
+            return PlayerPrefs.GetInt("jugadorID");
+        else
+            return -1;
+    }
+
+    void Update()
+    {
+        MainThreadDispatcher.Update();
     }
 
 }

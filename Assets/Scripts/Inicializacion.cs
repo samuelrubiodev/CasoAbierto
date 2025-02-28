@@ -12,8 +12,8 @@ using System.Text.Json;
 
 public class Inicializacion
 {
-
     public static int idCasoGenerado = 0;
+    public static long jugadorID = 0;
     public const string PROMPT_SYSTEM_GENERACION_CASO = @"
         [Contexto del Juego]
         Estás desarrollando un juego de investigación policial llamado ""Caso Abierto"".
@@ -66,33 +66,21 @@ public class Inicializacion
         this.apiKeyOpenRouter = apiKeyOpenRouter;
     }
 
-    public async Task crearBaseDatosRedis()
+    public async Task crearBaseDatosRedis(long jugadorID)
     {
-        long jugadorID = 0;
-
-        if (sqLiteManager.ExistsTable("Player"))
-        {
-            jugadorID = sqLiteManager.GetTable<Player>("SELECT * FROM Player")[0].idPlayer;
-        }
-        else
+        if (jugadorID == -1)
         {
             HashEntry[] hashEntries = new HashEntry[]
             {
-                new HashEntry("nombre", nombreJugador),
-                new HashEntry("estado", "inactivo"),
-                new HashEntry ("progreso","SinCaso"),
-                new HashEntry("ultima_conexion", DateTime.Now.ToString())
+                new ("nombre", nombreJugador),
+                new ("estado", "inactivo"),
+                new ("progreso","SinCaso"),
+                new ("ultima_conexion", DateTime.Now.ToString())
             };
 
-            jugadorID = redisManager.GetNewId("jugadores");
-            redisManager.SetHash($"jugadores:{jugadorID}", hashEntries);
-
-            sqLiteManager.CreateTable<Player>();
-            var player = new Player
-            {
-                idPlayer = jugadorID,
-            };
-            sqLiteManager.Insert(player);
+            jugadorID = await Task.Run(() => redisManager.GetNewId("jugadores"));
+            await Task.Run(() => redisManager.SetHash($"jugadores:{jugadorID}", hashEntries));
+            Inicializacion.jugadorID = jugadorID;
         }
         
         JObject respuestaCaso = null;
@@ -114,9 +102,8 @@ public class Inicializacion
                 new HashEntry("explicacionCasoResuelto", respuestaCaso["Caso"]["explicacionCasoResuelto"].ToString())
             };
 
-            long casoID = redisManager.GetNewId($"jugadores:{jugadorID}:caso");
-            redisManager.SetHash($"jugadores:{jugadorID}:caso:{casoID}", hashCaso);
-
+            long casoID = await Task.Run(() => redisManager.GetNewId($"jugadores:{jugadorID}:caso"));
+            await Task.Run(() => redisManager.SetHash($"jugadores:{jugadorID}:caso:{casoID}", hashCaso));
 
             foreach (JObject personaje in respuestaCaso["Caso"]?["personajes"])
             {
@@ -129,8 +116,8 @@ public class Inicializacion
                 new HashEntry("estado_emocional", personaje["estado_emocional"].ToString())
                 };
 
-                long personajeID = redisManager.GetNewId($"jugadores:{jugadorID}:caso:{casoID}:personajes");
-                redisManager.SetHash($"jugadores:{jugadorID}:caso:{casoID}:personajes:{personajeID}", hashPersonajes);
+                long personajeID = await Task.Run(() => redisManager.GetNewId($"jugadores:{jugadorID}:caso:{casoID}:personajes"));
+                await Task.Run(() => redisManager.SetHash($"jugadores:{jugadorID}:caso:{casoID}:personajes:{personajeID}", hashPersonajes));
             }
 
             foreach (JObject evidencia in respuestaCaso["Caso"]?["evidencias"])
@@ -144,8 +131,8 @@ public class Inicializacion
                 new HashEntry("ubicacion", evidencia["ubicacion"].ToString())
                 };
 
-                long evidenciaID = redisManager.GetNewId($"jugadores:{jugadorID}:caso:{casoID}:evidencias");
-                redisManager.SetHash($"jugadores:{jugadorID}:caso:{casoID}:evidencias:{evidenciaID}", hashEvidencias);
+                long evidenciaID = await Task.Run(() => redisManager.GetNewId($"jugadores:{jugadorID}:caso:{casoID}:evidencias"));
+                await Task.Run(() => redisManager.SetHash($"jugadores:{jugadorID}:caso:{casoID}:evidencias:{evidenciaID}", hashEvidencias));
             }
             
             foreach (JObject cronologia in respuestaCaso["Caso"]["cronologia"])
@@ -157,10 +144,11 @@ public class Inicializacion
                 new HashEntry("evento", cronologia["evento"].ToString())
                 };
 
-                long cronologiaID = redisManager.GetNewId($"jugadores:{jugadorID}:caso:{casoID}:cronologia");
-                redisManager.SetHash($"jugadores:{jugadorID}:caso:{casoID}:cronologia:{cronologiaID}", hashCronologia);
+                long cronologiaID = await Task.Run(() => redisManager.GetNewId($"jugadores:{jugadorID}:caso:{casoID}:cronologia"));
+                await Task.Run(() => redisManager.SetHash($"jugadores:{jugadorID}:caso:{casoID}:cronologia:{cronologiaID}", hashCronologia));
             }
             idCasoGenerado = (int)casoID;
+
         }
         catch (JsonReaderException ex)
         {

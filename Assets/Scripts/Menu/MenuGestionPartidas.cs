@@ -23,9 +23,9 @@ public class MenuGestionPartidas : MonoBehaviour
         await CrearConexion();
         RectTransform rt = content.GetComponent<RectTransform>();
 
-        if (sqliteManager.ExistsTable("Player"))
+        if (PlayerPrefs.HasKey("jugadorID"))
         {
-            await VerPartidas(sqliteManager, redisManager, rt);
+            await VerPartidas(redisManager, rt, PlayerPrefs.GetInt("jugadorID"));
         }
     }
 
@@ -34,11 +34,10 @@ public class MenuGestionPartidas : MonoBehaviour
         redisManager = await RedisManager.GetRedisManager();
     }
 
-    async Task VerPartidas(SQLiteManager sqliteManager, RedisManager redisManager, RectTransform rt)
+    async Task VerPartidas(RedisManager redisManager, RectTransform rt, long jugadorID)
     {
         Jugador jugador = await Task.Run(() =>
         {
-            long jugadorID = sqliteManager.GetTable<Player>("SELECT * FROM Player")[0].idPlayer;
             return redisManager.getJugador(jugadorID);
         });
 
