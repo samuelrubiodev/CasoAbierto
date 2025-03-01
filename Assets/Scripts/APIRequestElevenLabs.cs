@@ -36,11 +36,7 @@ public class APIRequestElevenLabs : MonoBehaviour
 
         OnValidate();
 
-        SQLiteManager sQLiteManager = new ();
-        sQLiteManager.crearConexion();
-        VaultTransit vaultTransit = new ();
-
-        string apiKey = await vaultTransit.DecryptAsync("api-key-encrypt",sQLiteManager.GetAPIS()[ApiKey.ELEVENLABS].apiKey);
+        string apiKey = ApiKey.API_KEY_ELEVENLABS;
 
         try
         {

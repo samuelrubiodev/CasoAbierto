@@ -33,9 +33,7 @@ public class ControllerMicrophone : MonoBehaviour
 
     private async void LlamarApis(APIRequest aPIRequest)
     {
-        await aPIRequest.incializarAPITexto();
-
         APIRequestElevenLabs aPIRequestElevenLabs = GetComponent<APIRequestElevenLabs>();
-        aPIRequestElevenLabs.StreamAudio(aPIRequest.promptLLama);
+        await aPIRequest.incializarAPITexto(aPIRequestElevenLabs);
     }
 }

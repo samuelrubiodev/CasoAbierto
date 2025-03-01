@@ -11,6 +11,8 @@ using System.ClientModel;
 using System.Text.Json;
 using Task = System.Threading.Tasks.Task;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Text;
 
 public class APIRequest : MonoBehaviour
 {
@@ -21,8 +23,38 @@ public class APIRequest : MonoBehaviour
     private string groqApiKey;
     private string elevenlabsApiKey;
 
-    private static List<ChatMessage> chatMessages = new List<ChatMessage>();
-    
+    private static string PROMPT_SYSTEM_CONVERSACION = @"[Contexto del Juego]
+        Estás en un juego de investigación policial llamado ""Caso Abierto"". El jugador asume el rol de un detective encargado de resolver casos mediante interrogatorios a sospechosos y el análisis de evidencias. El juego se desarrolla en una sala de interrogatorios con interacción verbal y gestión de tiempo.
+
+        [Objetivo]
+        Tu rol es **exclusivamente** generar respuestas de los personajes dentro del juego. El jugador está interrogando a un personaje y tu trabajo es responder como ese personaje. 
+            **No hables como la IA**. Responde **siempre** en el papel del personaje.  
+            Si el jugador selecciona a un personaje muerto o desaparecido, cambia automáticamente a un personaje disponible. **No expliques por qué**
+
+        [Instrucciones Adicionales]
+        1. **El jugador es el investigador**. No lo llames ""usuario"" ni hagas referencia a que es un juego.  
+        2. Responde a lo que el personaje respondería basándose en las evidencias y el contexto del caso. Solo responde con texto.
+        3. **Si el personaje se contradice, mantenlo deliberado** para que el jugador deba descubrirlo. No aclares que hay contradicciones.  
+        4. Si el jugador hace preguntas irrelevantes o fuera del caso, responde de manera evasiva o con frustración, como lo haría el personaje.  
+        5. No contestes con emoticonos, respnde solamente con texto.
+
+        [IMPORTANTE]
+        1.Es importante que no envíes mas de 200 caracteres en la respuesta del personaje.
+
+        Estos son los datos del caso, con todos los personajes, evidencias y detalles relevantes:";
+
+    private static string PROMPT_SYSTEM_ANALISIS = @"
+        Analiza la conversacion entre el usuario y el NPC y responde con el booleano 'seHaTerminado' en true o false dependiendo si se ha terminado la conversacion o no.";
+
+    private static List<ChatMessage> chatMessages = new ();
+
+    void Start()
+    {
+        openRouterApiKey = ApiKey.API_KEY_OPEN_ROUTER;
+        groqApiKey = ApiKey.API_KEY_GROQ;
+        elevenlabsApiKey = ApiKey.API_KEY_ELEVENLABS;
+    }
+
     private JObject CrearPromptSystem()
     {
 
@@ -124,82 +156,103 @@ public class APIRequest : MonoBehaviour
         return JArray.Parse(objeto);
     }
 
-    private string MakeRequestOpenRouter(string prompt)
+    private async Task<string> MakeRequestOpenRouter(string prompt, APIRequestElevenLabs aPIRequestElevenLabs)
     {
         if (!chatMessages.Any(x => x is SystemChatMessage))
         {
-            string promptSistema = @"[Contexto del Juego]
-                Estás en un juego de investigación policial llamado ""Caso Abierto"". El jugador asume el rol de un detective encargado de resolver casos mediante interrogatorios a sospechosos y el análisis de evidencias. El juego se desarrolla en una sala de interrogatorios con interacción verbal y gestión de tiempo.
-
-                [Objetivo]
-                Tu rol es **exclusivamente** generar respuestas de los personajes dentro del juego. El jugador está interrogando a un personaje y tu trabajo es responder como ese personaje en el campo ""respuestaPersonaje"" de ""mensajes"".   
-                    **No hables como la IA**. Responde **siempre** en el papel del personaje.  
-                    Si el jugador selecciona a un personaje muerto o desaparecido, cambia automáticamente a un personaje disponible. **No expliques por qué**
-
-                [Instrucciones Adicionales]
-                1. **El jugador es el investigador**. No lo llames ""usuario"" ni hagas referencia a que es un juego.  
-                2. `respuestaPersonaje` debe reflejar lo que el personaje respondería basándose en las evidencias y el contexto del caso. Solo responde con texto.
-                3.  Cuando el jugador hable tendrás que poner de forma automatica en el valor de 'mensajeUsuario'
-                4. **Si el personaje se contradice, mantenlo deliberado** para que el jugador deba descubrirlo. No aclares que hay contradicciones.  
-                5. **SeHaTerminado**: Cambia a true solo cuando el personaje no tenga más información relevante o el jugador haya presionado suficiente. No expliques cuándo cambia; simplemente hazlo.  
-                6. Si el jugador selecciona un personaje muerto/desaparecido, **selecciona automáticamente** uno vivo. No justifiques el cambio.  
-                7. Si el jugador hace preguntas irrelevantes o fuera del caso, responde de manera evasiva o con frustración, como lo haría el personaje.  
-                8. No cambies el mensaje que hace el usuario de ""mensajeUsuario""
-                9. No contestes con emoticonos ni tildes, solo texto ya que ElevenLabs no soporta emoticonos ni tildes.
-
-                [IMPORTANTE]
-                1.Es importante que no envíes mas de 200 caracteres en la respuesta del personaje.
-
-                Estos son los datos del caso, con todos los personajes, evidencias y detalles relevantes:" + CrearPromptSystem().ToString();
-
+            string promptSistema = PROMPT_SYSTEM_CONVERSACION + CrearPromptSystem().ToString();
             chatMessages.Add(new SystemChatMessage(promptSistema));
         }
-
-        string jsonSchema = @"
-            {
-                ""type"": ""object"",
-                ""properties"": {
-                    ""datosJugador"": {
-                        ""type"": ""object"",
-                        ""properties"": {
-                             ""nombre"": { ""type"": ""string"", ""description"": ""Nombre del jugador"" },
-                             ""estado"": { ""type"": ""string"", ""description"": ""Estado del jugador, Activo o Inactivo"" },
-                             ""progreso"": { ""type"": ""string"", ""description"": ""En que caso va, nombre del caso"" }
-                         },
-                         ""required"": [""nombre"",""estado"",""progreso""],
-                         ""additionalProperties"": false
-                    },
-                    ""Caso"": {
-                        ""type"": ""object"",
-                        ""properties"": {
-                            ""tituloCaso"": { ""type"": ""string"", ""description"": ""Titulo del caso"" },
-                            ""descripcionCaso"": { ""type"": ""string"", ""description"": ""Descripción del caso"" },
-                            ""fechaOcurrido"": { ""type"": ""string"", ""description"": ""YYYY-MM-DD"" },
-                            ""lugar"": { ""type"": ""string"", ""description"": ""Lugar en el que ha ocurrido el caso"" },
-                            ""tiempoRestante"": {""type"": ""string"", ""description"": ""HH:MM"" },
-                            ""personajeActual"": {""type"": ""string"", ""description"": ""Personaje actual del usuario""},
-                            ""mensajes"": {
-                                ""type"": ""object"",
-                                ""properties"": {
-                                    ""mensajeUsuario"": {""type"": ""string"", ""description"": ""Mensaje del usuario""},
-                                    ""respuestaPersonaje"": {""type"": ""string"", ""description"": ""Mensaje del personaje""}
-                                },
-                                ""required"": [""mensajeUsuario"",""respuestaPersonaje""],
-                                ""additionalProperties"": false
-                            }
-                        },
-                        ""required"": [""tituloCaso"",""descripcionCaso"",""fechaOcurrido"",""lugar"",""tiempoRestante"",""personajeActual"",""mensajes""],
-                        ""additionalProperties"": false
-                    }
-                },
-                ""required"": [""datosJugador"",""Caso""],
-                ""additionalProperties"": false
-            }";
 
         chatMessages.Add(new UserChatMessage(prompt));
 
         try
         {
+            OpenAIClientOptions openAIClientOptions = new ()
+            {
+                Endpoint = new Uri("https://openrouter.ai/api/v1")
+            };
+
+            OpenAIClient client = new (new ApiKeyCredential(openRouterApiKey), openAIClientOptions);
+
+            AsyncCollectionResult<StreamingChatCompletionUpdate> completionUpdates = 
+                client.GetChatClient("google/gemini-2.0-flash-exp:free").CompleteChatStreamingAsync(chatMessages);
+
+            StringBuilder mensajePersonajeBuilder = new();
+
+            string mensajeCompleto = "";
+            
+            await foreach (StreamingChatCompletionUpdate update in completionUpdates)
+            {
+                if (update.ContentUpdate.Count > 0)
+                {
+                    string texto = update.ContentUpdate[0].Text;
+                    mensajePersonajeBuilder.Append(texto);
+
+                    mensajeCompleto += texto;
+
+                    if (texto.Contains('.') || texto.Contains('!') || texto.Contains('?') || mensajePersonajeBuilder.Length > 5)
+                    {
+                        string mensajeActual = mensajePersonajeBuilder.ToString();
+                        aPIRequestElevenLabs.StreamAudio(mensajeActual);
+                        mensajePersonajeBuilder.Clear();
+                    }
+                }
+            }
+
+            Debug.Log(mensajeCompleto);
+
+            chatMessages.Add(new AssistantChatMessage(mensajeCompleto));
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError(ex);
+        }
+
+        return null;
+    }
+
+    private bool SeHaTerminado()
+    {
+        try
+        {
+            string jsonSchema = @"
+            {
+                ""type"": ""object"",
+                ""properties"": {
+                    ""mensajes"": {
+                        ""type"": ""object"",
+                        ""properties"": {
+                            ""seHaTerminado"": { ""type"": ""boolean"", ""description"": ""Indica si el personaje ha terminado de hablar"" }
+                        },
+                        ""required"": [""seHaTerminado""],
+                        ""additionalProperties"": false
+                    }
+                },
+                ""required"": [""personajeActual"",""mensajes""],
+                ""additionalProperties"": false
+            }";
+
+            string conversacion = "";
+
+            foreach (var message in chatMessages)
+            {
+                if (message is UserChatMessage userMessage)
+                {
+                    conversacion += "Usuario: " + userMessage.Content[0].Text + "\n";
+                }
+                else if (message is AssistantChatMessage aiMessage)
+                {
+                    conversacion += "NPC: " + aiMessage.Content[0].Text + "\n";
+                }
+            }
+            
+            List<ChatMessage> mensajes = new() 
+            {
+                new SystemChatMessage(PROMPT_SYSTEM_ANALISIS),
+                new UserChatMessage("Analiza esta conversacion: \n" + conversacion)
+            };
+
             OpenAIClientOptions openAIClientOptions = new ()
             {
                 Endpoint = new Uri("https://openrouter.ai/api/v1")
@@ -215,18 +268,17 @@ public class APIRequest : MonoBehaviour
                 jsonSchemaIsStrict: true)
             };
 
-            ChatCompletion completion = client.GetChatClient("google/gemini-2.0-flash-exp:free").CompleteChat(chatMessages, options);
+            ChatCompletion completion = client.GetChatClient("google/gemini-2.0-flash-exp:free").CompleteChat(mensajes, options);
 
             using JsonDocument jsonDocument = JsonDocument.Parse(completion.Content[0].Text);
 
-            return jsonDocument.RootElement.ToString();
+            return jsonDocument.RootElement.GetProperty("mensajes").GetProperty("seHaTerminado").GetBoolean();
         }
         catch (Exception ex)
         {
             Debug.LogError(ex);
         }
-
-        return null;
+        return false;
     }
 
     // Este metodo hace crashear el juego, se debe de revisar
@@ -244,6 +296,7 @@ public class APIRequest : MonoBehaviour
                 ["descripcion"] = caso.personajes[0].descripcion,
                 ["estado_emocional"] = caso.personajes[0].estadoEmocional
             },
+            ["evidenciaSeleccionada"] = new JObject(),
             ["mensajes"] = new JObject
             {
                 ["mensajeUsuario"] = prompt,
@@ -253,17 +306,8 @@ public class APIRequest : MonoBehaviour
         };
     }
 
-    public async Task incializarAPITexto()
+    public async Task incializarAPITexto(APIRequestElevenLabs aPIRequestElevenLabs)
     {
-        SQLiteManager sqliteManager = new (Application.persistentDataPath + "/database.db");
-        sqliteManager.crearConexion();
-
-        VaultTransit vaultTransit = new ();
-
-        openRouterApiKey = await vaultTransit.DecryptAsync("api-key-encrypt", sqliteManager.GetAPIS()[ApiKey.OPEN_ROUTER].apiKey);
-        elevenlabsApiKey = await vaultTransit.DecryptAsync("api-key-encrypt", sqliteManager.GetAPIS()[ApiKey.ELEVENLABS].apiKey);
-        groqApiKey =  await vaultTransit.DecryptAsync("api-key-encrypt", sqliteManager.GetAPIS()[ApiKey.GROQ].apiKey);
-
         var groqApi = new GroqApiClient(groqApiKey, "https://api.groq.com/openai/v1");
         var audioStream = File.OpenRead(Application.persistentDataPath + "/audio.wav");
         var result = await groqApi.CreateTranscriptionAsync (
@@ -275,13 +319,14 @@ public class APIRequest : MonoBehaviour
         );
 
         //string prompt = CrearPrompt(result?["text"]?.ToString(), Jugador.jugador).ToString();
-        string jsonRespuesta = MakeRequestOpenRouter(result?["text"]?.ToString());
-        JObject json = JObject.Parse(jsonRespuesta);
 
-        string mensajePersonaje = json["Caso"]?["mensajes"]?["respuestaPersonaje"]?.ToString();
+        await MakeRequestOpenRouter(result?["text"]?.ToString(),aPIRequestElevenLabs);
 
+        /*
+        string mensajePersonaje = json["mensajes"]?["respuestaPersonaje"]?.ToString();
         chatMessages.Add(new AssistantChatMessage(mensajePersonaje));
+        aPIRequestElevenLabs.StreamAudio(mensajePersonaje);
 
-        promptLLama = mensajePersonaje;
+        */
     }
 }

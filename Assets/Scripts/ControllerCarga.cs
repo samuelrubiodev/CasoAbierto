@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,7 +6,6 @@ public class ControllerCarga : MonoBehaviour
 {
     public static bool tieneCaso = false;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     SQLiteManager sqLiteManager;
     VaultTransit vaultTransit;
     async void Start()
@@ -28,7 +25,7 @@ public class ControllerCarga : MonoBehaviour
             RedisManager redisManger = await RedisManager.GetRedisManager();
             long jugadorID = GetJugadorID();
 
-            await CrearCaso(redisManger, vaultTransit, await vaultTransit.DecryptAsync("api-key-encrypt", sqLiteManager.GetAPIS()[ApiKey.OPEN_ROUTER].apiKey),jugadorID);
+            await CrearCaso(redisManger, vaultTransit, ApiKey.API_KEY_OPEN_ROUTER,jugadorID);
             
             if (Inicializacion.jugadorID != -1)
             {
@@ -91,10 +88,4 @@ public class ControllerCarga : MonoBehaviour
         else
             return -1;
     }
-
-    void Update()
-    {
-        MainThreadDispatcher.Update();
-    }
-
 }
