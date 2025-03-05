@@ -1,6 +1,9 @@
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 
 public class ControllerCarga : MonoBehaviour
 {
@@ -17,6 +20,7 @@ public class ControllerCarga : MonoBehaviour
 
         if (tieneCaso)
         {
+            APIRequest.PROMPT_SYSTEM = APIRequest.PROMPT_SYSTEM_CONVERSACION + " " + CrearPromptSystem().ToString();
             SceneManager.LoadScene("SampleScene");
             return;
         }
@@ -54,6 +58,7 @@ public class ControllerCarga : MonoBehaviour
                 return;
             }
         }
+        APIRequest.PROMPT_SYSTEM = APIRequest.PROMPT_SYSTEM_CONVERSACION + " " + CrearPromptSystem().ToString();
     }
     
     async Task CrearCaso(RedisManager redisManager, VaultTransit vaultTransit, string apiKeyOpenRouter, long jugadorID)
@@ -87,5 +92,106 @@ public class ControllerCarga : MonoBehaviour
             return PlayerPrefs.GetInt("jugadorID");
         else
             return -1;
+    }
+
+     private JObject CrearPromptSystem()
+    {
+
+        Jugador jugador1 = Jugador.jugador;
+        Caso caso = jugador1.casos[Jugador.indexCaso];
+
+        JObject objetoJson = new()
+        {
+            ["datosJugador"] = new JObject
+            {
+                ["_comentario"] = "Datos importantes del jugador, no cambies el nombre del jugador",
+                ["_estado"] = "Activo o Inactivo",
+                ["_progreso"] = "En que caso va, poner nombre del caso",
+                ["nombre"] = jugador1.nombre,
+                ["estado"] = jugador1.estado,
+                ["progreso"] = jugador1.progreso
+            },
+            ["Caso"] = new JObject
+            {
+                ["_comentario"] = "Datos del caso actual",
+                ["tituloCaso"] = caso.tituloCaso,
+                ["descripcionCaso"] = caso.descripcion,
+                ["dificultad"] = caso.dificultad,
+                ["fechaOcurrido"] = caso.fechaOcurrido,
+                ["lugar"] = caso.lugar,
+                ["tiempoRestante"] = caso.tiempoRestante,
+
+                ["cronologia"] = ObtenerCronologias(caso.cronologia),
+                ["evidencias"] = ObtenerEvidencias(caso.evidencias),
+                ["personajes"] = ObtenerPersonajes(caso.personajes),
+                ["explicacionCasoResuelto"] = caso.explicacionCasoResuelto
+            }
+        };
+
+        return objetoJson;
+    }
+
+    private JArray ObtenerPersonajes(List<Personaje> personajesLista)
+    {
+        var personajes = new List<Dictionary<string, string>>();
+
+        foreach (Personaje personaje in personajesLista)
+        {
+            var personajeDiccionario = new Dictionary<string, string>
+            {
+                { "nombre", personaje.nombre },
+                { "rol", personaje.rol },
+                { "estado", personaje.estado },
+                { "descripcion", personaje.descripcion },
+                { "estado_emocional", personaje.estadoEmocional }
+            };
+
+            personajes.Add(personajeDiccionario);
+        }
+       
+        var objeto = JsonConvert.SerializeObject(personajes);
+        return JArray.Parse(objeto);
+    }
+
+    private JArray ObtenerEvidencias(List<Evidencia> evidenciasLista)
+    {
+        var evidencias = new List<Dictionary<string, string>>();
+
+        foreach (Evidencia evidencia in evidenciasLista)
+        {
+            var evidenciaDiccionario = new Dictionary<string, string>
+            {
+                { "nombre", evidencia.nombre },
+                { "descripcion", evidencia.descripcion },
+                { "tipo", evidencia.tipo },
+                { "analisis", evidencia.analisis },
+                {"ubicacion", evidencia.ubicacion }
+            };
+
+            evidencias.Add(evidenciaDiccionario);
+        }
+        
+        var objeto = JsonConvert.SerializeObject(evidencias);
+        return JArray.Parse(objeto);
+    }
+
+    private JArray ObtenerCronologias(List<Cronologia> cronologiasLista)
+    {
+        var cronologias = new List<Dictionary<string, string>>();
+
+        foreach (Cronologia cronologia in cronologiasLista)
+        {
+            var cronologiaDiccionario = new Dictionary<string, string>
+            {
+                { "fecha", cronologia.fecha.ToString() },
+                { "hora", cronologia.hora },
+                { "evento", cronologia.evento }
+            };
+
+            cronologias.Add(cronologiaDiccionario);
+        }
+
+        var objeto = JsonConvert.SerializeObject(cronologias);
+        return JArray.Parse(objeto);
     }
 }

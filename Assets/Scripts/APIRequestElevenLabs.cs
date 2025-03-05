@@ -103,4 +103,9 @@ public class APIRequestElevenLabs : MonoBehaviour
             Debug.LogError(e);
         }
     }
+
+    public AudioSource GetAudioSource()
+    {
+        return audioSource;
+    }
 }

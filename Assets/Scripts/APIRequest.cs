@@ -13,6 +13,8 @@ using Task = System.Threading.Tasks.Task;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Text;
+using TMPro;
+using Utilities.Extensions;
 
 public class APIRequest : MonoBehaviour
 {
@@ -22,14 +24,16 @@ public class APIRequest : MonoBehaviour
     private string openRouterApiKey;
     private string groqApiKey;
     private string elevenlabsApiKey;
+    public TMP_Text textoSubtitulos;
 
-    private static string PROMPT_SYSTEM_CONVERSACION = @"[Contexto del Juego]
+    public static string PROMPT_SYSTEM_CONVERSACION = @"[Contexto del Juego]
         Estás en un juego de investigación policial llamado ""Caso Abierto"". El jugador asume el rol de un detective encargado de resolver casos mediante interrogatorios a sospechosos y el análisis de evidencias. El juego se desarrolla en una sala de interrogatorios con interacción verbal y gestión de tiempo.
 
         [Objetivo]
         Tu rol es **exclusivamente** generar respuestas de los personajes dentro del juego. El jugador está interrogando a un personaje y tu trabajo es responder como ese personaje. 
             **No hables como la IA**. Responde **siempre** en el papel del personaje.  
             Si el jugador selecciona a un personaje muerto o desaparecido, cambia automáticamente a un personaje disponible. **No expliques por qué**
+            En el mensaje contendrá el personaje seleccionado y el mensaje del jugador con el que interactuar.
 
         [Instrucciones Adicionales]
         1. **El jugador es el investigador**. No lo llames ""usuario"" ni hagas referencia a que es un juego.  
@@ -43,6 +47,7 @@ public class APIRequest : MonoBehaviour
 
         Estos son los datos del caso, con todos los personajes, evidencias y detalles relevantes:";
 
+    public static string PROMPT_SYSTEM = "";
     private static string PROMPT_SYSTEM_ANALISIS = @"
         Analiza la conversacion entre el usuario y el NPC y responde con el booleano 'seHaTerminado' en true o false dependiendo si se ha terminado la conversacion o no.";
 
@@ -55,113 +60,11 @@ public class APIRequest : MonoBehaviour
         elevenlabsApiKey = ApiKey.API_KEY_ELEVENLABS;
     }
 
-    private JObject CrearPromptSystem()
-    {
-
-        Jugador jugador1 = Jugador.jugador;
-        Caso caso = jugador1.casos[Jugador.indexCaso];
-
-        JObject objetoJson = new()
-        {
-            ["datosJugador"] = new JObject
-            {
-                ["_comentario"] = "Datos importantes del jugador, no cambies el nombre del jugador",
-                ["_estado"] = "Activo o Inactivo",
-                ["_progreso"] = "En que caso va, poner nombre del caso",
-                ["nombre"] = jugador1.nombre,
-                ["estado"] = jugador1.estado,
-                ["progreso"] = jugador1.progreso
-            },
-            ["Caso"] = new JObject
-            {
-                ["_comentario"] = "Datos del caso actual",
-                ["tituloCaso"] = caso.tituloCaso,
-                ["descripcionCaso"] = caso.descripcion,
-                ["dificultad"] = caso.dificultad,
-                ["fechaOcurrido"] = caso.fechaOcurrido,
-                ["lugar"] = caso.lugar,
-                ["tiempoRestante"] = caso.tiempoRestante,
-
-                ["cronologia"] = ObtenerCronologias(caso.cronologia),
-                ["evidencias"] = ObtenerEvidencias(caso.evidencias),
-                ["personajes"] = ObtenerPersonajes(caso.personajes),
-                ["explicacionCasoResuelto"] = caso.explicacionCasoResuelto
-            }
-        };
-
-        return objetoJson;
-    }
-
-    private JArray ObtenerPersonajes(List<Personaje> personajesLista)
-    {
-        var personajes = new List<Dictionary<string, string>>();
-
-        foreach (Personaje personaje in personajesLista)
-        {
-            var personajeDiccionario = new Dictionary<string, string>
-            {
-                { "nombre", personaje.nombre },
-                { "rol", personaje.rol },
-                { "estado", personaje.estado },
-                { "descripcion", personaje.descripcion },
-                { "estado_emocional", personaje.estadoEmocional }
-            };
-
-            personajes.Add(personajeDiccionario);
-        }
-       
-        var objeto = JsonConvert.SerializeObject(personajes);
-        return JArray.Parse(objeto);
-    }
-
-    private JArray ObtenerEvidencias(List<Evidencia> evidenciasLista)
-    {
-        var evidencias = new List<Dictionary<string, string>>();
-
-        foreach (Evidencia evidencia in evidenciasLista)
-        {
-            var evidenciaDiccionario = new Dictionary<string, string>
-            {
-                { "nombre", evidencia.nombre },
-                { "descripcion", evidencia.descripcion },
-                { "tipo", evidencia.tipo },
-                { "analisis", evidencia.analisis },
-                {"ubicacion", evidencia.ubicacion }
-            };
-
-            evidencias.Add(evidenciaDiccionario);
-        }
-        
-        var objeto = JsonConvert.SerializeObject(evidencias);
-        return JArray.Parse(objeto);
-    }
-
-    private JArray ObtenerCronologias(List<Cronologia> cronologiasLista)
-    {
-        var cronologias = new List<Dictionary<string, string>>();
-
-        foreach (Cronologia cronologia in cronologiasLista)
-        {
-            var cronologiaDiccionario = new Dictionary<string, string>
-            {
-                { "fecha", cronologia.fecha.ToString() },
-                { "hora", cronologia.hora },
-                { "evento", cronologia.evento }
-            };
-
-            cronologias.Add(cronologiaDiccionario);
-        }
-
-        var objeto = JsonConvert.SerializeObject(cronologias);
-        return JArray.Parse(objeto);
-    }
-
-    private async Task<string> MakeRequestOpenRouter(string prompt, APIRequestElevenLabs aPIRequestElevenLabs)
+    private async Task MakeRequestOpenRouter(string prompt, APIRequestElevenLabs aPIRequestElevenLabs)
     {
         if (!chatMessages.Any(x => x is SystemChatMessage))
         {
-            string promptSistema = PROMPT_SYSTEM_CONVERSACION + CrearPromptSystem().ToString();
-            chatMessages.Add(new SystemChatMessage(promptSistema));
+            chatMessages.Add(new SystemChatMessage(PROMPT_SYSTEM));
         }
 
         chatMessages.Add(new UserChatMessage(prompt));
@@ -188,28 +91,62 @@ public class APIRequest : MonoBehaviour
                 {
                     string texto = update.ContentUpdate[0].Text;
                     mensajePersonajeBuilder.Append(texto);
-
                     mensajeCompleto += texto;
 
-                    if (texto.Contains('.') || texto.Contains('!') || texto.Contains('?') || mensajePersonajeBuilder.Length > 5)
+                    /*
+                    string mensajeActual = mensajePersonajeBuilder.ToString();
+                    if (texto.Contains('.') || texto.Contains('!') || texto.Contains('?') || mensajePersonajeBuilder.Length > 5 
+                        && !aPIRequestElevenLabs.GetAudioSource().isPlaying)
                     {
                         string mensajeActual = mensajePersonajeBuilder.ToString();
                         aPIRequestElevenLabs.StreamAudio(mensajeActual);
                         mensajePersonajeBuilder.Clear();
                     }
+                    */
+                }
+            }
+            
+            Debug.Log(mensajeCompleto);
+
+            string[] strings = mensajeCompleto.Split(' ');
+            textoSubtitulos.SetActive(true);
+
+            textoSubtitulos.outlineColor = Color.black;
+            textoSubtitulos.outlineWidth = 0.5f;
+
+            StringBuilder buffer = new();
+
+            aPIRequestElevenLabs.StreamAudio(mensajeCompleto);
+
+            for (int i = 0; i < strings.Length; i++)
+            {
+                buffer.Append(strings[i] + " ");
+                if (i % 5 == 0)
+                {
+                    textoSubtitulos.text = buffer.ToString();
+                    buffer.Clear();
+                    await Task.Delay(2000);
+                }
+                else if (i == strings.Length - 1)
+                {
+                    textoSubtitulos.text = buffer.ToString();
+                    await Task.Delay(2000);
                 }
             }
 
-            Debug.Log(mensajeCompleto);
-
+            textoSubtitulos.SetActive(false);
             chatMessages.Add(new AssistantChatMessage(mensajeCompleto));
         }
         catch (Exception ex)
         {
             Debug.LogError(ex);
         }
+    }
 
-        return null;
+    public bool HayPalabras(string mensaje)
+    {
+        string[] strings = mensaje.Split(' ');
+        return strings.Length > 2;
     }
 
     private bool SeHaTerminado()
@@ -281,7 +218,6 @@ public class APIRequest : MonoBehaviour
         return false;
     }
 
-    // Este metodo hace crashear el juego, se debe de revisar
     private JObject CrearPrompt(string prompt, Jugador jugador)
     {
         Caso caso = jugador.casos[Jugador.indexCaso];
@@ -300,11 +236,11 @@ public class APIRequest : MonoBehaviour
             ["mensajes"] = new JObject
             {
                 ["mensajeUsuario"] = prompt,
-                ["respuestaPersonaje"] = "Respuesta del personaje seleccionado, cuando el jugador tenga seleccionado un personaje",
-                ["seHaTerminado"] = false
             }
         };
     }
+
+    public void AnalizarEvidencia(Evidencia evidencia){}
 
     public async Task incializarAPITexto(APIRequestElevenLabs aPIRequestElevenLabs)
     {
@@ -317,10 +253,9 @@ public class APIRequest : MonoBehaviour
             prompt: "Transcribe este audio de esta persona",
             language: "es"
         );
-
-        //string prompt = CrearPrompt(result?["text"]?.ToString(), Jugador.jugador).ToString();
-
-        await MakeRequestOpenRouter(result?["text"]?.ToString(),aPIRequestElevenLabs);
+        
+        string prompt = CrearPrompt(result?["text"]?.ToString(), Jugador.jugador).ToString();
+        await MakeRequestOpenRouter(prompt,aPIRequestElevenLabs);
 
         /*
         string mensajePersonaje = json["mensajes"]?["respuestaPersonaje"]?.ToString();
