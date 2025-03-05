@@ -47,9 +47,15 @@ public class APIRequest : MonoBehaviour
 
         Estos son los datos del caso, con todos los personajes, evidencias y detalles relevantes:";
 
-    public static string PROMPT_SYSTEM = "";
+    public static string DATOS_CASO = "";
     private static string PROMPT_SYSTEM_ANALISIS = @"
         Analiza la conversacion entre el usuario y el NPC y responde con el booleano 'seHaTerminado' en true o false dependiendo si se ha terminado la conversacion o no.";
+
+    private static string PROMPT_SYSTEM_ANALISIS_EVIDENCIA = @"
+        Analiza la evidencia y entrega un resultado técnico y policial detallado
+        En este analisis no tienes que explicar como haces el analisis, simplemente da la informacion sin rodeos de forma directa pero ten en cuenta que no debes copiar lo mismo que aparece 'analisis' de la evidencia
+        ya que ese analisis es un analisis superficial rapido y tu tienes que hacer un analisis mas profundo, algo que pueda ayudar al jugador a resolver el caso con esta pista pero asegurate de no superar 
+        los 300 caracteres. Usa un enfoque forense profundo basado en el contexto del caso:";
 
     private static List<ChatMessage> chatMessages = new ();
 
@@ -64,7 +70,7 @@ public class APIRequest : MonoBehaviour
     {
         if (!chatMessages.Any(x => x is SystemChatMessage))
         {
-            chatMessages.Add(new SystemChatMessage(PROMPT_SYSTEM));
+            chatMessages.Add(new SystemChatMessage(PROMPT_SYSTEM_CONVERSACION + " " + DATOS_CASO));
         }
 
         chatMessages.Add(new UserChatMessage(prompt));
@@ -240,7 +246,53 @@ public class APIRequest : MonoBehaviour
         };
     }
 
-    public void AnalizarEvidencia(Evidencia evidencia){}
+    public string AnalizarEvidencia(Evidencia evidencia)
+    {
+        string jsonSchema = @"
+        {
+            ""type"": ""object"",
+            ""properties"": {
+                ""evidencia"": {
+                    ""type"": ""object"",
+                    ""properties"": {
+                        ""evidenciaSeleccionada"": { ""type"": ""string"", ""description"": ""Nombre de la evidencia seleccionada"" },
+                        ""tipoAnalisis"": { ""type"": ""string"", ""description"": ""Tipo de analisis a realizar, huellas daactilares por ejemplo"" },
+                        ""resultadoAnalisis"": { ""type"": ""string"", ""description"": ""Analisis de la evidencia"" }
+                    },
+                    ""required"": [""evidenciaSeleccionada"",""tipoAnalisis"",""resultadoAnalisis""],
+                    ""additionalProperties"": false
+                }
+            },
+            ""required"": [""evidencia""],
+            ""additionalProperties"": false
+        }";
+
+
+        List<ChatMessage> mensajes = new()
+        {
+            new SystemChatMessage(PROMPT_SYSTEM_ANALISIS_EVIDENCIA + DATOS_CASO),
+            new UserChatMessage("Analiza esta evidencia: " + evidencia.nombre)
+        };
+
+        OpenAIClientOptions openAIClientOptions = new()
+        {
+            Endpoint = new Uri("https://openrouter.ai/api/v1")
+        };
+
+        OpenAIClient client = new(new ApiKeyCredential(openRouterApiKey), openAIClientOptions);
+
+        ChatCompletionOptions options = new()
+        {
+            ResponseFormat = ChatResponseFormat.CreateJsonSchemaFormat(
+                    jsonSchemaFormatName: "evidencia_data",
+                    jsonSchema: BinaryData.FromString(jsonSchema),
+            jsonSchemaIsStrict: true)
+        };
+
+        ChatCompletion completion = client.GetChatClient("google/gemini-2.0-flash-exp:free").CompleteChat(mensajes, options);
+
+        return completion.Content[0].Text;
+    }
 
     public async Task incializarAPITexto(APIRequestElevenLabs aPIRequestElevenLabs)
     {
@@ -254,10 +306,12 @@ public class APIRequest : MonoBehaviour
             language: "es"
         );
         
+        string analisis = AnalizarEvidencia(Jugador.jugador.casos[Jugador.indexCaso].evidencias[1]);
+        Debug.Log(analisis);
+        /*
         string prompt = CrearPrompt(result?["text"]?.ToString(), Jugador.jugador).ToString();
         await MakeRequestOpenRouter(prompt,aPIRequestElevenLabs);
 
-        /*
         string mensajePersonaje = json["mensajes"]?["respuestaPersonaje"]?.ToString();
         chatMessages.Add(new AssistantChatMessage(mensajePersonaje));
         aPIRequestElevenLabs.StreamAudio(mensajePersonaje);

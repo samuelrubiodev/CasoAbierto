@@ -20,7 +20,7 @@ public class ControllerCarga : MonoBehaviour
 
         if (tieneCaso)
         {
-            APIRequest.PROMPT_SYSTEM = APIRequest.PROMPT_SYSTEM_CONVERSACION + " " + CrearPromptSystem().ToString();
+            APIRequest.DATOS_CASO = CrearPromptSystem().ToString();
             SceneManager.LoadScene("SampleScene");
             return;
         }
@@ -58,7 +58,7 @@ public class ControllerCarga : MonoBehaviour
                 return;
             }
         }
-        APIRequest.PROMPT_SYSTEM = APIRequest.PROMPT_SYSTEM_CONVERSACION + " " + CrearPromptSystem().ToString();
+        APIRequest.DATOS_CASO = CrearPromptSystem().ToString();
     }
     
     async Task CrearCaso(RedisManager redisManager, VaultTransit vaultTransit, string apiKeyOpenRouter, long jugadorID)
@@ -94,9 +94,8 @@ public class ControllerCarga : MonoBehaviour
             return -1;
     }
 
-     private JObject CrearPromptSystem()
+    private JObject CrearPromptSystem()
     {
-
         Jugador jugador1 = Jugador.jugador;
         Caso caso = jugador1.casos[Jugador.indexCaso];
 
