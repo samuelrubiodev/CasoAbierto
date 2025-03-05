@@ -52,10 +52,8 @@ public class APIRequest : MonoBehaviour
         Analiza la conversacion entre el usuario y el NPC y responde con el booleano 'seHaTerminado' en true o false dependiendo si se ha terminado la conversacion o no.";
 
     private static string PROMPT_SYSTEM_ANALISIS_EVIDENCIA = @"
-        Analiza la evidencia y entrega un resultado técnico y policial detallado
-        En este analisis no tienes que explicar como haces el analisis, simplemente da la informacion sin rodeos de forma directa pero ten en cuenta que no debes copiar lo mismo que aparece 'analisis' de la evidencia
-        ya que ese analisis es un analisis superficial rapido y tu tienes que hacer un analisis mas profundo, algo que pueda ayudar al jugador a resolver el caso con esta pista pero asegurate de no superar 
-        los 300 caracteres. Usa un enfoque forense profundo basado en el contexto del caso:";
+        Analiza la evidencia con un enfoque forense detallado y técnico. Identifica hallazgos específicos (e.g., dueño de huellas, ADN, rastros) y sus implicaciones en el caso. 
+        Resuelve todo el análisis, no pidas al jugador que lo haga. Máximo 200 caracteres. Contexto: ";
 
     private static List<ChatMessage> chatMessages = new ();
 
@@ -246,7 +244,7 @@ public class APIRequest : MonoBehaviour
         };
     }
 
-    public string AnalizarEvidencia(Evidencia evidencia)
+    public async Task<string> AnalizarEvidencia(Evidencia evidencia)
     {
         string jsonSchema = @"
         {
@@ -289,9 +287,20 @@ public class APIRequest : MonoBehaviour
             jsonSchemaIsStrict: true)
         };
 
-        ChatCompletion completion = client.GetChatClient("google/gemini-2.0-flash-exp:free").CompleteChat(mensajes, options);
+        AsyncCollectionResult<StreamingChatCompletionUpdate> completionResult = client.GetChatClient("google/gemini-2.0-flash-001").CompleteChatStreamingAsync(mensajes, options);
 
-        return completion.Content[0].Text;
+        string mensajeCompleto = "";
+
+        await foreach (StreamingChatCompletionUpdate update in completionResult)
+        {
+            if (update.ContentUpdate.Count > 0)
+            {
+                string texto = update.ContentUpdate[0].Text;
+                mensajeCompleto += texto;
+            }
+        }
+
+        return mensajeCompleto;
     }
 
     public async Task incializarAPITexto(APIRequestElevenLabs aPIRequestElevenLabs)
@@ -306,12 +315,9 @@ public class APIRequest : MonoBehaviour
             language: "es"
         );
         
-        string analisis = AnalizarEvidencia(Jugador.jugador.casos[Jugador.indexCaso].evidencias[1]);
-        Debug.Log(analisis);
-        /*
         string prompt = CrearPrompt(result?["text"]?.ToString(), Jugador.jugador).ToString();
         await MakeRequestOpenRouter(prompt,aPIRequestElevenLabs);
-
+        /*
         string mensajePersonaje = json["mensajes"]?["respuestaPersonaje"]?.ToString();
         chatMessages.Add(new AssistantChatMessage(mensajePersonaje));
         aPIRequestElevenLabs.StreamAudio(mensajePersonaje);

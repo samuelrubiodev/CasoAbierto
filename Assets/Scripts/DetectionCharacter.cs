@@ -3,8 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
+using TMPro;
+using Utilities.Extensions;
 using UnityEngine;
 using UnityEngine.Windows;
+using System.Threading.Tasks;
 
 public class DetectionCharacter : MonoBehaviour
 {
@@ -20,11 +23,17 @@ public class DetectionCharacter : MonoBehaviour
     public AudioClip audio8;
     private AudioSource audioSource;
 
+    public TMP_Text textoSubtitulos;
     private bool isPlaying = false;
 
-    public static void ShowSubtitle(int id, SubtitleList subtitulos)
+    public async void ShowSubtitle(int id, SubtitleList subtitulos)
     {
         bool subtitleFound = false;
+
+        textoSubtitulos.gameObject.SetActive(true);
+
+        textoSubtitulos.outlineColor = Color.black;
+        textoSubtitulos.outlineWidth = 0.5f;
 
         for (int i = 0; i < subtitulos.subtitles.Count; i++)
         {
@@ -35,11 +44,14 @@ public class DetectionCharacter : MonoBehaviour
                 subtitleFound = true;
                 foreach (string s in sub.text)
                 {
-                    Debug.Log("ID: " + sub.id + " Texto: " + s);
+                    textoSubtitulos.text = s;
+                    await Task.Delay(2000);
                 }
                 break;
             }
         }
+
+        textoSubtitulos.gameObject.SetActive(false);
 
         if (!subtitleFound)
         {
@@ -57,10 +69,8 @@ public class DetectionCharacter : MonoBehaviour
 
             AudioSource audio = GetComponent<AudioSource>();
 
-            int numeroAleatorio = 0;
-
             // Generar un numero aleatorio entre 1 y 8 para reproducir un audio aleatorio
-            numeroAleatorio = UnityEngine.Random.Range(1, 9);
+            int numeroAleatorio = UnityEngine.Random.Range(1, 9);
 
             switch (numeroAleatorio)
             {

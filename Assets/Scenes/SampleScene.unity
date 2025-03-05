@@ -11777,6 +11777,7 @@ MonoBehaviour:
   audio6: {fileID: 8300000, guid: 0f7d01ea20bb0ab47a9500d198c03313, type: 3}
   audio7: {fileID: 8300000, guid: 7514cdde7a5beab48ba376a78e5e36c7, type: 3}
   audio8: {fileID: 8300000, guid: 5593eac3594ad474d8a0dc9fea08fc2e, type: 3}
+  textoSubtitulos: {fileID: 1800282947}
 --- !u!4 &1186625802
 Transform:
   m_ObjectHideFlags: 0
@@ -18625,10 +18626,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 59.7
-  m_fontSizeBase: 45
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
