@@ -38,9 +38,12 @@ public class APIRequest : MonoBehaviour
         3. **Si el personaje se contradice, mantenlo deliberado** para que el jugador deba descubrirlo. No aclares que hay contradicciones.  
         4. Si el jugador hace preguntas irrelevantes o fuera del caso, responde de manera evasiva o con frustración, como lo haría el personaje.  
         5. No contestes con emoticonos, respnde solamente con texto.
+        
 
         [IMPORTANTE]
         1.Es importante que no envíes mas de 200 caracteres en la respuesta del personaje.
+        2.Si el jugador no tiene evidencias seleccionadas y te pregunta por una evidencia no tienes que hacer referencia a esa evidencia ya que el personaje no tiene conocimiento de ella a no ser que el personaje este involucrado en esa evidencia.
+        3.Si el jugado selecciona una evidencia y te pregunta por ella, debes responder con la información que el personaje tenga sobre esa evidencia.
 
         Estos son los datos del caso, con todos los personajes, evidencias y detalles relevantes:";
 
@@ -49,9 +52,9 @@ public class APIRequest : MonoBehaviour
         Analiza la conversacion entre el usuario y el NPC y responde con el booleano 'seHaTerminado' en true o false.
         Si consideras que el personaje y el jugador han terminado de hablar, que no hay nada más que decir.";
 
-    private static readonly string PROMPT_SYSTEM_ANALISIS_EVIDENCIA = @"
-        Analiza la evidencia con un enfoque forense detallado y técnico. Identifica hallazgos específicos (e.g., dueño de huellas, ADN, rastros) y sus implicaciones en el caso. 
-        Resuelve todo el análisis, no pidas al jugador que lo haga. Máximo 200 caracteres. Contexto: ";
+    private static string PROMPT_SYSTEM_ANALISIS_EVIDENCIA = @"
+        Analiza la evidencia con un enfoque forense técnico y profundo. No repitas datos conocidos; aporta hallazgos nuevos y específicos (e.g., dueño de huellas, ADN) con implicaciones. 
+        Resuelve el análisis completo sin delegar al jugador. Máximo 200 caracteres. Contexto: ";
 
     private static List<ChatMessage> chatMessages = new ();
 

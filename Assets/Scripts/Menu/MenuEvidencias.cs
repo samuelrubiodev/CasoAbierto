@@ -1,3 +1,4 @@
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,11 +6,13 @@ public class MenuEvidencias : MonoBehaviour
 {
     public GameObject content;
     public GameObject scrollView;
-    public GameObject buttonPrefab;
+    public GameObject evidenciaPrefab;
     public GameObject panel;
+    public GameObject panelIzquierda;
     public FirstPersonController FirstPersonController;
     private bool evidencias = false;
     public static Evidencia evidenciaSeleccionada;
+    public APIRequest aPIRequest;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -47,20 +50,30 @@ public class MenuEvidencias : MonoBehaviour
         for (int i = 0; i < Jugador.jugador.casos[Jugador.indexCaso].evidencias.Count; i++)
         {
             int index = i;
-            GameObject button = Instantiate(buttonPrefab, content.transform);
+            GameObject objetoPrefab = Instantiate(evidenciaPrefab, content.transform);
 
-            button.name = Jugador.jugador.casos[Jugador.indexCaso].evidencias[i].nombre;
-            button.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = Jugador.jugador.casos[Jugador.indexCaso].evidencias[i].nombre;
-            button.SetActive(true);
-
-            Evidencia evidencia = Jugador.jugador.casos[Jugador.indexCaso].evidencias[i];
-
-            button.GetComponent<Button>().onClick.AddListener(() => CargarEvidencia(evidencia));
+            objetoPrefab.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = Jugador.jugador.casos[Jugador.indexCaso].evidencias[i].nombre;
+            objetoPrefab.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(() => CargarEvidencia(Jugador.jugador.casos[Jugador.indexCaso].evidencias[index]));
+            objetoPrefab.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(() => AnalizarEvidencia(Jugador.jugador.casos[Jugador.indexCaso].evidencias[index]));
+        
+            objetoPrefab.SetActive(true);
         }
         
         scrollView.SetActive(true);
         evidencias = true;
         panel.SetActive(true);
+        panelIzquierda.SetActive(true);
+    }
+
+    public async void AnalizarEvidencia(Evidencia evidencia)
+    {
+        string json = await aPIRequest.AnalizarEvidencia(evidencia);
+        Debug.Log(json);
+
+        GameObject panelAnalisis = panelIzquierda.transform.GetChild(0).gameObject;
+
+        JObject jobject = JObject.Parse(json);
+        panelAnalisis.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = jobject["evidencia"]?["resultadoAnalisis"].ToString();
     }
 
     public void DeseleccionarEvidencia()
@@ -89,5 +102,6 @@ public class MenuEvidencias : MonoBehaviour
         scrollView.SetActive(false);
         evidencias = false;
         panel.SetActive(false);
+        panelIzquierda.SetActive(false);
     }
 }
