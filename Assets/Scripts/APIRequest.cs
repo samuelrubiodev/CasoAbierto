@@ -18,9 +18,6 @@ using Utilities.Extensions;
 
 public class APIRequest : MonoBehaviour
 {
-    public string promptWhisper {  get; set; }
-    public string promptLLama {  get; set; }
-
     private string openRouterApiKey;
     private string groqApiKey;
     private string elevenlabsApiKey;
@@ -48,10 +45,11 @@ public class APIRequest : MonoBehaviour
         Estos son los datos del caso, con todos los personajes, evidencias y detalles relevantes:";
 
     public static string DATOS_CASO = "";
-    private static string PROMPT_SYSTEM_ANALISIS = @"
-        Analiza la conversacion entre el usuario y el NPC y responde con el booleano 'seHaTerminado' en true o false dependiendo si se ha terminado la conversacion o no.";
+    private static readonly string PROMPT_SYSTEM_ANALISIS = @"
+        Analiza la conversacion entre el usuario y el NPC y responde con el booleano 'seHaTerminado' en true o false.
+        Si consideras que el personaje y el jugador han terminado de hablar, que no hay nada más que decir.";
 
-    private static string PROMPT_SYSTEM_ANALISIS_EVIDENCIA = @"
+    private static readonly string PROMPT_SYSTEM_ANALISIS_EVIDENCIA = @"
         Analiza la evidencia con un enfoque forense detallado y técnico. Identifica hallazgos específicos (e.g., dueño de huellas, ADN, rastros) y sus implicaciones en el caso. 
         Resuelve todo el análisis, no pidas al jugador que lo haga. Máximo 200 caracteres. Contexto: ";
 
@@ -225,6 +223,19 @@ public class APIRequest : MonoBehaviour
     private JObject CrearPrompt(string prompt, Jugador jugador)
     {
         Caso caso = jugador.casos[Jugador.indexCaso];
+        
+        JObject evidenciaSeleccionada = new ();
+
+        Evidencia evidencia = MenuEvidencias.evidenciaSeleccionada;
+
+        if (MenuEvidencias.evidenciaSeleccionada != null)
+        {
+            evidenciaSeleccionada = new JObject
+            {
+                ["nombre"] = evidencia.nombre,
+                ["descripcion"] = evidencia.descripcion
+            };
+        }
 
         return new JObject
         {
@@ -236,7 +247,7 @@ public class APIRequest : MonoBehaviour
                 ["descripcion"] = caso.personajes[0].descripcion,
                 ["estado_emocional"] = caso.personajes[0].estadoEmocional
             },
-            ["evidenciaSeleccionada"] = new JObject(),
+            ["evidenciaSeleccionada"] = evidenciaSeleccionada,
             ["mensajes"] = new JObject
             {
                 ["mensajeUsuario"] = prompt,
@@ -287,7 +298,9 @@ public class APIRequest : MonoBehaviour
             jsonSchemaIsStrict: true)
         };
 
-        AsyncCollectionResult<StreamingChatCompletionUpdate> completionResult = client.GetChatClient("google/gemini-2.0-flash-001").CompleteChatStreamingAsync(mensajes, options);
+        AsyncCollectionResult<StreamingChatCompletionUpdate> completionResult = client
+            .GetChatClient("google/gemini-2.0-flash-001")
+            .CompleteChatStreamingAsync(mensajes, options);
 
         string mensajeCompleto = "";
 
@@ -300,10 +313,12 @@ public class APIRequest : MonoBehaviour
             }
         }
 
+        chatMessages.Add(new AssistantChatMessage("El investigador ha analizado esta evidencia y se ha concluido lo siguiente:" + mensajeCompleto));
+
         return mensajeCompleto;
     }
 
-    public async Task incializarAPITexto(APIRequestElevenLabs aPIRequestElevenLabs)
+    public async Task RequestAPI(APIRequestElevenLabs aPIRequestElevenLabs)
     {
         var groqApi = new GroqApiClient(groqApiKey, "https://api.groq.com/openai/v1");
         var audioStream = File.OpenRead(Application.persistentDataPath + "/audio.wav");
@@ -317,11 +332,5 @@ public class APIRequest : MonoBehaviour
         
         string prompt = CrearPrompt(result?["text"]?.ToString(), Jugador.jugador).ToString();
         await MakeRequestOpenRouter(prompt,aPIRequestElevenLabs);
-        /*
-        string mensajePersonaje = json["mensajes"]?["respuestaPersonaje"]?.ToString();
-        chatMessages.Add(new AssistantChatMessage(mensajePersonaje));
-        aPIRequestElevenLabs.StreamAudio(mensajePersonaje);
-
-        */
     }
 }

@@ -5,7 +5,6 @@ public class MenuPausa : MonoBehaviour
 {
     public GameObject menuPausa;
     private bool pausa = false;
-    public GameObject player;
     public Camera cameraMenu;
     public GameObject audioMenu;
     public GameObject audioFondo;
@@ -28,16 +27,16 @@ public class MenuPausa : MonoBehaviour
         {
             if (!pausa)
             {
-                mostrarMenu();
+                MostrarMenu();
             }
             else
             {
-                reanudar();
+                Reanudar();
             }
         }
     }
 
-    public void mostrarMenu()
+    public void MostrarMenu()
     {
         menuPausa.SetActive(true);
         pausa = true;
@@ -54,7 +53,7 @@ public class MenuPausa : MonoBehaviour
         audioFondo.GetComponent<AudioSource>().Pause();
     }
 
-    public void reanudar()
+    public void Reanudar()
     {
         menuPausa.SetActive(false);
         pausa = false;
