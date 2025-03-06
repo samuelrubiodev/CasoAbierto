@@ -69,11 +69,14 @@ public class MenuEvidencias : MonoBehaviour
     {
         string json = await aPIRequest.AnalizarEvidencia(evidencia);
         Debug.Log(json);
-
-        GameObject panelAnalisis = panelIzquierda.transform.GetChild(0).gameObject;
-
         JObject jobject = JObject.Parse(json);
-        panelAnalisis.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = jobject["evidencia"]?["resultadoAnalisis"].ToString();
+
+        GameObject datosEvidencia = panelIzquierda.transform.GetChild(1).gameObject;
+
+        datosEvidencia.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = evidencia.nombre;
+        datosEvidencia.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = evidencia.descripcion;
+        datosEvidencia.transform.GetChild(2).GetComponent<TMPro.TextMeshProUGUI>().text = evidencia.tipo;
+        datosEvidencia.transform.GetChild(3).GetComponent<TMPro.TextMeshProUGUI>().text = jobject["evidencia"]?["resultadoAnalisis"].ToString();
     }
 
     public void DeseleccionarEvidencia()
