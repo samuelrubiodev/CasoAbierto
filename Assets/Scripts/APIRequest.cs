@@ -52,7 +52,7 @@ public class APIRequest : MonoBehaviour
         Analiza la conversacion entre el usuario y el NPC y responde con el booleano 'seHaTerminado' en true o false.
         Si consideras que el personaje y el jugador han terminado de hablar, que no hay nada más que decir.";
 
-    private static string PROMPT_SYSTEM_ANALISIS_EVIDENCIA = @"
+    private static readonly string PROMPT_SYSTEM_ANALISIS_EVIDENCIA = @"
         Analiza la evidencia con un enfoque forense técnico y profundo. No repitas datos conocidos; aporta hallazgos nuevos y específicos (e.g., dueño de huellas, ADN) con implicaciones. 
         Resuelve el análisis completo sin delegar al jugador. Máximo 200 caracteres. Contexto: ";
 

@@ -68,7 +68,6 @@ public class MenuEvidencias : MonoBehaviour
     public async void AnalizarEvidencia(Evidencia evidencia)
     {
         string json = await aPIRequest.AnalizarEvidencia(evidencia);
-        Debug.Log(json);
         JObject jobject = JObject.Parse(json);
 
         GameObject datosEvidencia = panelIzquierda.transform.GetChild(1).gameObject;

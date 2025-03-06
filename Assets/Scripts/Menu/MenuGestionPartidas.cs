@@ -6,11 +6,13 @@ using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Utilities.Extensions;
 
 public class MenuGestionPartidas : MonoBehaviour
 {
     public GameObject content;
-    public GameObject buttonPrefab;
+    public GameObject casoPrefab;
+    public GameObject panelIzquierda;
     private SQLiteManager sqliteManager;
     private RedisManager redisManager;
 
@@ -46,19 +48,40 @@ public class MenuGestionPartidas : MonoBehaviour
         for (int i = 0; i < jugador.casos.Count; i++)
         {
             int index = i;
-            GameObject button = Instantiate(buttonPrefab, content.transform);
-            button.name = jugador.casos[i].idCaso;
-            button.GetComponentInChildren<TextMeshProUGUI>().text = jugador.casos[i].tituloCaso;
-            button.SetActive(true);
+            GameObject panelCaso = Instantiate(casoPrefab, content.transform);
 
-            button.GetComponent<Button>().onClick.AddListener(() => CargarPartida(jugador, i.ToString()));
+            panelCaso.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = jugador.casos[i].tituloCaso;
+            panelCaso.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = jugador.casos[i].lugar;
+            panelCaso.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = jugador.casos[i].dificultad;
+            panelCaso.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = jugador.casos[i].tiempoRestante;
+
+            panelCaso.SetActive(true);
+
+            panelCaso.transform.GetChild(4).GetComponent<Button>().onClick.AddListener(() => CargarPartida(jugador, index.ToString()));
         }
     }
 
     public void CargarPartida(Jugador jugador, string indexCaso)
     {
         Jugador.jugador = jugador;
-        Jugador.indexCaso = int.Parse(indexCaso) - 1;
+        Jugador.indexCaso = int.Parse(indexCaso);
+        
+        GameObject datosCaso = panelIzquierda.transform.GetChild(1).gameObject;
+
+        datosCaso.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = jugador.casos[int.Parse(indexCaso)].tituloCaso;
+        datosCaso.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = jugador.casos[int.Parse(indexCaso)].descripcion;
+        datosCaso.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = jugador.casos[int.Parse(indexCaso)].dificultad;
+        datosCaso.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = jugador.casos[int.Parse(indexCaso)].tiempoRestante;
+
+        datosCaso.transform.GetChild(0).SetActive(true);
+        datosCaso.transform.GetChild(1).SetActive(true);
+        datosCaso.transform.GetChild(2).SetActive(true);
+        datosCaso.transform.GetChild(3).SetActive(true);
+        datosCaso.transform.GetChild(4).SetActive(true);
+    }
+
+    public void JugarPartida()
+    {
         ControllerCarga.tieneCaso = true;
         SceneManager.LoadScene("PantallaCarga");
     }
