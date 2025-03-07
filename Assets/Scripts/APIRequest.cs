@@ -223,10 +223,8 @@ public class APIRequest : MonoBehaviour
         return false;
     }
 
-    private JObject CrearPrompt(string prompt, Jugador jugador)
+    private JObject CrearPrompt(string prompt)
     {
-        Caso caso = jugador.casos[Jugador.indexCaso];
-        
         JObject evidenciaSeleccionada = new ();
 
         Evidencia evidencia = MenuEvidencias.evidenciaSeleccionada;
@@ -240,16 +238,25 @@ public class APIRequest : MonoBehaviour
             };
         }
 
+        JObject personajeSeleccionado = new();
+
+        Personaje personaje = MenuPersonajes.personajeSeleccionado;
+
+        if (MenuPersonajes.personajeSeleccionado != null)
+        {
+            personajeSeleccionado = new JObject
+            {
+                ["nombre"] = personaje.nombre,
+                ["rol"] = personaje.rol,
+                ["estado"] = personaje.estado,
+                ["descripcion"] = personaje.descripcion,
+                ["estado_emocional"] = personaje.estadoEmocional
+            };
+        }
+
         return new JObject
         {
-            ["personajeActual"] = new JObject
-            {
-                ["nombre"] = caso.personajes[0].nombre,
-                ["rol"] = caso.personajes[0].rol,
-                ["estado"] = caso.personajes[0].estado,
-                ["descripcion"] = caso.personajes[0].descripcion,
-                ["estado_emocional"] = caso.personajes[0].estadoEmocional
-            },
+            ["personajeActual"] = personajeSeleccionado,
             ["evidenciaSeleccionada"] = evidenciaSeleccionada,
             ["mensajes"] = new JObject
             {
@@ -333,7 +340,7 @@ public class APIRequest : MonoBehaviour
             language: "es"
         );
         
-        string prompt = CrearPrompt(result?["text"]?.ToString(), Jugador.jugador).ToString();
+        string prompt = CrearPrompt(result?["text"]?.ToString()).ToString();
         await MakeRequestOpenRouter(prompt,aPIRequestElevenLabs);
     }
 }

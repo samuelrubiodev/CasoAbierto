@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Utilities.Extensions;
+using UnityEngine.EventSystems;
 
 public class MenuGestionPartidas : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class MenuGestionPartidas : MonoBehaviour
     public GameObject panelIzquierda;
     private SQLiteManager sqliteManager;
     private RedisManager redisManager;
-
+    public static GameObject casoSeleccionado;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     async void Start()
     {
@@ -50,14 +51,16 @@ public class MenuGestionPartidas : MonoBehaviour
             int index = i;
             GameObject panelCaso = Instantiate(casoPrefab, content.transform);
 
+            panelCaso.name = "Caso: " + i;
+
             panelCaso.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = jugador.casos[i].tituloCaso;
             panelCaso.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = jugador.casos[i].lugar;
             panelCaso.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = jugador.casos[i].dificultad;
             panelCaso.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = jugador.casos[i].tiempoRestante;
 
             panelCaso.SetActive(true);
-
             panelCaso.transform.GetChild(4).GetComponent<Button>().onClick.AddListener(() => CargarPartida(jugador, index.ToString()));
+            panelCaso.transform.GetComponent<EventTrigger>().triggers[0].callback.AddListener((data) => CargarPartida(jugador, index.ToString()));
         }
     }
 
