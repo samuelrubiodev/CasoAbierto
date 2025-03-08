@@ -50,7 +50,7 @@ public class RedisManager
             await Task.Run(async () =>
             {
                 ipServer = await vaultTransit.DecryptAsync("api-key-encrypt", sqliteManager.GetServers()[Server.REDIS].ipServer);
-                password = await vaultTransit.EncryptAsync("api-key-encrypt", sqliteManager.GetServers()[Server.REDIS].password);
+                password = await vaultTransit.DecryptAsync("api-key-encrypt", sqliteManager.GetServers()[Server.REDIS].password);
             });
             
             instance = new RedisManager(ipServer, "6379", password);

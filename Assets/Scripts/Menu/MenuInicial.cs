@@ -11,7 +11,7 @@ public class MenuInicial : MonoBehaviour
 
     void Start()
     {
-        sqLiteManager = new SQLiteManager(Application.persistentDataPath + "/database.db");
+        sqLiteManager = SQLiteManager.GetSQLiteManager();
         vaultTransit = new VaultTransit();
     }
 
@@ -22,8 +22,6 @@ public class MenuInicial : MonoBehaviour
 
         GameObject contrasenaRedis = GameObject.Find("inputContrasenaRedis");
         TMP_InputField contrasenaRedisInput = contrasenaRedis.GetComponent<TMP_InputField>();
-
-        sqLiteManager.crearConexion();
         
         if (servidorInput.text != "" && contrasenaRedisInput.text != "")
         {
@@ -55,7 +53,6 @@ public class MenuInicial : MonoBehaviour
                 }
             }
         }
-        sqLiteManager.cerrarConexion();
     }
 
     public async void listarServidor()
@@ -64,13 +61,11 @@ public class MenuInicial : MonoBehaviour
         TMP_InputField servidorInput = servidor.GetComponent<TMP_InputField>();
         GameObject contrasenaRedis = GameObject.Find("inputContrasenaRedis");
         TMP_InputField contrasenaRedisInput = contrasenaRedis.GetComponent<TMP_InputField>();
-        sqLiteManager.crearConexion();
         if (sqLiteManager.ExistsTable("Server"))
         {
             servidorInput.text = await vaultTransit.DecryptAsync("api-key-encrypt", sqLiteManager.GetServers()[Server.REDIS].ipServer);
             contrasenaRedisInput.text = await vaultTransit.DecryptAsync("api-key-encrypt", sqLiteManager.GetServers()[Server.REDIS].password);
         }
-        sqLiteManager.cerrarConexion();
     }
 
     public void mostrarContrasenaRedis()
@@ -181,10 +176,7 @@ public class MenuInicial : MonoBehaviour
         TMP_InputField openRouterInput = openRouter.GetComponent<TMP_InputField>();
         TMP_InputField groqInput = groq.GetComponent<TMP_InputField>();
 
-        SQLiteManager sqLiteManager = new SQLiteManager(Application.persistentDataPath + "/database.db");
-        sqLiteManager.crearConexion();
-
-        VaultTransit vaultTransit = new VaultTransit();
+        SQLiteManager sqLiteManager = SQLiteManager.GetSQLiteManager();
 
         if (sqLiteManager.ExistsTable("ApiKeys"))
         {
@@ -192,7 +184,6 @@ public class MenuInicial : MonoBehaviour
             openRouterInput.text = await vaultTransit.DecryptAsync("api-key-encrypt", sqLiteManager.GetAPIS()[ApiKey.OPEN_ROUTER].apiKey);
             groqInput.text = await vaultTransit.DecryptAsync("api-key-encrypt", sqLiteManager.GetAPIS()[ApiKey.GROQ].apiKey);
         }
-        sqLiteManager.cerrarConexion();
     }
 
 
@@ -206,10 +197,7 @@ public class MenuInicial : MonoBehaviour
         TMP_InputField openRouterInput = openRouter.GetComponent<TMP_InputField>();
         TMP_InputField groqInput = groq.GetComponent<TMP_InputField>();
 
-        var vaultTransit = new VaultTransit();
-
-        SQLiteManager sqLiteManager = new SQLiteManager(Application.persistentDataPath + "/database.db");
-        sqLiteManager.crearConexion();
+        SQLiteManager sqLiteManager = SQLiteManager.GetSQLiteManager();
 
         if (elevenLabsInput.text != "" && openRouterInput.text != "")
         {
@@ -265,7 +253,6 @@ public class MenuInicial : MonoBehaviour
                 }
             }
         }
-        sqLiteManager.cerrarConexion();
     }
 
     public void mostrarApiElevenLabs()

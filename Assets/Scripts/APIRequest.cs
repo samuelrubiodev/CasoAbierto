@@ -53,8 +53,12 @@ public class APIRequest : MonoBehaviour
         Si consideras que el personaje y el jugador han terminado de hablar, que no hay nada más que decir.";
 
     private static readonly string PROMPT_SYSTEM_ANALISIS_EVIDENCIA = @"
-        Analiza la evidencia con un enfoque forense técnico y profundo. No repitas datos conocidos; aporta hallazgos nuevos y específicos (e.g., dueño de huellas, ADN) con implicaciones. 
-        Resuelve el análisis completo sin delegar al jugador. Máximo 200 caracteres. Contexto: ";
+        Analiza la evidencia con un enfoque forense técnico y profundo.
+        Lo que tienes que hacer es un analisis mas exhaustivo de la evidencia seleccionada por el jugador ya que anteriormente se hizo un analisis rapido de la evidencia.
+        Por favor es muy importante que no copies la propiedad 'analisis' de la evidencia seleccionada ya que el jugador ya tiene esa informacion, debes hacer un analisis mas profundo de la evidencia.
+        Tienes que revelar cualquier tipo de información relevante que no se sepa todavía, que pueda ayudar al jugador a resolver el caso, de quien son las huellas, si hay sangre, si hay ADN, quien aparece en las camaras de seguridad, cualquier información valiosa, etc...
+        
+        Por ultimo es importante que no envíes mas de 200 caracteres.";
 
     private static List<ChatMessage> chatMessages = new ();
 

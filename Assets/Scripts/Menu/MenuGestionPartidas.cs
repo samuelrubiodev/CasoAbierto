@@ -59,7 +59,6 @@ public class MenuGestionPartidas : MonoBehaviour
             panelCaso.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = jugador.casos[i].tiempoRestante;
 
             panelCaso.SetActive(true);
-            panelCaso.transform.GetChild(4).GetComponent<Button>().onClick.AddListener(() => CargarPartida(jugador, index.ToString()));
             panelCaso.transform.GetComponent<EventTrigger>().triggers[0].callback.AddListener((data) => CargarPartida(jugador, index.ToString()));
         }
     }

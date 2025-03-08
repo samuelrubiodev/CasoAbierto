@@ -12,15 +12,15 @@ public class MenuPersonajes : MonoBehaviour
     public GameObject panelIzquierda;
     public FirstPersonController FirstPersonController;
     public static Personaje personajeSeleccionado;
-    private bool Personajes = false;
+
+    public MenuEvidencias menuEvidencias;
+    public bool Personajes = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-
-
     }
 
     // Update is called once per frame
@@ -28,7 +28,7 @@ public class MenuPersonajes : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.B))
         {
-            if (!Personajes)
+            if (!Personajes && !menuEvidencias.Evidencias)
             {
                 MostrarPersonajes();
             }

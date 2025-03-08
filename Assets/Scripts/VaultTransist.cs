@@ -78,6 +78,7 @@ public class VaultTransit
 
     private void LeerConfiguracion()
     {
+        CargarConfiguracion();
         if (config != null)
         {
             foreach (string line in config.text.Split('\n'))
