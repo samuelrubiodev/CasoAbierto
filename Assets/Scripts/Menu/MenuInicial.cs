@@ -328,13 +328,26 @@ public class MenuInicial : MonoBehaviour
     public void ListarResolucionPantalla()
     {
         GameObject dropbownResolucion = GameObject.Find("DropbownResolucion");
+        GameObject dropbownModoPantalla = GameObject.Find("DropbownModoPantalla");
         TMP_Dropdown dropbown = dropbownResolucion.GetComponent<TMP_Dropdown>();
+        TMP_Dropdown dropbownModo = dropbownModoPantalla.GetComponent<TMP_Dropdown>();
         Resolution[] resolutions = Screen.resolutions;
 
         for (int i = 0; i < resolutions.Length; i++)
         {
             dropbown.options.Add(new TMP_Dropdown.OptionData(name = resolutions[i].width + "x" + resolutions[i].height));
         }
+
+        if (PlayerPrefs.HasKey("resolucion"))
+        {
+            dropbown.value = PlayerPrefs.GetInt("resolucion");
+        }
+
+        if (PlayerPrefs.HasKey("modoPantalla"))
+        {
+            dropbownModo.value = PlayerPrefs.GetInt("modoPantalla");
+        }
+
     }
 
     public void AplicarResolucionPantalla()
@@ -347,14 +360,61 @@ public class MenuInicial : MonoBehaviour
 
         string[] resolucion = dropbown.options[dropbown.value].text.Split('x');
 
-        if (dropdownModoPantalla.options[dropdownModoPantalla.value].text == "Pantalla completa")
+        if (dropdownModoPantalla.value == 1)
         {
             Screen.SetResolution(int.Parse(resolucion[0]), int.Parse(resolucion[1]), FullScreenMode.ExclusiveFullScreen);
+            PlayerPrefs.SetInt("modoPantalla", 1);
         }
         else
         {
             Screen.SetResolution(int.Parse(resolucion[0]), int.Parse(resolucion[1]), FullScreenMode.Windowed);
+            PlayerPrefs.SetInt("modoPantalla", 0);
         }
+
+        PlayerPrefs.SetInt("resolucion", dropbown.value);
+        
+    }
+
+    public void ListarConfiguracionGraficos()
+    {
+        GameObject dropbownCalidadGraficos = GameObject.Find("DropbownCalidad");
+        TMP_Dropdown dropbown = dropbownCalidadGraficos.GetComponent<TMP_Dropdown>();
+
+        GameObject dropbownFPS = GameObject.Find("DropbownFPS");
+        TMP_Dropdown dropbownFPSObj = dropbownFPS.GetComponent<TMP_Dropdown>();
+
+        if (PlayerPrefs.HasKey("calidadGraficos"))
+        {
+            dropbown.value = PlayerPrefs.GetInt("calidadGraficos");
+        }
+
+        if (PlayerPrefs.HasKey("fps"))
+        {
+            dropbownFPSObj.value = PlayerPrefs.GetInt("fps",-1);
+        }
+    }
+
+    public void AplicarConfiguracionGraficos()
+    {
+        GameObject dropbownCalidadGraficos = GameObject.Find("DropbownCalidad");
+        TMP_Dropdown dropbown = dropbownCalidadGraficos.GetComponent<TMP_Dropdown>();
+
+        GameObject dropbownFPS = GameObject.Find("DropbownFPS");
+        TMP_Dropdown dropbownFPSObj = dropbownFPS.GetComponent<TMP_Dropdown>();
+
+        if (dropbownFPSObj.value == 0)
+        {
+            Application.targetFrameRate = -1;
+            PlayerPrefs.SetInt("fps", -1);
+        }
+        else
+        {
+            Application.targetFrameRate = dropbownFPSObj.value;
+            PlayerPrefs.SetInt("fps", dropbownFPSObj.value);
+        }
+
+        PlayerPrefs.SetInt("calidadGraficos", dropbown.value);
+        QualitySettings.SetQualityLevel(dropbown.value);
         
     }
 
