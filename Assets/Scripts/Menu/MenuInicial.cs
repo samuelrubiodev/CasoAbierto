@@ -95,12 +95,16 @@ public class MenuInicial : MonoBehaviour
 
         GameObject porcentajeVolGeneral = GameObject.Find("SliderVolGeneral");
         GameObject porcentajeVolMusica = GameObject.Find("SliderVolMusica");
+        GameObject volumenVoces = GameObject.Find("SliderVolVoces");
+
 
         Slider sliderVolGeneral = porcentajeVolGeneral.GetComponent<Slider>();
         Slider sliderVolMusica = porcentajeVolMusica.GetComponent<Slider>();
+        Slider sliderVolVoces = volumenVoces.GetComponent<Slider>();
 
         sliderVolGeneral.onValueChanged.AddListener((value) => MostrarSlider(value, "porcentajeVolGeneral"));
         sliderVolMusica.onValueChanged.AddListener((value) => MostrarSlider(value, "porcentajeVolMusica"));
+        sliderVolVoces.onValueChanged.AddListener((value) => MostrarSlider(value, "porcentajeVolVoces"));
 
         TMP_Dropdown dropbown = objeto.GetComponent<TMP_Dropdown>();
         dropbownMicrofonos = dropbown;
@@ -137,21 +141,26 @@ public class MenuInicial : MonoBehaviour
     {
         GameObject volumenGeneral = GameObject.Find("SliderVolGeneral");
         GameObject volumenMusica = GameObject.Find("SliderVolMusica");
+        GameObject volumenVoces = GameObject.Find("SliderVolVoces");
 
         Slider sliderVolumenGeneral = volumenGeneral.GetComponent<Slider>();
         Slider sliderVolumenMusica = volumenMusica.GetComponent<Slider>();
+        Slider sliderVolumenVoces = volumenVoces.GetComponent<Slider>();
 
         PlayerPrefs.SetFloat("volumenGeneral", sliderVolumenGeneral.value);
         PlayerPrefs.SetFloat("volumenMusica", sliderVolumenMusica.value);
+        PlayerPrefs.SetFloat("volumenVoces", sliderVolumenVoces.value);
     }
 
     public void menuVolumen()
     {
         GameObject volumenGeneral = GameObject.Find("SliderVolGeneral");
         GameObject volumenMusica = GameObject.Find("SliderVolMusica");
+        GameObject volumenVoces = GameObject.Find("SliderVolVoces");
 
         Slider sliderVolumenGeneral = volumenGeneral.GetComponent<Slider>();
         Slider sliderVolumenMusica = volumenMusica.GetComponent<Slider>();
+        Slider sliderVolumenVoces = volumenVoces.GetComponent<Slider>();
 
         if (PlayerPrefs.HasKey("volumenGeneral"))
         {
@@ -161,6 +170,11 @@ public class MenuInicial : MonoBehaviour
         if (PlayerPrefs.HasKey("volumenMusica"))
         {
             sliderVolumenMusica.value = PlayerPrefs.GetFloat("volumenMusica");
+        }
+
+        if (PlayerPrefs.HasKey("volumenVoces"))
+        {
+            sliderVolumenVoces.value = PlayerPrefs.GetFloat("volumenVoces");
         }
     }
 
@@ -309,6 +323,39 @@ public class MenuInicial : MonoBehaviour
             }
             groqInput.ForceLabelUpdate();
         }
+    }
+
+    public void ListarResolucionPantalla()
+    {
+        GameObject dropbownResolucion = GameObject.Find("DropbownResolucion");
+        TMP_Dropdown dropbown = dropbownResolucion.GetComponent<TMP_Dropdown>();
+        Resolution[] resolutions = Screen.resolutions;
+
+        for (int i = 0; i < resolutions.Length; i++)
+        {
+            dropbown.options.Add(new TMP_Dropdown.OptionData(name = resolutions[i].width + "x" + resolutions[i].height));
+        }
+    }
+
+    public void AplicarResolucionPantalla()
+    {
+        GameObject dropbownResolucion = GameObject.Find("DropbownResolucion");
+        TMP_Dropdown dropbown = dropbownResolucion.GetComponent<TMP_Dropdown>();
+
+        GameObject modoPantalla = GameObject.Find("DropbownModoPantalla");
+        TMP_Dropdown dropdownModoPantalla = modoPantalla.GetComponent<TMP_Dropdown>();
+
+        string[] resolucion = dropbown.options[dropbown.value].text.Split('x');
+
+        if (dropdownModoPantalla.options[dropdownModoPantalla.value].text == "Pantalla completa")
+        {
+            Screen.SetResolution(int.Parse(resolucion[0]), int.Parse(resolucion[1]), FullScreenMode.ExclusiveFullScreen);
+        }
+        else
+        {
+            Screen.SetResolution(int.Parse(resolucion[0]), int.Parse(resolucion[1]), FullScreenMode.Windowed);
+        }
+        
     }
 
     public void volverMenuPrincipal()
