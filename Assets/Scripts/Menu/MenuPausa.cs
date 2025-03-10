@@ -8,6 +8,8 @@ public class MenuPausa : MonoBehaviour
     public Camera cameraMenu;
     public GameObject audioMenu;
     public GameObject audioFondo;
+    public MenuEvidencias menuEvidencias;
+    public MenuPersonajes menuPersonajes;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -25,7 +27,7 @@ public class MenuPausa : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (!pausa)
+            if (!pausa && !menuEvidencias.Evidencias && !menuPersonajes.Personajes)
             {
                 MostrarMenu();
             }

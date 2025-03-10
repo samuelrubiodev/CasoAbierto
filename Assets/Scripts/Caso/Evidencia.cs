@@ -6,6 +6,8 @@ public class Evidencia
     public string tipo { get; set; }
     public string ubicacion { get; set; }
 
+    public bool analizada { get; set; }
+
     public Evidencia()
     {
     }

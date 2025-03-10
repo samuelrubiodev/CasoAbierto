@@ -34,7 +34,9 @@ public class Inicializacion
         5. Obliga a que al menos uno de los personajes tenga un secreto o un motivo oculto que no sea evidente a simple vista.
         6. Las evidencias deben ser variadas: huellas digitales, grabaciones de cámaras, registros telefónicos, documentos, armas, testimonios contradictorios o pruebas forenses.     
         7. Asegúrate de que los eventos y personajes sean coherentes con el caso descrito.
-        8. El jugador no debe morir, el es el detective";
+        8. El jugador no debe morir, el es el detective
+        
+        Ten en cuenta que el jugador tiene ya los siguientes casos, a si que no se pueden repetir: ";
 
     public string nombreJugador;
     private SQLiteManager sqLiteManager;
@@ -68,6 +70,8 @@ public class Inicializacion
 
     public async Task crearBaseDatosRedis(long jugadorID)
     {
+        Jugador jugador = new ();
+        string casosGenerados = "";
         if (jugadorID == -1)
         {
             HashEntry[] hashEntries = new HashEntry[]
@@ -82,12 +86,44 @@ public class Inicializacion
             await Task.Run(() => redisManager.SetHash($"jugadores:{jugadorID}", hashEntries));
             Inicializacion.jugadorID = jugadorID;
         }
+        else 
+        {
+            jugador = await Task.Run( () => redisManager.getJugador(jugadorID));
+
+            Inicializacion.jugadorID = jugadorID;
+        
+            casosGenerados = "";
+
+            foreach (Caso caso in jugador.casos)
+            {
+                JObject objetoCaso = new()
+                {
+                    ["Caso"] = new JObject
+                    {
+                        ["tituloCaso"] = caso.tituloCaso,
+                        ["descripcionCaso"] = caso.descripcion,
+                        ["dificultad"] = caso.dificultad,
+                        ["fechaOcurrido"] = caso.fechaOcurrido,
+                        ["lugar"] = caso.lugar,
+                        ["tiempoRestante"] = caso.tiempoRestante,
+
+                        ["cronologia"] = Util.ObtenerCronologias(caso.cronologia),
+                        ["evidencias"] = Util.ObtenerEvidencias(caso.evidencias),
+                        ["personajes"] = Util.ObtenerPersonajes(caso.personajes),
+                        ["explicacionCasoResuelto"] = caso.explicacionCasoResuelto
+                    }
+                };
+
+                string jsonCaso = JsonConvert.SerializeObject(objetoCaso);
+                casosGenerados += jsonCaso + "\n";
+            }
+        }
         
         JObject respuestaCaso = null;
 
         try
         {
-            string respuestaCasoOpenRouter = obtenerRespuestaIA(PROMPT_SYSTEM_GENERACION_CASO, nombreJugador, apiKeyOpenRouter);
+            string respuestaCasoOpenRouter = obtenerRespuestaIA(PROMPT_SYSTEM_GENERACION_CASO + casosGenerados, nombreJugador, apiKeyOpenRouter);
             JObject json = JObject.Parse(respuestaCasoOpenRouter);
             respuestaCaso = json;
 

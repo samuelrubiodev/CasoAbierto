@@ -31,13 +31,15 @@ public class ControllerCarga : MonoBehaviour
 
             await CrearCaso(redisManger, vaultTransit, ApiKey.API_KEY_OPEN_ROUTER,jugadorID);
             
-            if (Inicializacion.jugadorID != -1)
+            if (jugadorID == -1)
             {
                 PlayerPrefs.SetInt("jugadorID", (int)Inicializacion.jugadorID);
                 PlayerPrefs.Save();
+
+                jugadorID = Inicializacion.jugadorID;
             }  
 
-            await CargarPartida(redisManger, GetJugadorID());
+            await CargarPartida(redisManger, jugadorID);
             SceneManager.LoadScene("SampleScene");
         }
     }
@@ -55,7 +57,7 @@ public class ControllerCarga : MonoBehaviour
             {
                 Jugador.jugador = jugador;
                 Jugador.indexCaso = i;
-                return;
+                break;
             }
         }
         APIRequest.DATOS_CASO = CrearPromptSystem().ToString();
@@ -120,77 +122,13 @@ public class ControllerCarga : MonoBehaviour
                 ["lugar"] = caso.lugar,
                 ["tiempoRestante"] = caso.tiempoRestante,
 
-                ["cronologia"] = ObtenerCronologias(caso.cronologia),
-                ["evidencias"] = ObtenerEvidencias(caso.evidencias),
-                ["personajes"] = ObtenerPersonajes(caso.personajes),
+                ["cronologia"] = Util.ObtenerCronologias(caso.cronologia),
+                ["evidencias"] = Util.ObtenerEvidencias(caso.evidencias),
+                ["personajes"] = Util.ObtenerPersonajes(caso.personajes),
                 ["explicacionCasoResuelto"] = caso.explicacionCasoResuelto
             }
         };
 
         return objetoJson;
-    }
-
-    private JArray ObtenerPersonajes(List<Personaje> personajesLista)
-    {
-        var personajes = new List<Dictionary<string, string>>();
-
-        foreach (Personaje personaje in personajesLista)
-        {
-            var personajeDiccionario = new Dictionary<string, string>
-            {
-                { "nombre", personaje.nombre },
-                { "rol", personaje.rol },
-                { "estado", personaje.estado },
-                { "descripcion", personaje.descripcion },
-                { "estado_emocional", personaje.estadoEmocional }
-            };
-
-            personajes.Add(personajeDiccionario);
-        }
-       
-        var objeto = JsonConvert.SerializeObject(personajes);
-        return JArray.Parse(objeto);
-    }
-
-    private JArray ObtenerEvidencias(List<Evidencia> evidenciasLista)
-    {
-        var evidencias = new List<Dictionary<string, string>>();
-
-        foreach (Evidencia evidencia in evidenciasLista)
-        {
-            var evidenciaDiccionario = new Dictionary<string, string>
-            {
-                { "nombre", evidencia.nombre },
-                { "descripcion", evidencia.descripcion },
-                { "tipo", evidencia.tipo },
-                { "analisis", evidencia.analisis },
-                {"ubicacion", evidencia.ubicacion }
-            };
-
-            evidencias.Add(evidenciaDiccionario);
-        }
-        
-        var objeto = JsonConvert.SerializeObject(evidencias);
-        return JArray.Parse(objeto);
-    }
-
-    private JArray ObtenerCronologias(List<Cronologia> cronologiasLista)
-    {
-        var cronologias = new List<Dictionary<string, string>>();
-
-        foreach (Cronologia cronologia in cronologiasLista)
-        {
-            var cronologiaDiccionario = new Dictionary<string, string>
-            {
-                { "fecha", cronologia.fecha.ToString() },
-                { "hora", cronologia.hora },
-                { "evento", cronologia.evento }
-            };
-
-            cronologias.Add(cronologiaDiccionario);
-        }
-
-        var objeto = JsonConvert.SerializeObject(cronologias);
-        return JArray.Parse(objeto);
     }
 }

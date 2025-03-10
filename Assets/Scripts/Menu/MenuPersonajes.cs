@@ -53,7 +53,7 @@ public class MenuPersonajes : MonoBehaviour
         {
             Personaje personaje = Jugador.jugador.casos[Jugador.indexCaso].personajes[i];
 
-            if (personaje.estado == "Vivo")
+            if (personaje.estado == "Vivo" || personaje.estado == "Viva")
             {
                 GameObject objetoPrefab = Instantiate(personajePrefab, content.transform);
 

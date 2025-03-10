@@ -313,7 +313,7 @@ public class APIRequest : MonoBehaviour
         };
 
         AsyncCollectionResult<StreamingChatCompletionUpdate> completionResult = client
-            .GetChatClient("google/gemini-2.0-flash-001")
+            .GetChatClient("google/gemini-2.0-flash-exp:free")
             .CompleteChatStreamingAsync(mensajes, options);
 
         string mensajeCompleto = "";

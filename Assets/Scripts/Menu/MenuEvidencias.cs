@@ -39,8 +39,6 @@ public class MenuEvidencias : MonoBehaviour
                 OcultarEvidencias();
             }
         }
-
-        
     }
 
     public void MostrarEvidencias()
@@ -59,7 +57,11 @@ public class MenuEvidencias : MonoBehaviour
             GameObject objetoPrefab = Instantiate(evidenciaPrefab, content.transform);
 
             objetoPrefab.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = Jugador.jugador.casos[Jugador.indexCaso].evidencias[i].nombre;
-            objetoPrefab.transform.GetComponent<EventTrigger>().triggers[0].callback.AddListener((data) => { CargarEvidencia(Jugador.jugador.casos[Jugador.indexCaso].evidencias[index]); });
+            objetoPrefab.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = Jugador.jugador.casos[Jugador.indexCaso].evidencias[i].tipo;
+            objetoPrefab.transform.GetComponent<EventTrigger>().triggers[0].callback.AddListener((data) => 
+                { 
+                    CargarEvidencia(Jugador.jugador.casos[Jugador.indexCaso].evidencias[index]); 
+                });
 
             objetoPrefab.SetActive(true);
         }
@@ -79,13 +81,21 @@ public class MenuEvidencias : MonoBehaviour
 
     public async void AnalizarEvidencia()
     {
-        string json = await aPIRequest.AnalizarEvidencia(evidenciaSeleccionada);
-        JObject jobject = JObject.Parse(json);
+        if (!evidenciaSeleccionada.analizada)
+        {
+            string json = await aPIRequest.AnalizarEvidencia(evidenciaSeleccionada);
+            JObject jobject = JObject.Parse(json);
 
-        GameObject datosEvidencia = panelIzquierda.transform.GetChild(1).gameObject;
+            GameObject datosEvidencia = panelIzquierda.transform.GetChild(1).gameObject;
 
-        datosEvidencia.transform.GetChild(3).GetComponent<TMPro.TextMeshProUGUI>().text = jobject["evidencia"]?["resultadoAnalisis"].ToString();
-        datosEvidencia.transform.GetChild(3).SetActive(true);
+            string resultadoAnalisis = jobject["evidencia"]?["resultadoAnalisis"].ToString();
+
+            evidenciaSeleccionada.analisis = resultadoAnalisis;
+
+            datosEvidencia.transform.GetChild(3).GetComponent<TMPro.TextMeshProUGUI>().text = resultadoAnalisis;
+
+            evidenciaSeleccionada.analizada = true;
+        }
     }
 
     public void DeseleccionarEvidencia()
@@ -108,6 +118,7 @@ public class MenuEvidencias : MonoBehaviour
         datosEvidencia.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = evidencia.nombre;
         datosEvidencia.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = evidencia.descripcion;
         datosEvidencia.transform.GetChild(2).GetComponent<TMPro.TextMeshProUGUI>().text = evidencia.tipo;
+        datosEvidencia.transform.GetChild(3).GetComponent<TMPro.TextMeshProUGUI>().text = evidencia.analizada ? evidencia.analisis : "No analizada"; 
 
         datosEvidencia.transform.GetChild(0).SetActive(true);
         datosEvidencia.transform.GetChild(1).SetActive(true);
