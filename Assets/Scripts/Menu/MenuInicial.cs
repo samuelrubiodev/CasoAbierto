@@ -113,10 +113,17 @@ public class MenuInicial : MonoBehaviour
 
         string[] microfonos = Microphone.devices;
 
+        if (microfonos.Length == 0)
+        {
+            dropbown.options.Add(new TMP_Dropdown.OptionData(name = "Texto"));
+            return;
+        }
+
         for (int i = 0; i < microfonos.Length; i++)
         {
             dropbown.options.Add(new TMP_Dropdown.OptionData(name = microfonos[i]));
         }
+        dropbown.options.Add(new TMP_Dropdown.OptionData(name = "Texto"));
 
         if (PlayerPrefs.HasKey("microfono"))
         {

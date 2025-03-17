@@ -26,7 +26,7 @@ public class MenuPersonajes : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             if (!Personajes && !menuEvidencias.Evidencias)
             {

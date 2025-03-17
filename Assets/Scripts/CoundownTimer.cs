@@ -1,22 +1,28 @@
+using System;
 using TMPro;
 using UnityEngine;
 
 public class CoundownTimer : MonoBehaviour
 {
-   public enum CountdownFormatting { DaysHoursMinutesSeconds, HoursMinutesSeconds, MinutesSeconds, Seconds };
+    public enum CountdownFormatting { DaysHoursMinutesSeconds, HoursMinutesSeconds, MinutesSeconds, Seconds };
     public CountdownFormatting countdownFormatting = CountdownFormatting.MinutesSeconds;
     public bool showMilliseconds = true;
-    public double countdownTime = 600; 
+    public double countdownTime = 0; 
 
-    TMP_Text countdownText;
+    public TMP_Text countdownText;
     double countdownInternal;
-    bool countdownOver = false;
+    public bool countdownOver = false;
 
-    // Start is called before the first frame update
-    void Start()
+    public void EmpezarContador()
     {
-        countdownText = GetComponent<TMP_Text>();
+        countdownTime = int.Parse(Jugador.jugador.casos[Jugador.indexCaso].tiempoRestante) * 60;
         countdownInternal = countdownTime;
+    }
+
+    public void ReiniciarContador()
+    {
+        countdownInternal = countdownTime;
+        countdownOver = false;
     }
 
     void FixedUpdate()
@@ -24,7 +30,6 @@ public class CoundownTimer : MonoBehaviour
         if (countdownInternal > 0)
         {
             countdownInternal -= Time.deltaTime;
-
 
             if (countdownInternal < 0)
             {

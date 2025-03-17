@@ -44,7 +44,8 @@ public class APIRequest : MonoBehaviour
         1.Es importante que no envíes mas de 200 caracteres en la respuesta del personaje.
         2.Si el jugador no tiene evidencias seleccionadas y te pregunta por una evidencia no tienes que hacer referencia a esa evidencia ya que el personaje no tiene conocimiento de ella a no ser que el personaje este involucrado en esa evidencia.
         3.Si el jugado selecciona una evidencia y te pregunta por ella, debes responder con la información que el personaje tenga sobre esa evidencia.
-
+        4.Solo envía texto, nada de JSON.
+       
         Estos son los datos del caso, con todos los personajes, evidencias y detalles relevantes:";
 
     public static string DATOS_CASO = "";
@@ -332,19 +333,24 @@ public class APIRequest : MonoBehaviour
         return mensajeCompleto;
     }
 
-    public async Task RequestAPI(APIRequestElevenLabs aPIRequestElevenLabs)
+    public async Task RequestAPI(APIRequestElevenLabs aPIRequestElevenLabs, string texto)
     {
-        var groqApi = new GroqApiClient(groqApiKey, "https://api.groq.com/openai/v1");
-        var audioStream = File.OpenRead(Application.persistentDataPath + "/audio.wav");
-        var result = await groqApi.CreateTranscriptionAsync (
-            audioStream,
-            "audio.wav",
-            "whisper-large-v3-turbo",
-            prompt: "Transcribe este audio de esta persona",
-            language: "es"
-        );
-        
-        string prompt = CrearPrompt(result?["text"]?.ToString()).ToString();
-        await MakeRequestOpenRouter(prompt,aPIRequestElevenLabs);
+        if (texto == "")
+        {
+            var groqApi = new GroqApiClient(groqApiKey, "https://api.groq.com/openai/v1");
+            var audioStream = File.OpenRead(Application.persistentDataPath + "/audio.wav");
+            var result = await groqApi.CreateTranscriptionAsync (
+                audioStream,
+                "audio.wav",
+                "whisper-large-v3-turbo",
+                prompt: "Transcribe este audio de esta persona",
+                language: "es"
+            );
+            string prompt = CrearPrompt(result?["text"]?.ToString()).ToString();
+            await MakeRequestOpenRouter(prompt,aPIRequestElevenLabs);
+        } else {
+            string prompt = CrearPrompt(texto).ToString();
+            await MakeRequestOpenRouter(prompt,aPIRequestElevenLabs);
+        }
     }
 }

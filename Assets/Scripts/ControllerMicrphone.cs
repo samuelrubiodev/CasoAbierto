@@ -1,14 +1,18 @@
 using System.Collections;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using Utilities.Extensions;
 
 public class ControllerMicrophone : MonoBehaviour
 {
     private MicrophoneRecorder recorder;
+    public GameObject elementoTexto;
     public IEnumerator RecordAudio()
     {
         recorder = GetComponent<MicrophoneRecorder>();
 
-        if (recorder != null)
+        if (recorder != null && recorder.TieneMicrofono())
         {
             Debug.Log("Iniciando grabación...");
             recorder.StartRecording();
@@ -25,6 +29,11 @@ public class ControllerMicrophone : MonoBehaviour
 
             LlamarApis(aPIRequest);
         }
+        else if (!recorder.TieneMicrofono())
+        {
+            APIRequest aPIRequest = GetComponent<APIRequest>();
+            LlamarApis(aPIRequest);
+        }
         else
         {
             Debug.LogError("No se encontró el componente MicrophoneRecorder.");
@@ -34,6 +43,6 @@ public class ControllerMicrophone : MonoBehaviour
     private async void LlamarApis(APIRequest aPIRequest)
     {
         APIRequestElevenLabs aPIRequestElevenLabs = GetComponent<APIRequestElevenLabs>();
-        await aPIRequest.RequestAPI(aPIRequestElevenLabs);
+        await aPIRequest.RequestAPI(aPIRequestElevenLabs, elementoTexto.GetComponent<TMP_InputField>().text);
     }
 }

@@ -24,6 +24,9 @@ public class DetectionCharacter : MonoBehaviour
     private AudioSource audioSource;
 
     public TMP_Text textoSubtitulos;
+    public GameObject inputField;
+
+
     private bool isPlaying = false;
 
     public async void ShowSubtitle(int id, SubtitleList subtitulos)
@@ -63,14 +66,15 @@ public class DetectionCharacter : MonoBehaviour
     {
         if (!isPlaying)
         {
-            SubtitleManager subtitleManager = new SubtitleManager(Application.dataPath + "/Sounds/Speechs/JSON_Subtitles/subtitles.json");
+            SubtitleManager subtitleManager = new (Application.dataPath + "/Sounds/Speechs/JSON_Subtitles/subtitles.json");
 
             SubtitleList subtitulos = subtitleManager.ReadJSON();
 
             AudioSource audio = GetComponent<AudioSource>();
 
-            // Generar un numero aleatorio entre 1 y 8 para reproducir un audio aleatorio
             int numeroAleatorio = UnityEngine.Random.Range(1, 9);
+
+            inputField.SetActive(true);
 
             switch (numeroAleatorio)
             {

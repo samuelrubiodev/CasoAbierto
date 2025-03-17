@@ -217,7 +217,7 @@ public class Inicializacion
                             ""dificultad"": { ""type"": ""string"", ""description"": ""Facil, Medio o Dificil"" },
                             ""fechaOcurrido"": { ""type"": ""string"", ""description"": ""YYYY-MM-DD"" },
                             ""lugar"": { ""type"": ""string"", ""description"": ""Lugar en el que ha ocurrido el caso"" },
-                            ""tiempoRestante"": { ""type"": ""string"", ""description"": ""HH:MM"" },
+                            ""tiempoRestante"": { ""type"": ""string"", ""description"": ""Minutos restantes, solo en formato: MM"" },
                             ""cronologia"": { ""type"": ""array"", ""items"": {
                                     ""type"": ""object"",
                                         ""properties"": {

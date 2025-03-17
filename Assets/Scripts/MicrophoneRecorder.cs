@@ -16,7 +16,16 @@ public class MicrophoneRecorder : MonoBehaviour
         }
         else
         {
-            Debug.LogError("No se encontró ningún micrófono.");
+            Debug.LogError("No se encontrÃ³ ningÃ³n micrÃ³fono.");
+        }
+    }
+
+    public bool TieneMicrofono()
+    {
+        if (microphoneName == "Texto") {
+            return false;
+        } else {
+            return true;
         }
     }
 
@@ -26,7 +35,7 @@ public class MicrophoneRecorder : MonoBehaviour
         {
             audioClip = Microphone.Start(microphoneName, true, 10, 44100);
             isRecording = true;
-            Debug.Log("Grabación iniciada.");
+            Debug.Log("GrabaciÃ³n iniciada.");
         }
     }
 
@@ -36,11 +45,11 @@ public class MicrophoneRecorder : MonoBehaviour
         {
             Microphone.End(microphoneName);
             isRecording = false;
-            Debug.Log("Grabación detenida.");
+            Debug.Log("GrabaciÃ³n detenida.");
 
             if (audioClip != null)
             {
-                Debug.Log("AudioClip creado con éxito.");
+                Debug.Log("AudioClip creado con Ã©xito.");
             }
             else
             {
@@ -68,14 +77,13 @@ public class MicrophoneRecorder : MonoBehaviour
 
     private byte[] ConvertToWav(float[] samples, int channels, int sampleRate)
     {
-        MemoryStream stream = new MemoryStream();
-        BinaryWriter writer = new BinaryWriter(stream);
+        MemoryStream stream = new ();
+        BinaryWriter writer = new (stream);
 
         int headerSize = 44;
         int fileSize = samples.Length * sizeof(short) + headerSize - 8;
         int dataSize = samples.Length * sizeof(short);
 
-        // Escribe el encabezado WAV
         writer.Write(System.Text.Encoding.UTF8.GetBytes("RIFF"));
         writer.Write(fileSize);
         writer.Write(System.Text.Encoding.UTF8.GetBytes("WAVE"));
@@ -90,7 +98,6 @@ public class MicrophoneRecorder : MonoBehaviour
         writer.Write(System.Text.Encoding.UTF8.GetBytes("data"));
         writer.Write(dataSize);
 
-        // Convierte los datos de audio a formato PCM
         foreach (var sample in samples)
         {
             short intSample = (short)(sample * short.MaxValue);
