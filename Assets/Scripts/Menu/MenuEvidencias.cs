@@ -30,7 +30,7 @@ public class MenuEvidencias : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            if (!Evidencias && !menuPersonajes.Personajes)
+            if (!Evidencias && !menuPersonajes.Personajes && !ControllerGame.estaEscribiendo)
             {
                 MostrarEvidencias();
             }

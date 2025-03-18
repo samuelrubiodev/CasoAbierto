@@ -74,8 +74,6 @@ public class DetectionCharacter : MonoBehaviour
 
             int numeroAleatorio = UnityEngine.Random.Range(1, 9);
 
-            inputField.SetActive(true);
-
             switch (numeroAleatorio)
             {
                 case 1:

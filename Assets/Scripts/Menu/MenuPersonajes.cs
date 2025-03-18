@@ -28,7 +28,7 @@ public class MenuPersonajes : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
-            if (!Personajes && !menuEvidencias.Evidencias)
+            if (!Personajes && !menuEvidencias.Evidencias && !ControllerGame.estaEscribiendo)
             {
                 MostrarPersonajes();
             }

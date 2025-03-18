@@ -1,5 +1,6 @@
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting.ReorderableList.Element_Adder_Menu;
 using UnityEngine;
 
 public class ControllerGame : MonoBehaviour
@@ -13,6 +14,8 @@ public class ControllerGame : MonoBehaviour
     public GameObject texto;
     private CoundownTimer coundownTimer;
     private bool seHaIniciadoContador = false;
+    private bool CajaTexto = false;
+    public static bool estaEscribiendo = false;
 
     void Start()
     {
@@ -33,12 +36,29 @@ public class ControllerGame : MonoBehaviour
             isGameInProgress = false;
         }
 
-        if (Input.GetKey(KeyCode.B)) {
-            FirstPersonController.enabled = false;
-            Time.timeScale = 0;
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
+        if (Input.GetKeyDown(KeyCode.B)) {
+            TMP_InputField inputField = texto.GetComponentInChildren<TMP_InputField>();
+            
+            bool inputFieldTieneFocus = inputField != null && inputField.isFocused;
+            if (!inputFieldTieneFocus) {
+                if (!CajaTexto) {
+                    texto.SetActive(true);
+                    FirstPersonController.enabled = false;
+                    Cursor.visible = true;
+                    Cursor.lockState = CursorLockMode.None;
+                    estaEscribiendo = true;
+                    CajaTexto = true;
+                } else {
+                    texto.SetActive(false);
+                    FirstPersonController.enabled = true;
+                    Cursor.visible = false;
+                    Cursor.lockState = CursorLockMode.Locked;
+                    estaEscribiendo = false;
+                    CajaTexto = false;
+                }
+            }
         } else if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) {
+            texto.SetActive(false);
             FirstPersonController.enabled = true;
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
@@ -65,6 +85,5 @@ public class ControllerGame : MonoBehaviour
         yield return StartCoroutine(controllerMicrophone.RecordAudio());
         isRecordingStarted = false;
         isProcessing = false;
-        texto.transform.GetComponent<TMP_InputField>().text = "";
     }
 }
