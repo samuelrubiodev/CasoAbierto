@@ -38,7 +38,6 @@ public class ControllerGame : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.B)) {
             TMP_InputField inputField = texto.GetComponentInChildren<TMP_InputField>();
-            
             bool inputFieldTieneFocus = inputField != null && inputField.isFocused;
             if (!inputFieldTieneFocus) {
                 if (!CajaTexto) {
@@ -47,11 +46,8 @@ public class ControllerGame : MonoBehaviour
                     Ocultar();
                 }
             }
-        } else if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) {
-            texto.SetActive(false);
-            FirstPersonController.enabled = true;
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
+        } else if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) && isGameInProgress) {
+            Ocultar();
             StartCoroutine(StartRecordingProcess(controllerMicrophone));
         }
 
