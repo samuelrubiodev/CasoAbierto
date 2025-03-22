@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using StackExchange.Redis;
+
 public class Personaje
 {
     public string nombre { get; set; }
@@ -19,5 +23,23 @@ public class Personaje
         this.estadoEmocional = estadoEmocional;
         this.rol = rol;
         this.sexo = sexo;
+    }
+
+    public static Personaje GetPlayer(HashEntry[] personajeHash) 
+    {
+        Personaje personaje = new();
+
+        var mapeo = new Dictionary<string, Action<string>>
+        {
+            { "nombre", valor => personaje.nombre = valor },
+            { "estado", valor => personaje.estado = valor },
+            { "descripcion", valor => personaje.descripcion = valor },
+            { "estado_emocional", valor => personaje.estadoEmocional = valor },
+            { "rol", valor => personaje.rol = valor },
+            { "sexo", valor => personaje.sexo = valor},
+        };
+
+        Util.AddValues(personajeHash, mapeo);
+        return personaje;
     }
 }

@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using StackExchange.Redis;
+using Utilities.Rest.Extensions;
 
 public class Jugador
 {
@@ -23,5 +25,17 @@ public class Jugador
         this.estado = estado;
         this.progreso = progreso;
         this.ultima_conexion = ultima_conexion;
+    }
+
+    public string toString()
+    {
+        return "Jugador{" +
+                "idJugador=" + idJugador +
+                ", nombre='" + nombre + '\'' +
+                ", estado='" + estado + '\'' +
+                ", progreso='" + progreso + '\'' +
+                ", ultima_conexion=" + ultima_conexion +
+                ", casos=" + casos +
+                '}';
     }
 }

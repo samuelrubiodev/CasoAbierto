@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using StackExchange.Redis;
 using UnityEngine;
 
 public static class Util
@@ -69,4 +71,16 @@ public static class Util
         var objeto = JsonConvert.SerializeObject(cronologias);
         return JArray.Parse(objeto);
     }
+
+    public static void AddValues(HashEntry[] hashEntries, Dictionary<string, Action<string>> mapeo) {
+        foreach (HashEntry hashEntry in hashEntries)
+        {
+            if (mapeo.TryGetValue(hashEntry.Name, out var setter))
+            {
+                setter(hashEntry.Value);
+            }
+        }
+    }
+
+    
 }

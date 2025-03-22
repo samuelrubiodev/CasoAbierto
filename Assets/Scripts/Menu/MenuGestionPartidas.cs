@@ -41,7 +41,7 @@ public class MenuGestionPartidas : MonoBehaviour
     {
         Jugador jugador = await Task.Run(() =>
         {
-            return redisManager.getJugador(jugadorID);
+            return redisManager.GetPlayer(jugadorID);
         });
 
         rt.sizeDelta = new Vector2(rt.sizeDelta.x, 100 * jugador.casos.Count);

@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using StackExchange.Redis;
 
 public class Caso 
 {
@@ -29,4 +31,32 @@ public class Caso
         this.descripcion = descripcion;
         this.explicacionCasoResuelto = explicacionCasoResuelto;
     }
+
+    public static Caso CreateEmptyCaso(string idCaso) {
+        Caso caso = new()
+        {
+            idCaso = idCaso,
+            personajes = new List<Personaje>(),
+            evidencias = new List<Evidencia>(),
+            cronologia = new List<Cronologia>()
+        };
+
+        return caso;
+    }
+
+    public static void PopulateCasoBasicInfo(HashEntry[] hashCaso, Caso caso) {
+        var mapeo = new Dictionary<string, Action<string>>
+        {
+            { "tituloCaso", valor => caso.tituloCaso = valor },
+            { "descripcionCaso", valor => caso.descripcion = valor },
+            { "dificultad", valor => caso.dificultad = valor },
+            { "fechaOcurrido", valor => caso.fechaOcurrido = valor },
+            { "lugar", valor => caso.lugar = valor },
+            { "tiempoRestante", valor => caso.tiempoRestante = valor },
+            { "explicacionCasoResuelto", valor => caso.explicacionCasoResuelto = valor }
+        };
+
+        Util.AddValues(hashCaso, mapeo);
+    }
+
 }

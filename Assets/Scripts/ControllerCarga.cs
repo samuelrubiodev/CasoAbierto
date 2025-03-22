@@ -48,7 +48,7 @@ public class ControllerCarga : MonoBehaviour
     {
         Jugador jugador = await Task.Run(() =>
         {
-            return redisManager.getJugador(jugadorID);
+            return redisManager.GetPlayer(jugadorID);
         });
         
         for(int i = 0; i < jugador.casos.Count; i++)

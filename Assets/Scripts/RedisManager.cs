@@ -20,6 +20,14 @@ public class RedisManager
     private string password;
     private static RedisManager instance;
 
+    private enum CasoEntityType
+    {
+        PLAYER,
+        EVIDENCE,
+        TIMELINE,
+        UNKNOWN
+    }
+
 
     public RedisManager(string ipServer, string port, string user, string password)
     {
@@ -123,56 +131,26 @@ public class RedisManager
         return null;
     }
 
-    private Dictionary<string, Caso> GetCasos(long idJugador) 
+    private Dictionary<string, Caso> GetCases(long idJugador) 
     {
         Dictionary<string, Caso> casosDictionary = new ();
         
         foreach (var key in GetServer().Keys(pattern: $"jugadores:{idJugador}:caso:*"))
         {
-            var type = GetDB().KeyType(key);
+            if (GetDB().KeyType(key) != RedisType.Hash) continue;
+        
+            string fullKey = key.ToString();
+            string[] segments = fullKey.Split(':');
+            
+            if (segments.Length != 4 || segments[0] != "jugadores" || segments[2] != "caso") continue;
+            string idCaso = segments[3];
 
-            if (type == RedisType.Hash)
-            {
-                string fullKey = key.ToString();
-                string[] segments = fullKey.Split(':');
+            if (casosDictionary.ContainsKey(idCaso)) continue;
 
-                if (segments.Length == 4 && segments[0] == "jugadores" && segments[2] == "caso") {
-                    string idCaso = segments[3];
-
-                    if (!casosDictionary.ContainsKey(idCaso)) 
-                    {
-                        Caso caso = new()
-                        {
-                            idCaso = idCaso,
-                            personajes = new List<Personaje>(),
-                            evidencias = new List<Evidencia>(),
-                            cronologia = new List<Cronologia>()
-                        };
-                        casosDictionary[idCaso] = caso;
-
-                        HashEntry[] caso_ = GetHash($"jugadores:{idJugador}:caso:{idCaso}");
-
-                        var mapeo = new Dictionary<string, Action<string>>
-                        {
-                            { "tituloCaso", valor => caso.tituloCaso = valor },
-                            { "descripcionCaso", valor => caso.descripcion = valor },
-                            { "dificultad", valor => caso.dificultad = valor },
-                            { "fechaOcurrido", valor => caso.fechaOcurrido = valor },
-                            { "lugar", valor => caso.lugar = valor },
-                            { "tiempoRestante", valor => caso.tiempoRestante = valor },
-                            { "explicacionCasoResuelto", valor => caso.explicacionCasoResuelto = valor }
-                        };
-
-                        foreach (HashEntry hashEntry in caso_)
-                        {
-                            if (mapeo.TryGetValue(hashEntry.Name, out var setter))
-                            {
-                                setter(hashEntry.Value);
-                            }
-                        }
-                    }
-                }
-            }
+            Caso caso = Caso.CreateEmptyCaso(idCaso);
+            casosDictionary[idCaso] = caso;
+            HashEntry[] caso_ = GetHash($"jugadores:{idJugador}:caso:{idCaso}");
+            Caso.PopulateCasoBasicInfo(caso_, caso);
         }
         
         return casosDictionary;
@@ -193,120 +171,55 @@ public class RedisManager
             { "progreso", valor => jugador.progreso = valor }
         };
 
-        foreach (HashEntry hashEntry in jugadorHash)
-        {
-            if (mapeo.TryGetValue(hashEntry.Name, out var setter))
-            {
-                setter(hashEntry.Value);
-            }
-        }
-
+        Util.AddValues(jugadorHash, mapeo);
         return jugador;
     }
 
-    private Personaje GetPersonaje(HashEntry[] personajeHash) 
+    private CasoEntityType GetEntityTypeFromKey(string key)
     {
-        Personaje personaje = new();
-
-        var mapeo = new Dictionary<string, Action<string>>
-        {
-            { "nombre", valor => personaje.nombre = valor },
-            { "estado", valor => personaje.estado = valor },
-            { "descripcion", valor => personaje.descripcion = valor },
-            { "estado_emocional", valor => personaje.estadoEmocional = valor },
-            { "rol", valor => personaje.rol = valor },
-            { "sexo", valor => personaje.sexo = valor},
-        };
-
-        foreach (HashEntry hashEntry in personajeHash)
-        {
-            if (mapeo.TryGetValue(hashEntry.Name, out var setter))
-            {
-                setter(hashEntry.Value);
-            }
-        }
-
-        return personaje;
+        if (key.Contains("personajes")) return CasoEntityType.PLAYER;
+        if (key.Contains("evidencias")) return CasoEntityType.EVIDENCE;
+        if (key.Contains("cronologia")) return CasoEntityType.TIMELINE;
+        return CasoEntityType.UNKNOWN;
     }
 
-    private Evidencia GetEvidencia(HashEntry[] evidenciaHash) 
+    private void AddCasoDetails(long idJugador, Caso caso) 
     {
-        Evidencia evidencia = new();
-
-        var mapeo = new Dictionary<string, Action<string>>
+        foreach (var key in GetServer().Keys(pattern: $"jugadores:{idJugador}:caso:{caso.idCaso}:*"))
         {
-            { "nombre", valor => evidencia.nombre = valor },
-            { "descripcion", valor => evidencia.descripcion = valor },
-            { "tipo", valor => evidencia.tipo = valor },
-            { "analisis", valor => evidencia.analisis = valor },
-            { "ubicacion", valor => evidencia.ubicacion = valor }
-        };
+            var type = GetDB().KeyType(key);
+            if (type != RedisType.Hash) continue;
+            
+            var hashes = GetDB().HashGetAll(key);
 
-        foreach (HashEntry hashEntry in evidenciaHash)
-        {
-            if (mapeo.TryGetValue(hashEntry.Name, out var setter))
+            CasoEntityType entityType = GetEntityTypeFromKey(key.ToString());
+
+            switch (entityType)
             {
-                setter(hashEntry.Value);
+                case CasoEntityType.PLAYER:
+                    Personaje personaje = Personaje.GetPlayer(hashes);
+                    caso.personajes.Add(personaje);
+                    break;
+                case CasoEntityType.EVIDENCE:
+                    Evidencia evidencia = Evidencia.GetEvidence(hashes);
+                    caso.evidencias.Add(evidencia);
+                    break;
+                case CasoEntityType.TIMELINE:
+                    Cronologia cronologia = Cronologia.GetTimeline(hashes);
+                    caso.cronologia.Add(cronologia);
+                    break;
             }
         }
-
-        return evidencia;
     }
 
-    private Cronologia GetCronologia(HashEntry[] cronologiaHash) 
-    {
-        Cronologia cronologia = new();
-
-        var mapeo = new Dictionary<string, Action<string>>
-        {
-            { "fecha", valor => cronologia.fecha = DateTime.Parse(valor) },
-            { "evento", valor => cronologia.evento = valor },
-            { "hora", valor => cronologia.hora = valor }
-        };
-
-        foreach (HashEntry hashEntry in cronologiaHash)
-        {
-            if (mapeo.TryGetValue(hashEntry.Name, out var setter))
-            {
-                setter(hashEntry.Value);
-            }
-        }
-
-        return cronologia;
-    }
-
-    public Jugador getJugador(long id)
+    public Jugador GetPlayer(long id)
     {
         Jugador jugador = GetSimpleJugador(id);
-        Dictionary<string, Caso> casosDictionary = GetCasos(id);
+        Dictionary<string, Caso> casosDictionary = GetCases(id);
 
         foreach (var caso in casosDictionary.Values)
         {
-            foreach (var key1 in GetServer().Keys(pattern: $"jugadores:{id}:caso:{caso.idCaso}:*"))
-            {
-                var type1 = GetDB().KeyType(key1);
-
-                if (type1 == RedisType.Hash)
-                {
-                    var hashes = GetDB().HashGetAll(key1);
-        
-                    if (key1.ToString().Contains("personajes"))
-                    {
-                        Personaje personaje = GetPersonaje(hashes);
-                        caso.personajes.Add(personaje);
-                    } 
-                    else if (key1.ToString().Contains("evidencias"))
-                    {
-                        Evidencia evidencia = GetEvidencia(hashes);
-                        caso.evidencias.Add(evidencia);
-                    } 
-                    else if (key1.ToString().Contains("cronologia"))
-                    {
-                        Cronologia cronologia = GetCronologia(hashes);
-                        caso.cronologia.Add(cronologia);
-                    }
-                }
-            }
+            AddCasoDetails(id, caso);
         }
 
         jugador.casos = new List<Caso>(casosDictionary.Values);

@@ -88,7 +88,7 @@ public class Inicializacion
         }
         else 
         {
-            jugador = await Task.Run( () => redisManager.getJugador(jugadorID));
+            jugador = await Task.Run( () => redisManager.GetPlayer(jugadorID));
 
             Inicializacion.jugadorID = jugadorID;
         
@@ -290,7 +290,7 @@ public class Inicializacion
                         jsonSchemaIsStrict: true),
             };
 
-            ChatCompletion completion = client.GetChatClient("google/gemini-2.0-flash-exp:free").CompleteChat(messages, options);
+            ChatCompletion completion = client.GetChatClient("google/gemini-2.0-flash-001").CompleteChat(messages, options);
 
             using JsonDocument jsonDocument = JsonDocument.Parse(completion.Content[0].Text);
 
