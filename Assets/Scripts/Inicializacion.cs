@@ -145,11 +145,12 @@ public class Inicializacion
             {
                 HashEntry[] hashPersonajes = new HashEntry[]
                 {
-                new HashEntry("nombre", personaje["nombre"].ToString()),
-                new HashEntry("rol", personaje["rol"].ToString()),
-                new HashEntry ("descripcion",personaje["descripcion"].ToString()),
-                new HashEntry("estado", personaje["estado"].ToString()),
-                new HashEntry("estado_emocional", personaje["estado_emocional"].ToString())
+                    new HashEntry("nombre", personaje["nombre"].ToString()),
+                    new HashEntry("rol", personaje["rol"].ToString()),
+                    new HashEntry("descripcion",personaje["descripcion"].ToString()),
+                    new HashEntry("estado", personaje["estado"].ToString()),
+                    new HashEntry("estado_emocional", personaje["estado_emocional"].ToString()),
+                    new HashEntry("sexo", personaje["sexo"].ToString())
                 };
 
                 long personajeID = await Task.Run(() => redisManager.GetNewId($"jugadores:{jugadorID}:caso:{casoID}:personajes"));
@@ -160,11 +161,11 @@ public class Inicializacion
             {
                 HashEntry[] hashEvidencias = new HashEntry[]
                 {
-                new HashEntry("nombre", evidencia["nombre"].ToString()),
-                new HashEntry("descripcion", evidencia["descripcion"].ToString()),
-                new HashEntry("analisis", evidencia["analisis"].ToString()),
-                new HashEntry("tipo", evidencia["tipo"].ToString()),
-                new HashEntry("ubicacion", evidencia["ubicacion"].ToString())
+                    new HashEntry("nombre", evidencia["nombre"].ToString()),
+                    new HashEntry("descripcion", evidencia["descripcion"].ToString()),
+                    new HashEntry("analisis", evidencia["analisis"].ToString()),
+                    new HashEntry("tipo", evidencia["tipo"].ToString()),
+                    new HashEntry("ubicacion", evidencia["ubicacion"].ToString())
                 };
 
                 long evidenciaID = await Task.Run(() => redisManager.GetNewId($"jugadores:{jugadorID}:caso:{casoID}:evidencias"));
@@ -175,9 +176,9 @@ public class Inicializacion
             {
                 HashEntry[] hashCronologia = new HashEntry[]
                 {
-                new HashEntry("fecha", cronologia["fecha"].ToString()),
-                new HashEntry("hora", cronologia["hora"].ToString()),
-                new HashEntry("evento", cronologia["evento"].ToString())
+                    new HashEntry("fecha", cronologia["fecha"].ToString()),
+                    new HashEntry("hora", cronologia["hora"].ToString()),
+                    new HashEntry("evento", cronologia["evento"].ToString())
                 };
 
                 long cronologiaID = await Task.Run(() => redisManager.GetNewId($"jugadores:{jugadorID}:caso:{casoID}:cronologia"));
@@ -249,9 +250,10 @@ public class Inicializacion
                                             ""rol"": {""type"": ""string"", ""description"": ""Testigo, Victima, Cómplice, Informante, Periodista, Familia del sospechoso, etc..""},
                                             ""estado"": {""type"": ""string"", ""description"": ""Vivo, Muerto o Desaparecido""},
                                             ""descripcion"": {""type"":""string"", ""description"": ""Ejemplo: Un hombre mayor con un aire autoritario y una cicatriz prominente en la mejilla. Una mujer joven con gafas grandes y un nerviosismo evidente al hablar. Una ancina amable pero con un comportamiento claramente evasivo. Una joven madre que abraza una foto familiar mientras habla contigo, etc..""},
-                                            ""estado_emocional"": {""type"": ""string"", ""description"": ""Nervioso,Tranquilo,Confiado,Arrogante,Asustado,Confuso,Defensivo,Culpable,etc..""}
+                                            ""estado_emocional"": {""type"": ""string"", ""description"": ""Nervioso,Tranquilo,Confiado,Arrogante,Asustado,Confuso,Defensivo,Culpable,etc..""},
+                                            ""sexo"": {""type"": ""string"", ""description"": ""Masculino o Femenino""}
                                         },
-                                        ""required"": [""nombre"",""rol"",""estado"",""descripcion"",""estado_emocional""],
+                                        ""required"": [""nombre"",""rol"",""estado"",""descripcion"",""estado_emocional"", ""sexo""],
                                         ""additionalProperties"": false
                                     }
                             },

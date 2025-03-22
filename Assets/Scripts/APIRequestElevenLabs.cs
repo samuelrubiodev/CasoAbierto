@@ -10,6 +10,8 @@ using Utilities.Async;
 [RequireComponent(typeof(AudioSource))]
 public class APIRequestElevenLabs : MonoBehaviour
 {
+    private static string AUDIO_ID_HOMBRE = "BPoDAH7n4gFrnGY27Jkj";
+    private static string AUDIO_ID_MUJER = "UOIqAnmS11Reiei1Ytkc";
 
     [SerializeField]
     private bool debug = true;
@@ -30,7 +32,7 @@ public class APIRequestElevenLabs : MonoBehaviour
         }
     }
 
-    public async void StreamAudio(string message)
+    public async void StreamAudio(string message, bool isMan)
     {
         this.message = message;
 
@@ -47,7 +49,14 @@ public class APIRequestElevenLabs : MonoBehaviour
 
             if (voice == null)
             {
-                voice = await api.VoicesEndpoint.GetVoiceAsync("BPoDAH7n4gFrnGY27Jkj");
+                if (isMan)
+                {
+                    voice = await api.VoicesEndpoint.GetVoiceAsync(AUDIO_ID_HOMBRE);
+                }
+                else
+                {
+                    voice = await api.VoicesEndpoint.GetVoiceAsync(AUDIO_ID_MUJER);
+                }
             }
 
 

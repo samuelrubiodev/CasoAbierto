@@ -89,7 +89,7 @@ public class APIRequest : MonoBehaviour
             OpenAIClient client = new (new ApiKeyCredential(openRouterApiKey), openAIClientOptions);
 
             AsyncCollectionResult<StreamingChatCompletionUpdate> completionUpdates = 
-                client.GetChatClient("google/gemini-2.0-flash-exp:free").CompleteChatStreamingAsync(chatMessages);
+                client.GetChatClient("google/gemini-2.0-flash-001").CompleteChatStreamingAsync(chatMessages);
 
             StringBuilder mensajePersonajeBuilder = new();
 
@@ -126,7 +126,9 @@ public class APIRequest : MonoBehaviour
 
             StringBuilder buffer = new();
 
-            aPIRequestElevenLabs.StreamAudio(mensajeCompleto);
+            bool isMan = MenuPersonajes.personajeSeleccionado.sexo == "Masculino";
+
+            aPIRequestElevenLabs.StreamAudio(mensajeCompleto,isMan);
 
             for (int i = 0; i < strings.Length; i++)
             {

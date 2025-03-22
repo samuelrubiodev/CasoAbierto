@@ -214,7 +214,8 @@ public class RedisManager
             { "estado", valor => personaje.estado = valor },
             { "descripcion", valor => personaje.descripcion = valor },
             { "estado_emocional", valor => personaje.estadoEmocional = valor },
-            { "rol", valor => personaje.rol = valor }
+            { "rol", valor => personaje.rol = valor },
+            { "sexo", valor => personaje.sexo = valor},
         };
 
         foreach (HashEntry hashEntry in personajeHash)
