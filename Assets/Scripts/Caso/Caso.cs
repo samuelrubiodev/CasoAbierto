@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using StackExchange.Redis;
 
 public class Caso 
@@ -57,6 +60,52 @@ public class Caso
         };
 
         Util.AddValues(hashCaso, mapeo);
+    }
+
+    public static string AddCasoDetails(Jugador jugador) 
+    {
+        string casosGenerados = "";
+        foreach (Caso caso in jugador.casos)
+        {
+            JObject objetoCaso = new()
+            {
+                ["Caso"] = new JObject
+                {
+                    ["tituloCaso"] = caso.tituloCaso,
+                    ["descripcionCaso"] = caso.descripcion,
+                    ["dificultad"] = caso.dificultad,
+                    ["fechaOcurrido"] = caso.fechaOcurrido,
+                    ["lugar"] = caso.lugar,
+                    ["tiempoRestante"] = caso.tiempoRestante,
+
+                    ["cronologia"] = Util.ObtenerCronologias(caso.cronologia),
+                    ["evidencias"] = Util.ObtenerEvidencias(caso.evidencias),
+                    ["personajes"] = Util.ObtenerPersonajes(caso.personajes),
+                    ["explicacionCasoResuelto"] = caso.explicacionCasoResuelto
+                }
+            };
+
+            string jsonCaso = JsonConvert.SerializeObject(objetoCaso);
+            casosGenerados += jsonCaso + "\n";
+        }
+        return casosGenerados;
+    }
+
+    public static async Task<long> SetHashCaso(JObject respuestaCaso, long jugadorID, RedisManager redisManager) 
+    {
+        HashEntry[] hashCaso = new HashEntry[]
+        {
+            new ("tituloCaso", respuestaCaso["Caso"]["tituloCaso"].ToString()),
+            new ("descripcionCaso", respuestaCaso["Caso"]["descripcionCaso"].ToString()),
+            new ("dificultad", respuestaCaso["Caso"]["dificultad"].ToString()),
+            new ("fechaOcurrido", respuestaCaso["Caso"]["fechaOcurrido"].ToString()),
+            new ("lugar", respuestaCaso["Caso"]["lugar"].ToString()),
+            new ("tiempoRestante", respuestaCaso["Caso"]["tiempoRestante"].ToString()),
+            new ("explicacionCasoResuelto", respuestaCaso["Caso"]["explicacionCasoResuelto"].ToString())
+        };
+
+        long casoID = await Util.GetNewId($"jugadores:{jugadorID}:caso", hashCaso, redisManager);
+        return casoID;
     }
 
 }

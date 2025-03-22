@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using StackExchange.Redis;
-using Utilities.Rest.Extensions;
 
 public class Jugador
 {
@@ -25,6 +26,35 @@ public class Jugador
         this.estado = estado;
         this.progreso = progreso;
         this.ultima_conexion = ultima_conexion;
+    }
+
+    public static HashEntry[] GetHashEntriesJugador(string nombreJugador)
+    {
+        return new HashEntry[]
+        {
+            new ("nombre", nombreJugador),
+            new ("estado", "inactivo"),
+            new ("progreso", "SinCaso"),
+            new ("ultima_conexion", DateTime.Now.ToString())
+        };
+    }
+
+    public static async Task SetHashPlayer(JObject respuestaCaso, long jugadorID, long casoID, RedisManager redisManager)
+    {
+        foreach (JObject personaje in respuestaCaso["Caso"]?["personajes"])
+        {
+            HashEntry[] hashPersonajes = new HashEntry[]
+            {
+                new ("nombre", personaje["nombre"].ToString()),
+                new ("rol", personaje["rol"].ToString()),
+                new ("descripcion",personaje["descripcion"].ToString()),
+                new ("estado", personaje["estado"].ToString()),
+                new ("estado_emocional", personaje["estado_emocional"].ToString()),
+                new ("sexo", personaje["sexo"].ToString())
+            };
+
+            await Util.GetNewId($"jugadores:{jugadorID}:caso:{casoID}:personajes", hashPersonajes, redisManager);
+        }
     }
 
     public string toString()

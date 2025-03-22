@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using StackExchange.Redis;
 
 public class Evidencia
@@ -41,4 +43,23 @@ public class Evidencia
         Util.AddValues(evidenciaHash, mapeo);
         return evidencia;
     }
+
+    public static async Task SetHashEvidence(JObject respuestaCaso, long jugadorID, long casoID, RedisManager redisManager)
+    {
+        foreach (JObject evidencia in respuestaCaso["Caso"]?["evidencias"])
+        {
+            HashEntry[] hashEvidencias = new HashEntry[]
+            {
+                new ("nombre", evidencia["nombre"].ToString()),
+                new ("descripcion", evidencia["descripcion"].ToString()),
+                new ("analisis", evidencia["analisis"].ToString()),
+                new ("tipo", evidencia["tipo"].ToString()),
+                new ("ubicacion", evidencia["ubicacion"].ToString())
+            };
+
+            await Util.GetNewId($"jugadores:{jugadorID}:caso:{casoID}:evidencias", hashEvidencias, redisManager);
+        }
+    }
+
+
 }

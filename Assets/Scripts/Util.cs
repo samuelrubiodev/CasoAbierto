@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using StackExchange.Redis;
@@ -80,6 +81,13 @@ public static class Util
                 setter(hashEntry.Value);
             }
         }
+    }
+
+    public static async Task<long> GetNewId(string key, HashEntry[] hashes, RedisManager redisManager)
+    {
+        long id = await Task.Run(() => redisManager.GetNewId(key));
+        await Task.Run(() => redisManager.SetHash($"{key}:{id}", hashes));
+        return id;
     }
 
     
