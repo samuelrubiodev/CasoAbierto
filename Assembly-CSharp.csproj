@@ -95,6 +95,7 @@
   <ItemGroup>
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\BloomAndFlares.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\PostEffectsBase.cs" />
+    <Compile Include="Assets\Scripts\SaveChatManager.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\GlobalFog.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\Scripts\ControllerCarga.cs" />
@@ -107,7 +108,6 @@
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\CinematicEffects(BETA)\Common\RenderTexureUtility.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\TiltShift.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
-    <Compile Include="Assets\Scripts\UnityMainThreadDispatcher.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\SunShafts.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\Triangles.cs" />
     <Compile Include="Assets\Scripts\Tables\ApiKey.cs" />

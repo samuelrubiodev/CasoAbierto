@@ -61,7 +61,7 @@ public class APIRequest : MonoBehaviour
         
         Por ultimo es importante que no envíes mas de 200 caracteres.";
 
-    private static List<ChatMessage> chatMessages = new ();
+    public static List<ChatMessage> chatMessages = new ();
 
     void Start()
     {

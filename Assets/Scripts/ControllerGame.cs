@@ -42,19 +42,9 @@ public class ControllerGame : MonoBehaviour
             bool inputFieldTieneFocus = inputField != null && inputField.isFocused;
             if (!inputFieldTieneFocus) {
                 if (!CajaTexto) {
-                    texto.SetActive(true);
-                    FirstPersonController.enabled = false;
-                    Cursor.visible = true;
-                    Cursor.lockState = CursorLockMode.None;
-                    estaEscribiendo = true;
-                    CajaTexto = true;
+                    Mostrar();
                 } else {
-                    texto.SetActive(false);
-                    FirstPersonController.enabled = true;
-                    Cursor.visible = false;
-                    Cursor.lockState = CursorLockMode.Locked;
-                    estaEscribiendo = false;
-                    CajaTexto = false;
+                    Ocultar();
                 }
             }
         } else if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) {
@@ -77,6 +67,24 @@ public class ControllerGame : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void Mostrar() {
+        texto.SetActive(true);
+        FirstPersonController.enabled = false;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        estaEscribiendo = true;
+        CajaTexto = true;
+    }
+
+    private void Ocultar() {
+        texto.SetActive(false);
+        FirstPersonController.enabled = true;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        estaEscribiendo = false;
+        CajaTexto = false;
     }
 
     private IEnumerator StartRecordingProcess(ControllerMicrophone controllerMicrophone)

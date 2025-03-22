@@ -79,10 +79,7 @@ public class RedisManager
 
     public void SetKey(string key, string value)
     {
-        if (db != null)
-        {
-            db.StringSet(key, value);
-        }
+        db?.StringSet(key, value);
     }
 
     public void SetHash(string key, HashEntry[] hashEntries)
@@ -130,7 +127,10 @@ public class RedisManager
     {
         HashEntry[] jugadorHash = GetHash($"jugadores:{id}");
 
-        Jugador jugador = new Jugador();
+        Jugador jugador = new()
+        {
+            idJugador = id
+        };
 
         foreach (HashEntry hashEntry in jugadorHash)
         {
