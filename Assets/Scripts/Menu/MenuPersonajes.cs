@@ -12,6 +12,7 @@ public class MenuPersonajes : MonoBehaviour
     public GameObject panelIzquierda;
     public FirstPersonController FirstPersonController;
     public static Personaje personajeSeleccionado;
+    public static bool hasChangedCharacter = true;
 
     public MenuEvidencias menuEvidencias;
     public bool Personajes = false;
@@ -21,6 +22,8 @@ public class MenuPersonajes : MonoBehaviour
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+        personajeSeleccionado = Jugador.jugador.casos[Jugador.indexCaso].personajes[0];
     }
 
     // Update is called once per frame
@@ -94,6 +97,7 @@ public class MenuPersonajes : MonoBehaviour
     public void CargarPersonaje(Personaje personaje)
     {
         personajeSeleccionado = personaje;
+        hasChangedCharacter = true;
         GameObject datosPersonaje = panelIzquierda.transform.GetChild(1).gameObject;
     
         datosPersonaje.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = personaje.nombre;

@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using Unity.VisualScripting.ReorderableList.Element_Adder_Menu;
+using UnityEditor;
 using UnityEngine;
 
 public class ControllerGame : MonoBehaviour
@@ -16,6 +17,7 @@ public class ControllerGame : MonoBehaviour
     private bool seHaIniciadoContador = false;
     private bool CajaTexto = false;
     public static bool estaEscribiendo = false;
+    public GameObject personajes;
 
     void Start()
     {
@@ -25,6 +27,8 @@ public class ControllerGame : MonoBehaviour
 
     void Update()
     {
+        CheckGenre();
+
         if (isGameInProgress && !seHaIniciadoContador)
         {
             seHaIniciadoContador = true;
@@ -41,13 +45,13 @@ public class ControllerGame : MonoBehaviour
             bool inputFieldTieneFocus = inputField != null && inputField.isFocused;
             if (!inputFieldTieneFocus) {
                 if (!CajaTexto) {
-                    Mostrar();
+                    Show();
                 } else {
-                    Ocultar();
+                    Hide();
                 }
             }
         } else if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) && isGameInProgress) {
-            Ocultar();
+            Hide();
             StartCoroutine(StartRecordingProcess(controllerMicrophone));
         }
 
@@ -65,7 +69,7 @@ public class ControllerGame : MonoBehaviour
         }
     }
 
-    private void Mostrar() {
+    private void Show() {
         texto.SetActive(true);
         FirstPersonController.enabled = false;
         Cursor.visible = true;
@@ -74,7 +78,7 @@ public class ControllerGame : MonoBehaviour
         CajaTexto = true;
     }
 
-    private void Ocultar() {
+    private void Hide() {
         texto.SetActive(false);
         FirstPersonController.enabled = true;
         Cursor.visible = false;
@@ -89,5 +93,26 @@ public class ControllerGame : MonoBehaviour
         yield return StartCoroutine(controllerMicrophone.RecordAudio());
         isRecordingStarted = false;
         isProcessing = false;
+    }
+
+    private void DeactivateCharacter() 
+    {
+        personajes.transform.GetChild(0).gameObject.SetActive(false);
+        personajes.transform.GetChild(1).gameObject.SetActive(false);
+    }
+
+    private void CheckGenre() {
+        if (MenuPersonajes.personajeSeleccionado.sexo == "Masculino" && MenuPersonajes.hasChangedCharacter)
+        {
+            DeactivateCharacter();
+            personajes.transform.GetChild(0).gameObject.SetActive(true);
+            MenuPersonajes.hasChangedCharacter = false;
+        }
+        else if (MenuPersonajes.personajeSeleccionado.sexo == "Femenino" && MenuPersonajes.hasChangedCharacter)
+        {
+            DeactivateCharacter();
+            personajes.transform.GetChild(1).gameObject.SetActive(true);
+            MenuPersonajes.hasChangedCharacter = false;
+        }
     }
 }
