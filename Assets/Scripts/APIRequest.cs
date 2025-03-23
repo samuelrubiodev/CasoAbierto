@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using System.Text;
 using TMPro;
 using Utilities.Extensions;
+using System.Collections;
 
 public class APIRequest : MonoBehaviour
 {
@@ -80,73 +81,29 @@ public class APIRequest : MonoBehaviour
         chatMessages.Add(new UserChatMessage(prompt));
 
         try
-        {
-            OpenAIClientOptions openAIClientOptions = new ()
-            {
-                Endpoint = new Uri("https://openrouter.ai/api/v1")
-            };
-
-            OpenAIClient client = new (new ApiKeyCredential(openRouterApiKey), openAIClientOptions);
-
-            AsyncCollectionResult<StreamingChatCompletionUpdate> completionUpdates = 
-                client.GetChatClient("google/gemini-2.0-flash-001").CompleteChatStreamingAsync(chatMessages);
+        {  
+            ChatManager chatManager = new (openRouterApiKey, chatMessages);
+            ChatCompletionOptions options = chatManager.CreateChatCompletionOptions();
+            AsyncCollectionResult<StreamingChatCompletionUpdate> completionUpdates = chatManager.CreateStremingChat("google/gemini-2.0-flash-001", options);
 
             StringBuilder mensajePersonajeBuilder = new();
-
-            string mensajeCompleto = "";
             
             await foreach (StreamingChatCompletionUpdate update in completionUpdates)
             {
                 if (update.ContentUpdate.Count > 0)
                 {
-                    string texto = update.ContentUpdate[0].Text;
-                    mensajePersonajeBuilder.Append(texto);
-                    mensajeCompleto += texto;
-
-                    /*
-                    string mensajeActual = mensajePersonajeBuilder.ToString();
-                    if (texto.Contains('.') || texto.Contains('!') || texto.Contains('?') || mensajePersonajeBuilder.Length > 5 
-                        && !aPIRequestElevenLabs.GetAudioSource().isPlaying)
-                    {
-                        string mensajeActual = mensajePersonajeBuilder.ToString();
-                        aPIRequestElevenLabs.StreamAudio(mensajeActual);
-                        mensajePersonajeBuilder.Clear();
-                    }
-                    */
+                    mensajePersonajeBuilder.Append(update.ContentUpdate[0].Text);
                 }
             }
+            string mensajeCompleto = mensajePersonajeBuilder.ToString();
             
             Debug.Log(mensajeCompleto);
-
-            string[] strings = mensajeCompleto.Split(' ');
-            textoSubtitulos.SetActive(true);
-
-            textoSubtitulos.outlineColor = Color.black;
-            textoSubtitulos.outlineWidth = 0.5f;
-
-            StringBuilder buffer = new();
-
             bool isMan = MenuPersonajes.personajeSeleccionado.sexo == "Masculino";
 
             aPIRequestElevenLabs.StreamAudio(mensajeCompleto,isMan);
+            
+            StartCoroutine(DisplaySubtitlesCoroutine(mensajeCompleto));
 
-            for (int i = 0; i < strings.Length; i++)
-            {
-                buffer.Append(strings[i] + " ");
-                if (i % 5 == 0)
-                {
-                    textoSubtitulos.text = buffer.ToString();
-                    buffer.Clear();
-                    await Task.Delay(2000);
-                }
-                else if (i == strings.Length - 1)
-                {
-                    textoSubtitulos.text = buffer.ToString();
-                    await Task.Delay(2000);
-                }
-            }
-
-            textoSubtitulos.SetActive(false);
             chatMessages.Add(new AssistantChatMessage(mensajeCompleto));
         }
         catch (Exception ex)
@@ -155,10 +112,25 @@ public class APIRequest : MonoBehaviour
         }
     }
 
-    public bool HayPalabras(string mensaje)
+    private IEnumerator DisplaySubtitlesCoroutine(string mensajeCompleto)
     {
-        string[] strings = mensaje.Split(' ');
-        return strings.Length > 2;
+        textoSubtitulos.SetActive(true);
+        textoSubtitulos.outlineColor = Color.black;
+        textoSubtitulos.outlineWidth = 0.5f;
+
+        string[] words = mensajeCompleto.Split(' ');
+        int chunkSize = 5;
+
+        for (int i = 0; i < words.Length; i += chunkSize)
+        {
+            string chunk = string.Join(" ", words.Skip(i).Take(chunkSize));
+            textoSubtitulos.text = chunk;
+            
+            float delay = Mathf.Clamp(chunk.Length * 0.1f, 2f, 5f);
+            yield return new WaitForSeconds(delay);
+        }
+
+        textoSubtitulos.SetActive(false);
     }
 
     private bool SeHaTerminado()
@@ -202,25 +174,11 @@ public class APIRequest : MonoBehaviour
                 new UserChatMessage("Analiza esta conversacion: \n" + conversacion)
             };
 
-            OpenAIClientOptions openAIClientOptions = new ()
-            {
-                Endpoint = new Uri("https://openrouter.ai/api/v1")
-            };
-
-            OpenAIClient client = new (new ApiKeyCredential(openRouterApiKey), openAIClientOptions);
-
-            ChatCompletionOptions options = new()
-            {
-                ResponseFormat = ChatResponseFormat.CreateJsonSchemaFormat(
-                        jsonSchemaFormatName: "message_data",
-                        jsonSchema: BinaryData.FromString(jsonSchema),
-                jsonSchemaIsStrict: true)
-            };
-
-            ChatCompletion completion = client.GetChatClient("google/gemini-2.0-flash-exp:free").CompleteChat(mensajes, options);
+            ChatManager chatManager = new (openRouterApiKey, chatMessages);
+            ChatCompletionOptions options = chatManager.CreateChatCompletionOptions(jsonSchema);
+            ChatCompletion completion = chatManager.CreateChat("google/gemini-2.0-flash-001", options);
 
             using JsonDocument jsonDocument = JsonDocument.Parse(completion.Content[0].Text);
-
             return jsonDocument.RootElement.GetProperty("mensajes").GetProperty("seHaTerminado").GetBoolean();
         }
         catch (Exception ex)
@@ -300,27 +258,11 @@ public class APIRequest : MonoBehaviour
             new UserChatMessage("Analiza esta evidencia: " + evidencia.nombre)
         };
 
-        OpenAIClientOptions openAIClientOptions = new()
-        {
-            Endpoint = new Uri("https://openrouter.ai/api/v1")
-        };
-
-        OpenAIClient client = new(new ApiKeyCredential(openRouterApiKey), openAIClientOptions);
-
-        ChatCompletionOptions options = new()
-        {
-            ResponseFormat = ChatResponseFormat.CreateJsonSchemaFormat(
-                    jsonSchemaFormatName: "evidencia_data",
-                    jsonSchema: BinaryData.FromString(jsonSchema),
-            jsonSchemaIsStrict: true)
-        };
-
-        AsyncCollectionResult<StreamingChatCompletionUpdate> completionResult = client
-            .GetChatClient("google/gemini-2.0-flash-exp:free")
-            .CompleteChatStreamingAsync(mensajes, options);
+        ChatManager chatManager = new (openRouterApiKey, mensajes);
+        ChatCompletionOptions options = chatManager.CreateChatCompletionOptions(jsonSchema);
+        AsyncCollectionResult<StreamingChatCompletionUpdate> completionResult = chatManager.CreateStremingChat("google/gemini-2.0-flash-001", options);
 
         string mensajeCompleto = "";
-
         await foreach (StreamingChatCompletionUpdate update in completionResult)
         {
             if (update.ContentUpdate.Count > 0)

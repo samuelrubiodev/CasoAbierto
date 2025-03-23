@@ -4,6 +4,7 @@ using ElevenLabs.Voices;
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 using Utilities.Async;
 
@@ -49,31 +50,26 @@ public class APIRequestElevenLabs : MonoBehaviour
 
             if (voice == null)
             {
-                if (isMan)
-                {
-                    voice = await api.VoicesEndpoint.GetVoiceAsync(AUDIO_ID_HOMBRE);
-                }
-                else
-                {
-                    voice = await api.VoicesEndpoint.GetVoiceAsync(AUDIO_ID_MUJER);
-                }
+                voice = isMan 
+                    ? await api.VoicesEndpoint.GetVoiceAsync(AUDIO_ID_HOMBRE)
+                    : await api.VoicesEndpoint.GetVoiceAsync(AUDIO_ID_MUJER);
             }
-
 
             /// 0 - default mode (no latency optimizations)<br/>
             /// 1 - normal latency optimizations (about 50% of possible latency improvement of option 3)<br/>
             /// 2 - strong latency optimizations (about 75% of possible latency improvement of option 3)<br/>
             /// 3 - max latency optimizations<br/>
-            int? optimizeStreamingLatency = 0;
+            int? optimizeStreamingLatency = 1;
 
             streamClipQueue.Clear();
             var streamQueueCts = CancellationTokenSource.CreateLinkedTokenSource(destroyCancellationToken);
-            PlayStreamQueue(streamQueueCts.Token);
+            var playTask = Task.Run(() => PlayStreamQueue(streamQueueCts.Token));
+            
             var voiceClip = await api.TextToSpeechEndpoint.StreamTextToSpeechAsync(message, this.voice, partialClip =>
             {
                 streamClipQueue.Enqueue(partialClip);
             }, model: new Model("eleven_flash_v2_5"), optimizeStreamingLatency: optimizeStreamingLatency, outputFormat: OutputFormat.PCM_24000, cancellationToken: destroyCancellationToken);
-            audioSource.clip = voiceClip.AudioClip;
+            //audioSource.clip = voiceClip.AudioClip;
             await new WaitUntil(() => streamClipQueue.Count == 0 && !audioSource.isPlaying);
             streamQueueCts.Cancel();
 
