@@ -62,10 +62,7 @@ public class MenuPersonajes : MonoBehaviour
 
                 objetoPrefab.name = personaje.nombre;
 
-                objetoPrefab.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = Jugador.jugador.casos[Jugador.indexCaso].personajes[i].nombre;
-                objetoPrefab.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = Jugador.jugador.casos[Jugador.indexCaso].personajes[i].estado;
-                objetoPrefab.transform.GetChild(2).GetComponent<TMPro.TextMeshProUGUI>().text = Jugador.jugador.casos[Jugador.indexCaso].personajes[i].estadoEmocional;
-                objetoPrefab.transform.GetChild(3).GetComponent<TMPro.TextMeshProUGUI>().text = Jugador.jugador.casos[Jugador.indexCaso].personajes[i].rol;
+                Util.LoadText(objetoPrefab, personaje.GetSimpleDataStrings());
 
                 objetoPrefab.transform.GetComponent<EventTrigger>().triggers[0].callback.AddListener((data) => CargarPersonaje(personaje));
                 
@@ -80,12 +77,7 @@ public class MenuPersonajes : MonoBehaviour
 
         GameObject datosPersonaje = panelIzquierda.transform.GetChild(1).gameObject;
 
-        datosPersonaje.transform.GetChild(0).SetActive(true);
-        datosPersonaje.transform.GetChild(1).SetActive(false);
-        datosPersonaje.transform.GetChild(2).SetActive(false);
-        datosPersonaje.transform.GetChild(3).SetActive(false);
-        datosPersonaje.transform.GetChild(4).SetActive(false);
-        datosPersonaje.transform.GetChild(5).SetActive(false);
+        Util.LoadBool(datosPersonaje, new bool[] { true, false, false, false, false, false });
     }
 
     public void DeseleccionarPersonaje()
@@ -99,19 +91,9 @@ public class MenuPersonajes : MonoBehaviour
         personajeSeleccionado = personaje;
         hasChangedCharacter = true;
         GameObject datosPersonaje = panelIzquierda.transform.GetChild(1).gameObject;
-    
-        datosPersonaje.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = personaje.nombre;
-        datosPersonaje.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = personaje.descripcion;
-        datosPersonaje.transform.GetChild(2).GetComponent<TMPro.TextMeshProUGUI>().text = personaje.estado;
-        datosPersonaje.transform.GetChild(3).GetComponent<TMPro.TextMeshProUGUI>().text = personaje.estadoEmocional;
-        datosPersonaje.transform.GetChild(4).GetComponent<TMPro.TextMeshProUGUI>().text = personaje.rol;
 
-        datosPersonaje.transform.GetChild(0).SetActive(true);
-        datosPersonaje.transform.GetChild(1).SetActive(true);
-        datosPersonaje.transform.GetChild(2).SetActive(true);
-        datosPersonaje.transform.GetChild(3).SetActive(true);
-        datosPersonaje.transform.GetChild(4).SetActive(true);
-        datosPersonaje.transform.GetChild(5).SetActive(true);
+        Util.LoadText(datosPersonaje, personaje.GetDataStrings());
+        Util.LoadBool(datosPersonaje, new bool[] { true, true, true, true, true, true });
     }
 
     public void SeleccionarPersonaje()

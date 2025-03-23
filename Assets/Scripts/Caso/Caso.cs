@@ -107,4 +107,12 @@ public class Caso
         long casoID = await Util.GetNewId($"jugadores:{jugadorID}:caso", hashCaso, redisManager);
         return casoID;
     }
+
+    public string[] GetSimpleDataStrings() {
+        return new string[] { tituloCaso, lugar, dificultad, tiempoRestante };
+    }
+
+    public string[] GetDataStrings() {
+        return new string[] { tituloCaso, descripcion, dificultad, tiempoRestante };
+    }
 }

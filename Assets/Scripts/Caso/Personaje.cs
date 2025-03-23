@@ -42,4 +42,14 @@ public class Personaje
         Util.AddValues(personajeHash, mapeo);
         return personaje;
     }
+
+    public string[] GetSimpleDataStrings()
+    {
+        return new string[] { nombre, estado, estadoEmocional, rol };
+    }
+
+    public string[] GetDataStrings() 
+    {
+        return new string[] { nombre, descripcion, estado, estadoEmocional, rol };
+    }
 }

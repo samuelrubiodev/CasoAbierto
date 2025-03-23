@@ -61,5 +61,15 @@ public class Evidencia
         }
     }
 
+    public string[] GetSimpleDataStrings()
+    {
+        return new string[] { nombre, tipo };
+    }
+
+    public string[] GetDataStrings() 
+    {
+        return new string[] { nombre, descripcion, tipo, analizada ? analisis : "No analizada" };
+    }
+
 
 }

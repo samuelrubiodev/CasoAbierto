@@ -56,8 +56,8 @@ public class MenuEvidencias : MonoBehaviour
             int index = i;
             GameObject objetoPrefab = Instantiate(evidenciaPrefab, content.transform);
 
-            objetoPrefab.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = Jugador.jugador.casos[Jugador.indexCaso].evidencias[i].nombre;
-            objetoPrefab.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = Jugador.jugador.casos[Jugador.indexCaso].evidencias[i].tipo;
+            Util.LoadText(objetoPrefab, Jugador.jugador.casos[Jugador.indexCaso].evidencias[i].GetSimpleDataStrings());
+
             objetoPrefab.transform.GetComponent<EventTrigger>().triggers[0].callback.AddListener((data) => 
                 { 
                     CargarEvidencia(Jugador.jugador.casos[Jugador.indexCaso].evidencias[index]); 
@@ -73,10 +73,7 @@ public class MenuEvidencias : MonoBehaviour
 
         GameObject datosEvidencia = panelIzquierda.transform.GetChild(1).gameObject;
 
-        datosEvidencia.transform.GetChild(0).SetActive(true);
-        datosEvidencia.transform.GetChild(1).SetActive(false);
-        datosEvidencia.transform.GetChild(2).SetActive(false);
-        datosEvidencia.transform.GetChild(3).SetActive(false);
+        Util.LoadBool(datosEvidencia, new bool[] { true, false, false, false });
     }
 
     public async void AnalizarEvidencia()
@@ -114,16 +111,9 @@ public class MenuEvidencias : MonoBehaviour
         evidenciaSeleccionada = evidencia;
 
         GameObject datosEvidencia = panelIzquierda.transform.GetChild(1).gameObject;
-
-        datosEvidencia.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = evidencia.nombre;
-        datosEvidencia.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = evidencia.descripcion;
-        datosEvidencia.transform.GetChild(2).GetComponent<TMPro.TextMeshProUGUI>().text = evidencia.tipo;
-        datosEvidencia.transform.GetChild(3).GetComponent<TMPro.TextMeshProUGUI>().text = evidencia.analizada ? evidencia.analisis : "No analizada"; 
-
-        datosEvidencia.transform.GetChild(0).SetActive(true);
-        datosEvidencia.transform.GetChild(1).SetActive(true);
-        datosEvidencia.transform.GetChild(2).SetActive(true);
-        datosEvidencia.transform.GetChild(3).SetActive(true);
+        
+        Util.LoadText(datosEvidencia, evidencia.GetDataStrings());
+        Util.LoadBool(datosEvidencia, new bool[] { true, true, true, true });
     }
 
     public void OcultarEvidencias()

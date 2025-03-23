@@ -53,10 +53,7 @@ public class MenuGestionPartidas : MonoBehaviour
 
             panelCaso.name = "Caso: " + i;
 
-            panelCaso.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = jugador.casos[i].tituloCaso;
-            panelCaso.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = jugador.casos[i].lugar;
-            panelCaso.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = jugador.casos[i].dificultad;
-            panelCaso.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = jugador.casos[i].tiempoRestante;
+            Util.LoadText(panelCaso, jugador.casos[i].GetSimpleDataStrings());
 
             panelCaso.SetActive(true);
             panelCaso.transform.GetComponent<EventTrigger>().triggers[0].callback.AddListener((data) => CargarPartida(jugador, index.ToString()));
@@ -70,16 +67,9 @@ public class MenuGestionPartidas : MonoBehaviour
         
         GameObject datosCaso = panelIzquierda.transform.GetChild(1).gameObject;
 
-        datosCaso.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = jugador.casos[int.Parse(indexCaso)].tituloCaso;
-        datosCaso.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = jugador.casos[int.Parse(indexCaso)].descripcion;
-        datosCaso.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = jugador.casos[int.Parse(indexCaso)].dificultad;
-        datosCaso.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = jugador.casos[int.Parse(indexCaso)].tiempoRestante;
-
-        datosCaso.transform.GetChild(0).SetActive(true);
-        datosCaso.transform.GetChild(1).SetActive(true);
-        datosCaso.transform.GetChild(2).SetActive(true);
-        datosCaso.transform.GetChild(3).SetActive(true);
-        datosCaso.transform.GetChild(4).SetActive(true);
+        Caso caso = jugador.casos[int.Parse(indexCaso)];
+        Util.LoadText(datosCaso, caso.GetDataStrings());
+        Util.LoadBool(datosCaso, new bool[] { true, true, true, true, true });
     }
 
     public void JugarPartida()
