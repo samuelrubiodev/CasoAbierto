@@ -18,6 +18,7 @@ public class ControllerGame : MonoBehaviour
     private bool CajaTexto = false;
     public static bool estaEscribiendo = false;
     public GameObject personajes;
+    public GameObject PrefabCharacter;
 
     void Start()
     {
@@ -101,18 +102,30 @@ public class ControllerGame : MonoBehaviour
         personajes.transform.GetChild(1).gameObject.SetActive(false);
     }
 
+    private void ShowGUICharacter() 
+    {
+        PrefabCharacter.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = MenuPersonajes.personajeSeleccionado.nombre;
+        PrefabCharacter.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = MenuPersonajes.personajeSeleccionado.estado;
+        PrefabCharacter.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text = MenuPersonajes.personajeSeleccionado.estadoEmocional;
+        PrefabCharacter.transform.GetChild(3).gameObject.GetComponent<TextMeshProUGUI>().text = MenuPersonajes.personajeSeleccionado.sexo;
+
+        PrefabCharacter.SetActive(true);
+    }
+
     private void CheckGenre() {
         if (MenuPersonajes.personajeSeleccionado.sexo == "Masculino" && MenuPersonajes.hasChangedCharacter)
         {
             DeactivateCharacter();
             personajes.transform.GetChild(0).gameObject.SetActive(true);
             MenuPersonajes.hasChangedCharacter = false;
+            ShowGUICharacter();
         }
         else if (MenuPersonajes.personajeSeleccionado.sexo == "Femenino" && MenuPersonajes.hasChangedCharacter)
         {
             DeactivateCharacter();
             personajes.transform.GetChild(1).gameObject.SetActive(true);
             MenuPersonajes.hasChangedCharacter = false;
+            ShowGUICharacter();
         }
     }
 }

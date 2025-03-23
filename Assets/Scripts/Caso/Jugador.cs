@@ -57,7 +57,7 @@ public class Jugador
         }
     }
 
-    public string toString()
+    public override string ToString()
     {
         return "Jugador{" +
                 "idJugador=" + idJugador +

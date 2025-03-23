@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using StackExchange.Redis;
 
-public class Caso 
+public class Caso
 {
     public string idCaso { get; set; }
     public string lugar { get; set; }
@@ -107,5 +107,4 @@ public class Caso
         long casoID = await Util.GetNewId($"jugadores:{jugadorID}:caso", hashCaso, redisManager);
         return casoID;
     }
-
 }
