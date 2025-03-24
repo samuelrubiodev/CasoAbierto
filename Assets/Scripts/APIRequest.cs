@@ -26,53 +26,7 @@ public class APIRequest : MonoBehaviour
     private string elevenlabsApiKey;
     public TMP_Text textoSubtitulos;
 
-    public static string PROMPT_SYSTEM_CONVERSACION = @"[Contexto del Juego]
-        Estás en un juego de investigación policial llamado ""Caso Abierto"". El jugador asume el rol de un detective encargado de resolver casos mediante interrogatorios a sospechosos y el análisis de evidencias. El juego se desarrolla en una sala de interrogatorios con interacción verbal y gestión de tiempo.
-
-        [Objetivo]
-        Tu rol es **exclusivamente** generar respuestas de los personajes dentro del juego. El jugador está interrogando a un personaje y tu trabajo es responder como ese personaje. 
-            **No hables como la IA**. Responde **siempre** en el papel del personaje.  
-            Si el jugador selecciona a un personaje muerto o desaparecido, cambia automáticamente a un personaje disponible. **No expliques por qué**
-            En el mensaje contendrá el personaje seleccionado y el mensaje del jugador con el que interactuar.
-
-        [Instrucciones Adicionales]
-        1. **El jugador es el investigador**. No lo llames ""usuario"" ni hagas referencia a que es un juego.  
-        2. Responde a lo que el personaje respondería basándose en las evidencias y el contexto del caso. Solo responde con texto.
-        3. **Si el personaje se contradice, mantenlo deliberado** para que el jugador deba descubrirlo. No aclares que hay contradicciones.  
-        4. Si el jugador hace preguntas irrelevantes o fuera del caso, responde de manera evasiva o con frustración, como lo haría el personaje.  
-        5. No contestes con emoticonos, respnde solamente con texto.
-        
-
-        [IMPORTANTE]
-        1.Es importante que no envíes mas de 200 caracteres en la respuesta del personaje.
-        2.Si el jugador no tiene evidencias seleccionadas y te pregunta por una evidencia no tienes que hacer referencia a esa evidencia ya que el personaje no tiene conocimiento de ella a no ser que el personaje este involucrado en esa evidencia.
-        3.Si el jugado selecciona una evidencia y te pregunta por ella, debes responder con la información que el personaje tenga sobre esa evidencia.
-        4.Solo envía texto, nada de JSON.
-       
-        Estos son los datos del caso, con todos los personajes, evidencias y detalles relevantes:";
-
     public static string DATOS_CASO = "";
-    private static readonly string PROMPT_SYSTEM_ANALISIS = @"
-        Analiza la conversacion entre el usuario y el NPC y responde con el booleano 'seHaTerminado' en true o false.
-        Si consideras que el personaje y el jugador han terminado de hablar, que no hay nada más que decir.";
-
-    private static readonly string PROMPT_SYSTEM_ANALISIS_EVIDENCIA = @"
-        Analiza la evidencia con un enfoque forense técnico y profundo.
-        Lo que tienes que hacer es un analisis mas exhaustivo de la evidencia seleccionada por el jugador ya que anteriormente se hizo un analisis rapido de la evidencia.
-        Por favor es muy importante que no copies la propiedad 'analisis' de la evidencia seleccionada ya que el jugador ya tiene esa informacion, debes hacer un analisis mas profundo de la evidencia.
-        Tienes que revelar cualquier tipo de información relevante que no se sepa todavía, que pueda ayudar al jugador a resolver el caso, de quien son las huellas, si hay sangre, si hay ADN, quien aparece en las camaras de seguridad, cualquier información valiosa, etc...
-        
-        Por ultimo es importante que no envíes mas de 200 caracteres.";
-
-    public static readonly string IMAGE_GENERATION_PROMPT_SYSTEM = @"You are a prompt generator for image creation based on police case descriptions. 
-                Your task is to transform case details into a precise and effective visual description for generating an image.
-                Instructions:
-                Write the prompt directly, without introductions or explanations.
-                Use clear and concise descriptions.
-                Include key details about the setting, lighting, and important elements.
-                Do not exceed 2 or 3 sentences.
-                Avoid unnecessary repetition.
-                Automatically translate the case details into English.";
 
     public static List<ChatMessage> chatMessages = new ();
 
@@ -88,7 +42,7 @@ public class APIRequest : MonoBehaviour
     {
         if (!chatMessages.Any(x => x is SystemChatMessage))
         {
-            chatMessages.Add(new SystemChatMessage(PROMPT_SYSTEM_CONVERSACION + " " + DATOS_CASO));
+            chatMessages.Add(new SystemChatMessage(PromptSystem.PROMPT_SYSTEM_CONVERSATION + " " + DATOS_CASO));
         }
 
         chatMessages.Add(new UserChatMessage(prompt));
@@ -143,22 +97,7 @@ public class APIRequest : MonoBehaviour
     {
         try
         {
-            string jsonSchema = @"
-            {
-                ""type"": ""object"",
-                ""properties"": {
-                    ""mensajes"": {
-                        ""type"": ""object"",
-                        ""properties"": {
-                            ""seHaTerminado"": { ""type"": ""boolean"", ""description"": ""Indica si el personaje ha terminado de hablar"" }
-                        },
-                        ""required"": [""seHaTerminado""],
-                        ""additionalProperties"": false
-                    }
-                },
-                ""required"": [""personajeActual"",""mensajes""],
-                ""additionalProperties"": false
-            }";
+            string jsonSchema = Schemas.CONVERSATIONS;
 
             string conversacion = "";
 
@@ -176,7 +115,7 @@ public class APIRequest : MonoBehaviour
             
             List<ChatMessage> mensajes = new() 
             {
-                new SystemChatMessage(PROMPT_SYSTEM_ANALISIS),
+                new SystemChatMessage(PromptSystem.PROMPT_SYSTEM_ANALYSIS),
                 new UserChatMessage("Analiza esta conversacion: \n" + conversacion)
             };
 
@@ -238,29 +177,11 @@ public class APIRequest : MonoBehaviour
 
     public async Task<string> AnalizarEvidencia(Evidencia evidencia)
     {
-        string jsonSchema = @"
-        {
-            ""type"": ""object"",
-            ""properties"": {
-                ""evidencia"": {
-                    ""type"": ""object"",
-                    ""properties"": {
-                        ""evidenciaSeleccionada"": { ""type"": ""string"", ""description"": ""Nombre de la evidencia seleccionada"" },
-                        ""tipoAnalisis"": { ""type"": ""string"", ""description"": ""Tipo de analisis a realizar, huellas daactilares por ejemplo"" },
-                        ""resultadoAnalisis"": { ""type"": ""string"", ""description"": ""Analisis de la evidencia"" }
-                    },
-                    ""required"": [""evidenciaSeleccionada"",""tipoAnalisis"",""resultadoAnalisis""],
-                    ""additionalProperties"": false
-                }
-            },
-            ""required"": [""evidencia""],
-            ""additionalProperties"": false
-        }";
-
+        string jsonSchema = Schemas.EVIDENCES;
 
         List<ChatMessage> mensajes = new()
         {
-            new SystemChatMessage(PROMPT_SYSTEM_ANALISIS_EVIDENCIA + DATOS_CASO),
+            new SystemChatMessage(PromptSystem.PROMPT_SYSTEM_ANALYSIS_EVIDENCE + DATOS_CASO),
             new UserChatMessage("Analiza esta evidencia: " + evidencia.nombre)
         };
 

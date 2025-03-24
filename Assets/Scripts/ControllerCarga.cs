@@ -120,7 +120,7 @@ public class ControllerCarga : MonoBehaviour
     {
         List<ChatMessage> messages = new() 
         {
-            new SystemChatMessage(APIRequest.IMAGE_GENERATION_PROMPT_SYSTEM),
+            new SystemChatMessage(PromptSystem.PROMPT_SYSTEM_IMAGE_GENERATION),
             new UserChatMessage("Generate a prompt based on this case: " + caso.ToString())
         };
         ChatManager chatManager = new (ApiKey.API_KEY_OPEN_ROUTER,messages);
