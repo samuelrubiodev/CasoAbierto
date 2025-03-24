@@ -35,26 +35,4 @@ public class SubtitleManager
         SubtitleList subtitulos = JsonUtility.FromJson<SubtitleList>(json);
         return subtitulos;
     }
-
-    public async static void AddSubtitleToGUI(string[] strings, TMP_Text textoSubtitulos) 
-    {
-        StringBuilder buffer = new();
-        
-        for (int i = 0; i < strings.Length; i++)
-        {
-            buffer.Append(strings[i] + " ");
-            if (i % 5 == 0)
-            {
-                textoSubtitulos.text = buffer.ToString();
-                buffer.Clear();
-                await Task.Delay(2000);
-            }
-            else if (i == strings.Length - 1)
-            {
-                textoSubtitulos.text = buffer.ToString();
-                await Task.Delay(2000);
-            }
-        }
-    }
-
 }

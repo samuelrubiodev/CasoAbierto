@@ -1,5 +1,9 @@
+using System;
+using System.ClientModel;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class FootSteps : MonoBehaviour
@@ -11,7 +15,7 @@ public class FootSteps : MonoBehaviour
     {
         Debug.Log("Jugador: " + Jugador.jugador.ToString());
         Debug.Log("Caso Nº1: " + Jugador.jugador.casos[Jugador.indexCaso].tituloCaso); 
-        Debug.Log("Personaje seleccionado: " + Jugador.jugador.casos[Jugador.indexCaso].personajes[0].nombre); 
+        Debug.Log("Personaje seleccionado: " + Jugador.jugador.casos[Jugador.indexCaso].personajes[0].nombre);
     }
 
     private void Update()

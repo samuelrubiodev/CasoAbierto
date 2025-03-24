@@ -4,6 +4,9 @@ using UnityEngine.SceneManagement;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
+using OpenAI.Images;
+using System;
+using System.IO;
 
 public class ControllerCarga : MonoBehaviour
 {
@@ -94,6 +97,19 @@ public class ControllerCarga : MonoBehaviour
             return PlayerPrefs.GetInt("jugadorID");
         else
             return -1;
+    }
+
+    private void GenerateImage(string prompt) {
+        Config config = new ("config");
+        string togetherApiKey = config.GetKey("TOGETHER_AI");
+
+        ChatManager chatManager = new (togetherApiKey,ChatManager.TOGETHER_AI_API_URL);
+        ImageGenerationOptions options = chatManager.CreateImageGenerationOptions(GeneratedImageSize.W1024xH1024, GeneratedImageFormat.Bytes);
+        GeneratedImage image = chatManager.GenerateImage(ChatManager.IMAGE_MODEL_FREE, prompt, options);
+        BinaryData bytes = image.ImageBytes;
+        
+        using FileStream stream = File.OpenWrite($"{Application.persistentDataPath}/{Guid.NewGuid()}.png");
+        bytes.ToStream().CopyTo(stream);
     }
 
     private JObject CrearPromptSystem()

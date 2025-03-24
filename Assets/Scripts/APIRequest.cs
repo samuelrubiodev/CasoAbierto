@@ -16,11 +16,13 @@ using System.Text;
 using TMPro;
 using Utilities.Extensions;
 using System.Collections;
+using OpenAI.Images;
 
 public class APIRequest : MonoBehaviour
 {
     private string openRouterApiKey;
     private string groqApiKey;
+    private string togetherApiKey;
     private string elevenlabsApiKey;
     public TMP_Text textoSubtitulos;
 
@@ -69,6 +71,7 @@ public class APIRequest : MonoBehaviour
         openRouterApiKey = ApiKey.API_KEY_OPEN_ROUTER;
         groqApiKey = ApiKey.API_KEY_GROQ;
         elevenlabsApiKey = ApiKey.API_KEY_ELEVENLABS;
+        togetherApiKey = ApiKey.API_KEY_TOGETHER;
     }
 
     private async Task MakeRequestOpenRouter(string prompt, APIRequestElevenLabs aPIRequestElevenLabs)
@@ -84,10 +87,9 @@ public class APIRequest : MonoBehaviour
         {  
             ChatManager chatManager = new (openRouterApiKey, chatMessages);
             ChatCompletionOptions options = chatManager.CreateChatCompletionOptions();
-            AsyncCollectionResult<StreamingChatCompletionUpdate> completionUpdates = chatManager.CreateStremingChat("google/gemini-2.0-flash-001", options);
+            AsyncCollectionResult<StreamingChatCompletionUpdate> completionUpdates = chatManager.CreateStremingChat(ChatManager.CHAT_MODEL, options);
 
             StringBuilder mensajePersonajeBuilder = new();
-            
             await foreach (StreamingChatCompletionUpdate update in completionUpdates)
             {
                 if (update.ContentUpdate.Count > 0)
@@ -96,14 +98,11 @@ public class APIRequest : MonoBehaviour
                 }
             }
             string mensajeCompleto = mensajePersonajeBuilder.ToString();
-            
-            Debug.Log(mensajeCompleto);
             bool isMan = MenuPersonajes.personajeSeleccionado.sexo == "Masculino";
 
             aPIRequestElevenLabs.StreamAudio(mensajeCompleto,isMan);
             
             StartCoroutine(DisplaySubtitlesCoroutine(mensajeCompleto));
-
             chatMessages.Add(new AssistantChatMessage(mensajeCompleto));
         }
         catch (Exception ex)
@@ -176,7 +175,7 @@ public class APIRequest : MonoBehaviour
 
             ChatManager chatManager = new (openRouterApiKey, chatMessages);
             ChatCompletionOptions options = chatManager.CreateChatCompletionOptions(jsonSchema);
-            ChatCompletion completion = chatManager.CreateChat("google/gemini-2.0-flash-001", options);
+            ChatCompletion completion = chatManager.CreateChat(ChatManager.CHAT_MODEL, options);
 
             using JsonDocument jsonDocument = JsonDocument.Parse(completion.Content[0].Text);
             return jsonDocument.RootElement.GetProperty("mensajes").GetProperty("seHaTerminado").GetBoolean();
@@ -260,7 +259,7 @@ public class APIRequest : MonoBehaviour
 
         ChatManager chatManager = new (openRouterApiKey, mensajes);
         ChatCompletionOptions options = chatManager.CreateChatCompletionOptions(jsonSchema);
-        AsyncCollectionResult<StreamingChatCompletionUpdate> completionResult = chatManager.CreateStremingChat("google/gemini-2.0-flash-001", options);
+        AsyncCollectionResult<StreamingChatCompletionUpdate> completionResult = chatManager.CreateStremingChat(ChatManager.CHAT_MODEL, options);
 
         string mensajeCompleto = "";
         await foreach (StreamingChatCompletionUpdate update in completionResult)
