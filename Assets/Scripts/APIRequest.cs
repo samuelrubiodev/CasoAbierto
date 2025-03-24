@@ -64,6 +64,16 @@ public class APIRequest : MonoBehaviour
         
         Por ultimo es importante que no envíes mas de 200 caracteres.";
 
+    public static readonly string IMAGE_GENERATION_PROMPT_SYSTEM = @"You are a prompt generator for image creation based on police case descriptions. 
+                Your task is to transform case details into a precise and effective visual description for generating an image.
+                Instructions:
+                Write the prompt directly, without introductions or explanations.
+                Use clear and concise descriptions.
+                Include key details about the setting, lighting, and important elements.
+                Do not exceed 2 or 3 sentences.
+                Avoid unnecessary repetition.
+                Automatically translate the case details into English.";
+
     public static List<ChatMessage> chatMessages = new ();
 
     void Start()
@@ -92,10 +102,7 @@ public class APIRequest : MonoBehaviour
             StringBuilder mensajePersonajeBuilder = new();
             await foreach (StreamingChatCompletionUpdate update in completionUpdates)
             {
-                if (update.ContentUpdate.Count > 0)
-                {
-                    mensajePersonajeBuilder.Append(update.ContentUpdate[0].Text);
-                }
+                if (update.ContentUpdate.Count > 0) mensajePersonajeBuilder.Append(update.ContentUpdate[0].Text);
             }
             string mensajeCompleto = mensajePersonajeBuilder.ToString();
             bool isMan = MenuPersonajes.personajeSeleccionado.sexo == "Masculino";

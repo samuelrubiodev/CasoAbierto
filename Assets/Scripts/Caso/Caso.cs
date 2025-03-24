@@ -115,4 +115,9 @@ public class Caso
     public string[] GetDataStrings() {
         return new string[] { tituloCaso, descripcion, dificultad, tiempoRestante };
     }
+
+    public override string ToString()
+    {
+        return $"Caso: {tituloCaso}, {descripcion}, {dificultad}, {fechaOcurrido}, {lugar}, {tiempoRestante}";
+    }
 }

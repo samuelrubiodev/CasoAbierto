@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using OpenAI.Images;
 using System;
 using System.IO;
+using OpenAI.Chat;
 
 public class ControllerCarga : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class ControllerCarga : MonoBehaviour
 
     SQLiteManager sqLiteManager;
     VaultTransit vaultTransit;
+    private BinaryData bytes;
     async void Start()
     {
         sqLiteManager = SQLiteManager.GetSQLiteManager();
@@ -43,8 +45,15 @@ public class ControllerCarga : MonoBehaviour
             }  
 
             await CargarPartida(redisManger, jugadorID);
+            SaveImage();
             SceneManager.LoadScene("SampleScene");
         }
+    }
+
+    private void SaveImage()
+    {
+        using FileStream stream = File.OpenWrite($"{Application.persistentDataPath}/{Guid.NewGuid()}.png");
+        bytes.ToStream().CopyTo(stream);
     }
 
     async Task CargarPartida(RedisManager redisManager, long jugadorID)
@@ -63,6 +72,12 @@ public class ControllerCarga : MonoBehaviour
                 break;
             }
         }
+
+        await Task.Run(async () => {
+            string prompt = await CreatePromptForImage(Jugador.jugador.casos[Jugador.indexCaso]);
+            await GenerateImage(prompt);
+        });
+        
         APIRequest.DATOS_CASO = CrearPromptSystem().ToString();
     }
     
@@ -82,10 +97,12 @@ public class ControllerCarga : MonoBehaviour
     }
 
     async Task ConectarApis()
-    {
+    {  
+        Config config = new ("config");
         ApiKey.API_KEY_OPEN_ROUTER = await vaultTransit.DecryptAsync("api-key-encrypt", sqLiteManager.GetAPIS()[ApiKey.OPEN_ROUTER].apiKey);
         ApiKey.API_KEY_GROQ = await vaultTransit.DecryptAsync("api-key-encrypt", sqLiteManager.GetAPIS()[ApiKey.GROQ].apiKey);
         ApiKey.API_KEY_ELEVENLABS = await vaultTransit.DecryptAsync("api-key-encrypt", sqLiteManager.GetAPIS()[ApiKey.ELEVENLABS].apiKey);
+        ApiKey.API_KEY_TOGETHER = config.GetKey("TOGETHER_AI");
 
         Server.IP_SERVER_REDIS = await vaultTransit.DecryptAsync("api-key-encrypt", sqLiteManager.GetServers()[Server.REDIS].ipServer);
         Server.CONTRASENA_REDIS = await vaultTransit.DecryptAsync("api-key-encrypt", sqLiteManager.GetServers()[Server.REDIS].password);
@@ -99,17 +116,24 @@ public class ControllerCarga : MonoBehaviour
             return -1;
     }
 
-    private void GenerateImage(string prompt) {
-        Config config = new ("config");
-        string togetherApiKey = config.GetKey("TOGETHER_AI");
+    private async Task<string> CreatePromptForImage(Caso caso)
+    {
+        List<ChatMessage> messages = new() 
+        {
+            new SystemChatMessage(APIRequest.IMAGE_GENERATION_PROMPT_SYSTEM),
+            new UserChatMessage("Generate a prompt based on this case: " + caso.ToString())
+        };
+        ChatManager chatManager = new (ApiKey.API_KEY_OPEN_ROUTER,messages);
+        return await chatManager.SendMessageAsync(ChatManager.CHAT_MODEL_FREE);
+    }
 
-        ChatManager chatManager = new (togetherApiKey,ChatManager.TOGETHER_AI_API_URL);
+    private async Task GenerateImage(string prompt) {
+        ChatManager chatManager = new (ApiKey.API_KEY_TOGETHER,ChatManager.TOGETHER_AI_API_URL);
         ImageGenerationOptions options = chatManager.CreateImageGenerationOptions(GeneratedImageSize.W1024xH1024, GeneratedImageFormat.Bytes);
-        GeneratedImage image = chatManager.GenerateImage(ChatManager.IMAGE_MODEL_FREE, prompt, options);
-        BinaryData bytes = image.ImageBytes;
+
+        GeneratedImage image = await chatManager.GetImageAsync(ChatManager.IMAGE_MODEL_FREE, prompt, options);
         
-        using FileStream stream = File.OpenWrite($"{Application.persistentDataPath}/{Guid.NewGuid()}.png");
-        bytes.ToStream().CopyTo(stream);
+        bytes = image.ImageBytes;
     }
 
     private JObject CrearPromptSystem()
