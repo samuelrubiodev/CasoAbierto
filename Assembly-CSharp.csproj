@@ -102,13 +102,14 @@
     <Compile Include="Assets\Scripts\ControllerCarga.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
     <Compile Include="Assets\Scripts\Caso\Personaje.cs" />
-    <Compile Include="Assets\Scripts\WavUtility.cs" />
     <Compile Include="Assets\UI Toolkit\Prueba.cs" />
+    <Compile Include="Assets\Scripts\Tables\ApiKey\ApiKeyMapper.cs" />
     <Compile Include="Assets\Scripts\GroqApiLibrary-master\IGroqApiClient.cs" />
     <Compile Include="Assets\Scripts\Inicializacion.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\CinematicEffects(BETA)\Common\RenderTexureUtility.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\TiltShift.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
+    <Compile Include="Assets\Scripts\Tables\Server\ServerMapper.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\SunShafts.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\Triangles.cs" />
     <Compile Include="Assets\Scripts\Tables\ApiKey.cs" />
@@ -127,6 +128,7 @@
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\CinematicEffects(BETA)\TonemappingColorGrading\TonemappingColorGrading.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
+    <Compile Include="Assets\Scripts\Tables\ApiKey\IApiKeyMapper.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\ContrastStretch.cs" />
     <Compile Include="Assets\Scripts\Menu\MenuPausa.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\CinematicEffects(ALPHA)\AntiAliasing\AntiAliasing.cs" />
@@ -202,6 +204,7 @@
     <Compile Include="Assets\Scripts\Tables\Player.cs" />
     <Compile Include="Assets\Scripts\ControllerMicrphone.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\NoiseAndGrain.cs" />
+    <Compile Include="Assets\Scripts\Tables\Server\IServerMapper.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\CreaseShading.cs" />
     <Compile Include="Assets\Scripts\SQLiteManager.cs" />
     <Compile Include="Assets\Scripts\Caso\Cronologia.cs" />

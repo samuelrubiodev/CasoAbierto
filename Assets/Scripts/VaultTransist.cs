@@ -11,12 +11,6 @@ public class VaultTransit
     private readonly HttpClient _httpClient = new();
     private string VaultAddress = "";
     private string VaultToken = "";
-    private static TextAsset config;
-
-    public static void CargarConfiguracion()
-    {
-        config = Resources.Load<TextAsset>("config");
-    }
 
     public VaultTransit()
     {
@@ -78,14 +72,8 @@ public class VaultTransit
 
     private void LeerConfiguracion()
     {
-        CargarConfiguracion();
-        if (config != null)
-        {
-            foreach (string line in config.text.Split('\n'))
-            {
-                if (line.Contains("VAULT_IP=")) VaultAddress = line.Split('=')[1].Trim();
-                if (line.Contains("VAULT_TOKEN=")) VaultToken = line.Split('=')[1].Trim();
-            }
-        }
+        Config config = new ("config");
+        VaultAddress = config.GetKey("VAULT_IP");
+        VaultToken = config.GetKey("VAULT_TOKEN");
     }
 }

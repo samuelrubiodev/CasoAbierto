@@ -20,7 +20,6 @@ public class MenuGestionPartidas : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     async void Start()
     {
-        VaultTransit.CargarConfiguracion();
         sqliteManager = SQLiteManager.GetSQLiteManager();
 
         await CrearConexion();

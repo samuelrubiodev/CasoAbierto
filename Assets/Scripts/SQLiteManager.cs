@@ -7,7 +7,7 @@ using System;
 using System.Threading.Tasks;
 
 /**
- * Clase que se encarga de la gesti�n de la base de datos SQLite
+ * Clase que se encarga de la gestión de la base de datos SQLite
  * 
  */
 public class SQLiteManager
@@ -140,20 +140,14 @@ public class SQLiteManager
     {
         List<ApiKey> apiKeys = GetTable<ApiKey>("SELECT * FROM ApiKeys");
         ApiKey[] apis = new ApiKey[apiKeys.Count];
+        ApiKeyMapper mapper = new ();
 
         foreach (ApiKey apiKey in apiKeys)
         {
-            if (apiKey.name == "OpenRouter")
+            int index = mapper.GetIndex(apiKey.name);
+            if (index >= 0)
             {
-                apis[0] = apiKey;
-            }
-            else if (apiKey.name == "ElevenLabs")
-            {
-                apis[1] = apiKey;
-            }
-            else if (apiKey.name == "Groq")
-            {
-                apis[2] = apiKey;
+                apis[index] = apiKey;
             }
         }
         return apis;
@@ -163,16 +157,16 @@ public class SQLiteManager
     {
         List<Server> servers = GetTable<Server>("SELECT * FROM Server");
         Server[] serversArray = new Server[servers.Count];
+        ServerMapper mapper = new ();
 
-        for (int i = 0; i < servers.Count; i++)
+        foreach (Server server in servers)
         {
-            if (servers[i].nombreServicio == "Redis")
+            int index = mapper.GetIndex(server.nombreServicio);
+            if (index >= 0)
             {
-                serversArray[Server.REDIS] = servers[i];
-                break;
+                serversArray[index] = server;
             }
         }
-
         return serversArray;
     }
 }
