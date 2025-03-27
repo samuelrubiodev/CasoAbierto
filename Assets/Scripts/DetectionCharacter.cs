@@ -23,9 +23,22 @@ public class DetectionCharacter : MonoBehaviour
     public AudioClip audio8;
     private AudioSource audioSource;
 
+    private List<AudioClip> audioClips = new List<AudioClip>();
+
     public TMP_Text textoSubtitulos;
     public GameObject inputField;
 
+    void Start()
+    {
+        audioClips.Add(audio1);
+        audioClips.Add(audio2);
+        audioClips.Add(audio3);
+        audioClips.Add(audio4);
+        audioClips.Add(audio5);
+        audioClips.Add(audio6);
+        audioClips.Add(audio7);
+        audioClips.Add(audio8);
+    }
 
     private bool isPlaying = false;
 
@@ -67,56 +80,14 @@ public class DetectionCharacter : MonoBehaviour
         if (!isPlaying)
         {
             SubtitleManager subtitleManager = new (Application.dataPath + "/Sounds/Speechs/JSON_Subtitles/subtitles.json");
-
             SubtitleList subtitulos = subtitleManager.ReadJSON();
-
             AudioSource audio = GetComponent<AudioSource>();
 
             int numeroAleatorio = UnityEngine.Random.Range(1, 9);
 
-            switch (numeroAleatorio)
-            {
-                case 1:
-                    audio.clip = audio1;
-                    audio.Play();
-                    ShowSubtitle(1, subtitulos);
-                    break;
-                case 2:
-                    audio.clip = audio2;
-                    audio.Play();
-                    ShowSubtitle(2, subtitulos);
-                    break;
-                case 3:
-                    audio.clip = audio3;
-                    audio.Play();
-                    ShowSubtitle(3, subtitulos);
-                    break;
-                case 4:
-                    audio.clip = audio4;
-                    audio.Play();
-                    ShowSubtitle(4, subtitulos);
-                    break;
-                case 5:
-                    audio.clip = audio5;
-                    audio.Play();
-                    ShowSubtitle(5, subtitulos);
-                    break;
-                case 6:
-                    audio.clip = audio6;
-                    audio.Play();
-                    ShowSubtitle(6, subtitulos);
-                    break;
-                case 7:
-                    audio.clip = audio7;
-                    audio.Play();
-                    ShowSubtitle(7, subtitulos);
-                    break;
-                case 8:
-                    audio.clip = audio8;
-                    audio.Play();
-                    ShowSubtitle(8, subtitulos);
-                    break;
-            }
+            audio.clip = audioClips[numeroAleatorio - 1];
+            audio.Play();
+            ShowSubtitle(numeroAleatorio, subtitulos);
 
             isPlaying = true;
             this.audioSource = audio;

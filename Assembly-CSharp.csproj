@@ -329,6 +329,7 @@
     <None Include="Assets\Packages\System.Memory.Data.6.0.0\THIRD-PARTY-NOTICES.TXT" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\RadialBlur.shader" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.4\cs\ja\System.Text.Json.SourceGeneration.resources.dll" />
+    <None Include="Assets\UI\PresentationCase\StyleSheet.uss" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\ScreenSpaceRaytrace.cginc" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\VignetteShader.shader" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\MotionBlurClear.shader" />
@@ -474,6 +475,7 @@
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\TiltShiftHdrLensBlur.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Bangers - OFL.txt" />
+    <None Include="Assets\UI\PresentationCase\UIDocument.uxml" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.0\cs\System.Text.Json.SourceGeneration.dll" />
   </ItemGroup>
   <ItemGroup>
