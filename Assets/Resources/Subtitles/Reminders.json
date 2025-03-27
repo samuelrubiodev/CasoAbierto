@@ -1,0 +1,46 @@
+{
+    "subtitles": [
+        {
+            "id": 1,
+            "text": [
+                "Habla claro y conciso al usar el micrófono.",
+                "La IA te escuchará atentamente."
+            ]
+        },
+        {
+            "id": 2,
+            "text": [
+                "Si prefieres escribir, utiliza un lenguaje preciso",
+                "para evitar malentendidos con la IA."
+            ]
+        },
+        {
+            "id": 3,
+            "text": [
+                "Prepárate para giros inesperados.",
+                "La IA genera casos dinámicos."
+            ]
+        },
+        {
+            "id": 4,
+            "text": [
+                "Cada partida es única.",
+                "Las pistas y los culpables cambian en cada nuevo caso."
+            ]
+        },
+        {
+            "id": 5,
+            "text": [
+                "No hay una única forma de resolver el caso.",
+                "Explora diferentes líneas de interrogatorio."
+            ]
+        },
+        {
+            "id": 6,
+            "text": [
+                "La paciencia es clave.",
+                "A veces, la verdad tarda en salir a la luz."
+            ]
+        }
+    ]
+}

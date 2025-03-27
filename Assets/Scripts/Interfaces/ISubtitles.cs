@@ -1,0 +1,4 @@
+interface ISubtitles
+{
+    SubtitleList ReturnSubtitleList();
+}
