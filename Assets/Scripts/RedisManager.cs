@@ -1,14 +1,7 @@
 using System;
-using System.IO;
 using StackExchange.Redis;
-using UnityEngine;
-using System.Data;
-using SQLite;
-using System.Text;
 using System.Collections.Generic;
-using UnityEngine.Windows;
 using System.Threading.Tasks;
-using NUnit.Framework;
 
 public class RedisManager
 {

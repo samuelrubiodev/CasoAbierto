@@ -1,9 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using TMPro;
 using UnityEngine;
 
 [Serializable]
@@ -19,7 +15,7 @@ public class SubtitleList
     public List<Subtitle> subtitles;
 }
 
-public class SubtitleManager
+public class SubtitleManager : IJsonUtilities<SubtitleList>
 {
     public string path { get; set; }
     public string texto { get; set; }

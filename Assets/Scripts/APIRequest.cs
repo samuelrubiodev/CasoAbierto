@@ -1,11 +1,9 @@
 ﻿using GroqApiLibrary;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using OpenAI;
 using OpenAI.Chat;
 using System.ClientModel;
 using System.Text.Json;
@@ -14,9 +12,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Text;
 using TMPro;
-using Utilities.Extensions;
-using System.Collections;
-using OpenAI.Images;
 
 public class APIRequest : MonoBehaviour
 {
@@ -63,34 +58,13 @@ public class APIRequest : MonoBehaviour
 
             aPIRequestElevenLabs.StreamAudio(mensajeCompleto,isMan);
             
-            StartCoroutine(DisplaySubtitlesCoroutine(mensajeCompleto));
+            StartCoroutine(new UIMessageManager(textoSubtitulos).ShowMessage(mensajeCompleto));
             chatMessages.Add(new AssistantChatMessage(mensajeCompleto));
         }
         catch (Exception ex)
         {
             Debug.LogError(ex);
         }
-    }
-
-    private IEnumerator DisplaySubtitlesCoroutine(string mensajeCompleto)
-    {
-        textoSubtitulos.SetActive(true);
-        textoSubtitulos.outlineColor = Color.black;
-        textoSubtitulos.outlineWidth = 0.5f;
-
-        string[] words = mensajeCompleto.Split(' ');
-        int chunkSize = 5;
-
-        for (int i = 0; i < words.Length; i += chunkSize)
-        {
-            string chunk = string.Join(" ", words.Skip(i).Take(chunkSize));
-            textoSubtitulos.text = chunk;
-            
-            float delay = Mathf.Clamp(chunk.Length * 0.1f, 2f, 5f);
-            yield return new WaitForSeconds(delay);
-        }
-
-        textoSubtitulos.SetActive(false);
     }
 
     private bool SeHaTerminado()

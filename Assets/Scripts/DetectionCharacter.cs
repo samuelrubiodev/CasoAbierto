@@ -1,12 +1,6 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using System.Threading;
 using TMPro;
-using Utilities.Extensions;
 using UnityEngine;
-using UnityEngine.Windows;
 using System.Threading.Tasks;
 
 public class DetectionCharacter : MonoBehaviour
@@ -54,7 +48,6 @@ public class DetectionCharacter : MonoBehaviour
         for (int i = 0; i < subtitulos.subtitles.Count; i++)
         {
             Subtitle sub = subtitulos.subtitles[i];
-
             if (sub.id == id)
             {
                 subtitleFound = true;
