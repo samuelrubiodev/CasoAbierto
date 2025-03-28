@@ -1,0 +1,4 @@
+interface IStyleManger
+{
+    void SetStyle();
+}

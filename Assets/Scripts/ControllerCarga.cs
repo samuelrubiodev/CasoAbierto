@@ -8,6 +8,8 @@ using OpenAI.Images;
 using System;
 using System.IO;
 using OpenAI.Chat;
+using TMPro;
+using System.Collections;
 
 public class ControllerCarga : MonoBehaviour
 {
@@ -16,8 +18,49 @@ public class ControllerCarga : MonoBehaviour
     SQLiteManager sqLiteManager;
     VaultTransit vaultTransit;
     private BinaryData bytes;
+    public TMP_Text text;
+
+    private int currentSubtitleIndex;
+    private bool isShowingMessage = false;
+    private UIMessageManager uiMessageManager;
+    private SubtitleList subtitulos;
+
+    private float messageTimer = 0f;
+    private const float messageDelay = 2f;
+
+    void Update()
+    {
+        if (!isShowingMessage)
+        {
+            messageTimer += Time.deltaTime;
+            if (messageTimer >= messageDelay)
+            {
+                messageTimer = 0f;
+                ShowNextMessage();
+            }
+        }
+    }
+
+    private void ShowNextMessage()
+    {
+        isShowingMessage = true;
+        currentSubtitleIndex = (currentSubtitleIndex + 1) % subtitulos.subtitles.Count;
+        StartCoroutine(ShowMessageAndWaitForCompletion());
+    }
+
+    private IEnumerator ShowMessageAndWaitForCompletion()
+    {
+        yield return StartCoroutine(uiMessageManager.ShowMessage(uiMessageManager.GetMessage(subtitulos.subtitles[currentSubtitleIndex].text)));
+        isShowingMessage = false;
+    }
     async void Start()
     {
+        new Recomendations(text).SetStyle();
+        uiMessageManager = new(text);
+        subtitulos = new TipsResearch().ReturnSubtitleList();
+        currentSubtitleIndex = UnityEngine.Random.Range(0, subtitulos.subtitles.Count);
+        ShowNextMessage();
+
         sqLiteManager = SQLiteManager.GetSQLiteManager();
         vaultTransit = new ();
 
@@ -48,6 +91,7 @@ public class ControllerCarga : MonoBehaviour
             SaveImage();
             SceneManager.LoadScene("SampleScene");
         }
+
     }
 
     private void SaveImage()

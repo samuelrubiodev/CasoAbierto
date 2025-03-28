@@ -17,8 +17,6 @@ public class UIMessageManager
     {
         _text.text = message;
         _text.gameObject.SetActive(true);
-        _text.outlineColor = Color.black;
-        _text.outlineWidth = 0.5f;
 
         string[] words = message.Split(' ');
         int chunkSize = 5;
@@ -33,6 +31,11 @@ public class UIMessageManager
         }
 
         _text.SetActive(false);
+    }
+
+    public string GetMessage(string[] strings) {
+        string message = string.Join(" ", strings);
+        return message;
     }
 
 }

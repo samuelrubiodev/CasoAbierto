@@ -17,7 +17,7 @@ public class DetectionCharacter : MonoBehaviour
     public AudioClip audio8;
     private AudioSource audioSource;
 
-    private List<AudioClip> audioClips = new List<AudioClip>();
+    private List<AudioClip> audioClips = new ();
 
     public TMP_Text textoSubtitulos;
     public GameObject inputField;
@@ -42,8 +42,7 @@ public class DetectionCharacter : MonoBehaviour
 
         textoSubtitulos.gameObject.SetActive(true);
 
-        textoSubtitulos.outlineColor = Color.black;
-        textoSubtitulos.outlineWidth = 0.5f;
+        new MessageStyleManager(textoSubtitulos).SetStyle();
 
         for (int i = 0; i < subtitulos.subtitles.Count; i++)
         {
@@ -76,7 +75,7 @@ public class DetectionCharacter : MonoBehaviour
             SubtitleList subtitulos = subtitleManager.ReadJSON();
             AudioSource audio = GetComponent<AudioSource>();
 
-            int numeroAleatorio = UnityEngine.Random.Range(1, 9);
+            int numeroAleatorio = Random.Range(1, 9);
 
             audio.clip = audioClips[numeroAleatorio - 1];
             audio.Play();

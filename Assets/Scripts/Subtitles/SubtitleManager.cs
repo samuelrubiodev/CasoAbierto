@@ -13,6 +13,19 @@ public class Subtitle
 public class SubtitleList
 {
     public List<Subtitle> subtitles;
+
+    public string[] ToArray()
+    {
+        string[] array = new string[subtitles.Count];
+        for (int i = 0; i < subtitles.Count; i++)
+        {
+            for (int j = 0; j < subtitles[i].text.Length; j++)
+            {
+                array[i] = subtitles[i].text[j];
+            }
+        }
+        return array;
+    }
 }
 
 public class SubtitleManager : IJsonUtilities<SubtitleList>
