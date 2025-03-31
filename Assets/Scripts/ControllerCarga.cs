@@ -10,6 +10,7 @@ using System.IO;
 using OpenAI.Chat;
 using TMPro;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class ControllerCarga : MonoBehaviour
 {
@@ -57,7 +58,7 @@ public class ControllerCarga : MonoBehaviour
     {
         new Recomendations(text).SetStyle();
         uiMessageManager = new(text);
-        subtitulos = new TipsResearch().ReturnSubtitleList();
+        subtitulos = new GenericSubtitles(SubtitlesPath.TIPS_RESEARCH).ReturnSubtitleList();
         currentSubtitleIndex = UnityEngine.Random.Range(0, subtitulos.subtitles.Count);
         ShowNextMessage();
 
@@ -88,16 +89,17 @@ public class ControllerCarga : MonoBehaviour
             }  
 
             await CargarPartida(redisManger, jugadorID);
-            SaveImage();
+            SaveImage(redisManger);
             SceneManager.LoadScene("SampleScene");
         }
-
     }
 
-    private void SaveImage()
+    private void SaveImage(RedisManager redisManager)
     {
         using FileStream stream = File.OpenWrite($"{Application.persistentDataPath}/{Guid.NewGuid()}.png");
         bytes.ToStream().CopyTo(stream);
+        byte[] imageBytes = bytes.ToArray();
+        redisManager.SaveImage($"jugadores:{Jugador.jugador.idJugador}:caso:{Inicializacion.idCasoGenerado}:imagen", imageBytes);
     }
 
     async Task CargarPartida(RedisManager redisManager, long jugadorID)
@@ -176,7 +178,7 @@ public class ControllerCarga : MonoBehaviour
         ImageGenerationOptions options = chatManager.CreateImageGenerationOptions(GeneratedImageSize.W1024xH1024, GeneratedImageFormat.Bytes);
 
         GeneratedImage image = await chatManager.GetImageAsync(ChatManager.IMAGE_MODEL_FREE, prompt, options);
-        
+
         bytes = image.ImageBytes;
     }
 

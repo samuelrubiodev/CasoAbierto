@@ -41,19 +41,24 @@ public class ControllerGame : MonoBehaviour
             isGameInProgress = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.B)) {
-            TMP_InputField inputField = texto.GetComponentInChildren<TMP_InputField>();
-            bool inputFieldTieneFocus = inputField != null && inputField.isFocused;
-            if (!inputFieldTieneFocus) {
-                if (!CajaTexto) {
-                    Show();
-                } else {
-                    Hide();
+        if (PlayerPrefs.GetString("microfono") == "Texto") 
+        {
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                TMP_InputField inputField = texto.GetComponentInChildren<TMP_InputField>();
+                bool inputFieldTieneFocus = inputField != null && inputField.isFocused;
+                if (!inputFieldTieneFocus) {
+                    if (!CajaTexto) {
+                        Show();
+                    } else {
+                        Hide();
+                    }
                 }
+            } else if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) && isGameInProgress)
+            {
+                Hide();
+                StartCoroutine(StartRecordingProcess(controllerMicrophone));
             }
-        } else if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) && isGameInProgress) {
-            Hide();
-            StartCoroutine(StartRecordingProcess(controllerMicrophone));
         }
 
         if (Input.GetKey(KeyCode.E) && isGameInProgress && !isProcessing)

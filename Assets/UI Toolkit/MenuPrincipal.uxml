@@ -1,11 +1,17 @@
-<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:engine="UnityEngine.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/MenuPrincipalSytle.uss?fileID=7433441132597879392&amp;guid=27f314932eaa5bd42b1570a7b4f16da6&amp;type=3#MenuPrincipalSytle" />
-    <engine:VisualElement name="Container" class="header" style="flex-grow: 1; align-items: center; align-content: center; align-self: center;">
-        <engine:Label text="Caso Abierto" parse-escape-sequences="false" name="TituloCasoAbierto" class="header" style="left: 0; position: relative; bottom: auto; flex-direction: column; flex-wrap: nowrap; justify-content: space-between; align-items: center; align-self: center; align-content: auto; width: auto; font-size: 120px; -unity-text-align: upper-center; margin-top: 60px; text-overflow: clip; -unity-font-style: bold; color: rgb(255, 255, 255); border-top-color: rgba(0, 0, 0, 0); border-left-color: rgba(0, 0, 0, 0); border-right-color: rgba(0, 0, 0, 0); border-bottom-color: rgba(0, 0, 0, 0);" />
-        <engine:VisualElement style="flex-grow: 1; align-items: center; align-self: center; align-content: center; justify-content: center;">
-            <engine:Button text="Jugar" name="BotonJugar" parse-escape-sequences="false" style="justify-content: center; align-content: auto; align-self: auto; font-size: 70px; flex-direction: column; flex-wrap: nowrap; align-items: auto; margin-bottom: 50px;" />
-            <engine:Button text="Opciones" name="BotonOpciones" style="justify-content: center; align-content: auto; align-self: auto; font-size: 70px; flex-direction: column; flex-wrap: nowrap; align-items: auto; margin-bottom: 50px;" />
-            <engine:Button text="Salir" name="BotonSalir" style="justify-content: center; align-content: auto; align-self: auto; font-size: 70px; flex-direction: column; flex-wrap: nowrap; align-items: auto;" />
-        </engine:VisualElement>
-    </engine:VisualElement>
-</engine:UXML>
+    <ui:VisualElement name="root-container" class="root-container">
+        <ui:VisualElement name="left-spacer" class="spacer" />
+        <ui:VisualElement name="menu-content-container" class="menu-content-container">
+            <ui:VisualElement name="header" class="header">
+                <ui:Label text="Caso" name="title-line-1" class="title-h1" />
+                <ui:Label text="Abierto" name="title-line-2" class="title-h1" />
+            </ui:VisualElement>
+            <ui:VisualElement name="buttons-panel" class="buttons-panel" style="width: 50%; align-self: auto; align-content: auto; justify-content: space-between; align-items: center; flex-direction: column;">
+                <ui:Label text="NUEVA PARTIDA" name="button-new-game" class="menu-button" style="justify-content: space-between; align-self: auto; align-content: center; align-items: center;" />
+                <ui:Label text="CONTINUAR" name="button-continue" class="menu-button" />
+                <ui:Label text="OPCIONES" name="button-options" class="menu-button" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

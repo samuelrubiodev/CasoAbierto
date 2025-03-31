@@ -1,3 +1,68 @@
+.root-container {
+    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+    -unity-background-scale-mode: scale-and-crop;
+    flex-direction: row;
+    background-image: url("project://database/Assets/UI/MainMenu/background.png?fileID=2800000&guid=82c512f714f80604f98c703ed029aaf3&type=3#background");
+}
+
+.spacer {
+    flex-grow: 1;
+}
+
+.menu-content-container {
+    flex-grow: 1;
+    align-items: center;
+}
+
 .header {
-    -unity-font-definition: url("project://database/Assets/Fonts/SpecialElite-Regular.ttf?fileID=12800000&guid=075782180ab24fa4f9be002f96db4b05&type=3#SpecialElite-Regular");
+    color: rgb(171, 124, 63);
+    align-items: center;
+    margin-top: 5%;
+    margin-bottom: 15%;
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+    -unity-font-definition: url("project://database/Assets/UI/MainMenu/fonts/CinzelDecorative-Bold.ttf?fileID=12800000&guid=582dac3585520094085128812c5ac541&type=3#CinzelDecorative-Bold");
+    font-size: 14px;
+}
+
+.title-h1 {
+    color: rgb(171, 124, 63);
+    font-size: 155px;
+    margin-top: -30px;
+    margin-bottom: -30px;
+    -unity-text-align: center;
+}
+
+.buttons-panel {
+    align-items: center;
+    width: 100%;
+    -unity-font-definition: url("project://database/Assets/UI/MainMenu/fonts/CinzelDecorative-Black.ttf?fileID=12800000&guid=6fcb447fdc3f6c9469aadafdecfa6d3d&type=3#CinzelDecorative-Black");
+    -unity-text-align: upper-center;
+    white-space: normal;
+    justify-content: flex-end;
+    align-content: center;
+    align-self: center;
+}
+
+.menu-button {
+    color: rgb(178, 160, 96);
+    font-size: 70px;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    -unity-text-align: upper-center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 100%;
+    white-space: nowrap;
+    max-width: 900px;
+    min-width: 250px; 
+}
+
+.menu-button:hover {
+    background-color: rgb(178, 160, 96);
+    color: rgb(69, 39, 16);
+    transition-duration: 0.1s;
 }

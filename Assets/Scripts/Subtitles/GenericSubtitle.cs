@@ -1,8 +1,13 @@
 using UnityEngine;
 
-public class TipsResearch : ISubtitles
+public class GenericSubtitles : ISubtitles
 {
-    private readonly string  path = Application.dataPath + "/Resources/Subtitles/TipsResearch.json";
+    private readonly string path;
+    public GenericSubtitles(string jsonPath)
+    {
+        this.path = jsonPath;
+    }
+
     public SubtitleList ReturnSubtitleList()
     {
         string json = System.IO.File.ReadAllText(path);

@@ -26,16 +26,11 @@ VisualElement {
     align-content: center;
     flex-direction: column;
     -unity-text-align: upper-center;
-    font-size: 50px;
+    font-size: 30px;
     white-space: normal;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-}
-
-.div {
-    margin-top: 3%;
 }
 
 .image {
     width: 50%;
+    align-items: center;
 }

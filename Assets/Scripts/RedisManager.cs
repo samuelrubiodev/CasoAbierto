@@ -69,6 +69,21 @@ public class RedisManager
         db = redis.GetDatabase();
     }
 
+    public void SaveImage(string key, byte[] imageBytes)
+    {
+        db?.StringSet(key, imageBytes);
+    }
+
+    public byte[] GetImage(string key)
+    {
+        if (db != null)
+        {
+            byte[] imageBytes = db.StringGet(key);
+            return imageBytes;
+        }
+        return null;
+    }
+
     public long GetNewId(string baseKey)
     {
         if (db != null)
