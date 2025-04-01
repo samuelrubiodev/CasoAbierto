@@ -123,7 +123,9 @@
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\DepthOfField.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\VignetteAndChromaticAberration.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\IFeatureRequest.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\Antialiasing.cs" />
+    <Compile Include="Assets\Scripts\FeatureRequest\GameStatus.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IJsonUtilities.cs" />
     <Compile Include="Assets\Scripts\StyleManager\Recomendations.cs" />
     <Compile Include="Assets\Scripts\Menu\MenuGestionPartidas.cs" />
@@ -145,6 +147,7 @@
     <Compile Include="Assets\Scripts\Tables\Server.cs" />
     <Compile Include="Assets\Scripts\RedisManager.cs" />
     <Compile Include="Assets\Scripts\ChatManager.cs" />
+    <Compile Include="Assets\Scripts\FeatureRequest\RequestOpenRouter.cs" />
     <Compile Include="Assets\Scripts\Caso\Evidencia.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\ScreenSpaceAmbientOcclusion.cs" />
@@ -160,6 +163,7 @@
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\CinematicEffects(BETA)\ScreenSpaceReflection\ScreenSpaceReflection.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\BloomOptimized.cs" />
     <Compile Include="Assets\Scripts\MicrophoneRecorder.cs" />
+    <Compile Include="Assets\Scripts\FeatureRequest\AnalysisEvidence.cs" />
     <Compile Include="Assets\Scripts\GroqApiLibrary-master\GroqApiClient.cs" />
     <Compile Include="Assets\Scripts\Subtitles\SubtitleManager.cs" />
     <Compile Include="Assets\Scripts\ControllerGame.cs" />
@@ -185,6 +189,7 @@
     <Compile Include="Assets\Scripts\PromptSystems\PromptSystem.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
     <Compile Include="Assets\Scripts\ControllerAudio.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\IPromptMaker.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\NoiseAndScratches.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextConsoleSimulator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
@@ -209,6 +214,7 @@
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\ScreenSpaceAmbientObscurance.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\ColorCorrectionRamp.cs" />
     <Compile Include="Assets\Scripts\Caso\Caso.cs" />
+    <Compile Include="Assets\Scripts\Prompt\ConversationPrompt.cs" />
     <Compile Include="Assets\Scripts\Tables\Player.cs" />
     <Compile Include="Assets\Scripts\ControllerMicrphone.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\NoiseAndGrain.cs" />

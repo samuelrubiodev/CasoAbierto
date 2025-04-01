@@ -48,6 +48,7 @@ public class PromptSystem {
         2.Si el jugador no tiene evidencias seleccionadas y te pregunta por una evidencia no tienes que hacer referencia a esa evidencia ya que el personaje no tiene conocimiento de ella a no ser que el personaje este involucrado en esa evidencia.
         3.Si el jugado selecciona una evidencia y te pregunta por ella, debes responder con la información que el personaje tenga sobre esa evidencia.
         4.Solo envía texto, nada de JSON.
+        5. El jugador y el personaje seleccionado estan en una sala de interrogatorios.
        
         Estos son los datos del caso, con todos los personajes, evidencias y detalles relevantes:";
 

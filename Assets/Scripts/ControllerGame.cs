@@ -34,11 +34,6 @@ public class ControllerGame : MonoBehaviour
             coundownTimer.EmpezarContador();
         }
 
-        if (coundownTimer.countdownOver)
-        {
-            isGameInProgress = false;
-        }
-
         if (PlayerPrefs.GetString("microfono") == "Texto") 
         {
             if (Input.GetKeyDown(KeyCode.B))
@@ -57,10 +52,7 @@ public class ControllerGame : MonoBehaviour
                 Hide();
                 StartCoroutine(StartRecordingProcess(controllerMicrophone));
             }
-        }
-
-        if (Input.GetKey(KeyCode.E) && isGameInProgress && !isProcessing)
-        {
+        } else if (Input.GetKey(KeyCode.E) && isGameInProgress && !isProcessing) {
             if (!isRecordingStarted)
             {
                 controllerMicrophone = GetComponent<ControllerMicrophone>();
