@@ -1,0 +1,27 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/GestionPartidas/GestionPartidas.uss?fileID=7433441132597879392&amp;guid=7cbd3884e4e32ef4c82e22a7caac55da&amp;type=3#GestionPartidas" />
+    <engine:VisualElement name="main" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/UI/Game/background.png?fileID=2800000&amp;guid=929ca2743b5235248a26de51e0ce1f8f&amp;type=3#background&quot;);">
+        <engine:VisualElement name="header" class="header" style="flex-grow: 0;">
+            <engine:Label text="Caso Abierto" name="title" class="title" />
+            <engine:Label text="Seleccionar partida" name="subtitle" class="subtitle" />
+        </engine:VisualElement>
+        <engine:VisualElement name="game-information" class="game-information" style="flex-grow: 0;">
+            <engine:ScrollView name="game-scroll-view" horizontal-scroller-visibility="Auto" vertical-scroller-visibility="Hidden" class="game-scroll-view" style="flex-grow: 1; width: 100%; height: 600px; overflow-y: auto;">
+                <engine:VisualElement name="game" class="game" style="flex-grow: 1; background-size: 100% 100%; margin-top: 0; margin-right: 0; margin-bottom: 50px; margin-left: 0;">
+                    <engine:VisualElement name="image" class="image" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/UI/Game/image.jpeg?fileID=2800000&amp;guid=bec768cce242b8543bb67fe2c8d2bccb&amp;type=3#image&quot;);" />
+                    <engine:VisualElement name="game-content" class="game-content" style="flex-grow: 0; align-items: stretch;">
+                        <engine:Label text="CASO #1: EL SOBORNO" name="game-title" class="game-title" />
+                        <engine:Label text="Tiempo Jugado: 02:14" name="game-time" class="game-time" />
+                    </engine:VisualElement>
+                </engine:VisualElement>
+                <engine:VisualElement name="game" class="game" style="flex-grow: 1; background-size: 100% 100%;">
+                    <engine:VisualElement name="image" class="image" style="flex-grow: 0;" />
+                    <engine:VisualElement name="game-content" class="game-content" style="flex-grow: 0; align-items: stretch;">
+                        <engine:Label text="CASO #2: EL DESCONOCIDO" name="game-title" class="game-title" />
+                        <engine:Label text="Tiempo Jugado: 00:21" name="game-time" class="game-time" />
+                    </engine:VisualElement>
+                </engine:VisualElement>
+            </engine:ScrollView>
+        </engine:VisualElement>
+    </engine:VisualElement>
+</engine:UXML>

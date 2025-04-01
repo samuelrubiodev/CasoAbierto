@@ -428,6 +428,7 @@
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn3.11\cs\cs\System.Text.Json.SourceGeneration.resources.dll" />
     <None Include="Assets\Packages\System.IO.Pipelines.9.0.0\lib\netstandard2.0\System.IO.Pipelines.dll" />
     <None Include="Assets\Packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\analyzers\dotnet\roslyn4.0\cs\ko\Microsoft.Extensions.Logging.Generators.resources.dll" />
+    <None Include="Assets\UI Toolkit\GestionPartidas\GestionPartidas.uss" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\BlendModesOverlay.shader" />
     <None Include="Assets\Packages\Microsoft.Bcl.AsyncInterfaces.9.0.0\useSharedDesignerContext.txt" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ToonShading\Shaders\ToonBasicOutline.shader" />
@@ -443,6 +444,7 @@
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\NoiseEffectShaderRGB.shader" />
     <None Include="Assets\Packages\System.Diagnostics.DiagnosticSource.6.0.1\useSharedDesignerContext.txt" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn3.11\cs\System.Text.Json.SourceGeneration.dll" />
+    <None Include="Assets\UI Toolkit\GestionPartidas\GestionPartidas.uxml" />
     <None Include="Assets\UI Toolkit\MenuPrincipal.uxml" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.4\cs\cs\System.Text.Json.SourceGeneration.resources.dll" />
     <None Include="Assets\Packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\analyzers\dotnet\roslyn3.11\cs\zh-Hans\Microsoft.Extensions.Logging.Generators.resources.dll" />

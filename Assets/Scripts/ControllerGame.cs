@@ -1,7 +1,5 @@
 using System.Collections;
 using TMPro;
-using Unity.VisualScripting.ReorderableList.Element_Adder_Menu;
-using UnityEditor;
 using UnityEngine;
 
 public class ControllerGame : MonoBehaviour

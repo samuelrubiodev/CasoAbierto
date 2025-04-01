@@ -40,7 +40,6 @@
     align-items: center;
     width: 100%;
     -unity-font-definition: url("project://database/Assets/UI/MainMenu/fonts/CinzelDecorative-Black.ttf?fileID=12800000&guid=6fcb447fdc3f6c9469aadafdecfa6d3d&type=3#CinzelDecorative-Black");
-    -unity-text-align: upper-center;
     white-space: normal;
     justify-content: flex-end;
     align-content: center;
@@ -52,13 +51,13 @@
     font-size: 70px;
     padding-top: 1%;
     padding-bottom: 1%;
-    -unity-text-align: upper-center;
     margin-top: 5px;
     margin-bottom: 5px;
     width: 100%;
     white-space: nowrap;
     max-width: 900px;
-    min-width: 250px; 
+    min-width: 250px;
+    -unity-text-align: upper-center;
 }
 
 .menu-button:hover {

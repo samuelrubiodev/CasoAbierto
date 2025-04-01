@@ -1,0 +1,91 @@
+.header {
+    -unity-text-align: upper-center;
+    -unity-font-style: normal;
+    -unity-font-definition: url("project://database/Assets/Fonts/SpecialElite-Regular.ttf?fileID=12800000&guid=075782180ab24fa4f9be002f96db4b05&type=3#SpecialElite-Regular");
+    color: rgb(178, 160, 96);
+    padding: 20px;
+    margin: 0;
+    flex-grow: 0;
+    margin-bottom: 5%;
+    min-height: 0;
+    min-width: 0;
+    height: auto;
+    width: auto;
+    align-self: center;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    margin-top: 3%;
+    padding-bottom: 20px;
+}
+
+.game-information {
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+    align-content: center;
+    height: auto;
+    width: 60%;
+    min-width: 0;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.game {
+    border-width: 2px;
+    border-color: rgb(178, 160, 96);
+    border-radius: 20px;
+    align-items: center;
+    justify-content: flex-start;
+    width: auto;
+    height: auto;
+    min-width: 0;
+    min-height: 0;
+    padding: 10px;
+    flex-shrink: 0;
+    flex-grow: 0;
+    margin-bottom: 50px;
+    flex-direction: row;
+    align-content: center;
+}
+
+.game:hover .game-content {
+    color: black;
+}
+
+.game:hover {
+    background-color: rgb(178, 160, 96);
+    border-color: white;
+}
+
+.game-content {
+    color: rgb(178, 160, 96);
+    -unity-font-definition: url("project://database/Assets/UI/MainMenu/fonts/CinzelDecorative-Black.ttf?fileID=12800000&guid=6fcb447fdc3f6c9469aadafdecfa6d3d&type=3#CinzelDecorative-Black");
+    font-size: 14px;
+}
+
+.title {
+    font-size: 150px;
+}
+
+.subtitle {
+    font-size: 70px;
+}
+
+.game-time {
+    font-size: 25px;
+}
+
+.game-title {
+    font-size: 50px;
+    -unity-text-align: upper-left;
+}
+
+.image {
+    width: 300px;
+    border-radius: 20px;
+    margin: 20px;
+    height: 200px;
+    background-image: url("project://database/Assets/UI/Game/bird.jpg?fileID=2800000&guid=664b40cdd89a0c04798e10e4e6cff5b6&type=3#bird");
+}
