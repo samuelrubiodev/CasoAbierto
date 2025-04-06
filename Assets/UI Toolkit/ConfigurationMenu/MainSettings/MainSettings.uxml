@@ -1,0 +1,23 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/ConfigurationMenu/MainSettings/MainSettings.uss?fileID=7433441132597879392&amp;guid=e8d07a46eb46afd4fb391956de53243e&amp;type=3#MainSettings" />
+    <engine:VisualElement name="main" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/UI/OptionsMenu/MainOptions/background-main-options-menu.png?fileID=2800000&amp;guid=3a7fe8f1a69496e46991fc3070bb6697&amp;type=3#background-main-options-menu&quot;);">
+        <engine:Label text="CONFIGURACIÓN" name="title" class="header" />
+        <engine:VisualElement name="container" class="panel">
+            <engine:VisualElement name="configuration-api" class="row">
+                <engine:Button text="API" class="button" />
+            </engine:VisualElement>
+            <engine:VisualElement name="configuration-server" class="row">
+                <engine:Button text="Servidor" class="button" />
+            </engine:VisualElement>
+            <engine:VisualElement name="configuration-audio" class="row">
+                <engine:Button text="Audio" class="button" />
+            </engine:VisualElement>
+            <engine:VisualElement name="configuration-graphics" class="row">
+                <engine:Button text="Graficos" class="button" />
+            </engine:VisualElement>
+            <engine:VisualElement name="configuration-screen" class="row">
+                <engine:Button text="Pantalla" name="Button" class="button" />
+            </engine:VisualElement>
+        </engine:VisualElement>
+    </engine:VisualElement>
+</engine:UXML>

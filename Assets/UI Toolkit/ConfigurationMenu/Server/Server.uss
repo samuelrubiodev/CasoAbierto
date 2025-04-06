@@ -64,3 +64,10 @@
 .button-graphics {
     margin-left: 50px;
 }
+
+.input-field {
+    background-color: rgba(171, 124, 63, 0);
+    color: rgb(171, 124, 63);
+    width: 400px;
+    height: 50px;
+}

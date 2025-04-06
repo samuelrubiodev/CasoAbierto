@@ -1,15 +1,15 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI%20Toolkit/ConfigurationMenu/Graphics/Graphics.uss?fileID=7433441132597879392&amp;guid=7b257ae7a8cfa254295f764af54684d0&amp;type=3#Graphics" />
+    <Style src="project://database/Assets/UI%20Toolkit/ConfigurationMenu/Server/Server.uss?fileID=7433441132597879392&amp;guid=6e5fda685ee71434a89a8660fcc908ec&amp;type=3#Server" />
     <engine:VisualElement name="main" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/UI/OptionsMenu/Audio/background.png?fileID=2800000&amp;guid=af3ce585f726fab41b695db64e947fc6&amp;type=3#background&quot;);">
-        <engine:Label text="GRAFICOS" name="title" class="header" />
+        <engine:Label text="SERVIDOR" name="title" class="header" />
         <engine:VisualElement name="container" class="panel">
-            <engine:VisualElement name="quality-graphics" class="row">
-                <engine:Label text="CALIDAD GRAFICA" class="text" />
-                <engine:DropdownField choices="Baja,Media,Alta,Ultra" index="0" class="dropbown" />
+            <engine:VisualElement name="ip-redis" class="row">
+                <engine:Label text="IP REDIS" class="text" />
+                <engine:TextField placeholder-text="IP Redis" keyboard-type="Default" class="input-field" />
             </engine:VisualElement>
-            <engine:VisualElement name="limit-fps" class="row">
-                <engine:Label text="LIMITADOR FPS" class="text" />
-                <engine:DropdownField choices="30,60,120,240" index="0" class="dropbown" />
+            <engine:VisualElement name="password-redis" class="row">
+                <engine:Label text="CONTRASEÑA REDIS" class="text" />
+                <engine:TextField placeholder-text="Contraseña Redis" multiline="false" password="true" class="input-field" />
             </engine:VisualElement>
         </engine:VisualElement>
         <engine:VisualElement name="buttons" class="buttons" style="flex-grow: 1;">

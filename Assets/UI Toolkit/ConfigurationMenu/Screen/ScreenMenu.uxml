@@ -1,15 +1,15 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI%20Toolkit/ConfigurationMenu/Graphics/Graphics.uss?fileID=7433441132597879392&amp;guid=7b257ae7a8cfa254295f764af54684d0&amp;type=3#Graphics" />
+    <Style src="project://database/Assets/UI%20Toolkit/ConfigurationMenu/Screen/Screen.uss?fileID=7433441132597879392&amp;guid=5edbf7abc4405eb4fa9d7a11cd7d3060&amp;type=3#Screen" />
     <engine:VisualElement name="main" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/UI/OptionsMenu/Audio/background.png?fileID=2800000&amp;guid=af3ce585f726fab41b695db64e947fc6&amp;type=3#background&quot;);">
-        <engine:Label text="GRAFICOS" name="title" class="header" />
+        <engine:Label text="PANTALLA" name="title" class="header" />
         <engine:VisualElement name="container" class="panel">
-            <engine:VisualElement name="quality-graphics" class="row">
-                <engine:Label text="CALIDAD GRAFICA" class="text" />
-                <engine:DropdownField choices="Baja,Media,Alta,Ultra" index="0" class="dropbown" />
+            <engine:VisualElement name="resolution" class="row">
+                <engine:Label text="RESOLUCIÓN" class="text" />
+                <engine:DropdownField choices="640x480,720x480,720x576,800x600,1024x768,1152x864,1176x664,1280x720,1280x768,1280x800" index="0" class="dropbown" />
             </engine:VisualElement>
-            <engine:VisualElement name="limit-fps" class="row">
-                <engine:Label text="LIMITADOR FPS" class="text" />
-                <engine:DropdownField choices="30,60,120,240" index="0" class="dropbown" />
+            <engine:VisualElement name="mode-screen" class="row">
+                <engine:Label text="MODO PANTALLA" class="text" />
+                <engine:DropdownField choices="Pantalla Completa,Ventana" index="0" class="dropbown" />
             </engine:VisualElement>
         </engine:VisualElement>
         <engine:VisualElement name="buttons" class="buttons" style="flex-grow: 1;">

@@ -1,5 +1,5 @@
 .unity-base-field__input {
-    background-color: rgb(171, 124, 63);
+    background-color: rgba(171, 124, 63,0);
     border-left-color: rgb(171, 124, 63);
     border-right-color: rgb(171, 124, 63);
     border-top-color: rgb(171, 124, 63);
