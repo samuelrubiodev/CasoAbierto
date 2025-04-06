@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.coffee.ui-effect": "https://github.com/mob-sakai/UIEffect.git?path=Packages/src",
     "com.rest.elevenlabs": "3.3.1",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.feature.development": "1.0.2",

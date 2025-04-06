@@ -21,6 +21,13 @@
                         <engine:Label text="Tiempo Jugado: 00:21" name="game-time" class="game-time" />
                     </engine:VisualElement>
                 </engine:VisualElement>
+                <engine:VisualElement name="game" class="game" style="flex-grow: 1; background-size: 100% 100%;">
+                    <engine:VisualElement name="image" class="image" style="flex-grow: 0;" />
+                    <engine:VisualElement name="game-content" class="game-content" style="flex-grow: 0; align-items: stretch;">
+                        <engine:Label text="CASO #2: EL DESCONOCIDO" name="game-title" class="game-title" />
+                        <engine:Label text="Tiempo Jugado: 00:21" name="game-time" class="game-time" />
+                    </engine:VisualElement>
+                </engine:VisualElement>
             </engine:ScrollView>
         </engine:VisualElement>
     </engine:VisualElement>

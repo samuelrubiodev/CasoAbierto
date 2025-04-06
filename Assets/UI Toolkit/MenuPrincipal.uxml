@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:engine="UnityEngine.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/MenuPrincipalSytle.uss?fileID=7433441132597879392&amp;guid=27f314932eaa5bd42b1570a7b4f16da6&amp;type=3#MenuPrincipalSytle" />
-    <ui:VisualElement name="root-container" class="root-container">
+    <ui:VisualElement name="root-container" class="root-container" style="background-image: url(&quot;project://database/Assets/UI/MainMenu/background.png?fileID=2800000&amp;guid=82c512f714f80604f98c703ed029aaf3&amp;type=3#background&quot;);">
         <ui:VisualElement name="left-spacer" class="spacer" />
         <ui:VisualElement name="menu-content-container" class="menu-content-container">
             <ui:VisualElement name="header" class="header">

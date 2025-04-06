@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!200 &-7810581356869206694
+ShaderVariantCollection:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ShaderVariants
+  m_Shaders:
+  - first: {fileID: 4800000, guid: 96246b1ead49a4c5a996fd477bc5a117, type: 3}
+    second:
+      variants:
+      - keywords: COLOR_SUBTRACTIVE SAMPLING_BLUR_MEDIUM SHADOW_COLOR_REPLACE TARGET_HUE
+          TONE_SEPIA TRANSITION_CUTOFF
+        passType: 0
+      - keywords: COLOR_SUBTRACTIVE SAMPLING_BLUR_MEDIUM SHADOW_COLOR_REPLACE TARGET_HUE
+          TRANSITION_CUTOFF
+        passType: 0
+      - keywords: EDGE_COLOR_REPLACE EDGE_PLAIN SHADOW_COLOR_REPLACE
+        passType: 0
+      - keywords: SAMPLING_BLUR_MEDIUM SHADOW_COLOR_REPLACE TARGET_HUE TRANSITION_CUTOFF
+        passType: 0
+      - keywords: SHADOW_COLOR_CONTRAST
+        passType: 0
+      - keywords: SHADOW_COLOR_MULTIPLY
+        passType: 0
+      - keywords: SHADOW_COLOR_REPLACE
+        passType: 0
+      - keywords: SHADOW_COLOR_REPLACE TARGET_HUE
+        passType: 0
+      - keywords: SHADOW_COLOR_REPLACE TARGET_HUE TRANSITION_CUTOFF
+        passType: 0
+      - keywords: TONE_GRAYSCALE
+        passType: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d43f626d9b5f4d729097092ded48bdb, type: 3}
+  m_Name: UIEffectProjectSettings
+  m_EditorClassIdentifier: 
+  m_TransformSensitivity: 1
+  m_RuntimePresets: []
+  m_UseHDRColorPicker: 1
+  m_ShaderVariantCollection: {fileID: 0}
+  m_ShaderVariantRegistry:
+    m_OptionalShaders:
+    - key: Hidden/UI/Default (SoftMaskable)
+      value: Hidden/UI/Default (UIEffect)
+    m_Asset: {fileID: -7810581356869206694}
+    m_ErrorOnUnregisteredVariant: 0
+    m_UnregisteredVariants: []

@@ -74,16 +74,20 @@ public class Schemas {
         {
             ""type"": ""object"",
             ""properties"": {
-                ""mensajes"": {
-                    ""type"": ""object"",
-                    ""properties"": {
-                        ""seHaTerminado"": { ""type"": ""boolean"", ""description"": ""Indica si el personaje ha terminado de hablar"" }
-                    },
-                    ""required"": [""seHaTerminado""],
-                    ""additionalProperties"": false
+                ""seHaTerminado"": {
+                ""type"": ""boolean"",
+                ""description"": ""Indica si la interrogación se considera lógicamente concluida según los criterios definidos (confesión, coartada sólida, estancamiento final, etc.).""
+                },
+                ""haGanadoUsuario"": {
+                ""type"": ""boolean"",
+                ""description"": ""Indica si el jugador ha resuelto con éxito el caso respecto a este sospechoso (descubierto la verdad: culpable o inocente). Solo es significativo si seHaTerminado es true.""
+                },
+                ""razonamiento"": {
+                ""type"": ""string"",
+                ""description"": ""Explicación concisa (1-2 frases) del motivo de las decisiones tomadas para seHaTerminado y haGanadoUsuario.""
                 }
             },
-            ""required"": [""personajeActual"",""mensajes""],
+            ""required"": [""seHaTerminado"", ""haGanadoUsuario"", ""razonamiento""],
             ""additionalProperties"": false
         }";
 

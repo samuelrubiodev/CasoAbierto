@@ -251,11 +251,13 @@
     <None Include="Assets\Table and chair\Standard Assets\Effects\Projectors\Shaders\ProjectorLight.shader" />
     <None Include="Assets\Packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\analyzers\dotnet\roslyn3.11\cs\ja\Microsoft.Extensions.Logging.Generators.resources.dll" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Roboto-Bold - License.txt" />
+    <None Include="Assets\UI Toolkit\ConfigurationMenu\Audio\Audio.uxml" />
     <None Include="Assets\Packages\System.IO.Pipelines.9.0.0\LICENSE.TXT" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\Projectors\Shaders\ProjectorMultiply.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile-2-Pass.shader" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\_Antialiasing\DLAA.shader" />
     <None Include="Assets\Packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\analyzers\dotnet\roslyn3.11\cs\de\Microsoft.Extensions.Logging.Generators.resources.dll" />
+    <None Include="Assets\UI\OptionsMenu\Audio\Style.uss" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\frag_ao.cginc" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.4\cs\pt-BR\System.Text.Json.SourceGeneration.resources.dll" />
     <None Include="Assets\Packages\System.Diagnostics.DiagnosticSource.6.0.1\LICENSE.TXT" />
@@ -371,6 +373,7 @@
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\ColorCorrectionEffect.shader" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\FisheyeShader.shader" />
     <None Include="Assets\Packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\analyzers\dotnet\roslyn3.11\cs\ru\Microsoft.Extensions.Logging.Generators.resources.dll" />
+    <None Include="Assets\UI Toolkit\ConfigurationMenu\Audio\Audio.uss" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendOneOne.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\Packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\analyzers\dotnet\roslyn4.0\cs\ru\Microsoft.Extensions.Logging.Generators.resources.dll" />
@@ -428,9 +431,11 @@
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\ChromaticAberrationShader.shader" />
     <None Include="Assets\Packages\System.Memory.Data.6.0.0\useSharedDesignerContext.txt" />
     <None Include="Assets\Packages\System.Net.Http.Json.9.0.0\lib\netstandard2.0\System.Net.Http.Json.dll" />
+    <None Include="Assets\UI Toolkit\ConfigurationMenu\Graphics\Graphics.uss" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\NoiseAndGrainDX11.shader" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\SeparableWeightedBlurDof34.shader" />
     <None Include="Assets\Resources\config_example.txt" />
+    <None Include="Assets\UI Toolkit\MainStyles.uss" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn3.11\cs\cs\System.Text.Json.SourceGeneration.resources.dll" />
     <None Include="Assets\Packages\System.IO.Pipelines.9.0.0\lib\netstandard2.0\System.IO.Pipelines.dll" />
     <None Include="Assets\Packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\analyzers\dotnet\roslyn4.0\cs\ko\Microsoft.Extensions.Logging.Generators.resources.dll" />
@@ -439,6 +444,7 @@
     <None Include="Assets\Packages\Microsoft.Bcl.AsyncInterfaces.9.0.0\useSharedDesignerContext.txt" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ToonShading\Shaders\ToonBasicOutline.shader" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\DepthOfFieldScatter.shader" />
+    <None Include="Assets\UI Toolkit\ConfigurationMenu\Graphics\GraphicsMenu.uxml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\Packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\analyzers\dotnet\roslyn3.11\cs\cs\Microsoft.Extensions.Logging.Generators.resources.dll" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\EdgeDetectNormals.shader" />
@@ -1015,6 +1021,10 @@
     </Reference>
     <Reference Include="Microsoft.Extensions.Logging.Abstractions">
       <HintPath>Assets\Packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Coffee.UIEffect.R">
+      <HintPath>Library\PackageCache\com.coffee.ui-effect@170116670f02\Runtime\Coffee.UIEffect.R.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
@@ -1663,6 +1673,10 @@
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Coffee.UIEffect">
+      <HintPath>Library\ScriptAssemblies\Coffee.UIEffect.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.VisualStudio.Editor">

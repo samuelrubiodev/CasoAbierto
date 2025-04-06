@@ -1,0 +1,89 @@
+.header {
+    -unity-text-align: upper-center;
+    font-size: 150px;
+    -unity-font-definition: url("project://database/Assets/Fonts/SpecialElite-Regular.ttf?fileID=12800000&guid=075782180ab24fa4f9be002f96db4b05&type=3#SpecialElite-Regular");
+    -unity-font-style: normal;
+    margin-top: 5%;
+    color: rgb(171, 124, 63);
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    width: auto;
+    gap: 20px;
+    margin-top: 5%;
+    align-self: center;
+    align-content: center;
+}
+
+.text {
+    width: 1000px;
+    text-align: right;
+    font-size: 60px;
+    color: rgb(171, 124, 63);
+    -unity-font-definition: url("project://database/Assets/TextMesh%20Pro/Fonts/LiberationSans.ttf?fileID=12800000&guid=e3265ab4bf004d28a9537516768c1c75&type=3#LiberationSans");
+    -unity-text-align: upper-center;
+}
+
+.slider {
+    width: 400px;
+    height: auto;
+}
+
+.slider .unity-base-slider__tracker {
+    height: 15px;
+    background-color: rgb(171, 124, 63);
+    border-radius: 4px;
+}
+
+.slider .unity-base-slider__dragger {
+    width: 15px;
+    height: 30px;
+    background-color: rgb(171, 124, 63);
+    border-radius: 35%;
+}
+
+.sliders-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    margin-top: 5%;
+}
+
+.slider-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.dropbown {
+    width: 400px;
+    height: 50px;
+    color: rgb(171, 124, 63);
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    border: 0;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-top-left-radius: 0;
+    border-top-color: rgba(0, 0, 0, 0);
+}
+
+.dropbown VisualElement {
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.buttons {
+    align-items: center;
+    margin-top: 5%;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+}
