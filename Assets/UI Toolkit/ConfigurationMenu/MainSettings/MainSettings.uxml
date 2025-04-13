@@ -3,12 +3,6 @@
     <engine:VisualElement name="main" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/UI/OptionsMenu/MainOptions/background-main-options-menu.png?fileID=2800000&amp;guid=3a7fe8f1a69496e46991fc3070bb6697&amp;type=3#background-main-options-menu&quot;);">
         <engine:Label text="CONFIGURACIÓN" name="title" class="header" />
         <engine:VisualElement name="container" class="panel">
-            <engine:VisualElement name="configuration-api" class="row">
-                <engine:Button text="API" class="button" />
-            </engine:VisualElement>
-            <engine:VisualElement name="configuration-server" class="row">
-                <engine:Button text="Servidor" class="button" />
-            </engine:VisualElement>
             <engine:VisualElement name="configuration-audio" class="row">
                 <engine:Button text="Audio" class="button" />
             </engine:VisualElement>

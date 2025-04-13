@@ -45,15 +45,13 @@ public class APIRequest : MonoBehaviour
     private async Task<JObject> SeHaTerminado()
     {
         GameStatus gameStatus = new ();
-        JsonDocument jsonDocument = await Task.Run(async () => await gameStatus.SendRequest(prompt: "Analiza esta conversacion: \n"));
-        return JObject.Parse(jsonDocument.RootElement.ToString());
+        return await Task.Run(async () => await gameStatus.SendRequest(prompt: "Analiza esta conversacion: \n"));
     }
 
     private async Task<JObject> RequestEmotionalState()
     {
         CharacterEmotionalState characterEmotionalState = new ();
-        JsonDocument jsonDocument = await Task.Run(async () => await characterEmotionalState.SendRequest(prompt: "Analiza esta conversacion: \n"));
-        return JObject.Parse(jsonDocument.RootElement.ToString());
+        return await Task.Run(async () => await characterEmotionalState.SendRequest(prompt: "Analiza esta conversacion: \n"));
     }
 
     public async Task<string> AnalizarEvidencia(Evidencia evidencia)

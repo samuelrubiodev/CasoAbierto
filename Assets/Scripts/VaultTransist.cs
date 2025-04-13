@@ -17,6 +17,26 @@ public class VaultTransit
         LeerConfiguracion();
     }
 
+    public async Task<string> GetKey(string keyname)
+    {
+        _httpClient.DefaultRequestHeaders.Remove("X-Vault-Token");
+        _httpClient.DefaultRequestHeaders.Add("X-Vault-Token", VaultToken);
+
+        var response = await _httpClient.GetAsync($"{VaultAddress}/v1/secret/data/keys");
+        var jsonResponse = await response.Content.ReadAsStringAsync();
+
+        try
+        {
+            using var doc = JsonDocument.Parse(jsonResponse);
+            var key = doc.RootElement.GetProperty("data").GetProperty("data").GetProperty(keyname).GetString();
+            return key;
+        }
+        catch (KeyNotFoundException)
+        {
+            return null;
+        }
+    }
+
     public async Task<string> EncryptAsync(string keyName, string plainText)
     {
         var payload = new

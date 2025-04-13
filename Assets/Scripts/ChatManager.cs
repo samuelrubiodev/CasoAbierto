@@ -18,7 +18,7 @@ public class ChatManager
     
     public const string IMAGE_MODEL_FREE = "black-forest-labs/FLUX.1-schnell-Free";
     public const string CHAT_MODEL = "google/gemini-2.0-flash-001";
-    public const string CHAT_MODEL_FREE = "google/gemini-2.0-flash-exp:free";
+    public const string CHAT_MODEL_FREE = "openrouter/optimus-alpha";
 
     public ChatManager(string apiKey, List<ChatMessage> chatMessages)
     {

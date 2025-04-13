@@ -109,16 +109,16 @@ public class PromptSystem {
 
     public const string PROMPT_SYSTEM_CHARACTER_EMOTIONAL_STATE = @"
         [Contexto del Juego]
-        Estás desarrollando un juego de investigación policial llamado ""Caso Abierto"".
+        Estás en un juego de investigación policial llamado ""Caso Abierto"".
         El jugador asume el rol de un detective, el se dedicará a resolver casos mediante interrogatorios a sospechosos y el análisis de evidencias.
         El juego se desarrolla en una sala de interrogatorios con interacción verbal y gestión de tiempo.
 
         [Objetivo de la IA]
-        Definir el estado emocional del personaje basado en el ultimo mensaje del jugador y el contexto de la conversación.
+        Definir el estado emocional del personaje basado en el ultimo mensaje del jugador y en la conversación.
         El estado emocional debe reflejar la tensión, nerviosismo o cualquier otra emoción relevante que el personaje pueda estar experimentando durante la conversación.
 
         [Instrucciones importantes]
         1. El estado emocional debe ser coherente con la personalidad del personaje y la situación actual.
-        2. No uses términos técnicos o psicológicos complejos, manténlo simple y directo.
-        3. No incluyas explicaciones adicionales, solo el estado emocional.";
+        2. Debes responder con un solo estado emocional en el valor estado_emocional del JSON schema.
+        ";
 }

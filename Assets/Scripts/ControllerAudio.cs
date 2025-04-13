@@ -1,20 +1,25 @@
-using System;
 using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class ControllerAudio : MonoBehaviour
 {
     public AudioMixer audioMixer;
-    public Slider sliderMusica;
-    public Slider sliderVoces;
-    public Slider sliderGeneral;
+    private Slider sliderMusica;
+    private Slider sliderVoces;
+    private Slider sliderGeneral;
+    public UIDocument uiAudioSettings;
 
-    private void Awake()
+    void Awake()
     {
-        sliderMusica.onValueChanged.AddListener(ControlMusicaVolumen);
-        sliderVoces.onValueChanged.AddListener(ControlVocesVolumen);
-        sliderGeneral.onValueChanged.AddListener(ControlGeneralVolumen);
+        VisualElement container = uiAudioSettings.rootVisualElement.Q<VisualElement>("container");
+        this.sliderGeneral = container[0].Q<Slider>("slider-general");
+        this.sliderMusica = container[1].Q<Slider>("slider-music");
+        this.sliderVoces = container[2].Q<Slider>("slider-voices");
+
+        sliderMusica.RegisterCallback<ChangeEvent<float>>(evt => ControlMusicaVolumen(evt.newValue));
+        sliderVoces.RegisterCallback<ChangeEvent<float>>(evt => ControlVocesVolumen(evt.newValue));
+        sliderGeneral.RegisterCallback<ChangeEvent<float>>(evt => ControlGeneralVolumen(evt.newValue));
     }
 
     private void ControlMusicaVolumen(float volumen)
@@ -46,7 +51,6 @@ public class ControllerAudio : MonoBehaviour
         ControlGeneralVolumen(sliderGeneral.value);
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         Cargar();

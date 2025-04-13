@@ -5,15 +5,15 @@
         <engine:VisualElement name="container" class="panel">
             <engine:VisualElement name="api-openrouter" class="row">
                 <engine:Label text="API OPENROUTER" class="text" />
-                <engine:TextField placeholder-text="OpenRouter" class="input-field" />
+                <engine:TextField placeholder-text="OpenRouter" name="input-api-key" auto-correction="false" select-all-on-focus="false" multiline="false" password="true" class="input-field" />
             </engine:VisualElement>
             <engine:VisualElement name="api-groq" class="row">
                 <engine:Label text="API GROQ" class="text" />
-                <engine:TextField placeholder-text="Groq" class="input-field" />
+                <engine:TextField placeholder-text="Groq" name="input-api-key" password="true" class="input-field" />
             </engine:VisualElement>
             <engine:VisualElement name="api-elevenlabs" class="row">
                 <engine:Label text="API ELEVENLABS" class="text" />
-                <engine:TextField placeholder-text="ElevenLabs" class="input-field" />
+                <engine:TextField placeholder-text="ElevenLabs" name="input-api-key" password="true" class="input-field" />
             </engine:VisualElement>
         </engine:VisualElement>
         <engine:VisualElement name="buttons" class="buttons" style="flex-grow: 1;">

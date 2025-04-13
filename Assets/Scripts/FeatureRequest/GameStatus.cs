@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using OpenAI.Chat;
 using UnityEngine;
 
-public class GameStatus : IFeatureRequest<JsonDocument>
+public class GameStatus : IFeatureRequest<JObject>
 {
     private string openRouterApiKey;
     
@@ -14,7 +15,7 @@ public class GameStatus : IFeatureRequest<JsonDocument>
         openRouterApiKey = ApiKey.API_KEY_OPEN_ROUTER;
     }
 
-    public Task<JsonDocument> SendRequest(string prompt)
+    public Task<JObject> SendRequest(string prompt)
     {
         try
         {
@@ -42,7 +43,7 @@ public class GameStatus : IFeatureRequest<JsonDocument>
             ChatCompletionOptions options = chatManager.CreateChatCompletionOptions(jsonSchema);
             ChatCompletion completion = chatManager.CreateChat(ChatManager.CHAT_MODEL, options);
 
-            return Task.FromResult(JsonDocument.Parse(completion.Content[0].Text));
+            return Task.FromResult(JObject.Parse(completion.Content[0].Text));
         }
         catch (Exception ex)
         {

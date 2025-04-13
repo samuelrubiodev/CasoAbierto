@@ -3,25 +3,25 @@
     <engine:VisualElement name="main" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/UI/OptionsMenu/Audio/background.png?fileID=2800000&amp;guid=af3ce585f726fab41b695db64e947fc6&amp;type=3#background&quot;);">
         <engine:Label text="AUDIO" name="title" class="header" />
         <engine:VisualElement name="container" class="sliders-panel">
-            <engine:VisualElement class="slider-row">
+            <engine:VisualElement name="vol-general" class="slider-row">
                 <engine:Label text="VOLUMEN GENERAL" class="text" />
-                <engine:Slider value="50" high-value="100" class="slider" />
+                <engine:Slider value="0" high-value="1" name="slider-general" class="slider" />
             </engine:VisualElement>
-            <engine:VisualElement class="slider-row">
+            <engine:VisualElement name="vol-music" class="slider-row">
                 <engine:Label text="VOLUMEN DE LA MÚSICA" class="text" style="text-overflow: clip;" />
-                <engine:Slider value="50" high-value="100" class="slider" />
+                <engine:Slider value="0" high-value="1" name="slider-music" class="slider" />
             </engine:VisualElement>
-            <engine:VisualElement class="slider-row">
-                <engine:Label text="VOLUMEN DE LOS EFECTOS" class="text" style="text-overflow: clip;" />
-                <engine:Slider value="50" high-value="100" class="slider" />
+            <engine:VisualElement name="vol-voices" class="slider-row">
+                <engine:Label text="VOLUMEN DE LAS VOCES" class="text" style="text-overflow: clip;" />
+                <engine:Slider value="0" high-value="1" name="slider-voices" class="slider" />
             </engine:VisualElement>
-            <engine:VisualElement class="slider-row">
+            <engine:VisualElement name="microphone" class="slider-row">
                 <engine:Label text="MICROFONO" class="text" style="text-overflow: clip;" />
-                <engine:DropdownField choices="Microfono1,Microfono2" index="0" class="dropbown" />
+                <engine:DropdownField index="0" class="dropbown" />
             </engine:VisualElement>
         </engine:VisualElement>
-        <engine:VisualElement class="buttons" style="flex-grow: 1;">
-            <engine:Button text="Atras" name="BackButton" class="button" />
+        <engine:VisualElement name="buttons" class="buttons" style="flex-grow: 1;">
+            <engine:Button text="Atras" name="back-button" class="button" />
         </engine:VisualElement>
     </engine:VisualElement>
 </engine:UXML>
