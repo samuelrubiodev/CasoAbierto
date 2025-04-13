@@ -216,6 +216,7 @@
     <Compile Include="Assets\Scripts\Caso\Caso.cs" />
     <Compile Include="Assets\Scripts\Prompt\ConversationPrompt.cs" />
     <Compile Include="Assets\Scripts\Tables\Player.cs" />
+    <Compile Include="Assets\Scripts\FeatureRequest\CharacterEmotionalState.cs" />
     <Compile Include="Assets\Scripts\ControllerMicrphone.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\NoiseAndGrain.cs" />
     <Compile Include="Assets\Scripts\Tables\Server\IServerMapper.cs" />

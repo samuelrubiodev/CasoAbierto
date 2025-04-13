@@ -8,6 +8,7 @@ using Task = System.Threading.Tasks.Task;
 using System.Threading.Tasks;
 using TMPro;
 using FeatureRequest;
+using Newtonsoft.Json.Linq;
 
 public class APIRequest : MonoBehaviour
 {
@@ -41,11 +42,18 @@ public class APIRequest : MonoBehaviour
         StartCoroutine(new UIMessageManager(textoSubtitulos).ShowMessage(message));
     }
 
-    private async Task<bool> SeHaTerminado()
+    private async Task<JObject> SeHaTerminado()
     {
         GameStatus gameStatus = new ();
         JsonDocument jsonDocument = await Task.Run(async () => await gameStatus.SendRequest(prompt: "Analiza esta conversacion: \n"));
-        return jsonDocument.RootElement.GetProperty("mensajes").GetProperty("seHaTerminado").GetBoolean();
+        return JObject.Parse(jsonDocument.RootElement.ToString());
+    }
+
+    private async Task<JObject> RequestEmotionalState()
+    {
+        CharacterEmotionalState characterEmotionalState = new ();
+        JsonDocument jsonDocument = await Task.Run(async () => await characterEmotionalState.SendRequest(prompt: "Analiza esta conversacion: \n"));
+        return JObject.Parse(jsonDocument.RootElement.ToString());
     }
 
     public async Task<string> AnalizarEvidencia(Evidencia evidencia)
@@ -74,5 +82,11 @@ public class APIRequest : MonoBehaviour
             string prompt = new ConversationPrompt().CreatePrompt(texto).ToString();
             await MakeRequestOpenRouter(prompt,aPIRequestElevenLabs);
         }
+
+        JObject jsonGameStatus = await SeHaTerminado();
+        Debug.Log(jsonGameStatus.ToString());
+
+        JObject jsonEmotionalState = await RequestEmotionalState();
+        Debug.Log(jsonEmotionalState.ToString());
     }
 }

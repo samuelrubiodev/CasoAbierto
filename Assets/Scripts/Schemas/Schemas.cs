@@ -109,4 +109,22 @@ public class Schemas {
             ""required"": [""evidencia""],
             ""additionalProperties"": false
         }";
+
+    public const string CHARACTER_EMOTIONAL_STATE = @"
+        {
+            ""type"": ""object"",
+            ""properties"": {
+                ""personajeSeleccionado"": {
+                    ""type"": ""object"",
+                    ""properties"": {
+                        ""nombre"": { ""type"": ""string"", ""description"": ""Nombre del personaje"" },
+                        ""estado_emocional"": { ""type"": ""string"", ""description"": ""Estado emocional del personaje"" }
+                    },
+                    ""required"": [""nombre"",""estado_emocional""],
+                    ""additionalProperties"": false
+                }
+            },
+            ""required"": [""personajeSeleccionado""],
+            ""additionalProperties"": false
+        }";
 } 
