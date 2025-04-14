@@ -7179,6 +7179,7 @@ GameObject:
   m_Component:
   - component: {fileID: 645758492}
   - component: {fileID: 645758493}
+  - component: {fileID: 645758494}
   m_Layer: 0
   m_Name: UIGameManager
   m_TagString: Untagged
@@ -7220,6 +7221,18 @@ MonoBehaviour:
   m_WorldSpaceSizeMode: 1
   m_WorldSpaceWidth: 1920
   m_WorldSpaceHeight: 1080
+--- !u!114 &645758494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 645758491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4a47660343c89945b2dbd986a6dd9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &652924553
 GameObject:
   m_ObjectHideFlags: 0
@@ -11242,6 +11255,7 @@ GameObject:
   m_Component:
   - component: {fileID: 952737493}
   - component: {fileID: 952737494}
+  - component: {fileID: 952737495}
   m_Layer: 5
   m_Name: UIGraphicsSettings
   m_TagString: Untagged
@@ -11283,6 +11297,19 @@ MonoBehaviour:
   m_WorldSpaceSizeMode: 1
   m_WorldSpaceWidth: 1920
   m_WorldSpaceHeight: 1080
+--- !u!114 &952737495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 952737492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd7a6fd25065084b88f8ddb9b411aea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiMainSettings: {fileID: 1330433448}
 --- !u!1 &955555172
 GameObject:
   m_ObjectHideFlags: 0
@@ -15123,6 +15150,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1210049639}
   - component: {fileID: 1210049640}
+  - component: {fileID: 1210049641}
   m_Layer: 0
   m_Name: UIScreenMenu
   m_TagString: Untagged
@@ -15164,6 +15192,19 @@ MonoBehaviour:
   m_WorldSpaceSizeMode: 1
   m_WorldSpaceWidth: 1920
   m_WorldSpaceHeight: 1080
+--- !u!114 &1210049641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1210049638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2374855e9ca555448aaa9c530f58691, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiMainSettings: {fileID: 1330433448}
 --- !u!1 &1211121149
 GameObject:
   m_ObjectHideFlags: 0
@@ -24357,6 +24398,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiMainSettings: {fileID: 1330433448}
+  uiGameManager: {fileID: 645758493}
 --- !u!1 &1882814882
 GameObject:
   m_ObjectHideFlags: 0

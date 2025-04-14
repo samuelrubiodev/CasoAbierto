@@ -7,14 +7,10 @@
                 <engine:Label text="CALIDAD GRAFICA" class="text" />
                 <engine:DropdownField choices="Baja,Media,Alta,Ultra" index="0" class="dropbown" />
             </engine:VisualElement>
-            <engine:VisualElement name="limit-fps" class="row">
-                <engine:Label text="LIMITADOR FPS" class="text" />
-                <engine:DropdownField choices="30,60,120,240" index="0" class="dropbown" />
-            </engine:VisualElement>
         </engine:VisualElement>
         <engine:VisualElement name="buttons" class="buttons" style="flex-grow: 1;">
-            <engine:Button text="Atras" name="BackButton" class="button button-graphics" />
-            <engine:Button text="Aplicar" name="ApplyGraphics" class="button button-graphics" />
+            <engine:Button text="Atras" name="back-button" class="button button-graphics" />
+            <engine:Button text="Aplicar" name="apply-graphics" class="button button-graphics" />
         </engine:VisualElement>
     </engine:VisualElement>
 </engine:UXML>

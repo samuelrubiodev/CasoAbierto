@@ -97,6 +97,7 @@
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\PostEffectsBase.cs" />
     <Compile Include="Assets\Scripts\SaveChatManager.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\GlobalFog.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\Menu\Graphics\GraphicsConfig.cs" />
     <Compile Include="Assets\Scripts\Subtitles\GenericSubtitle.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\Scripts\Schemas\Schemas.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\CinematicEffects(BETA)\Common\RenderTexureUtility.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\TiltShift.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
+    <Compile Include="Assets\Scripts\UIToolKit\GameManager.cs" />
     <Compile Include="Assets\Scripts\Tables\Server\ServerMapper.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\SunShafts.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\Triangles.cs" />
@@ -160,6 +162,7 @@
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\ScreenOverlay.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\Blur.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\Menu\Screen\FPSConfig.cs" />
     <Compile Include="Assets\Scripts\Subtitles\SubtitlesPath.cs" />
     <Compile Include="Assets\Scripts\MessageManager.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\CinematicEffects(BETA)\ScreenSpaceReflection\ScreenSpaceReflection.cs" />
@@ -167,6 +170,7 @@
     <Compile Include="Assets\Scripts\MicrophoneRecorder.cs" />
     <Compile Include="Assets\Scripts\FeatureRequest\AnalysisEvidence.cs" />
     <Compile Include="Assets\Scripts\GroqApiLibrary-master\GroqApiClient.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\Menu\Screen\ModeScreen.cs" />
     <Compile Include="Assets\Scripts\Subtitles\SubtitleManager.cs" />
     <Compile Include="Assets\Scripts\ControllerGame.cs" />
     <Compile Include="Assets\Scripts\ConfigEnv.cs" />
@@ -215,6 +219,7 @@
     <Compile Include="Assets\Scripts\DetectionCharacter.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\Vortex.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\Menu\Screen\ScreenConfig.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\MotionBlur.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\ScreenSpaceAmbientObscurance.cs" />

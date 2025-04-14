@@ -7,14 +7,18 @@
                 <engine:Label text="RESOLUCIÓN" class="text" />
                 <engine:DropdownField choices="640x480,720x480,720x576,800x600,1024x768,1152x864,1176x664,1280x720,1280x768,1280x800" index="0" class="dropbown" />
             </engine:VisualElement>
+            <engine:VisualElement name="limit-fps" class="row">
+                <engine:Label text="LIMITADOR FPS" class="text" />
+                <engine:DropdownField choices="30,60,120,240" index="0" class="dropbown" />
+            </engine:VisualElement>
             <engine:VisualElement name="mode-screen" class="row">
                 <engine:Label text="MODO PANTALLA" class="text" />
                 <engine:DropdownField choices="Pantalla Completa,Ventana" index="0" class="dropbown" />
             </engine:VisualElement>
         </engine:VisualElement>
         <engine:VisualElement name="buttons" class="buttons" style="flex-grow: 1;">
-            <engine:Button text="Atras" name="BackButton" class="button button-graphics" />
-            <engine:Button text="Aplicar" name="ApplyGraphics" class="button button-graphics" />
+            <engine:Button text="Atras" name="back-button" class="button button-graphics" />
+            <engine:Button text="Aplicar" name="apply-screen" class="button button-graphics" />
         </engine:VisualElement>
     </engine:VisualElement>
 </engine:UXML>

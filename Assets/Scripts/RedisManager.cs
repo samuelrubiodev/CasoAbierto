@@ -2,6 +2,7 @@ using System;
 using StackExchange.Redis;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 public class RedisManager
 {
@@ -38,6 +39,22 @@ public class RedisManager
         this.user = "";
     }
 
+
+    public static RedisManager GetRedisManagerEnv()
+    {
+        if (instance == null)
+        {
+            instance = new RedisManager(
+                ConfigEnv.GetEnv(ConfigEnv.Envs.REDIS_HOST), 
+                "", 
+                ConfigEnv.GetEnv(ConfigEnv.Envs.REDIS_PASSWORD));
+            
+            instance.crearConexion();
+            return instance;
+        }
+        return instance;
+    }
+
     public async static Task<RedisManager> GetRedisManager()
     {
         VaultTransit vaultTransit = new ();
@@ -64,7 +81,10 @@ public class RedisManager
 
     public void crearConexion()
     {
-        string redisConnectionString = $"{ipServer}:{port},password={password}";
+        string redisConnectionString = port == "" 
+            ? $"{ipServer},password={password}" 
+            : $"{ipServer}:{port},password={password}";
+            
         redis = ConnectionMultiplexer.Connect(redisConnectionString);
         db = redis.GetDatabase();
     }
@@ -123,7 +143,9 @@ public class RedisManager
     {
         if (db != null)
         {
-            return redis.GetServer($"{ipServer}:{port}");
+            return port == "" 
+                ?  redis.GetServer($"{ipServer}") 
+                : redis.GetServer($"{ipServer}:{port}");
         }
         return null;
     }
