@@ -14,30 +14,17 @@ public class Inicializacion
 {
     public static int idCasoGenerado = 0;
     public static long jugadorID = 0;
-
     public string nombreJugador;
-    private SQLiteManager sqLiteManager;
     private RedisManager redisManager;
-    private VaultTransit vaultTransit;
     private string apiKeyOpenRouter;
     public Inicializacion(string nombreJugador)
     {
         this.nombreJugador = nombreJugador;
     }
 
-    public void setSQliteManager(SQLiteManager sqLiteManager)
-    {
-        this.sqLiteManager = sqLiteManager;
-    }
-
     public void setRedisManager(RedisManager redisManager)
     {
         this.redisManager = redisManager;
-    }
-
-    public void setVaultTransit(VaultTransit vaultTransit)
-    {
-        this.vaultTransit = vaultTransit;
     }
 
     public void setApiKeyOpenRouter(string apiKeyOpenRouter)

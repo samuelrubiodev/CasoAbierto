@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using Utilities.Extensions;
 
@@ -14,6 +15,7 @@ public class MainMenu : MonoBehaviour
         uiDocument = GetComponent<UIDocument>();
         Label label = uiDocument.rootVisualElement.Q<Label>("button-options");
         Label continueGame = uiDocument.rootVisualElement.Q<Label>("button-continue");
+        Label buttonNewGame = uiDocument.rootVisualElement.Q<Label>("button-new-game");
 
         label.RegisterCallback<ClickEvent>(evt => {
             this.SetActive(false);
@@ -23,6 +25,11 @@ public class MainMenu : MonoBehaviour
         continueGame.RegisterCallback<ClickEvent>(evt => {
             this.SetActive(false);
             uiGameManager.SetActive(true);
+        });
+
+        buttonNewGame.RegisterCallback<ClickEvent>(evt => {
+            ControllerCarga.tieneCaso = false;
+            SceneManager.LoadScene("PantallaCarga");
         });
     }
 }

@@ -33,13 +33,16 @@ public class MicrophoneConfig : ISetting<string>
 
             list.choices.Add("Solo texto");
 
-            for (int i = 0; i < list.choices.Count; i++)
+            if (PlayerPrefs.HasKey("microfono"))
             {
-                string microphoneSelected = PlayerPrefs.GetString("microfono");
-                if (list.choices[i] == microphoneSelected)
+                for (int i = 0; i < list.choices.Count; i++)
                 {
-                    list.index = i;
-                    break;
+                    string microphoneSelected = PlayerPrefs.GetString("microfono");
+                    if (list.choices[i] == microphoneSelected)
+                    {
+                        list.index = i;
+                        break;
+                    }
                 }
             }
         }

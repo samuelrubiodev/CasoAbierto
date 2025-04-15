@@ -21,6 +21,7 @@ public class ModeScreen : ISetting<int>
         {
             0 => FullScreenMode.ExclusiveFullScreen,
             1 => FullScreenMode.Windowed,
+            2 => FullScreenMode.MaximizedWindow,
             _ => FullScreenMode.Windowed
         };
     }

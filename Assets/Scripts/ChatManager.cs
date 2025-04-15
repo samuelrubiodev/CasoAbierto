@@ -18,7 +18,7 @@ public class ChatManager
     
     public const string IMAGE_MODEL_FREE = "black-forest-labs/FLUX.1-schnell-Free";
     public const string CHAT_MODEL = "google/gemini-2.0-flash-001";
-    public const string CHAT_MODEL_FREE = "openrouter/optimus-alpha";
+    public const string CHAT_MODEL_FREE = "google/gemini-2.5-pro-exp-03-25:free";
 
     public ChatManager(string apiKey, List<ChatMessage> chatMessages)
     {
@@ -96,16 +96,20 @@ public class ChatManager
     }
 
     public async Task<string> SendMessageAsync(string model, ChatCompletionOptions? options = null) {
+        try {
+            options ??= CreateChatCompletionOptions();
+            AsyncCollectionResult<StreamingChatCompletionUpdate> completionResult = CreateStremingChat(model, options);
 
-        options ??= CreateChatCompletionOptions();
-        AsyncCollectionResult<StreamingChatCompletionUpdate> completionResult = CreateStremingChat(model, options);
-
-        StringBuilder buffer = new();
-        await foreach (StreamingChatCompletionUpdate update in completionResult) {
-            if (update.ContentUpdate.Count > 0) buffer.Append(update.ContentUpdate[0].Text);       
+            StringBuilder buffer = new();
+            await foreach (StreamingChatCompletionUpdate update in completionResult) {
+                if (update.ContentUpdate.Count > 0) buffer.Append(update.ContentUpdate[0].Text);       
+            }
+            
+            return buffer.ToString();
+        } catch (Exception ex) {
+            Console.WriteLine($"Error sending message: {ex.Message}");
+            throw;
         }
-        
-        return buffer.ToString();
     }
 
     public async Task<GeneratedImage> GetImageAsync(string model, string prompt, ImageGenerationOptions options)

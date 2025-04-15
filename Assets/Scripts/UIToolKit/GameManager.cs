@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using NUnit.Framework.Constraints;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
@@ -65,7 +66,22 @@ public class GameManager : MonoBehaviour
             gameContent.Add(timePlayed);
 
             containerGame.Add(gameContent);
+
+            containerGame.RegisterCallback<ClickEvent>(ev =>
+            {
+                int index = int.Parse(caso.idCaso);
+                JugarPartida(jugador, (index - 1).ToString());
+            });
+
             scrollView.Add(containerGame);
         }
+    }
+    public void JugarPartida(Jugador jugador, string indexCaso)
+    {
+        Jugador.jugador = jugador;
+        Jugador.indexCaso = int.Parse(indexCaso);
+
+        ControllerCarga.tieneCaso = true;
+        SceneManager.LoadScene("PantallaCarga");
     }
 }

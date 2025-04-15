@@ -16,9 +16,9 @@ public class SaveChatManager : MonoBehaviour
     private ControllerGame controllerGame;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    async void Start()
+    void Start()
     {
-        redisManager = await RedisManager.GetRedisManager();
+        redisManager = RedisManager.GetRedisManagerEnv();
         cts = new CancellationTokenSource();
         controllerGame = GetComponent<ControllerGame>();
         _ = SaveChat(cts.Token);

@@ -1,7 +1,6 @@
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using OpenAI.Images;
@@ -10,13 +9,10 @@ using System.IO;
 using OpenAI.Chat;
 using TMPro;
 using System.Collections;
-using Unity.VisualScripting;
 
 public class ControllerCarga : MonoBehaviour
 {
     public static bool tieneCaso = false;
-
-    SQLiteManager sqLiteManager;
     VaultTransit vaultTransit;
     private BinaryData bytes;
     public TMP_Text text;
@@ -62,7 +58,6 @@ public class ControllerCarga : MonoBehaviour
         currentSubtitleIndex = UnityEngine.Random.Range(0, subtitulos.subtitles.Count);
         ShowNextMessage();
 
-        sqLiteManager = SQLiteManager.GetSQLiteManager();
         vaultTransit = new ();
 
         await ConectarApis();
@@ -75,10 +70,10 @@ public class ControllerCarga : MonoBehaviour
         }
         else
         {
-            RedisManager redisManger = await RedisManager.GetRedisManager();
+            RedisManager redisManger = RedisManager.GetRedisManagerEnv();
             long jugadorID = GetJugadorID();
 
-            await CrearCaso(redisManger, vaultTransit, ApiKey.API_KEY_OPEN_ROUTER,jugadorID);
+            await CrearCaso(redisManger, ApiKey.API_KEY_OPEN_ROUTER,jugadorID);
             
             if (jugadorID == -1)
             {
@@ -87,6 +82,8 @@ public class ControllerCarga : MonoBehaviour
 
                 jugadorID = Inicializacion.jugadorID;
             }  
+
+            Debug.Log($"jugadorID: {jugadorID}");
 
             await CargarPartida(redisManger, jugadorID);
             SaveImage(redisManger);
@@ -108,6 +105,8 @@ public class ControllerCarga : MonoBehaviour
         {
             return redisManager.GetPlayer(jugadorID);
         });
+
+        Debug.Log($"ID Caso Generado: {Inicializacion.idCasoGenerado}");
         
         for(int i = 0; i < jugador.casos.Count; i++)
         {
@@ -115,6 +114,7 @@ public class ControllerCarga : MonoBehaviour
             {
                 Jugador.jugador = jugador;
                 Jugador.indexCaso = i;
+                Debug.Log($"ID Caso: {i}");
                 break;
             }
         }
@@ -127,15 +127,13 @@ public class ControllerCarga : MonoBehaviour
         APIRequest.DATOS_CASO = CrearPromptSystem().ToString();
     }
     
-    async Task CrearCaso(RedisManager redisManager, VaultTransit vaultTransit, string apiKeyOpenRouter, long jugadorID)
+    async Task CrearCaso(RedisManager redisManager, string apiKeyOpenRouter, long jugadorID)
     {
         await Task.Run(async () =>
         {
             Inicializacion inicializacion = new("Samuel");
 
-            inicializacion.setSQliteManager(sqLiteManager);
             inicializacion.setRedisManager(redisManager);
-            inicializacion.setVaultTransit(vaultTransit);
             inicializacion.setApiKeyOpenRouter(apiKeyOpenRouter);
 
             await inicializacion.crearBaseDatosRedis(jugadorID);
@@ -145,21 +143,18 @@ public class ControllerCarga : MonoBehaviour
     async Task ConectarApis()
     {  
         Config config = new ("config");
-        ApiKey.API_KEY_OPEN_ROUTER = await vaultTransit.DecryptAsync("api-key-encrypt", sqLiteManager.GetAPIS()[ApiKey.OPEN_ROUTER].apiKey);
-        ApiKey.API_KEY_GROQ = await vaultTransit.DecryptAsync("api-key-encrypt", sqLiteManager.GetAPIS()[ApiKey.GROQ].apiKey);
-        ApiKey.API_KEY_ELEVENLABS = await vaultTransit.DecryptAsync("api-key-encrypt", sqLiteManager.GetAPIS()[ApiKey.ELEVENLABS].apiKey);
+        ApiKey.API_KEY_OPEN_ROUTER = await vaultTransit.GetKey("OPEN_ROUTER");
+        ApiKey.API_KEY_GROQ = await vaultTransit.GetKey("GROQ");
+        ApiKey.API_KEY_ELEVENLABS = await vaultTransit.GetKey("ELEVEN_LABS");
         ApiKey.API_KEY_TOGETHER = config.GetKey("TOGETHER_AI");
 
-        Server.IP_SERVER_REDIS = await vaultTransit.DecryptAsync("api-key-encrypt", sqLiteManager.GetServers()[Server.REDIS].ipServer);
-        Server.CONTRASENA_REDIS = await vaultTransit.DecryptAsync("api-key-encrypt", sqLiteManager.GetServers()[Server.REDIS].password);
+        Server.IP_SERVER_REDIS = ConfigEnv.GetEnv(ConfigEnv.Envs.REDIS_HOST);
+        Server.CONTRASENA_REDIS = ConfigEnv.GetEnv(ConfigEnv.Envs.REDIS_PASSWORD);
     }
 
     private long GetJugadorID()
     {
-        if (PlayerPrefs.HasKey("jugadorID"))
-            return PlayerPrefs.GetInt("jugadorID");
-        else
-            return -1;
+        return PlayerPrefs.HasKey("jugadorID") ? PlayerPrefs.GetInt("jugadorID") : -1;
     }
 
     private async Task<string> CreatePromptForImage(Caso caso)
@@ -170,7 +165,7 @@ public class ControllerCarga : MonoBehaviour
             new UserChatMessage("Generate a prompt based on this case: " + caso.ToString())
         };
         ChatManager chatManager = new (ApiKey.API_KEY_OPEN_ROUTER,messages);
-        return await chatManager.SendMessageAsync(ChatManager.CHAT_MODEL_FREE);
+        return await chatManager.SendMessageAsync(ChatManager.CHAT_MODEL);
     }
 
     private async Task GenerateImage(string prompt) {
