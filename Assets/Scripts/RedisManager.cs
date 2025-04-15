@@ -3,6 +3,8 @@ using StackExchange.Redis;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Diagnostics;
+using UnityEngine;
 
 public class RedisManager
 {
@@ -98,8 +100,7 @@ public class RedisManager
     {
         if (db != null)
         {
-            byte[] imageBytes = db.StringGet(key);
-            return imageBytes;
+            return db.StringGet(key);
         }
         return null;
     }
