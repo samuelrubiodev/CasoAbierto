@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
         {
             Caso caso = jugador.casos[i];
 
-            byte[] bytesImage = redisManager.GetImage($"jugadores:{jugadorID}:caso:{i}:imagen");
+            byte[] bytesImage = redisManager.GetImage($"jugadores:{jugadorID}:caso:{i+1}:imagen");
 
             Texture2D texture = new (1, 1);
             texture.LoadImage(bytesImage);
