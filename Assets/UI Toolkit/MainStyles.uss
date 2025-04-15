@@ -22,6 +22,7 @@
 .unity-base-dropdown .unity-scroll-view {
     background-color: rgba(0, 0, 0,0);
     color: rgb(171, 124, 63);
+    height: 115px;
 }
 
 .unity-base-dropdown__item {

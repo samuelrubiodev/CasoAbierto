@@ -5,7 +5,7 @@
         <engine:VisualElement name="container" class="panel">
             <engine:VisualElement name="resolution" class="row">
                 <engine:Label text="RESOLUCIÓN" class="text" />
-                <engine:DropdownField choices="640x480,720x480,720x576,800x600,1024x768,1152x864,1176x664,1280x720,1280x768,1280x800" index="0" class="dropbown" />
+                <engine:DropdownField choices="640x480,720x480,720x576,800x600,1024x768,1152x864,1176x664,1280x720,1280x768,1280x800" index="0" class="dropbown" style="height: 50px;" />
             </engine:VisualElement>
             <engine:VisualElement name="limit-fps" class="row">
                 <engine:Label text="LIMITADOR FPS" class="text" />
@@ -13,7 +13,7 @@
             </engine:VisualElement>
             <engine:VisualElement name="mode-screen" class="row">
                 <engine:Label text="MODO PANTALLA" class="text" />
-                <engine:DropdownField choices="Pantalla Completa,Ventana" index="0" class="dropbown" />
+                <engine:DropdownField choices="Pantalla Completa,Ventana,Ventana maximizada" index="0" class="dropbown" />
             </engine:VisualElement>
         </engine:VisualElement>
         <engine:VisualElement name="buttons" class="buttons" style="flex-grow: 1;">
