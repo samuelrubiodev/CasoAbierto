@@ -9,7 +9,7 @@
             </engine:VisualElement>
             <engine:VisualElement name="limit-fps" class="row">
                 <engine:Label text="LIMITADOR FPS" class="text" />
-                <engine:DropdownField choices="30,60,120,240" index="0" class="dropbown" />
+                <engine:DropdownField choices="30,60,120,144,240" index="0" class="dropbown" />
             </engine:VisualElement>
             <engine:VisualElement name="mode-screen" class="row">
                 <engine:Label text="MODO PANTALLA" class="text" />

@@ -1,8 +1,6 @@
 using System.Threading.Tasks;
-using NUnit.Framework.Constraints;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour

@@ -8,10 +8,11 @@ public class ControllerAudio : MonoBehaviour
     private Slider sliderMusica;
     private Slider sliderVoces;
     private Slider sliderGeneral;
-    public UIDocument uiAudioSettings;
+    private UIDocument uiAudioSettings;
 
     void Awake()
     {
+        uiAudioSettings = GetComponent<UIDocument>();
         VisualElement container = uiAudioSettings.rootVisualElement.Q<VisualElement>("container");
         this.sliderGeneral = container[0].Q<Slider>("slider-general");
         this.sliderMusica = container[1].Q<Slider>("slider-music");

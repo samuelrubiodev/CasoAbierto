@@ -13,7 +13,6 @@ using System.Collections;
 public class ControllerCarga : MonoBehaviour
 {
     public static bool tieneCaso = false;
-    VaultTransit vaultTransit;
     private BinaryData bytes;
     public TMP_Text text;
 
@@ -57,10 +56,6 @@ public class ControllerCarga : MonoBehaviour
         subtitulos = new GenericSubtitles(SubtitlesPath.TIPS_RESEARCH).ReturnSubtitleList();
         currentSubtitleIndex = UnityEngine.Random.Range(0, subtitulos.subtitles.Count);
         ShowNextMessage();
-
-        vaultTransit = new ();
-
-        await ConectarApis();
 
         if (tieneCaso)
         {
@@ -138,18 +133,6 @@ public class ControllerCarga : MonoBehaviour
 
             await inicializacion.crearBaseDatosRedis(jugadorID);
         });
-    }
-
-    async Task ConectarApis()
-    {  
-        Config config = new ("config");
-        ApiKey.API_KEY_OPEN_ROUTER = await vaultTransit.GetKey("OPEN_ROUTER");
-        ApiKey.API_KEY_GROQ = await vaultTransit.GetKey("GROQ");
-        ApiKey.API_KEY_ELEVENLABS = await vaultTransit.GetKey("ELEVEN_LABS");
-        ApiKey.API_KEY_TOGETHER = config.GetKey("TOGETHER_AI");
-
-        Server.IP_SERVER_REDIS = ConfigEnv.GetEnv(ConfigEnv.Envs.REDIS_HOST);
-        Server.CONTRASENA_REDIS = ConfigEnv.GetEnv(ConfigEnv.Envs.REDIS_PASSWORD);
     }
 
     private long GetJugadorID()

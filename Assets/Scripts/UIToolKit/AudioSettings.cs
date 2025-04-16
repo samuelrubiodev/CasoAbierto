@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UIElements;
@@ -9,9 +10,16 @@ public class AudioSettings : MonoBehaviour
     private UIDocument uiDocument;
     public UIDocument uiMainSettings;
 
+    void Awake()
+    {
+        ControllerAudio controllerAudio = GetComponent<ControllerAudio>();
+        controllerAudio.audioMixer = audioMixer;
+    }
+
     void OnEnable()
     {
         uiDocument = GetComponent<UIDocument>();
+
         VisualElement container = uiDocument.rootVisualElement.Q<VisualElement>("container");
         new MicrophoneConfig(container[3]);
 

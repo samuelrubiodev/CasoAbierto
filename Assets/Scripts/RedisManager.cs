@@ -57,30 +57,6 @@ public class RedisManager
         return instance;
     }
 
-    public async static Task<RedisManager> GetRedisManager()
-    {
-        VaultTransit vaultTransit = new ();
-
-        if (instance == null)
-        {
-            SQLiteManager sqliteManager = SQLiteManager.GetSQLiteManager();
-
-            string ipServer = "";
-            string password = ""; 
-
-            await Task.Run(async () =>
-            {
-                ipServer = await vaultTransit.DecryptAsync("api-key-encrypt", sqliteManager.GetServers()[Server.REDIS].ipServer);
-                password = await vaultTransit.DecryptAsync("api-key-encrypt", sqliteManager.GetServers()[Server.REDIS].password);
-            });
-            
-            instance = new RedisManager(ipServer, "6379", password);
-            instance.crearConexion();
-            return instance;
-        }
-        return instance;
-    }
-
     public void crearConexion()
     {
         string redisConnectionString = port == "" 
