@@ -10,6 +10,16 @@ public class Cronologia
     public string hora { get; set; }
     public string evento { get; set; }
 
+    public static Cronologia FromJSONtoObject(JObject json)
+    {
+        return new Cronologia
+        {
+            fecha = DateTime.Parse(json["date"].ToString()),
+            hora = json["hour"].ToString(),
+            evento = json["event"].ToString()
+        };
+    }
+
 
     public static Cronologia GetTimeline(HashEntry[] cronologiaHash) 
     {

@@ -28,5 +28,6 @@ public class GameInitializer : MonoBehaviour
 
         Server.IP_SERVER_REDIS = ConfigEnv.GetEnv(ConfigEnv.Envs.REDIS_HOST);
         Server.CONTRASENA_REDIS = ConfigEnv.GetEnv(ConfigEnv.Envs.REDIS_PASSWORD);
+        Server.ACTIVE_CASE_HOST = ConfigEnv.GetEnv(ConfigEnv.Envs.ACTIVE_CASE_HOST);
     }
 }

@@ -27,6 +27,19 @@ public class Evidencia
         this.ubicacion = ubicacion;
     }
 
+    public static Evidencia FromJSONtoObject(JObject json)
+    {
+        Evidencia evidencia = new (
+            json["name"].ToString(),
+            json["description"].ToString(),
+            json["analysis"].ToString(),
+            json["type"].ToString(),
+            json["location"].ToString()
+        );
+
+        return evidencia;
+    }
+
     public static Evidencia GetEvidence(HashEntry[] evidenciaHash) 
     {
         Evidencia evidencia = new();

@@ -9,6 +9,8 @@ using System.IO;
 using OpenAI.Chat;
 using TMPro;
 using System.Collections;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 public class ControllerCarga : MonoBehaviour
 {
@@ -59,12 +61,15 @@ public class ControllerCarga : MonoBehaviour
 
         if (tieneCaso)
         {
-            APIRequest.DATOS_CASO = CrearPromptSystem().ToString();
+            //APIRequest.DATOS_CASO = CrearPromptSystem().ToString();
             SceneManager.LoadScene("SampleScene");
             return;
         }
         else
         {
+            long jugadorID = GetJugadorID();
+            await CreateGame(6);
+            /*
             RedisManager redisManger = RedisManager.GetRedisManagerEnv();
             long jugadorID = GetJugadorID();
 
@@ -82,117 +87,54 @@ public class ControllerCarga : MonoBehaviour
 
             await CargarPartida(redisManger, jugadorID);
             SaveImage(redisManger);
+            
+            */
             SceneManager.LoadScene("SampleScene");
         }
     }
 
-    private void SaveImage(RedisManager redisManager)
+    private async Task CreateGame(long playerID)
     {
-        using FileStream stream = File.OpenWrite($"{Application.persistentDataPath}/{Guid.NewGuid()}.png");
-        bytes.ToStream().CopyTo(stream);
-        byte[] imageBytes = bytes.ToArray();
-        redisManager.SaveImage($"jugadores:{Jugador.jugador.idJugador}:caso:{Inicializacion.idCasoGenerado}:imagen", imageBytes);
-    }
+        var urlBase = "http://" + Server.ACTIVE_CASE_HOST;
+        using var httpClient = new HttpClient();
+        httpClient.BaseAddress = new Uri(urlBase);
 
-    async Task CargarPartida(RedisManager redisManager, long jugadorID)
-    {
-        Jugador jugador = await Task.Run(() =>
+       var jsonData = new
         {
-            return redisManager.GetPlayer(jugadorID);
-        });
+            nombreJugador = "Samuel",
+            playerID = playerID
+        };
 
-        Debug.Log($"ID Caso Generado: {Inicializacion.idCasoGenerado}");
-        
-        for(int i = 0; i < jugador.casos.Count; i++)
+        var jsonContent = new StringContent(
+            JsonConvert.SerializeObject(jsonData),
+            System.Text.Encoding.UTF8,
+            "application/json");
+
+        try 
         {
-            if(jugador.casos[i].idCaso == Inicializacion.idCasoGenerado.ToString())
-            {
-                Jugador.jugador = jugador;
-                Jugador.indexCaso = i;
-                Debug.Log($"ID Caso: {i}");
-                break;
-            }
-        }
+            var responseNewCase = await httpClient.PostAsync("/case/new", jsonContent);
+            string body = await responseNewCase.Content.ReadAsStringAsync().ConfigureAwait(false);
 
-        await Task.Run(async () => {
-            string prompt = await CreatePromptForImage(Jugador.jugador.casos[Jugador.indexCaso]);
-            await GenerateImage(prompt);
-        });
-        
-        APIRequest.DATOS_CASO = CrearPromptSystem().ToString();
-    }
+            JObject responseJsonNewCase = JObject.Parse(body);
     
-    async Task CrearCaso(RedisManager redisManager, string apiKeyOpenRouter, long jugadorID)
-    {
-        await Task.Run(async () =>
+            int caseID = (int)responseJsonNewCase["caseID"];
+
+            var responseCase = await httpClient.PostAsync("/case/" + caseID, jsonContent);
+            JObject responseJsonCase = JObject.Parse(await responseCase.Content.ReadAsStringAsync());
+            
+            Jugador jugador = Jugador.FromJSONtoObject(responseJsonCase);
+            Jugador.jugador = jugador;
+            Jugador.indexCaso = 0;
+            APIRequest.DATOS_CASO = responseJsonCase.ToString();
+        }
+        catch (HttpRequestException e)
         {
-            Inicializacion inicializacion = new("Samuel");
-
-            inicializacion.setRedisManager(redisManager);
-            inicializacion.setApiKeyOpenRouter(apiKeyOpenRouter);
-
-            await inicializacion.crearBaseDatosRedis(jugadorID);
-        });
+            Debug.Log($"Error: {e.Message}");
+        }
     }
 
     private long GetJugadorID()
     {
         return PlayerPrefs.HasKey("jugadorID") ? PlayerPrefs.GetInt("jugadorID") : -1;
-    }
-
-    private async Task<string> CreatePromptForImage(Caso caso)
-    {
-        List<ChatMessage> messages = new() 
-        {
-            new SystemChatMessage(PromptSystem.PROMPT_SYSTEM_IMAGE_GENERATION),
-            new UserChatMessage("Generate a prompt based on this case: " + caso.ToString())
-        };
-        ChatManager chatManager = new (ApiKey.API_KEY_OPEN_ROUTER,messages);
-        return await chatManager.SendMessageAsync(ChatManager.CHAT_MODEL);
-    }
-
-    private async Task GenerateImage(string prompt) {
-        ChatManager chatManager = new (ApiKey.API_KEY_TOGETHER,ChatManager.TOGETHER_AI_API_URL);
-        ImageGenerationOptions options = chatManager.CreateImageGenerationOptions(GeneratedImageSize.W1024xH1024, GeneratedImageFormat.Bytes);
-
-        GeneratedImage image = await chatManager.GetImageAsync(ChatManager.IMAGE_MODEL_FREE, prompt, options);
-
-        bytes = image.ImageBytes;
-    }
-
-    private JObject CrearPromptSystem()
-    {
-        Jugador jugador1 = Jugador.jugador;
-        Caso caso = jugador1.casos[Jugador.indexCaso];
-
-        JObject objetoJson = new()
-        {
-            ["datosJugador"] = new JObject
-            {
-                ["_comentario"] = "Datos importantes del jugador, no cambies el nombre del jugador",
-                ["_estado"] = "Activo o Inactivo",
-                ["_progreso"] = "En que caso va, poner nombre del caso",
-                ["nombre"] = jugador1.nombre,
-                ["estado"] = jugador1.estado,
-                ["progreso"] = jugador1.progreso
-            },
-            ["Caso"] = new JObject
-            {
-                ["_comentario"] = "Datos del caso actual",
-                ["tituloCaso"] = caso.tituloCaso,
-                ["descripcionCaso"] = caso.descripcion,
-                ["dificultad"] = caso.dificultad,
-                ["fechaOcurrido"] = caso.fechaOcurrido,
-                ["lugar"] = caso.lugar,
-                ["tiempoRestante"] = caso.tiempoRestante,
-
-                ["cronologia"] = Util.ObtenerCronologias(caso.cronologia),
-                ["evidencias"] = Util.ObtenerEvidencias(caso.evidencias),
-                ["personajes"] = Util.ObtenerPersonajes(caso.personajes),
-                ["explicacionCasoResuelto"] = caso.explicacionCasoResuelto
-            }
-        };
-
-        return objetoJson;
     }
 }

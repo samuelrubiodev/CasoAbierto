@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 using StackExchange.Redis;
+using Unity.Jobs;
 
 public class Personaje
 {
@@ -23,6 +25,20 @@ public class Personaje
         this.estadoEmocional = estadoEmocional;
         this.rol = rol;
         this.sexo = sexo;
+    }
+
+    public static Personaje FromJSONtoObject(JObject json)
+    {
+        Personaje personaje = new (
+            json["name"].ToString(),
+            json["state"].ToString(),
+            json["description"].ToString(),
+            json["state_emotional"].ToString(),
+            json["role"].ToString(),
+            json["genre"].ToString()
+        );
+
+        return personaje;
     }
 
     public static Personaje GetPlayer(HashEntry[] personajeHash) 

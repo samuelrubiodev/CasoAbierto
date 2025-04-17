@@ -26635,7 +26635,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1779165741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26770,9 +26770,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: 8601f8df2c3d66d408abe74cd9cb654a, type: 2}
-  sliderMusica: {fileID: 2092043721}
-  sliderVoces: {fileID: 2879749}
-  sliderGeneral: {fileID: 468966040}
 --- !u!1 &1796506718
 GameObject:
   m_ObjectHideFlags: 0

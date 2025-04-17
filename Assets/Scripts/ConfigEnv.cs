@@ -6,7 +6,8 @@ public class ConfigEnv {
         VAULT_HOST,
         VAULT_TOKEN,
         REDIS_HOST,
-        REDIS_PASSWORD
+        REDIS_PASSWORD,
+        ACTIVE_CASE_HOST
     }
 
     public static string GetEnv(Envs env)

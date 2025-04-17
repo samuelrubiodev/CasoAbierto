@@ -4,9 +4,12 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using StackExchange.Redis;
+using UnityEngine;
 
 public class Caso
 {
+    public static JObject jsonCaso { get; set; }
+    public static Caso caso { get; set; }
     public string idCaso { get; set; }
     public string lugar { get; set; }
     public string fechaOcurrido { get; set; }
@@ -23,7 +26,8 @@ public class Caso
     {
     }
 
-    public Caso(string idCaso, string lugar, string fechaOcurrido, string dificultad, string tiempoRestante, string tituloCaso, string descripcion, string explicacionCasoResuelto)
+    public Caso(string idCaso, string lugar, string fechaOcurrido, string dificultad, string tiempoRestante, string tituloCaso, string descripcion, 
+        string explicacionCasoResuelto)
     {
         this.idCaso = idCaso;
         this.lugar = lugar;
@@ -33,6 +37,50 @@ public class Caso
         this.tituloCaso = tituloCaso;
         this.descripcion = descripcion;
         this.explicacionCasoResuelto = explicacionCasoResuelto;
+    }
+
+
+    public static Caso FromJSONtoObject(JObject json)
+    {
+        Caso caso = new(
+            json["id"].ToString(),
+            json["location"].ToString(),
+            json["date_occurred"].ToString(),
+            json["difficult"].ToString(),
+            json["time_remaining"].ToString(),
+            json["title"].ToString(),
+            json["description"].ToString(),
+            json["explanation_case_solved"].ToString()
+        );
+        caso.personajes = new List<Personaje>();
+        caso.evidencias = new List<Evidencia>();
+        caso.cronologia = new List<Cronologia>();
+
+        JArray personajes = (JArray)json["characters"];
+        foreach (var personaje in personajes)
+        {
+            JObject personajeJson = JObject.Parse(personaje.ToString());
+            Personaje personajeObj = Personaje.FromJSONtoObject(personajeJson);
+            caso.personajes.Add(personajeObj);
+        }
+
+        JArray evidencias = (JArray)json["evidences"];
+        foreach (var evidencia in evidencias)
+        {
+            JObject evidenciaJson = JObject.Parse(evidencia.ToString());
+            Evidencia evidenciaObj = Evidencia.FromJSONtoObject(evidenciaJson);
+            caso.evidencias.Add(evidenciaObj);
+        }
+
+        JArray cronologias = (JArray)json["timeline"];
+        foreach (var cronologia in cronologias)
+        {
+            JObject cronologiaJson = JObject.Parse(cronologia.ToString());
+            Cronologia cronologiaObj = Cronologia.FromJSONtoObject(cronologiaJson);
+            caso.cronologia.Add(cronologiaObj);
+        }
+
+        return caso;
     }
 
     public static Caso CreateEmptyCaso(string idCaso) {

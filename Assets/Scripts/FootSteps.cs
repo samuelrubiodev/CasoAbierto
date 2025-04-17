@@ -14,8 +14,8 @@ public class FootSteps : MonoBehaviour
     void Start()
     {
         Debug.Log("Jugador: " + Jugador.jugador.ToString());
-        Debug.Log("Caso Nº1: " + Jugador.jugador.casos[Jugador.indexCaso].tituloCaso); 
-        Debug.Log("Personaje seleccionado: " + Jugador.jugador.casos[Jugador.indexCaso].personajes[0].nombre);
+        Debug.Log("Caso Nº1: " + Caso.caso.tituloCaso); 
+        Debug.Log("Personaje seleccionado: " + Caso.caso.personajes[0].nombre);
     }
 
     private void Update()

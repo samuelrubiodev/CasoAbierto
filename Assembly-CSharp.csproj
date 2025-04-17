@@ -106,7 +106,6 @@
     <Compile Include="Assets\Scripts\Caso\Personaje.cs" />
     <Compile Include="Assets\UI Toolkit\Prueba.cs" />
     <Compile Include="Assets\Scripts\GroqApiLibrary-master\IGroqApiClient.cs" />
-    <Compile Include="Assets\Scripts\Inicializacion.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\CinematicEffects(BETA)\Common\RenderTexureUtility.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\TiltShift.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />

@@ -1,4 +1,4 @@
-using System;
+using UnityEngine;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
@@ -12,20 +12,40 @@ public class Jugador
     public string nombre { get; set; }
     public string estado { get; set; }
     public string progreso { get; set; }
-    public DateTime ultima_conexion { get; set; }
     public List<Caso> casos;
 
     public Jugador()
     {
     }
 
-    public Jugador(long idJugador, string nombre, string estado, string progreso, DateTime ultima_conexion)
+    public Jugador(long idJugador, string nombre, string estado, string progreso)
     {
         this.idJugador = idJugador;
         this.nombre = nombre;
         this.estado = estado;
         this.progreso = progreso;
-        this.ultima_conexion = ultima_conexion;
+    }
+
+    public static Jugador FromJSONtoObject(JObject json)
+    {
+        Jugador jugador = new ();
+        JObject player = (JObject)json["player"];
+
+        jugador.idJugador = (long)player["id"];
+        jugador.nombre = player["name"].ToString();
+        jugador.estado = player["state"].ToString();
+        jugador.progreso = player["progress"].ToString();
+
+        jugador.casos = new List<Caso>();
+
+        JArray casos = (JArray)json["cases"];
+        foreach (var caso in casos)
+        {
+            JObject casoJson = JObject.Parse(caso.ToString());
+            Caso casoObj = Caso.FromJSONtoObject(casoJson);
+            jugador.casos.Add(casoObj);
+        }
+        return jugador;
     }
 
     public static HashEntry[] GetHashEntriesJugador(string nombreJugador)
@@ -35,7 +55,6 @@ public class Jugador
             new ("nombre", nombreJugador),
             new ("estado", "inactivo"),
             new ("progreso", "SinCaso"),
-            new ("ultima_conexion", DateTime.Now.ToString())
         };
     }
 
@@ -64,7 +83,6 @@ public class Jugador
                 ", nombre='" + nombre + '\'' +
                 ", estado='" + estado + '\'' +
                 ", progreso='" + progreso + '\'' +
-                ", ultima_conexion=" + ultima_conexion +
                 ", casos=" + casos +
                 '}';
     }
