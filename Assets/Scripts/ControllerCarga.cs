@@ -2,11 +2,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Newtonsoft.Json.Linq;
-using System.Collections.Generic;
-using OpenAI.Images;
 using System;
-using System.IO;
-using OpenAI.Chat;
 using TMPro;
 using System.Collections;
 using System.Net.Http;
@@ -61,45 +57,68 @@ public class ControllerCarga : MonoBehaviour
 
         if (tieneCaso)
         {
-            //APIRequest.DATOS_CASO = CrearPromptSystem().ToString();
+            CaseHttpRequest caseHttpRequest = new ();
+            var jsonData = new
+            {
+                nombreJugador = "Samuel",
+                playerID = GetJugadorID()
+            };
+
+            var jsonContent = new StringContent(
+                JsonConvert.SerializeObject(jsonData),
+                System.Text.Encoding.UTF8,
+                "application/json");
+
+            JObject responseCase = await caseHttpRequest.PostAsync("/case/" + Caso.caso.idCaso, jsonContent);
+            APIRequest.DATOS_CASO = responseCase.ToString();
             SceneManager.LoadScene("SampleScene");
             return;
         }
         else
         {
             long jugadorID = GetJugadorID();
-            await CreateGame(6);
-            /*
-            RedisManager redisManger = RedisManager.GetRedisManagerEnv();
-            long jugadorID = GetJugadorID();
-
-            await CrearCaso(redisManger, ApiKey.API_KEY_OPEN_ROUTER,jugadorID);
-            
             if (jugadorID == -1)
             {
-                PlayerPrefs.SetInt("jugadorID", (int)Inicializacion.jugadorID);
+                int id = await NewID(jugadorID);
+                PlayerPrefs.SetInt("jugadorID", id);
                 PlayerPrefs.Save();
-
-                jugadorID = Inicializacion.jugadorID;
-            }  
-
-            Debug.Log($"jugadorID: {jugadorID}");
-
-            await CargarPartida(redisManger, jugadorID);
-            SaveImage(redisManger);
+            }
             
-            */
+            await CreateGame(GetJugadorID());
             SceneManager.LoadScene("SampleScene");
         }
     }
 
+    private async Task<int> NewID(long playerID)
+    {
+        if (playerID == -1)
+        {
+            CaseHttpRequest caseHttpRequest = new ();
+
+            var jsonData = new
+            {
+                playerName = "Scott Shelby"
+            };
+
+            var jsonContent = new StringContent(
+                JsonConvert.SerializeObject(jsonData),
+                System.Text.Encoding.UTF8,
+                "application/json");
+
+            JObject jsonResponse = await caseHttpRequest.PostAsync("/players/new", jsonContent);
+
+            JObject player = (JObject)jsonResponse["player"];
+            int newPlayerID = (int)player["id"];
+
+            return newPlayerID;
+        }
+        return -1;
+    }
+
     private async Task CreateGame(long playerID)
     {
-        var urlBase = "http://" + Server.ACTIVE_CASE_HOST;
-        using var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri(urlBase);
-
-       var jsonData = new
+        CaseHttpRequest caseHttpRequest = new ();
+        var jsonData = new
         {
             nombreJugador = "Samuel",
             playerID = playerID
@@ -110,27 +129,29 @@ public class ControllerCarga : MonoBehaviour
             System.Text.Encoding.UTF8,
             "application/json");
 
-        try 
-        {
-            var responseNewCase = await httpClient.PostAsync("/case/new", jsonContent);
-            string body = await responseNewCase.Content.ReadAsStringAsync().ConfigureAwait(false);
+        JObject jsonResponse = await caseHttpRequest.PostAsync("/case/new", jsonContent);
+        int caseID = (int)jsonResponse["caseID"];
 
-            JObject responseJsonNewCase = JObject.Parse(body);
-    
-            int caseID = (int)responseJsonNewCase["caseID"];
+        JObject responseCase = await caseHttpRequest.PostAsync("/case/" + caseID, jsonContent);
+        Jugador jugador = Jugador.FromJSONtoObject(responseCase);
+        LoadCase(jugador, caseID, responseCase);
+        APIRequest.DATOS_CASO = responseCase.ToString();
+    }
 
-            var responseCase = await httpClient.PostAsync("/case/" + caseID, jsonContent);
-            JObject responseJsonCase = JObject.Parse(await responseCase.Content.ReadAsStringAsync());
-            
-            Jugador jugador = Jugador.FromJSONtoObject(responseJsonCase);
-            Jugador.jugador = jugador;
-            Jugador.indexCaso = 0;
-            APIRequest.DATOS_CASO = responseJsonCase.ToString();
-        }
-        catch (HttpRequestException e)
+    private void LoadCase(Jugador jugador, int caseID, JObject json)
+    {
+        Jugador.jugador = jugador;
+        for (int i = 0; i < jugador.casos.Count; i++)
         {
-            Debug.Log($"Error: {e.Message}");
+            int subCasoID = int.Parse(jugador.casos[i].idCaso);
+            if (subCasoID == caseID)
+            {
+                Caso.caso = jugador.casos[i];
+                break;
+            }
         }
+
+        APIRequest.DATOS_CASO = json.ToString();
     }
 
     private long GetJugadorID()
