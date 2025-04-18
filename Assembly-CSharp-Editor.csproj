@@ -62,32 +62,18 @@
     <Analyzer Include="C:\Users\Samuel\.vscode\extensions\visualstudiotoolsforunity.vstuc-1.1.1\Analyzers\Microsoft.Unity.Analyzers.dll" />
     <Analyzer Include="D:\Documentos\Samuel\Proyectos Unity\CasoAbierto\Juego\CasoAbierto\Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.0\cs\System.Text.Json.SourceGeneration.dll" />
     <Analyzer Include="D:\Documentos\Samuel\Proyectos Unity\CasoAbierto\Juego\CasoAbierto\Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.0\cs\es\System.Text.Json.SourceGeneration.resources.dll" />
-    <Analyzer Include="D:\Documentos\Samuel\Proyectos Unity\CasoAbierto\Juego\CasoAbierto\Assets\Packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\analyzers\dotnet\roslyn4.0\cs\tr\Microsoft.Extensions.Logging.Generators.resources.dll" />
     <Analyzer Include="D:\Documentos\Samuel\Proyectos Unity\CasoAbierto\Juego\CasoAbierto\Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.0\cs\it\System.Text.Json.SourceGeneration.resources.dll" />
     <Analyzer Include="D:\Documentos\Samuel\Proyectos Unity\CasoAbierto\Juego\CasoAbierto\Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.0\cs\cs\System.Text.Json.SourceGeneration.resources.dll" />
     <Analyzer Include="D:\Documentos\Samuel\Proyectos Unity\CasoAbierto\Juego\CasoAbierto\Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.0\cs\ko\System.Text.Json.SourceGeneration.resources.dll" />
     <Analyzer Include="D:\Documentos\Samuel\Proyectos Unity\CasoAbierto\Juego\CasoAbierto\Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.0\cs\ja\System.Text.Json.SourceGeneration.resources.dll" />
-    <Analyzer Include="D:\Documentos\Samuel\Proyectos Unity\CasoAbierto\Juego\CasoAbierto\Assets\Packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\analyzers\dotnet\roslyn4.0\cs\ru\Microsoft.Extensions.Logging.Generators.resources.dll" />
     <Analyzer Include="D:\Documentos\Samuel\Proyectos Unity\CasoAbierto\Juego\CasoAbierto\Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.0\cs\fr\System.Text.Json.SourceGeneration.resources.dll" />
     <Analyzer Include="D:\Documentos\Samuel\Proyectos Unity\CasoAbierto\Juego\CasoAbierto\Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.0\cs\tr\System.Text.Json.SourceGeneration.resources.dll" />
     <Analyzer Include="D:\Documentos\Samuel\Proyectos Unity\CasoAbierto\Juego\CasoAbierto\Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.0\cs\pl\System.Text.Json.SourceGeneration.resources.dll" />
-    <Analyzer Include="D:\Documentos\Samuel\Proyectos Unity\CasoAbierto\Juego\CasoAbierto\Assets\Packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\analyzers\dotnet\roslyn4.0\cs\es\Microsoft.Extensions.Logging.Generators.resources.dll" />
-    <Analyzer Include="D:\Documentos\Samuel\Proyectos Unity\CasoAbierto\Juego\CasoAbierto\Assets\Packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\analyzers\dotnet\roslyn4.0\cs\zh-Hans\Microsoft.Extensions.Logging.Generators.resources.dll" />
-    <Analyzer Include="D:\Documentos\Samuel\Proyectos Unity\CasoAbierto\Juego\CasoAbierto\Assets\Packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\analyzers\dotnet\roslyn4.0\cs\pt-BR\Microsoft.Extensions.Logging.Generators.resources.dll" />
-    <Analyzer Include="D:\Documentos\Samuel\Proyectos Unity\CasoAbierto\Juego\CasoAbierto\Assets\Packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\analyzers\dotnet\roslyn4.0\cs\ko\Microsoft.Extensions.Logging.Generators.resources.dll" />
-    <Analyzer Include="D:\Documentos\Samuel\Proyectos Unity\CasoAbierto\Juego\CasoAbierto\Assets\Packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\analyzers\dotnet\roslyn4.0\cs\de\Microsoft.Extensions.Logging.Generators.resources.dll" />
-    <Analyzer Include="D:\Documentos\Samuel\Proyectos Unity\CasoAbierto\Juego\CasoAbierto\Assets\Packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\analyzers\dotnet\roslyn4.0\cs\Microsoft.Extensions.Logging.Generators.dll" />
     <Analyzer Include="D:\Documentos\Samuel\Proyectos Unity\CasoAbierto\Juego\CasoAbierto\Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.0\cs\pt-BR\System.Text.Json.SourceGeneration.resources.dll" />
-    <Analyzer Include="D:\Documentos\Samuel\Proyectos Unity\CasoAbierto\Juego\CasoAbierto\Assets\Packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\analyzers\dotnet\roslyn4.0\cs\ja\Microsoft.Extensions.Logging.Generators.resources.dll" />
-    <Analyzer Include="D:\Documentos\Samuel\Proyectos Unity\CasoAbierto\Juego\CasoAbierto\Assets\Packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\analyzers\dotnet\roslyn4.0\cs\pl\Microsoft.Extensions.Logging.Generators.resources.dll" />
-    <Analyzer Include="D:\Documentos\Samuel\Proyectos Unity\CasoAbierto\Juego\CasoAbierto\Assets\Packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\analyzers\dotnet\roslyn4.0\cs\cs\Microsoft.Extensions.Logging.Generators.resources.dll" />
-    <Analyzer Include="D:\Documentos\Samuel\Proyectos Unity\CasoAbierto\Juego\CasoAbierto\Assets\Packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\analyzers\dotnet\roslyn4.0\cs\zh-Hant\Microsoft.Extensions.Logging.Generators.resources.dll" />
     <Analyzer Include="D:\Documentos\Samuel\Proyectos Unity\CasoAbierto\Juego\CasoAbierto\Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.0\cs\ru\System.Text.Json.SourceGeneration.resources.dll" />
-    <Analyzer Include="D:\Documentos\Samuel\Proyectos Unity\CasoAbierto\Juego\CasoAbierto\Assets\Packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\analyzers\dotnet\roslyn4.0\cs\fr\Microsoft.Extensions.Logging.Generators.resources.dll" />
     <Analyzer Include="D:\Documentos\Samuel\Proyectos Unity\CasoAbierto\Juego\CasoAbierto\Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.0\cs\de\System.Text.Json.SourceGeneration.resources.dll" />
     <Analyzer Include="D:\Documentos\Samuel\Proyectos Unity\CasoAbierto\Juego\CasoAbierto\Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.0\cs\zh-Hant\System.Text.Json.SourceGeneration.resources.dll" />
     <Analyzer Include="D:\Documentos\Samuel\Proyectos Unity\CasoAbierto\Juego\CasoAbierto\Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.0\cs\zh-Hans\System.Text.Json.SourceGeneration.resources.dll" />
-    <Analyzer Include="D:\Documentos\Samuel\Proyectos Unity\CasoAbierto\Juego\CasoAbierto\Assets\Packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\analyzers\dotnet\roslyn4.0\cs\it\Microsoft.Extensions.Logging.Generators.resources.dll" />
     <Analyzer Include="B:\Programas\6000.0.36f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.SourceGenerators.dll" />
     <Analyzer Include="B:\Programas\6000.0.36f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
     <Analyzer Include="B:\Programas\6000.0.36f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
@@ -607,10 +593,6 @@
       <HintPath>Assets\Packages\System.Text.Encodings.Web.9.0.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="StackExchange.Redis">
-      <HintPath>Assets\Packages\StackExchange.Redis.2.8.22\lib\netstandard2.0\StackExchange.Redis.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="System.Text.Json">
       <HintPath>Assets\Packages\System.Text.Json.9.0.0\lib\netstandard2.0\System.Text.Json.dll</HintPath>
       <Private>False</Private>
@@ -633,10 +615,6 @@
     </Reference>
     <Reference Include="System.ClientModel">
       <HintPath>Assets\Packages\System.ClientModel.1.2.1\lib\netstandard2.0\System.ClientModel.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.Logging.Abstractions">
-      <HintPath>Assets\Packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Coffee.UIEffect.R">
@@ -677,14 +655,6 @@
     </Reference>
     <Reference Include="NugetForUnity">
       <HintPath>Assets\NuGet\Editor\NugetForUnity.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Pipelines.Sockets.Unofficial">
-      <HintPath>Assets\Packages\Pipelines.Sockets.Unofficial.2.2.8\lib\netstandard2.1\Pipelines.Sockets.Unofficial.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System.Threading.Channels">
-      <HintPath>Assets\Packages\System.Threading.Channels.5.0.0\lib\netstandard2.1\System.Threading.Channels.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="mscorlib">

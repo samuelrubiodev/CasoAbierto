@@ -5,12 +5,11 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using OpenAI.Chat;
-using StackExchange.Redis;
 using UnityEngine;
 
 public class SaveChatManager : MonoBehaviour
 {
-    RedisManager redisManager;
+
     private CancellationTokenSource cts;
     private List<ChatMessage> chatMessages;
     private ControllerGame controllerGame;
@@ -18,10 +17,12 @@ public class SaveChatManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        /*
         redisManager = RedisManager.GetRedisManagerEnv();
         cts = new CancellationTokenSource();
         controllerGame = GetComponent<ControllerGame>();
         _ = SaveChat(cts.Token);
+        */
     }
 
     private void OnDestroy()
@@ -31,6 +32,7 @@ public class SaveChatManager : MonoBehaviour
 
     private async Task SaveChat(CancellationToken token)
     {
+        /*
         while (!token.IsCancellationRequested)
         {
             try
@@ -74,6 +76,7 @@ public class SaveChatManager : MonoBehaviour
                 Debug.LogError($"Error en SaveChat: {ex.Message}");
             }
         }
+        */
     }
 
     private string GenerateMessageId(ChatMessage chatMessage)
@@ -85,10 +88,4 @@ public class SaveChatManager : MonoBehaviour
             return Convert.ToBase64String(bytes);
         }
     }
-
-    void Update()
-    {
-        
-    }
-
 }

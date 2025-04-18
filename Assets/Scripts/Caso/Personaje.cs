@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
-using StackExchange.Redis;
-using Unity.Jobs;
 
 public class Personaje
 {
@@ -38,24 +34,6 @@ public class Personaje
             json["genre"].ToString()
         );
 
-        return personaje;
-    }
-
-    public static Personaje GetPlayer(HashEntry[] personajeHash) 
-    {
-        Personaje personaje = new();
-
-        var mapeo = new Dictionary<string, Action<string>>
-        {
-            { "nombre", valor => personaje.nombre = valor },
-            { "estado", valor => personaje.estado = valor },
-            { "descripcion", valor => personaje.descripcion = valor },
-            { "estado_emocional", valor => personaje.estadoEmocional = valor },
-            { "rol", valor => personaje.rol = valor },
-            { "sexo", valor => personaje.sexo = valor},
-        };
-
-        Util.AddValues(personajeHash, mapeo);
         return personaje;
     }
 

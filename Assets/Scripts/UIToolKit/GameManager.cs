@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
         var urlBase = "http://" + Server.ACTIVE_CASE_HOST;
 
         using var httpClient = new HttpClient();
-        var response = await httpClient.GetAsync(urlBase + "/players/" + jugadorID);
+        var response = await httpClient.GetAsync(urlBase + "/players/" + jugadorID + "/case");
 
         if (response.IsSuccessStatusCode)
         {

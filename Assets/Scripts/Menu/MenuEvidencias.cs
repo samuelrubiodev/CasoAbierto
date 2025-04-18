@@ -1,8 +1,6 @@
 using Newtonsoft.Json.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
-using Utilities.Extensions;
 
 public class MenuEvidencias : MonoBehaviour
 {
