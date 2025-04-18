@@ -50,6 +50,7 @@ public class MicrophoneConfig : ISetting<string>
 
     public void SetValue(string newValue)
     {
+        Debug.Log("Microfono: " + newValue);
         PlayerPrefs.SetString("microfono", newValue);
         PlayerPrefs.Save();
     }

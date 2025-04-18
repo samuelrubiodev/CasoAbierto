@@ -1,8 +1,6 @@
 using System.Collections;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using Utilities.Extensions;
 
 public class ControllerMicrophone : MonoBehaviour
 {

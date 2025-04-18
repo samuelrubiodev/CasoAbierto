@@ -34,7 +34,7 @@ public class ControllerGame : MonoBehaviour
             coundownTimer.EmpezarContador();
         }
 
-        if (PlayerPrefs.GetString("microfono") == "Texto") 
+        if (PlayerPrefs.GetString("microfono") == "Solo texto") 
         {
             if (Input.GetKeyDown(KeyCode.B))
             {

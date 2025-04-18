@@ -22,4 +22,13 @@ public class CaseHttpRequest : IDaoHttpRequest<JObject, StringContent>
         string body = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
         return JObject.Parse(body);
     }
+
+    public async Task<JObject> GetAsync(string url)
+    {
+        var response = await httpClient.GetAsync(url);
+        string body = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+        return JObject.Parse(body);
+    }
+
+    
 }

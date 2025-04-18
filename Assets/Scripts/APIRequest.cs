@@ -63,6 +63,7 @@ public class APIRequest : MonoBehaviour
 
     public async Task RequestAPI(APIRequestElevenLabs aPIRequestElevenLabs, string texto)
     {
+        string prompt = "";
         if (texto == "")
         {
             var groqApi = new GroqApiClient(groqApiKey, "https://api.groq.com/openai/v1");
@@ -74,12 +75,12 @@ public class APIRequest : MonoBehaviour
                 prompt: "Transcribe este audio de esta persona",
                 language: "es"
             );
-            string prompt = new ConversationPrompt().CreatePrompt(result?["text"]?.ToString()).ToString();
-            await MakeRequestOpenRouter(prompt,aPIRequestElevenLabs);
+            prompt = new ConversationPrompt().CreatePrompt(result?["text"]?.ToString()).ToString();
         } else {
-            string prompt = new ConversationPrompt().CreatePrompt(texto).ToString();
-            await MakeRequestOpenRouter(prompt,aPIRequestElevenLabs);
+            prompt = new ConversationPrompt().CreatePrompt(texto).ToString();
         }
+
+        await MakeRequestOpenRouter(prompt,aPIRequestElevenLabs);
 
         JObject jsonGameStatus = await SeHaTerminado();
         Debug.Log(jsonGameStatus.ToString());

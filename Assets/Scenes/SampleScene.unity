@@ -14593,7 +14593,6 @@ GameObject:
   - component: {fileID: 944846796}
   - component: {fileID: 944846795}
   - component: {fileID: 944846802}
-  - component: {fileID: 944846803}
   m_Layer: 0
   m_Name: ControllerGame
   m_TagString: Untagged
@@ -14798,18 +14797,6 @@ MonoBehaviour:
   countdownTime: 600
   countdownText: {fileID: 138093586}
   countdownOver: 0
---- !u!114 &944846803
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 944846794}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 400b3dc4267642c4392b213dd45c3ce8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &964822664
 GameObject:
   m_ObjectHideFlags: 0
