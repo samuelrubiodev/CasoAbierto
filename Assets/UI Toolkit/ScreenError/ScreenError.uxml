@@ -1,0 +1,14 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/ScreenError/ScreenError.uss?fileID=7433441132597879392&amp;guid=63e8b300b63663c4db5ac60b3bd4754c&amp;type=3#ScreenError" />
+    <engine:VisualElement name="main" class="main">
+        <engine:VisualElement name="header" class="header">
+            <engine:VisualElement name="icon" class="icon" />
+            <engine:Label text="Algo no encaja..." name="title" class="title-header" />
+        </engine:VisualElement>
+        <engine:Label text="Se ha perdido el contacto... alguien ha cortado los cables" name="description" enable-rich-text="true" class="sub-title" />
+        <engine:VisualElement name="buttons" class="buttons" style="flex-grow: 1;">
+            <engine:Button text="Reintentar" name="retry-button" class="button" />
+            <engine:Button text="Ir al menu" name="goto-menu" class="button" />
+        </engine:VisualElement>
+    </engine:VisualElement>
+</engine:UXML>

@@ -1,0 +1,87 @@
+{
+    "conexion": {
+      "titulos": [
+        "Algo no encaja...",
+        "Silencio en la sala",
+        "Ni el sistema quiso hablar"
+      ],
+      "mensajes": [
+        "Detective, la línea está muerta. No hay conexión con la central.",
+        "Parece que el servidor también decidió guardar silencio bajo presión.",
+        "¿Sin conexión? Sospechoso. Muy sospechoso.",
+        "Se ha perdido el contacto... alguien ha cortado los cables.",
+        "Red no disponible. Ni siquiera el sospechoso está tan esquivo."
+      ]
+    },
+    "audio": {
+      "titulos": [
+        "El caso se nos cayó",
+        "Pistas rotas",
+        "Una sombra en el sistema"
+      ],
+      "mensajes": [
+        "No te escuchamos, detective. ¿Estás interrogando en mudo?",
+        "Tu voz se ha perdido en el sistema... como la coartada del sospechoso.",
+        "Silencio total. Incluso los errores tienen miedo a hablar.",
+        "Micrófono fuera de servicio. A este paso, ni el abogado habla.",
+        "¿Problema con el audio? El sospechoso niega haberlo escuchado."
+      ]
+    },
+    "ia": {
+      "titulos": [
+        "El sospechoso se ha quedado en blanco",
+        "Todo se volvió oscuro",
+        "Un giro inesperado"
+      ],
+      "mensajes": [
+        "El sospechoso se ha quedado sin palabras… literalmente.",
+        "El testigo principal ha olvidado su guion. IA fuera de servicio.",
+        "Algo rompió la mente del sospechoso. Y no fue tu presión.",
+        "NPC en huelga. Dice que necesita vacaciones.",
+        "GPT se ha tomado un descanso. Tal vez está negociando con el fiscal."
+      ]
+    },
+    "base_de_datos": {
+      "titulos": [
+        "La verdad se esfumó",
+        "La evidencia desapareció con el código",
+        "Entre errores y mentiras"
+      ],
+      "mensajes": [
+        "Las evidencias han desaparecido. Esto huele a encubrimiento.",
+        "Caso archivado... pero en el lugar equivocado.",
+        "Los datos han salido corriendo más rápido que un culpable con coartada.",
+        "Base de datos inaccesible. No esperábamos tanta resistencia.",
+        "Tu expediente ha sido borrado… o eso dice el sistema."
+      ]
+    },
+    "rendimiento": {
+      "titulos": [
+        "El tiempo se detuvo",
+        "Fallamos, detective",
+        "Ni el destino ni el código están de nuestro lado"
+      ],
+      "mensajes": [
+        "La investigación está... procesando. Paciencia, detective.",
+        "Esto está tardando más que una confesión bajo presión.",
+        "Carga fallida. El sistema duda más que el sospechoso.",
+        "Algo se está cocinando en la sala de evidencias… pero huele a error.",
+        "Demasiado tiempo sin respuesta. Tal vez alguien está escondiendo algo."
+      ]
+    },
+    "generico": {
+      "titulos": [
+        "No era parte del guion...",
+        "Un fallo... y no fue del sospechoso",
+        "Una sombra en el sistema"
+      ],
+      "mensajes": [
+        "¡Ups! Encontraste un bug. ¿Lo interrogamos?",
+        "Algo ha fallado, pero no fue tu culpa... probablemente.",
+        "Error inesperado. Como cuando el testigo cambia su versión.",
+        "Esto no debería pasar. Como las decisiones del jurado a veces.",
+        "No te preocupes, ni los mejores detectives tienen control del sistema."
+      ]
+    }
+}
+  

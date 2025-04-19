@@ -84,6 +84,7 @@
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\GlobalFog.cs" />
     <Compile Include="Assets\Scripts\Interfaces\Menu\Graphics\GraphicsConfig.cs" />
     <Compile Include="Assets\Scripts\Subtitles\GenericSubtitle.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\JSONClass\ErrorMessage.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\Scripts\Schemas\Schemas.cs" />
     <Compile Include="Assets\Scripts\ControllerCarga.cs" />
@@ -108,6 +109,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IFeatureRequest.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\Antialiasing.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\JSONClass\UtilitiesErrorMessage.cs" />
     <Compile Include="Assets\Scripts\FeatureRequest\GameStatus.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IJsonUtilities.cs" />
     <Compile Include="Assets\Scripts\StyleManager\Recomendations.cs" />
@@ -221,6 +223,7 @@
     <Compile Include="Assets\Scripts\Caso\Cronologia.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\DepthOfFieldDeprecated.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\CameraMotionBlur.cs" />
+    <Compile Include="Assets\Scripts\ErrorOverlayUI.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\EdgeDetection.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\Twirl.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\Grayscale.cs" />
@@ -280,6 +283,7 @@
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\SSAOShader.shader" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\ColorCorrectionCurvesSimple.shader" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\Blend.shader" />
+    <None Include="Assets\UI Toolkit\ScreenError\ScreenError.uss" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Anton OFL.txt" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.0\cs\zh-Hans\System.Text.Json.SourceGeneration.resources.dll" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\_Antialiasing\SSAA.shader" />
@@ -451,6 +455,7 @@
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Bangers - OFL.txt" />
     <None Include="Assets\UI\PresentationCase\UIDocument.uxml" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.0\cs\System.Text.Json.SourceGeneration.dll" />
+    <None Include="Assets\UI Toolkit\ScreenError\ScreenError.uxml" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
