@@ -1,0 +1,15 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/FinalScreen/Winner/WinnerFinalScreen.uss?fileID=7433441132597879392&amp;guid=919add2846011d04e97c64f949113440&amp;type=3#WinnerFinalScreen" />
+    <engine:VisualElement name="main" class="main">
+        <engine:VisualElement name="header" class="header">
+            <engine:VisualElement name="icon" class="icon" style="background-image: url(&quot;project://database/Assets/UI%20Toolkit/FinalScreen/icon/button-winner.png?fileID=2800000&amp;guid=3e215b2cd57a5054893b3bf8d77270dc&amp;type=3#button-winner&quot;);" />
+            <engine:Label text="¡Caso Cerrado!" name="title" class="title-header" />
+        </engine:VisualElement>
+        <engine:Label text="Has logrado resolver el caso correctamente. Tu intuición, manejo de las evidencias y habilidades de interrogación han llevado a la verdad" name="description" enable-rich-text="true" class="sub-title" />
+        <engine:Label text="Detalles: &#10;- Sospechoso: [NPC]&#10;- Veredicto: [Culpable/Inocente]&#10;- Tiempo restante [M/H]" name="details" class="details-text" />
+        <engine:VisualElement name="buttons" class="buttons" style="flex-grow: 1;">
+            <engine:Button text="Reintentar" name="retry-button" class="button" />
+            <engine:Button text="Ir al menu" name="goto-menu" class="button" />
+        </engine:VisualElement>
+    </engine:VisualElement>
+</engine:UXML>

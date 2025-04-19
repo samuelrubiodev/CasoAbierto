@@ -249,10 +249,12 @@
     <None Include="Assets\Table and chair\Standard Assets\Effects\Projectors\Shaders\ProjectorMultiply.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile-2-Pass.shader" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\_Antialiasing\DLAA.shader" />
+    <None Include="Assets\UI Toolkit\FinalScreen\Lost\LostFinalScreen.uss" />
     <None Include="Assets\UI\OptionsMenu\Audio\Style.uss" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\frag_ao.cginc" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.4\cs\pt-BR\System.Text.Json.SourceGeneration.resources.dll" />
     <None Include="Assets\Packages\System.Diagnostics.DiagnosticSource.6.0.1\LICENSE.TXT" />
+    <None Include="Assets\UI Toolkit\FinalScreen\Winner\WinnerFinalScreen.uss" />
     <None Include="Assets\Packages\System.Net.Http.Json.9.0.0\lib\netstandard2.0\System.Net.Http.Json.xml" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\_Antialiasing\FXAAPreset3.shader" />
     <None Include="Assets\Packages\System.Net.Http.Json.9.0.0\useSharedDesignerContext.txt" />
@@ -393,6 +395,7 @@
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn3.11\cs\fr\System.Text.Json.SourceGeneration.resources.dll" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\ChromaticAberrationShader.shader" />
+    <None Include="Assets\UI Toolkit\FinalScreen\Winner\WinnerFinalScreen.uxml" />
     <None Include="Assets\Packages\System.Memory.Data.6.0.0\useSharedDesignerContext.txt" />
     <None Include="Assets\Packages\System.Net.Http.Json.9.0.0\lib\netstandard2.0\System.Net.Http.Json.dll" />
     <None Include="Assets\UI Toolkit\ConfigurationMenu\Graphics\Graphics.uss" />
@@ -410,6 +413,7 @@
     <None Include="Assets\UI Toolkit\ConfigurationMenu\Graphics\GraphicsMenu.uxml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\EdgeDetectNormals.shader" />
+    <None Include="Assets\UI Toolkit\FinalScreen\Lost\LostFinalScreen.uxml" />
     <None Include="Assets\Packages\System.Net.Http.Json.9.0.0\THIRD-PARTY-NOTICES.TXT" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.0\cs\pl\System.Text.Json.SourceGeneration.resources.dll" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\NoiseEffectShaderRGB.shader" />

@@ -15,6 +15,10 @@ public class MainSettings : MonoBehaviour
     {
         uiDocument = GetComponent<UIDocument>();
         VisualElement container = uiDocument.rootVisualElement.Q<VisualElement>("container");
+        container.Q<VisualElement>("back-button").Q<Button>("Button").RegisterCallback<ClickEvent>(evt => {
+            this.SetActive(false);
+            uiMainMenu.SetActive(true);
+        });
 
         Dictionary<string, UIDocument> uiDocuments = new()
         {

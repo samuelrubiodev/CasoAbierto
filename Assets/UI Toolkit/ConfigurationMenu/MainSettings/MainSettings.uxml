@@ -12,6 +12,9 @@
             <engine:VisualElement name="configuration-screen" class="row">
                 <engine:Button text="Pantalla" name="Button" class="button" />
             </engine:VisualElement>
+            <engine:VisualElement name="back-button" class="row">
+                <engine:Button text="Atras" name="Button" class="button" style="margin-top: 100%; padding-top: 10px;" />
+            </engine:VisualElement>
         </engine:VisualElement>
     </engine:VisualElement>
 </engine:UXML>

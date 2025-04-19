@@ -1,0 +1,15 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/FinalScreen/Lost/LostFinalScreen.uss?fileID=7433441132597879392&amp;guid=11f1d762422c270478829e8b70ce6c93&amp;type=3#LostFinalScreen" />
+    <engine:VisualElement name="main" class="main">
+        <engine:VisualElement name="header" class="header">
+            <engine:VisualElement name="icon" class="icon" />
+            <engine:Label text="El caso queda abierto" name="title" class="title-header" />
+        </engine:VisualElement>
+        <engine:Label text="No lograste descubrir la verdad. El sospechoso sigue libre  o inocente, y las pistas  no fueron suficientes para resolver el caso." name="description" enable-rich-text="true" class="sub-title" />
+        <engine:Label text="Errores comunes:&#10;- Evidencias no utilizadas&#10;- Respuestas claves ignoradas" name="details" class="details-text" />
+        <engine:VisualElement name="buttons" class="buttons" style="flex-grow: 1;">
+            <engine:Button text="Revisar consejos" name="retry-button" class="button" />
+            <engine:Button text="Ir al menu" name="goto-menu" class="button" />
+        </engine:VisualElement>
+    </engine:VisualElement>
+</engine:UXML>

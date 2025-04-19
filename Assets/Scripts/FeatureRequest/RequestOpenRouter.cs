@@ -6,10 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Text;
 using TMPro;
-using Newtonsoft.Json.Linq;
 using System.Net.Http;
 using Newtonsoft.Json;
-using Unity.VisualScripting;
 
 namespace FeatureRequest {
     public class RequestOpenRouter : IFeatureRequest<string> {

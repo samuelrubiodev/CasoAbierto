@@ -17,6 +17,11 @@ public class MainMenu : MonoBehaviour
         Label continueGame = uiDocument.rootVisualElement.Q<Label>("button-continue");
         Label buttonNewGame = uiDocument.rootVisualElement.Q<Label>("button-new-game");
 
+        if (!PlayerPrefs.HasKey("jugadorID")) 
+        {
+            continueGame.visible = false;
+        }
+
         label.RegisterCallback<ClickEvent>(evt => {
             this.SetActive(false);
             uiMainSettings.SetActive(true);
