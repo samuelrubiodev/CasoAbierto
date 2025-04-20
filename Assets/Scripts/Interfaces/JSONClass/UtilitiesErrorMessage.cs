@@ -1,6 +1,4 @@
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using UnityEngine;
 
 public class UtilitiesErrorMessage : IJsonUtilities<ErrorsMessage>
 {

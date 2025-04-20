@@ -7,11 +7,11 @@ using TMPro;
 using System.Collections;
 using System.Net.Http;
 using Newtonsoft.Json;
+using Utilities.Extensions;
 
 public class ControllerCarga : MonoBehaviour
 {
     public static bool tieneCaso = false;
-    private BinaryData bytes;
     public TMP_Text text;
 
     private int currentSubtitleIndex;
@@ -21,6 +21,7 @@ public class ControllerCarga : MonoBehaviour
 
     private float messageTimer = 0f;
     private const float messageDelay = 2f;
+    public ErrorOverlayUI errorOverlayUI;   
 
     void Update()
     {
@@ -47,7 +48,13 @@ public class ControllerCarga : MonoBehaviour
         yield return StartCoroutine(uiMessageManager.ShowMessage(uiMessageManager.GetMessage(subtitulos.subtitles[currentSubtitleIndex].text)));
         isShowingMessage = false;
     }
+
     async void Start()
+    {
+        await Initializer();
+    }
+
+    private async Task Initializer()
     {
         new Recomendations(text).SetStyle();
         uiMessageManager = new(text);
@@ -55,23 +62,39 @@ public class ControllerCarga : MonoBehaviour
         currentSubtitleIndex = UnityEngine.Random.Range(0, subtitulos.subtitles.Count);
         ShowNextMessage();
 
+        CallBackButton tryButton = OnTryButtonClicked;
+        errorOverlayUI.SetTryCallBackButtonDelegate(tryButton);
+
         if (tieneCaso)
         {
-            CaseHttpRequest caseHttpRequest = new ();
-            var jsonData = new
-            {
-                nombreJugador = "Samuel",
-                playerID = GetJugadorID()
-            };
+            try {
+                CaseHttpRequest caseHttpRequest = new ();
+                var jsonData = new
+                {
+                    nombreJugador = "Samuel",
+                    playerID = GetJugadorID()
+                };
 
-            var jsonContent = new StringContent(
-                JsonConvert.SerializeObject(jsonData),
-                System.Text.Encoding.UTF8,
-                "application/json");
+                var jsonContent = new StringContent(
+                    JsonConvert.SerializeObject(jsonData),
+                    System.Text.Encoding.UTF8,
+                    "application/json");
 
-            JObject responseCase = await caseHttpRequest.PostAsync("/case/" + Caso.caso.idCaso, jsonContent);
-            APIRequest.DATOS_CASO = responseCase.ToString();
-            SceneManager.LoadScene("SampleScene");
+                JObject responseCase = await caseHttpRequest.PostAsync("/case/" + Caso.caso.idCaso, jsonContent);
+                APIRequest.DATOS_CASO = responseCase.ToString();
+                SceneManager.LoadScene("SampleScene");
+            } catch (Exception) {
+                this.SetActive(false);
+                UtilitiesErrorMessage errorMessage = new(Application.dataPath + "/Resources/ErrorMessages/ErrorMessage.json");
+                ErrorsMessage errors = errorMessage.ReadJSON();
+
+                System.Random random = new ();
+                int randomTitle = random.Next(0, errors.conexion.titulos.Count);
+                int randomMessage = random.Next(0, errors.conexion.mensajes.Count);
+
+                errorOverlayUI.ShowError(errors.conexion.titulos[randomTitle], errors.conexion.mensajes[randomMessage]);
+            }
+            
             return;
         }
         else
@@ -87,6 +110,12 @@ public class ControllerCarga : MonoBehaviour
             await CreateGame(GetJugadorID());
             SceneManager.LoadScene("SampleScene");
         }
+    }
+
+    private async void OnTryButtonClicked()
+    {
+        this.SetActive(true);
+        await Initializer();
     }
 
     private async Task<int> NewID(long playerID)

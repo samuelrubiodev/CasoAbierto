@@ -5,7 +5,6 @@ using System.ClientModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Text;
-using TMPro;
 using System.Net.Http;
 using Newtonsoft.Json;
 
@@ -14,11 +13,8 @@ namespace FeatureRequest {
     private string openRouterApiKey;
     public static string DATOS_CASO = "";
 
-    private TMP_Text textSubtitle;
-
-    public RequestOpenRouter(TMP_Text textSubtitle) {
+    public RequestOpenRouter() {
         openRouterApiKey = ApiKey.API_KEY_OPEN_ROUTER;
-        this.textSubtitle = textSubtitle;
     }
 
     public async Task<string> SendRequest(string prompt)
@@ -77,7 +73,7 @@ namespace FeatureRequest {
         }
         catch (Exception ex)
         {
-            Debug.LogError(ex);
+            Debug.LogError(ex.Message);
             throw;
         }
     }

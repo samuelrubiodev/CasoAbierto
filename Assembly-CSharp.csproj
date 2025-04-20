@@ -130,6 +130,7 @@
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\ColorCorrectionLookup.cs" />
     <Compile Include="Assets\Scripts\UIToolKit\MainSettings.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\DAOHttpRequest\ImageHttpRequest.cs" />
     <Compile Include="Assets\Scripts\Interfaces\SettingsLoad\AudioSettingsLoader.cs" />
     <Compile Include="Assets\Scripts\Constants\Server.cs" />
     <Compile Include="Assets\Scripts\ChatManager.cs" />

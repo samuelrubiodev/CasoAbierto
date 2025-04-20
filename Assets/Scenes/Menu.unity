@@ -280,6 +280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a47660343c89945b2dbd986a6dd9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  errorOverlayUI: {fileID: 1444410202}
 --- !u!1 &874855278
 GameObject:
   m_ObjectHideFlags: 0
@@ -752,6 +753,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14e9531e39f21054aab68faa75b2d8fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  errorSound: {fileID: 8300000, guid: 412e5d7f82643134a929a1ce51eebf34, type: 3}
+  bucleAudioSource: {fileID: 8300000, guid: 7cea274a796aadb4d924b373f63e3460, type: 3}
+  audioMixer: {fileID: 24100000, guid: 8601f8df2c3d66d408abe74cd9cb654a, type: 2}
+  audioMusicSource: {fileID: 1671473681}
 --- !u!1 &1671473680
 GameObject:
   m_ObjectHideFlags: 0

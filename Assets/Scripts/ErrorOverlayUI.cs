@@ -1,6 +1,6 @@
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UIElements;
-using Utilities.Extensions;
 
 public delegate void CallBackButton();
 public class ErrorOverlayUI : MonoBehaviour
@@ -10,6 +10,12 @@ public class ErrorOverlayUI : MonoBehaviour
     private Label description;
     public Button tryButton { get; private set; }
     public Button mainButton { get; private set; }
+    public AudioClip errorSound;
+    public AudioClip bucleAudioSource;
+    public AudioMixer audioMixer;
+    public AudioSource audioMusicSource;
+    private AudioSource audioSourceErrorSound;
+    private AudioSource audioSourceBucle;
 
     private CallBackButton tryButtonDelegate;
     private CallBackButton mainButtonDelegate;
@@ -27,9 +33,13 @@ public class ErrorOverlayUI : MonoBehaviour
         tryButton = buttons.Q<Button>("retry-button");
         mainButton = buttons.Q<Button>("goto-menu");
 
-        tryButton.RegisterCallback<ClickEvent>(e => {
+        tryButton?.RegisterCallback<ClickEvent>(e => {
             tryButtonDelegate?.Invoke();
         });
+
+        mainButton?.RegisterCallback<ClickEvent>(e => {
+                mainButtonDelegate?.Invoke();
+            });
 
         root.rootVisualElement.style.display = DisplayStyle.None;
     }
@@ -46,8 +56,26 @@ public class ErrorOverlayUI : MonoBehaviour
 
     public void ShowError(string title, string message) 
     {
+        if (audioMusicSource != null)
+        {
+            audioMusicSource.Stop();
+        }
+
+        audioSourceErrorSound = gameObject.AddComponent<AudioSource>();
+        audioSourceErrorSound.outputAudioMixerGroup = audioMixer.FindMatchingGroups("Musica")[0];
+        audioSourceErrorSound.clip = errorSound;
+        audioSourceErrorSound.Play();
+
+        audioSourceBucle = gameObject.AddComponent<AudioSource>();
+        audioSourceBucle.outputAudioMixerGroup = audioMixer.FindMatchingGroups("Musica")[0];
+        audioSourceBucle.clip = bucleAudioSource;
+        audioSourceBucle.loop = true;
+        audioSourceBucle.Play();
+
         root.rootVisualElement.style.display = DisplayStyle.Flex;
         Time.timeScale = 0f;
+        UnityEngine.Cursor.visible = true;
+        UnityEngine.Cursor.lockState = CursorLockMode.None;
         this.title.text = title;
         description.text = message;
     }
@@ -56,5 +84,10 @@ public class ErrorOverlayUI : MonoBehaviour
     {
         Time.timeScale = 1f;
         root.rootVisualElement.style.display = DisplayStyle.None;
+        audioSourceBucle.Stop();
+        audioMusicSource.Play();
+
+        Destroy(audioSourceErrorSound);
+        Destroy(audioSourceBucle);
     }
 }

@@ -93,7 +93,7 @@ public class DetectionCharacter : MonoBehaviour
 
     void Update()
     {
-        if (this.audioSource != null && !this.audioSource.isPlaying)
+        if (this.audioSource != null && !this.audioSource.isPlaying && GameObject.Find("ControllerGame") != null)
         {
             GameObject controllerGame = GameObject.Find("ControllerGame");
             controllerGame.GetComponent<ControllerGame>().isGameInProgress = true;
