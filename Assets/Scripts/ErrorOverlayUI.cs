@@ -39,7 +39,7 @@ public class ErrorOverlayUI : MonoBehaviour
 
         mainButton?.RegisterCallback<ClickEvent>(e => {
                 mainButtonDelegate?.Invoke();
-            });
+        });
 
         root.rootVisualElement.style.display = DisplayStyle.None;
     }

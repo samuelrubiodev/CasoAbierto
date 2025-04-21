@@ -101,7 +101,12 @@ public class APIRequest : MonoBehaviour
                 Debug.Log(jsonGameStatus.ToString());
 
                 JObject jsonEmotionalState = await RequestEmotionalState();
-                Debug.Log(jsonEmotionalState.ToString());
+                Debug.Log(jsonEmotionalState.ToString()); 
+
+                ControllerGameManager controllerGameManager = GetComponent<ControllerGameManager>();
+
+                controllerGameManager.jsonGameStatus = jsonGameStatus;
+                controllerGameManager.jsonEmotionalState = jsonEmotionalState;
             } catch (Exception) {
                 this.SetActive(false);
 

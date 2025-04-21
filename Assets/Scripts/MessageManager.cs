@@ -7,6 +7,7 @@ using Utilities.Extensions;
 public class UIMessageManager 
 {
     private TMP_Text _text;
+     public static bool isProcessed {get; set;}
 
     public UIMessageManager(TMP_Text text)
     {
@@ -30,6 +31,7 @@ public class UIMessageManager
             yield return new WaitForSeconds(delay);
         }
 
+        UIMessageManager.isProcessed = true;
         _text.SetActive(false);
     }
 

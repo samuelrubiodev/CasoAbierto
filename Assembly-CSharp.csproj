@@ -79,7 +79,9 @@
     <Analyzer Include="B:\Programas\6000.0.36f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\UIToolKit\FinalSceneManager.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\BloomAndFlares.cs" />
+    <Compile Include="Assets\Scripts\UIToolKit\UIGameManagerVeredict.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\PostEffectsBase.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\GlobalFog.cs" />
     <Compile Include="Assets\Scripts\Interfaces\Menu\Graphics\GraphicsConfig.cs" />
@@ -129,7 +131,9 @@
     <Compile Include="Assets\Scripts\CoundownTimer.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\ColorCorrectionLookup.cs" />
     <Compile Include="Assets\Scripts\UIToolKit\MainSettings.cs" />
+    <Compile Include="Assets\Scripts\Constants\Scene.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
+    <Compile Include="Assets\Scripts\ControllerGameManager.cs" />
     <Compile Include="Assets\Scripts\Interfaces\DAOHttpRequest\ImageHttpRequest.cs" />
     <Compile Include="Assets\Scripts\Interfaces\SettingsLoad\AudioSettingsLoader.cs" />
     <Compile Include="Assets\Scripts\Constants\Server.cs" />

@@ -40,7 +40,7 @@ public class CharacterEmotionalState : IFeatureRequest<JObject>
 
             ChatManager chatManager = new (openRouterApiKey, APIRequest.chatMessages);
             ChatCompletionOptions options = chatManager.CreateChatCompletionOptions(jsonSchema);
-            ChatCompletion completion = chatManager.CreateChat(ChatManager.CHAT_MODEL_FREE, options);
+            ChatCompletion completion = chatManager.CreateChat(ChatManager.CHAT_MODEL, options);
 
             return Task.FromResult(JObject.Parse(completion.Content[0].Text));
         } catch(Exception ex) {

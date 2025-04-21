@@ -10,13 +10,16 @@ public class CoundownTimer : MonoBehaviour
     public double countdownTime = 0; 
 
     public TMP_Text countdownText;
-    double countdownInternal;
+    public static double countdownInternal;
     public bool countdownOver = false;
+    public bool isStart = false;
 
     public void EmpezarContador()
     {
-        countdownTime = int.Parse(Jugador.jugador.casos[Jugador.indexCaso].tiempoRestante) * 60;
+        countdownTime = int.Parse(Caso.caso.tiempoRestante) * 60;
         countdownInternal = countdownTime;
+        countdownOver = false; 
+        isStart = true;
     }
 
     public void ReiniciarContador()
@@ -27,22 +30,25 @@ public class CoundownTimer : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (countdownInternal > 0)
+        if (isStart) 
         {
-            countdownInternal -= Time.deltaTime;
-
-            if (countdownInternal < 0)
+            if (countdownInternal > 0)
             {
-                countdownInternal = 0;
+                countdownInternal -= Time.deltaTime;
+
+                if (countdownInternal < 0)
+                {
+                    countdownInternal = 0;
+                }
+
+                countdownText.text = FormatTime(countdownInternal, countdownFormatting, showMilliseconds);
             }
-
-            countdownText.text = FormatTime(countdownInternal, countdownFormatting, showMilliseconds);
-        }
-        else
-        {
-            if (!countdownOver)
+            else
             {
-                countdownOver = true;
+                if (!countdownOver)
+                {
+                    countdownOver = true;
+                }
             }
         }
     }

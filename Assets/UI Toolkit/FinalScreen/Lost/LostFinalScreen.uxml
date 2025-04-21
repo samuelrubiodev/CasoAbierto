@@ -8,7 +8,6 @@
         <engine:Label text="No lograste descubrir la verdad. El sospechoso sigue libre  o inocente, y las pistas  no fueron suficientes para resolver el caso." name="description" enable-rich-text="true" class="sub-title" />
         <engine:Label text="Errores comunes:&#10;- Evidencias no utilizadas&#10;- Respuestas claves ignoradas" name="details" class="details-text" />
         <engine:VisualElement name="buttons" class="buttons" style="flex-grow: 1;">
-            <engine:Button text="Revisar consejos" name="retry-button" class="button" />
             <engine:Button text="Ir al menu" name="goto-menu" class="button" />
         </engine:VisualElement>
     </engine:VisualElement>

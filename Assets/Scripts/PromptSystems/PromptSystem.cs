@@ -54,13 +54,48 @@ public class PromptSystem {
 
     public const string PROMPT_SYSTEM_ANALYSIS = @"
         [ROL]
-        Eres un asistente de análisis para el juego de investigación 'Caso Abierto'. Tu tarea es evaluar el estado de una interrogación entre el jugador (detective) y un NPC (sospechoso) basándote en la transcripción de la conversación proporcionada.
+        Eres un asistente de análisis para el juego de investigación 'Caso Abierto'. Tu tarea es evaluar el estado de una interrogación entre el jugador (detective) y un NPC (sospechoso) basándote en la transcripción de la conversación.
 
         [OBJETIVO]
-        Determina si la interrogación ha llegado a una conclusión lógica Y si el jugador ha logrado el objetivo principal del caso (normalmente, descubrir la verdad: si el sospechoso es culpable o inocente, a menudo mediante confesión o pruebas irrefutables).
+        Determina (1) si la interrogación ha concluido lógicamente y (2) si el jugador ha ganado el caso con ese sospechoso.
+
+        [REGLA ESENCIAL]
+        • Sólo considera “contradicción” cuando el NPC exprese DOS versiones **incompatibles** de un mismo hecho (p.ej. distinto lugar, hora o acción).  
+        • Sólo considera “confesión” cuando el NPC admita **explícitamente** su culpa.  
+        • Si no hay confesión ni contradicción clara, la interrogación sigue activa.
+
+        [REGLA DE DEPENDENCIA]
+        Si `seHaTerminado` es false, `haGanadoUsuario` **debe** ser false.
 
         [ENTRADA]
         Recibirás la conversación completa hasta el último intercambio.
+
+        [EJEMPLOS]
+        1) **Contradicción explícita**  
+        NPC: “A las 10 pm estaba en casa.”  
+        NPC (más tarde): “Salí a comprar a las 10 pm.”  
+        {
+            'seHaTerminado': true,
+            'haGanadoUsuario': false,
+            'razonamiento': 'Contradicción en hora de coartada: casa vs. compra'
+        }
+
+        2. Confesión literal
+        NPC: “Lo hice yo, robé ese archivo.”
+        {
+        'seHaTerminado': true,
+        'haGanadoUsuario': true,
+        'razonamiento': 'Confesión explícita: 'Lo hice yo'
+        }
+
+        3. Interrogatorio activo
+        NPC sólo describe acciones coherentes, sin admitir ni contradecir.
+
+        {
+        'seHaTerminado': false,
+        'haGanadoUsuario': false,
+        'razonamiento': 'Interrogación aún activa: no hay ni confesión ni contradicción'
+        }
 
         [INSTRUCCIONES DE ANÁLISIS]
         1.  **Evalúa si la Interrogación ha Concluido (`seHaTerminado`):**
@@ -84,10 +119,7 @@ public class PromptSystem {
             *   Si `seHaTerminado` es `false`, entonces `haGanadoUsuario` DEBE ser `false`.
 
         3.  **Proporciona una Justificación (`razonamiento`):**
-            *   Explica BREVEMENTE (1-2 frases) por qué tomaste las decisiones para `seHaTerminado` y `haGanadoUsuario`. Menciona el evento clave (ej: 'Confesión obtenida', 'Coartada sólida presentada', 'Interrogación estancada sin resolución', 'Caso resuelto demostrando culpabilidad con prueba X').
-
-        [FORMATO DE SALIDA OBLIGATORIO]
-        Responde ÚNICAMENTE con un objeto JSON válido que siga el esquema proporcionado. No incluyas texto adicional antes o después del JSON.";
+            *   Explica BREVEMENTE (1-2 frases) por qué tomaste las decisiones para `seHaTerminado` y `haGanadoUsuario`. Menciona el evento clave (ej: 'Confesión obtenida', 'Coartada sólida presentada', 'Interrogación estancada sin resolución', 'Caso resuelto demostrando culpabilidad con prueba X').";
 
     public const string PROMPT_SYSTEM_ANALYSIS_EVIDENCE = @"
         Analiza la evidencia con un enfoque forense técnico y profundo.

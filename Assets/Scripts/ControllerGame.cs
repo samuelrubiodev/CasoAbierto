@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
+using System.Threading;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ControllerGame : MonoBehaviour
 {
@@ -32,6 +35,11 @@ public class ControllerGame : MonoBehaviour
         {
             seHaIniciadoContador = true;
             coundownTimer.EmpezarContador();
+        }
+
+        if (coundownTimer.countdownOver) {
+            FinalSceneManager.isUserWin = false;
+            SceneManager.LoadScene("FinalScene");
         }
 
         if (PlayerPrefs.GetString("microfono") == "Solo texto") 

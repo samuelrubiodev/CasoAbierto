@@ -8,7 +8,6 @@
         <engine:Label text="Has logrado resolver el caso correctamente. Tu intuición, manejo de las evidencias y habilidades de interrogación han llevado a la verdad" name="description" enable-rich-text="true" class="sub-title" />
         <engine:Label text="Detalles: &#10;- Sospechoso: [NPC]&#10;- Veredicto: [Culpable/Inocente]&#10;- Tiempo restante [M/H]" name="details" class="details-text" />
         <engine:VisualElement name="buttons" class="buttons" style="flex-grow: 1;">
-            <engine:Button text="Reintentar" name="retry-button" class="button" />
             <engine:Button text="Ir al menu" name="goto-menu" class="button" />
         </engine:VisualElement>
     </engine:VisualElement>

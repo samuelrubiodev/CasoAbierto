@@ -24,6 +24,7 @@ public class APIRequestElevenLabs : MonoBehaviour
     private AudioSource audioSource;
 
     private readonly Queue<AudioClip> streamClipQueue = new();
+   
 
     private void OnValidate()
     {
