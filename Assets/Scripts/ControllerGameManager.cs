@@ -2,25 +2,13 @@ using Newtonsoft.Json.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ControllerGameManager : MonoBehaviour
+public class ControllerGameManager
 {
-    public JObject jsonGameStatus { get; set; }
-    public JObject jsonEmotionalState { get; set; }
-
-    // Update is called once per frame
-    void Update()
+    public void Veredict(JObject jsonGameStatus)
     {
-        if (jsonGameStatus != null && jsonEmotionalState != null && UIMessageManager.isProcessed)
-        {
-            UIMessageManager.isProcessed = false;
-            bool seHaTerminado = jsonGameStatus["seHaTerminado"].ToObject<bool>();
-            bool haGanadoUsuario = jsonGameStatus["haGanadoUsuario"].ToObject<bool>();
-    
-            if (seHaTerminado && haGanadoUsuario)
-            {
-                FinalSceneManager.isUserWin = true;
-                SceneManager.LoadScene("FinalScene");
-            }
-        }
+        bool haGanadoUsuario = jsonGameStatus["haGanadoUsuario"].ToObject<bool>();
+
+        FinalSceneManager.isUserWin = haGanadoUsuario;
+        SceneManager.LoadScene("FinalScene");
     }
 }

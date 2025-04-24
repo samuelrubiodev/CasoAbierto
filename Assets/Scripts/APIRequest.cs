@@ -38,17 +38,11 @@ public class APIRequest : MonoBehaviour
         RequestOpenRouter requestOpenRouter = new ();
         string message = await Task.Run(async () => await requestOpenRouter.SendRequest(prompt));
 
-        bool isMan = MenuPersonajes.personajeSeleccionado.sexo == "Masculino";
+        bool isMan = SelectionCharacters.selectedCharacter.sexo.ToLower() == "masculino";
         aPIRequestElevenLabs.StreamAudio(message, isMan);
 
         new MessageStyleManager(textoSubtitulos).SetStyle();
         StartCoroutine(new UIMessageManager(textoSubtitulos).ShowMessage(message));
-    }
-
-    private async Task<JObject> SeHaTerminado()
-    {
-        GameStatus gameStatus = new ();
-        return await Task.Run(async () => await gameStatus.SendRequest(prompt: "Analiza esta conversacion: \n"));
     }
 
     private async Task<JObject> RequestEmotionalState()
@@ -97,16 +91,8 @@ public class APIRequest : MonoBehaviour
             try {
                 await MakeRequestOpenRouter(prompt,aPIRequestElevenLabs);
 
-                JObject jsonGameStatus = await SeHaTerminado();
-                Debug.Log(jsonGameStatus.ToString());
-
                 JObject jsonEmotionalState = await RequestEmotionalState();
                 Debug.Log(jsonEmotionalState.ToString()); 
-
-                ControllerGameManager controllerGameManager = GetComponent<ControllerGameManager>();
-
-                controllerGameManager.jsonGameStatus = jsonGameStatus;
-                controllerGameManager.jsonEmotionalState = jsonEmotionalState;
             } catch (Exception) {
                 this.SetActive(false);
 

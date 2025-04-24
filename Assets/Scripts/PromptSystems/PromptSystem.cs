@@ -57,15 +57,11 @@ public class PromptSystem {
         Eres un asistente de análisis para el juego de investigación 'Caso Abierto'. Tu tarea es evaluar el estado de una interrogación entre el jugador (detective) y un NPC (sospechoso) basándote en la transcripción de la conversación.
 
         [OBJETIVO]
-        Determina (1) si la interrogación ha concluido lógicamente y (2) si el jugador ha ganado el caso con ese sospechoso.
+        Determina si el jugador ha ganado el caso con ese sospechoso.
 
         [REGLA ESENCIAL]
         • Sólo considera “contradicción” cuando el NPC exprese DOS versiones **incompatibles** de un mismo hecho (p.ej. distinto lugar, hora o acción).  
-        • Sólo considera “confesión” cuando el NPC admita **explícitamente** su culpa.  
-        • Si no hay confesión ni contradicción clara, la interrogación sigue activa.
-
-        [REGLA DE DEPENDENCIA]
-        Si `seHaTerminado` es false, `haGanadoUsuario` **debe** ser false.
+        • Sólo considera “confesión” cuando el NPC admita **explícitamente** su culpa.
 
         [ENTRADA]
         Recibirás la conversación completa hasta el último intercambio.
@@ -75,7 +71,6 @@ public class PromptSystem {
         NPC: “A las 10 pm estaba en casa.”  
         NPC (más tarde): “Salí a comprar a las 10 pm.”  
         {
-            'seHaTerminado': true,
             'haGanadoUsuario': false,
             'razonamiento': 'Contradicción en hora de coartada: casa vs. compra'
         }
@@ -83,31 +78,19 @@ public class PromptSystem {
         2. Confesión literal
         NPC: “Lo hice yo, robé ese archivo.”
         {
-        'seHaTerminado': true,
-        'haGanadoUsuario': true,
-        'razonamiento': 'Confesión explícita: 'Lo hice yo'
+            'haGanadoUsuario': true,
+            'razonamiento': 'Confesión explícita: 'Lo hice yo'
         }
 
         3. Interrogatorio activo
         NPC sólo describe acciones coherentes, sin admitir ni contradecir.
-
         {
-        'seHaTerminado': false,
         'haGanadoUsuario': false,
         'razonamiento': 'Interrogación aún activa: no hay ni confesión ni contradicción'
         }
 
         [INSTRUCCIONES DE ANÁLISIS]
-        1.  **Evalúa si la Interrogación ha Concluido (`seHaTerminado`):**
-            *   Considera la interrogación CONCLUIDA (`true`) si ocurre algo de lo siguiente:
-                *   El NPC confiesa explícitamente el crimen o su implicación clave.
-                *   El NPC proporciona una coartada sólida y creíble que lo exonera, y no quedan líneas de investigación obvias con él.
-                *   El jugador ha presentado todas las pruebas clave y ha confrontado al NPC con todas las inconsistencias significativas, y el NPC ya no ofrece nueva información relevante (se vuelve repetitivo, evasivo sin sustancia, o se niega a hablar).
-                *   El jugador ha llegado a un punto muerto claro donde no puede avanzar más con el sospechoso actual.
-            *   Si la conversación sigue activa, se están explorando nuevos detalles, o quedan preguntas/pruebas importantes por abordar, considera la interrogación NO CONCLUIDA (`false`).
-
         2.  **Evalúa si el Jugador ha Ganado (`haGanadoUsuario`):**
-            *   Este campo SÓLO es relevante si `seHaTerminado` es `true`.
             *   Considera que el jugador HA GANADO (`true`) si, al concluir la interrogación, se cumple el objetivo del caso. Esto generalmente significa:
                 *   Se obtuvo una confesión clara del NPC culpable.
                 *   Se demostró la culpabilidad del NPC mediante la confrontación exitosa con pruebas y la exposición de mentiras/contradicciones irrefutables.
@@ -116,8 +99,6 @@ public class PromptSystem {
                 *   No se obtuvo confesión ni se probó la culpabilidad (el sospechoso mantuvo su versión o fue liberado por falta de pruebas concluyentes).
                 *   Se concluyó erróneamente sobre la culpabilidad o inocencia.
                 *   El jugador se rindió o la conversación terminó sin una resolución clara del caso respecto a ESE sospechoso.
-            *   Si `seHaTerminado` es `false`, entonces `haGanadoUsuario` DEBE ser `false`.
-
         3.  **Proporciona una Justificación (`razonamiento`):**
             *   Explica BREVEMENTE (1-2 frases) por qué tomaste las decisiones para `seHaTerminado` y `haGanadoUsuario`. Menciona el evento clave (ej: 'Confesión obtenida', 'Coartada sólida presentada', 'Interrogación estancada sin resolución', 'Caso resuelto demostrando culpabilidad con prueba X').";
 

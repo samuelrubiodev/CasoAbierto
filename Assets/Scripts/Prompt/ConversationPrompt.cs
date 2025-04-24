@@ -8,7 +8,7 @@ public class ConversationPrompt : IPromptMaker<JObject>
         JObject personajeSeleccionado = new();
 
         Evidencia evidencia = RadialUIController.selectedEvidence;
-        Personaje personaje = MenuPersonajes.personajeSeleccionado;
+        Personaje personaje = SelectionCharacters.selectedCharacter;
 
         if (evidencia != null)
         {
@@ -20,7 +20,7 @@ public class ConversationPrompt : IPromptMaker<JObject>
             };
         }
 
-        if (MenuPersonajes.personajeSeleccionado != null)
+        if (SelectionCharacters.selectedCharacter != null)
         {
             personajeSeleccionado = new JObject
             {

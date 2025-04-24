@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Utilities.Extensions;
@@ -83,6 +85,12 @@ public class SelectionCharacters : MonoBehaviour
             Button buttonAccuse = new ();
             buttonAccuse.AddToClassList("button");
             buttonAccuse.text = "Acusar";
+
+            buttonAccuse.RegisterCallback<ClickEvent>(async e => {
+                GameStatus gameStatus = new ();
+                JObject jsonGameStatus = await Task.Run(async () => await gameStatus.SendRequest(prompt: "Analiza esta conversacion: \n"));
+                new ControllerGameManager().Veredict(jsonGameStatus);
+            });
 
             charactersElements.Add(character);
 
