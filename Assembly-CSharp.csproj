@@ -137,6 +137,7 @@
     <Compile Include="Assets\Scripts\Interfaces\DAOHttpRequest\ImageHttpRequest.cs" />
     <Compile Include="Assets\Scripts\Interfaces\SettingsLoad\AudioSettingsLoader.cs" />
     <Compile Include="Assets\Scripts\Constants\Server.cs" />
+    <Compile Include="Assets\Scripts\UIToolKit\SelectionCharacters.cs" />
     <Compile Include="Assets\Scripts\ChatManager.cs" />
     <Compile Include="Assets\Scripts\FeatureRequest\RequestOpenRouter.cs" />
     <Compile Include="Assets\Scripts\Caso\Evidencia.cs" />
@@ -164,7 +165,6 @@
     <Compile Include="Assets\Scripts\Subtitles\SubtitleManager.cs" />
     <Compile Include="Assets\Scripts\ControllerGame.cs" />
     <Compile Include="Assets\Scripts\ConfigEnv.cs" />
-    <Compile Include="Assets\Scripts\Interfaces\Menu\Audio\ISetting.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
@@ -182,6 +182,7 @@
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\Quads.cs" />
     <Compile Include="Assets\Scripts\GroqApiLibrary-master\GroqLlmProvider.cs" />
     <Compile Include="Assets\Scripts\UIToolKit\ScreenSettings.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\ISetting.cs" />
     <Compile Include="Assets\Scripts\Interfaces\SettingsLoad\IGameSettingsLoader.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\PostEffectsHelper.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
@@ -189,6 +190,7 @@
     <Compile Include="Assets\Scripts\Caso\Jugador.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
     <Compile Include="Assets\Scripts\PromptSystems\PromptSystem.cs" />
+    <Compile Include="Assets\Scripts\Constants\ImageConstants.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
     <Compile Include="Assets\Scripts\Interfaces\DAOHttpRequest\CaseHttpRequest.cs" />
     <Compile Include="Assets\Scripts\ControllerAudio.cs" />
@@ -348,6 +350,7 @@
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\SimpleClear.shader" />
     <None Include="Assets\Packages\System.IO.Pipelines.9.0.0\THIRD-PARTY-NOTICES.TXT" />
     <None Include="Assets\Packages\System.IO.Pipelines.9.0.0\lib\netstandard2.0\System.IO.Pipelines.xml" />
+    <None Include="Assets\UI Toolkit\SelectionCharacters\SelectionCharacters.uxml" />
     <None Include="Assets\UI Toolkit\MenuPrincipalSytle.uss" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\ContrastComposite.shader" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.0\cs\ja\System.Text.Json.SourceGeneration.resources.dll" />
@@ -438,6 +441,7 @@
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\NoiseEffectShaderYUV.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\UI Toolkit\ConfigurationMenu\MainSettings\MainSettings.uxml" />
+    <None Include="Assets\UI Toolkit\SelectionCharacters\SelectionCharacters.uss" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\CinematicEffects(BETA)\TonemappingColorGrading\Shaders\Histogram.compute" />
     <None Include="Assets\Packages\System.Diagnostics.DiagnosticSource.6.0.1\lib\netstandard2.0\System.Diagnostics.DiagnosticSource.xml" />
     <None Include="Assets\UI Toolkit\ConfigurationMenu\Screen\Screen.uss" />

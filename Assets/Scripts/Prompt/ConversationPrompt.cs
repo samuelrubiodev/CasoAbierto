@@ -5,21 +5,20 @@ public class ConversationPrompt : IPromptMaker<JObject>
     public JObject CreatePrompt(string input)
     {
         JObject evidenciaSeleccionada = new ();
+        JObject personajeSeleccionado = new();
 
-        Evidencia evidencia = MenuEvidencias.evidenciaSeleccionada;
+        Evidencia evidencia = RadialUIController.selectedEvidence;
+        Personaje personaje = MenuPersonajes.personajeSeleccionado;
 
-        if (MenuEvidencias.evidenciaSeleccionada != null)
+        if (evidencia != null)
         {
             evidenciaSeleccionada = new JObject
             {
                 ["nombre"] = evidencia.nombre,
-                ["descripcion"] = evidencia.descripcion
+                ["descripcion"] = evidencia.descripcion,
+                ["analisis"] = evidencia.analisis
             };
         }
-
-        JObject personajeSeleccionado = new();
-
-        Personaje personaje = MenuPersonajes.personajeSeleccionado;
 
         if (MenuPersonajes.personajeSeleccionado != null)
         {

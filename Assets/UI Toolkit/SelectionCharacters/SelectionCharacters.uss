@@ -1,0 +1,36 @@
+.title {
+    color: rgb(174, 123, 63);
+    -unity-text-align: upper-center;
+    font-size: 120px;
+    -unity-font-definition: url("project://database/Assets/Fonts/SpecialElite-Regular.ttf?fileID=12800000&guid=075782180ab24fa4f9be002f96db4b05&type=3#SpecialElite-Regular");
+    border-top-width: 120px;
+}
+
+.main {
+    background-image: url("project://database/Assets/UI/OptionsMenu/Audio/background.png?fileID=2800000&guid=af3ce585f726fab41b695db64e947fc6&type=3#background");
+    flex-grow: 1;
+}
+
+.characters {
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.character {
+    width: 300px;
+    height: 500px;
+}
+
+.mainCharacter {
+    align-items: center;
+}
+
+.buttons {
+    margin-bottom: 30px;
+}
+
+.characterName {
+    font-size: 30px;
+    color: rgb(171, 124, 63);
+    margin-bottom: 50px;
+}

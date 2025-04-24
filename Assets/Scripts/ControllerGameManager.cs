@@ -20,10 +20,6 @@ public class ControllerGameManager : MonoBehaviour
             {
                 FinalSceneManager.isUserWin = true;
                 SceneManager.LoadScene("FinalScene");
-            } else if (seHaTerminado && !haGanadoUsuario)
-            {
-                FinalSceneManager.isUserWin = false;
-                SceneManager.LoadScene("FinalScene");
             }
         }
     }

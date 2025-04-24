@@ -107,23 +107,23 @@ public class ControllerGame : MonoBehaviour
 
     private void ShowGUICharacter() 
     {
-        PrefabCharacter.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = MenuPersonajes.personajeSeleccionado.nombre;
-        PrefabCharacter.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = MenuPersonajes.personajeSeleccionado.estado;
-        PrefabCharacter.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text = MenuPersonajes.personajeSeleccionado.estadoEmocional;
-        PrefabCharacter.transform.GetChild(3).gameObject.GetComponent<TextMeshProUGUI>().text = MenuPersonajes.personajeSeleccionado.sexo;
+        PrefabCharacter.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = SelectionCharacters.selectedCharacter.nombre;
+        PrefabCharacter.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = SelectionCharacters.selectedCharacter.estado;
+        PrefabCharacter.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text = SelectionCharacters.selectedCharacter.estadoEmocional;
+        PrefabCharacter.transform.GetChild(3).gameObject.GetComponent<TextMeshProUGUI>().text = SelectionCharacters.selectedCharacter.sexo;
 
         PrefabCharacter.SetActive(true);
     }
 
     private void CheckGenre() {
-        if (MenuPersonajes.personajeSeleccionado.sexo == "Masculino" && MenuPersonajes.hasChangedCharacter)
+        if (SelectionCharacters.selectedCharacter.sexo.ToLower() == "masculino" && SelectionCharacters.hasChangedCharacter)
         {
             DeactivateCharacter();
             personajes.transform.GetChild(0).gameObject.SetActive(true);
             MenuPersonajes.hasChangedCharacter = false;
             ShowGUICharacter();
         }
-        else if (MenuPersonajes.personajeSeleccionado.sexo == "Femenino" && MenuPersonajes.hasChangedCharacter)
+        else if (SelectionCharacters.selectedCharacter.sexo.ToLower() == "femenino" && SelectionCharacters.hasChangedCharacter)
         {
             DeactivateCharacter();
             personajes.transform.GetChild(1).gameObject.SetActive(true);

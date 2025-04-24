@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -24,10 +26,12 @@ public class RadialUIController : MonoBehaviour
     public TextMeshProUGUI textEvidence;
     public GameObject resultPanel;
 
-    public MenuPersonajes menuPersonajes;
+    public SelectionCharacters menuPersonajes;
     public bool Evidencias = false;
     public FirstPersonController FirstPersonController;
     public GameObject evidencePrefab;
+    public static Evidencia selectedEvidence;
+    public APIRequest aPIRequest;
 
     void Start()
     {
@@ -39,7 +43,6 @@ public class RadialUIController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            Debug.Log(Evidencias);
             if (!Evidencias && !menuPersonajes.Personajes && !ControllerGame.estaEscribiendo)
             {
                 ShowRadialMenu();
@@ -108,16 +111,40 @@ public class RadialUIController : MonoBehaviour
             pointerEnterEntry.callback.AddListener((data) => {
                 textEvidence.SetActive(true);
                 textEvidence.text = evidencia.nombre;
+                selectedEvidence = evidencia;
             });
 
-            pointerClickEntry.callback.AddListener((data) => {
-                this.SetActive(false);
-                resultPanel.SetActive(true);
+            pointerClickEntry.callback.AddListener(async (data) => {
+                PointerEventData pointerData = (PointerEventData)data;
 
-                resultPanel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = evidencia.nombre;
-                resultPanel.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = evidencia.analisis;
+                if (pointerData.button == PointerEventData.InputButton.Left)
+                {
+                    this.SetActive(false);
+                    resultPanel.SetActive(true);
+
+                    evidencia = await AnalyzeEvidence(evidencia);
+
+                    resultPanel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = evidencia.nombre;
+                    resultPanel.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = evidencia.analisis;
+                    selectedEvidence = evidencia;
+                }
+                else if (pointerData.button == PointerEventData.InputButton.Right)
+                {
+                    selectedEvidence = null;
+                    HideRadialMenu();
+                }
             });
         }
+    }
+
+    public async Task<Evidencia> AnalyzeEvidence(Evidencia evidence)
+    {
+        string json = await aPIRequest.AnalizarEvidencia(evidence);
+        JObject jobject = JObject.Parse(json);
+
+        evidence.analisis = jobject["evidencia"]?["resultadoAnalisis"].ToString();
+
+        return evidence;
     }
 
     public void HideRadialMenu()
