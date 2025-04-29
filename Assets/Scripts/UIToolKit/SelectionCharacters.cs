@@ -86,6 +86,12 @@ public class SelectionCharacters : MonoBehaviour
             buttonAccuse.AddToClassList("button");
             buttonAccuse.text = "Acusar";
 
+            buttonCharacterSelect.RegisterCallback<ClickEvent>( e => {
+                selectedCharacter = personaje;
+                hasChangedCharacter = true;
+                Hide();
+            });
+
             buttonAccuse.RegisterCallback<ClickEvent>(async e => {
                 GameStatus gameStatus = new ();
                 JObject jsonGameStatus = await Task.Run(async () => await gameStatus.SendRequest(prompt: "Analiza esta conversacion: \n"));
@@ -112,6 +118,5 @@ public class SelectionCharacters : MonoBehaviour
         UnityEngine.Cursor.visible = false;
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         FirstPersonController.enabled = true;
-
     }
 }

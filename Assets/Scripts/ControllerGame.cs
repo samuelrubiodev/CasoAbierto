@@ -120,14 +120,14 @@ public class ControllerGame : MonoBehaviour
         {
             DeactivateCharacter();
             personajes.transform.GetChild(0).gameObject.SetActive(true);
-            MenuPersonajes.hasChangedCharacter = false;
+            SelectionCharacters.hasChangedCharacter = false;
             ShowGUICharacter();
         }
         else if (SelectionCharacters.selectedCharacter.sexo.ToLower() == "femenino" && SelectionCharacters.hasChangedCharacter)
         {
             DeactivateCharacter();
             personajes.transform.GetChild(1).gameObject.SetActive(true);
-            MenuPersonajes.hasChangedCharacter = false;
+            SelectionCharacters.hasChangedCharacter = false;
             ShowGUICharacter();
         }
     }

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Text;
 using System.Net.Http;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace FeatureRequest {
     public class RequestOpenRouter : IFeatureRequest<string> {
@@ -48,8 +49,11 @@ namespace FeatureRequest {
             AsyncCollectionResult<StreamingChatCompletionUpdate> completionUpdates = chatManager.CreateStremingChat(ChatManager.CHAT_MODEL, options);
 
             StringBuilder messageCharacterBuilder = new();
+            string completionIdBuilder = "";
             await foreach (StreamingChatCompletionUpdate update in completionUpdates)
             {
+                completionIdBuilder = update.CompletionId.ToString();
+                Debug.Log("ID DE LA RESPUESTA: " + completionIdBuilder.ToString());
                 if (update.ContentUpdate.Count > 0) messageCharacterBuilder.Append(update.ContentUpdate[0].Text);
             }
             string message = messageCharacterBuilder.ToString();
@@ -66,6 +70,13 @@ namespace FeatureRequest {
                 "application/json");
 
             await caseHttpRequest.PostAsync("/players/" + Jugador.jugador.idJugador + "/case/" + Caso.caso.idCaso + "/message", jsonContent);
+
+            GenerationIDHttpRequest generationIDHttpRequest = new ();
+
+            JObject jsonResponse = await generationIDHttpRequest.GetAsync($"generation?id={completionIdBuilder.ToString()}");
+
+            OpenRouterImpl openRouterImpl = OpenRouterImpl.Instance;
+            await openRouterImpl.UpdateCreditsBalance(await openRouterImpl.GetCostRequest(jsonResponse));
             
             APIRequest.chatMessages.Add(new AssistantChatMessage(message));
 

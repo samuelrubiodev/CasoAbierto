@@ -94,6 +94,7 @@
     <Compile Include="Assets\Scripts\Caso\Personaje.cs" />
     <Compile Include="Assets\UI Toolkit\Prueba.cs" />
     <Compile Include="Assets\Scripts\GroqApiLibrary-master\IGroqApiClient.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\CreditsAPIManager\ICreditsAPIManager.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\CinematicEffects(BETA)\Common\RenderTexureUtility.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\TiltShift.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
@@ -135,9 +136,11 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
     <Compile Include="Assets\Scripts\ControllerGameManager.cs" />
     <Compile Include="Assets\Scripts\Interfaces\DAOHttpRequest\ImageHttpRequest.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\DAOHttpRequest\GenerationIDHttpRequest.cs" />
     <Compile Include="Assets\Scripts\Interfaces\SettingsLoad\AudioSettingsLoader.cs" />
     <Compile Include="Assets\Scripts\Constants\Server.cs" />
     <Compile Include="Assets\Scripts\UIToolKit\SelectionCharacters.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\CreditsAPIManager\OpenRouterImpl.cs" />
     <Compile Include="Assets\Scripts\ChatManager.cs" />
     <Compile Include="Assets\Scripts\FeatureRequest\RequestOpenRouter.cs" />
     <Compile Include="Assets\Scripts\Caso\Evidencia.cs" />
@@ -208,6 +211,7 @@
     <Compile Include="Assets\Scripts\Door.cs" />
     <Compile Include="Assets\Scripts\Util.cs" />
     <Compile Include="Assets\Scripts\Menu\MenuPersonajes.cs" />
+    <Compile Include="Assets\Scripts\CreditsAPIManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
     <Compile Include="Assets\Scripts\VaultTransist.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
