@@ -53,7 +53,6 @@ namespace FeatureRequest {
             await foreach (StreamingChatCompletionUpdate update in completionUpdates)
             {
                 completionIdBuilder = update.CompletionId.ToString();
-                Debug.Log("ID DE LA RESPUESTA: " + completionIdBuilder.ToString());
                 if (update.ContentUpdate.Count > 0) messageCharacterBuilder.Append(update.ContentUpdate[0].Text);
             }
             string message = messageCharacterBuilder.ToString();

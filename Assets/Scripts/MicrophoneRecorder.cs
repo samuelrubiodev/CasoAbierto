@@ -22,7 +22,7 @@ public class MicrophoneRecorder : MonoBehaviour
 
     public bool TieneMicrofono()
     {
-        if (microphoneName == "Texto") {
+        if (microphoneName == "Solo texto") {
             return false;
         } else {
             return true;
