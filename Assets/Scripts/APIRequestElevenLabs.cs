@@ -18,14 +18,16 @@ public class APIRequestElevenLabs : MonoBehaviour
     private bool debug = true;
 
     private Voice voice;
+    private Voice voiceMan;
+    private Voice voiceWoman;
     private string message;
 
     [SerializeField]
     private AudioSource audioSource;
 
     private readonly Queue<AudioClip> streamClipQueue = new();
+    private ElevenLabsClient api;
    
-
     private void OnValidate()
     {
         if (audioSource == null)
@@ -34,26 +36,30 @@ public class APIRequestElevenLabs : MonoBehaviour
         }
     }
 
+    async void Start()
+    {
+        api = new ElevenLabsClient(new ElevenLabsAuthentication(ApiKey.API_KEY_ELEVENLABS))
+        {
+            EnableDebug = debug
+        };
+
+        voiceMan = await api.VoicesEndpoint.GetVoiceAsync(AUDIO_ID_HOMBRE);
+        voiceWoman = await api.VoicesEndpoint.GetVoiceAsync(AUDIO_ID_MUJER);
+    }
+
     public async void StreamAudio(string message, bool isMan)
     {
         this.message = message;
 
         OnValidate();
 
-        string apiKey = ApiKey.API_KEY_ELEVENLABS;
-
         try
         {
-            var api = new ElevenLabsClient(new ElevenLabsAuthentication(apiKey))
-            {
-                EnableDebug = debug
-            };
-
             if (voice == null)
             {
                 voice = isMan 
-                    ? await api.VoicesEndpoint.GetVoiceAsync(AUDIO_ID_HOMBRE)
-                    : await api.VoicesEndpoint.GetVoiceAsync(AUDIO_ID_MUJER);
+                    ?  voiceMan
+                    : voiceWoman;
             }
 
             /// 0 - default mode (no latency optimizations)<br/>
@@ -65,11 +71,16 @@ public class APIRequestElevenLabs : MonoBehaviour
             streamClipQueue.Clear();
             var streamQueueCts = CancellationTokenSource.CreateLinkedTokenSource(destroyCancellationToken);
             var playTask = Task.Run(() => PlayStreamQueue(streamQueueCts.Token));
+
+            var streamTask = Task.Run(async () => {
+                var voiceClip = await api.TextToSpeechEndpoint.StreamTextToSpeechAsync(message, this.voice, partialClip =>
+                {
+                    streamClipQueue.Enqueue(partialClip);
+                }, model: new Model("eleven_flash_v2_5"), optimizeStreamingLatency: optimizeStreamingLatency, outputFormat: OutputFormat.PCM_24000, cancellationToken: destroyCancellationToken);
+                return voiceClip;
+            });
             
-            var voiceClip = await api.TextToSpeechEndpoint.StreamTextToSpeechAsync(message, this.voice, partialClip =>
-            {
-                streamClipQueue.Enqueue(partialClip);
-            }, model: new Model("eleven_flash_v2_5"), optimizeStreamingLatency: optimizeStreamingLatency, outputFormat: OutputFormat.PCM_24000, cancellationToken: destroyCancellationToken);
+            var voiceClip = await streamTask;
             //audioSource.clip = voiceClip.AudioClip;
             await new WaitUntil(() => streamClipQueue.Count == 0 && !audioSource.isPlaying);
             streamQueueCts.Cancel();
