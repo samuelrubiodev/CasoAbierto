@@ -29,7 +29,7 @@ public class FPSConfig : ISetting<int>
         DropdownField list = value.Q<DropdownField>();
         PlayerPrefs.SetInt("fps", list.index);
         PlayerPrefs.Save();
-        SetValue(list.index);
+        SetValue(ScreenSettingsLoader.fpsOptions[list.index]);
     }
 
     public void SetValue(int newValue)

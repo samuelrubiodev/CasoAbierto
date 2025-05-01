@@ -233,6 +233,7 @@
     <Compile Include="Assets\Scripts\UIToolKit\GraphicsSettings.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\CreaseShading.cs" />
     <Compile Include="Assets\Scripts\Caso\Cronologia.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\CreditsAPIManager\ElevenLabsImpl.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\DepthOfFieldDeprecated.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\CameraMotionBlur.cs" />
     <Compile Include="Assets\Scripts\ErrorOverlayUI.cs" />

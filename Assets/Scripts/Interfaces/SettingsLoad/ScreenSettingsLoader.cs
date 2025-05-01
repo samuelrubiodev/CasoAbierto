@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ScreenSettingsLoader : IGameSettingsLoader
 {
-    private readonly int[] fpsOptions = { 30, 60, 120, 144, 240 };
+    public static readonly int[] fpsOptions = { 30, 60, 120, 144, 240 };
 
     public void LoadSettings()
     {
