@@ -10,14 +10,11 @@ public class AudioSettings : MonoBehaviour
     private UIDocument uiDocument;
     public UIDocument uiMainSettings;
 
-    void Awake()
-    {
-        ControllerAudio controllerAudio = GetComponent<ControllerAudio>();
-        controllerAudio.audioMixer = audioMixer;
-    }
-
     void OnEnable()
     {
+        ControllerAudio controllerAudio = this.AddComponent<ControllerAudio>();
+        controllerAudio.audioMixer = audioMixer;
+
         uiDocument = GetComponent<UIDocument>();
 
         VisualElement container = uiDocument.rootVisualElement.Q<VisualElement>("container");
@@ -29,5 +26,11 @@ public class AudioSettings : MonoBehaviour
                 this.SetActive(false);
                 uiMainSettings.SetActive(true);
         });
+    }
+
+    void OnDisable()
+    {
+        ControllerAudio controllerAudio = GetComponent<ControllerAudio>();
+        Destroy(controllerAudio);
     }
 }

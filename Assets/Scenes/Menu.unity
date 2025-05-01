@@ -620,7 +620,6 @@ GameObject:
   - component: {fileID: 1361584281}
   - component: {fileID: 1361584282}
   - component: {fileID: 1361584283}
-  - component: {fileID: 1361584284}
   m_Layer: 0
   m_Name: UIAudioSettings
   m_TagString: Untagged
@@ -676,19 +675,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: 8601f8df2c3d66d408abe74cd9cb654a, type: 2}
   uiMainSettings: {fileID: 1330433448}
---- !u!114 &1361584284
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1361584280}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5660b5ff530bf464bb73c95ad3b5e658, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioMixer: {fileID: 0}
 --- !u!1 &1444410199
 GameObject:
   m_ObjectHideFlags: 0
