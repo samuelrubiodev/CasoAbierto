@@ -76,6 +76,8 @@ namespace FeatureRequest {
 
             OpenRouterImpl openRouterImpl = OpenRouterImpl.Instance;
             await openRouterImpl.UpdateCreditsBalance(await openRouterImpl.GetCostRequest(jsonResponse));
+
+            Debug.Log("Creditos restantes: " + openRouterImpl.ActualCreditsBalance);
             
             APIRequest.chatMessages.Add(new AssistantChatMessage(message));
 

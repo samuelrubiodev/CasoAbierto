@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
@@ -35,6 +36,22 @@ public class GameInitializer : MonoBehaviour
             ApiKey.API_KEY_GROQ = await vaultTransit.GetKey("GROQ");
             ApiKey.API_KEY_ELEVENLABS = await vaultTransit.GetKey("ELEVENLABS");
             Server.ACTIVE_CASE_HOST = ConfigEnv.GetEnv(ConfigEnv.Envs.ACTIVE_CASE_HOST);
+
+            GenerationIDHttpRequest generationIDHttpRequest = new ();
+            ElevenLabsHttpRequest elevenLabsHttpRequest = new ();
+            
+            JObject jsonOpenRouterResponse = await generationIDHttpRequest.GetAsync("credits");
+            JObject jsonElevenLabsResponse = await elevenLabsHttpRequest.GetAsync("user");
+            
+            OpenRouterImpl openRouterImpl = OpenRouterImpl.Instance;
+            ElevenLabsImpl elevenLabsImpl = ElevenLabsImpl.Instance;
+
+            await openRouterImpl.GetActualCreditsBalance(jsonOpenRouterResponse);
+            await elevenLabsImpl.GetActualCreditsBalance(jsonElevenLabsResponse);
+
+            Debug.Log("Creditos restantes: " + openRouterImpl.ActualCreditsBalance);
+            Debug.Log("Caracteres restantes: " + elevenLabsImpl.ActualCharacterCount);
+
         } catch (KeyNotFoundException) 
         {
             GetComponent<MainMenu>().SetActive(false);

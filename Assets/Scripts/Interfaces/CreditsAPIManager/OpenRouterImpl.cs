@@ -38,4 +38,15 @@ public class OpenRouterImpl : ICreditsAPIManager
         ActualCreditsBalance -= amount;
         return Task.FromResult(ActualCreditsBalance);
     }
+
+    public Task<double> GetActualCreditsBalance(JObject jsonResponse)
+    {
+        JObject data = jsonResponse["data"] as JObject;
+        string totalCost = data["total_credits"].ToString();
+        string totalUsage = data["total_usage"].ToString();
+        double totalCredits = Double.Parse(totalCost);
+        double totalUsageDouble = Double.Parse(totalUsage);
+        ActualCreditsBalance = totalCredits - totalUsageDouble;
+        return Task.FromResult(ActualCreditsBalance);
+    }
 }

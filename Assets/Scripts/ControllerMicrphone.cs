@@ -1,4 +1,5 @@
 using System.Collections;
+using Newtonsoft.Json.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -41,6 +42,9 @@ public class ControllerMicrophone : MonoBehaviour
     private async void LlamarApis(APIRequest aPIRequest)
     {
         APIRequestElevenLabs aPIRequestElevenLabs = GetComponent<APIRequestElevenLabs>();
+        APICreditsManager aPICreditsManager = GetComponent<APICreditsManager>();
+
         await aPIRequest.RequestAPI(aPIRequestElevenLabs, elementoTexto.GetComponent<TMP_InputField>().text);
+        aPICreditsManager.isGameStarted = true;
     }
 }
