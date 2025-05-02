@@ -9,6 +9,7 @@ TagManager:
   - TriggerDoor
   - Chair
   - ElevenLabsAPI
+  - PoliceChair
   layers:
   - Default
   - TransparentFX

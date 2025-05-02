@@ -82,7 +82,7 @@ public class ControllerCarga : MonoBehaviour
 
                 JObject responseCase = await caseHttpRequest.PostAsync("/case/" + Caso.caso.idCaso, jsonContent);
                 APIRequest.DATOS_CASO = responseCase.ToString();
-                SceneManager.LoadScene("SampleScene");
+                SceneManager.LoadScene("InterrogationGame"); // Or SampleScene (if you not have QA_InterrogationRoom asset)
             } catch (Exception) {
                 this.SetActive(false);
                 UtilitiesErrorMessage errorMessage = new(Application.dataPath + "/Resources/ErrorMessages/ErrorMessage.json");
@@ -108,7 +108,7 @@ public class ControllerCarga : MonoBehaviour
             }
             
             await CreateGame(GetJugadorID());
-            SceneManager.LoadScene("SampleScene");
+            SceneManager.LoadScene("InterrogationGame"); // Or SampleScene (if you not have QA_InterrogationRoom asset)
         }
     }
 

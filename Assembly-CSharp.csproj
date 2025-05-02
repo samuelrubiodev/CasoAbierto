@@ -28,7 +28,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Temp\bin\Debug\</OutputPath>
-    <DefineConstants>UNITY_6000_0_36;UNITY_6000_0;UNITY_6000;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2019_1_OR_NEWER;UNITY_2019_2_OR_NEWER;UNITY_2019_3_OR_NEWER;UNITY_2019_4_OR_NEWER;UNITY_2020_1_OR_NEWER;UNITY_2020_2_OR_NEWER;UNITY_2020_3_OR_NEWER;UNITY_2021_1_OR_NEWER;UNITY_2021_2_OR_NEWER;UNITY_2021_3_OR_NEWER;UNITY_2022_1_OR_NEWER;UNITY_2022_2_OR_NEWER;UNITY_2022_3_OR_NEWER;UNITY_2023_1_OR_NEWER;UNITY_2023_2_OR_NEWER;UNITY_2023_3_OR_NEWER;UNITY_6000_0_OR_NEWER;PLATFORM_ARCH_64;UNITY_64;UNITY_INCLUDE_TESTS;ENABLE_AR;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_EVENT_QUEUE;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_TEXTURE_STREAMING;ENABLE_VIRTUALTEXTURING;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_UNITYWEBREQUEST;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_EDITOR_GAME_SERVICES;ENABLE_UNITY_GAME_SERVICES_ANALYTICS_SUPPORT;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_GENERATE_NATIVE_PLUGINS_FOR_ASSEMBLIES_API;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;ENABLE_MANAGED_AUDIO_JOBS;ENABLE_MANAGED_UNITYTLS;INCLUDE_DYNAMIC_GI;ENABLE_SCRIPTING_GC_WBARRIERS;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;ENABLE_MARSHALLING_TESTS;ENABLE_VIDEO;ENABLE_NAVIGATION_OFFMESHLINK_TO_NAVMESHLINK;ENABLE_ACCELERATOR_CLIENT_DEBUGGING;TEXTCORE_1_0_OR_NEWER;EDITOR_ONLY_NAVMESH_BUILDER_DEPRECATED;PLATFORM_STANDALONE_WIN;PLATFORM_STANDALONE;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_NVIDIA;ENABLE_AMD;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_OUT_OF_PROCESS_CRASH_HANDLER;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;PLATFORM_UPDATES_TIME_OUTSIDE_OF_PLAYER_LOOP;GFXDEVICE_WAITFOREVENT_MESSAGEPUMP;PLATFORM_USES_EXPLICIT_MEMORY_MANAGER_INITIALIZER;PLATFORM_SUPPORTS_WAIT_FOR_PRESENTATION;PLATFORM_SUPPORTS_SPLIT_GRAPHICS_JOBS;ENABLE_MONO;NET_STANDARD_2_0;NET_STANDARD;NET_STANDARD_2_1;NETSTANDARD;NETSTANDARD2_1;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_DIRECTOR;ENABLE_LOCALIZATION;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_TILEMAP;ENABLE_TIMELINE;ENABLE_LEGACY_INPUT_MANAGER;TEXTCORE_FONT_ENGINE_1_5_OR_NEWER;TEXTCORE_TEXT_ENGINE_1_5_OR_NEWER;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
+    <DefineConstants>UNITY_6000_0_36;UNITY_6000_0;UNITY_6000;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2019_1_OR_NEWER;UNITY_2019_2_OR_NEWER;UNITY_2019_3_OR_NEWER;UNITY_2019_4_OR_NEWER;UNITY_2020_1_OR_NEWER;UNITY_2020_2_OR_NEWER;UNITY_2020_3_OR_NEWER;UNITY_2021_1_OR_NEWER;UNITY_2021_2_OR_NEWER;UNITY_2021_3_OR_NEWER;UNITY_2022_1_OR_NEWER;UNITY_2022_2_OR_NEWER;UNITY_2022_3_OR_NEWER;UNITY_2023_1_OR_NEWER;UNITY_2023_2_OR_NEWER;UNITY_2023_3_OR_NEWER;UNITY_6000_0_OR_NEWER;PLATFORM_ARCH_64;UNITY_64;UNITY_INCLUDE_TESTS;ENABLE_AR;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_EVENT_QUEUE;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_TEXTURE_STREAMING;ENABLE_VIRTUALTEXTURING;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_UNITYWEBREQUEST;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_EDITOR_GAME_SERVICES;ENABLE_UNITY_GAME_SERVICES_ANALYTICS_SUPPORT;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_GENERATE_NATIVE_PLUGINS_FOR_ASSEMBLIES_API;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;ENABLE_MANAGED_AUDIO_JOBS;ENABLE_MANAGED_UNITYTLS;INCLUDE_DYNAMIC_GI;ENABLE_SCRIPTING_GC_WBARRIERS;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;ENABLE_MARSHALLING_TESTS;ENABLE_VIDEO;ENABLE_NAVIGATION_OFFMESHLINK_TO_NAVMESHLINK;ENABLE_ACCELERATOR_CLIENT_DEBUGGING;TEXTCORE_1_0_OR_NEWER;EDITOR_ONLY_NAVMESH_BUILDER_DEPRECATED;PLATFORM_STANDALONE_WIN;PLATFORM_STANDALONE;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_NVIDIA;ENABLE_AMD;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_OUT_OF_PROCESS_CRASH_HANDLER;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;PLATFORM_UPDATES_TIME_OUTSIDE_OF_PLAYER_LOOP;GFXDEVICE_WAITFOREVENT_MESSAGEPUMP;PLATFORM_USES_EXPLICIT_MEMORY_MANAGER_INITIALIZER;PLATFORM_SUPPORTS_WAIT_FOR_PRESENTATION;PLATFORM_SUPPORTS_SPLIT_GRAPHICS_JOBS;ENABLE_MONO;NET_STANDARD_2_0;NET_STANDARD;NET_STANDARD_2_1;NETSTANDARD;NETSTANDARD2_1;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_DIRECTOR;ENABLE_LOCALIZATION;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_TILEMAP;ENABLE_TIMELINE;ENABLE_LEGACY_INPUT_MANAGER;TEXTCORE_FONT_ENGINE_1_5_OR_NEWER;TEXTCORE_TEXT_ENGINE_1_5_OR_NEWER;UNITY_POST_PROCESSING_STACK_V2;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169;USG0001</NoWarn>
@@ -87,17 +87,23 @@
     <Compile Include="Assets\Scripts\Interfaces\Menu\Graphics\GraphicsConfig.cs" />
     <Compile Include="Assets\Scripts\Subtitles\GenericSubtitle.cs" />
     <Compile Include="Assets\Scripts\Interfaces\JSONClass\ErrorMessage.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\PostProcessingContext.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Utils\GraphicsUtils.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Models\GrainModel.cs" />
     <Compile Include="Assets\Scripts\Schemas\Schemas.cs" />
     <Compile Include="Assets\Scripts\ControllerCarga.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Models\DepthOfFieldModel.cs" />
     <Compile Include="Assets\Scripts\Caso\Personaje.cs" />
     <Compile Include="Assets\UI Toolkit\Prueba.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Components\TaaComponent.cs" />
     <Compile Include="Assets\Scripts\GroqApiLibrary-master\IGroqApiClient.cs" />
     <Compile Include="Assets\Scripts\Interfaces\CreditsAPIManager\ICreditsAPIManager.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\CinematicEffects(BETA)\Common\RenderTexureUtility.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\TiltShift.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Components\ScreenSpaceReflectionComponent.cs" />
     <Compile Include="Assets\Scripts\UIToolKit\GameManager.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\SunShafts.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\Triangles.cs" />
@@ -110,14 +116,17 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\DepthOfField.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\VignetteAndChromaticAberration.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Utils\MaterialFactory.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IFeatureRequest.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\Antialiasing.cs" />
     <Compile Include="Assets\Scripts\Interfaces\JSONClass\UtilitiesErrorMessage.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Components\AmbientOcclusionComponent.cs" />
     <Compile Include="Assets\Scripts\FeatureRequest\GameStatus.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IJsonUtilities.cs" />
     <Compile Include="Assets\Scripts\StyleManager\Recomendations.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\Fisheye.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\Interaction\HoverInteraction\IHoverInteraction.cs" />
     <Compile Include="Assets\Scripts\APIRequestElevenLabs.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\CinematicEffects(BETA)\TonemappingColorGrading\TonemappingColorGrading.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
@@ -132,42 +141,66 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
     <Compile Include="Assets\Scripts\CoundownTimer.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Models\VignetteModel.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\ColorCorrectionLookup.cs" />
     <Compile Include="Assets\Scripts\UIToolKit\MainSettings.cs" />
     <Compile Include="Assets\Scripts\Constants\Scene.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
     <Compile Include="Assets\Scripts\ControllerGameManager.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Attributes\TrackballAttribute.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Models\ChromaticAberrationModel.cs" />
     <Compile Include="Assets\Scripts\Interfaces\DAOHttpRequest\ImageHttpRequest.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\PostProcessingBehaviour.cs" />
     <Compile Include="Assets\Scripts\Interfaces\DAOHttpRequest\GenerationIDHttpRequest.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Components\FxaaComponent.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\Interaction\HoverInteraction\GenericHoverInteraction.cs" />
     <Compile Include="Assets\Scripts\Interfaces\SettingsLoad\AudioSettingsLoader.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\PostProcessingProfile.cs" />
     <Compile Include="Assets\Scripts\Constants\Server.cs" />
     <Compile Include="Assets\Scripts\UIToolKit\SelectionCharacters.cs" />
     <Compile Include="Assets\Scripts\Interfaces\CreditsAPIManager\OpenRouterImpl.cs" />
     <Compile Include="Assets\Scripts\ChatManager.cs" />
     <Compile Include="Assets\Scripts\FeatureRequest\RequestOpenRouter.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Models\AmbientOcclusionModel.cs" />
     <Compile Include="Assets\Scripts\Caso\Evidencia.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Components\VignetteComponent.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\ScreenSpaceAmbientOcclusion.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Utilities\CustomMotionTexture\ExampleWheelController.cs" />
     <Compile Include="Assets\Scripts\Interfaces\SettingsLoad\ScreenSettingsLoader.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Attributes\MinAttribute.cs" />
     <Compile Include="Assets\ModularFirstPersonController\FirstPersonController\FirstPersonController.cs" />
     <Compile Include="Assets\Scripts\FootSteps.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\Tonemapping.cs" />
     <Compile Include="Assets\Scripts\Config.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Models\AntialiasingModel.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\ScreenOverlay.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
     <Compile Include="Assets\Scripts\GameInitializer.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\Blur.cs" />
     <Compile Include="Assets\Scripts\Interfaces\Menu\Screen\FPSConfig.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Models\BuiltinDebugViewsModel.cs" />
+    <Compile Include="Assets\InterrogationRoom\Scripts\RotateMoveCamera.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\PostProcessingComponent.cs" />
     <Compile Include="Assets\Scripts\Subtitles\SubtitlesPath.cs" />
     <Compile Include="Assets\Scripts\MessageManager.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Components\MotionBlurComponent.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\CinematicEffects(BETA)\ScreenSpaceReflection\ScreenSpaceReflection.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Utils\ColorGradingCurve.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Components\GrainComponent.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\PostProcessingModel.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\BloomOptimized.cs" />
     <Compile Include="Assets\Scripts\MicrophoneRecorder.cs" />
     <Compile Include="Assets\Scripts\Interfaces\DAOHttpRequest\IDaoHttpRequest.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Models\FogModel.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Models\DitheringModel.cs" />
     <Compile Include="Assets\Scripts\FeatureRequest\AnalysisEvidence.cs" />
     <Compile Include="Assets\Scripts\GroqApiLibrary-master\GroqApiClient.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Components\UserLutComponent.cs" />
     <Compile Include="Assets\Scripts\Interfaces\Menu\Screen\ModeScreen.cs" />
     <Compile Include="Assets\Scripts\Subtitles\SubtitleManager.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Components\BuiltinDebugViewsComponent.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Models\ScreenSpaceReflectionModel.cs" />
     <Compile Include="Assets\Scripts\ControllerGame.cs" />
     <Compile Include="Assets\Scripts\ConfigEnv.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
@@ -185,7 +218,9 @@
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\CinematicEffects(BETA)\DepthOfField\DepthOfField.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\CinematicEffects(BETA)\Common\ImageEffectHelper.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\Quads.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Models\MotionBlurModel.cs" />
     <Compile Include="Assets\Scripts\GroqApiLibrary-master\GroqLlmProvider.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Components\ChromaticAberrationComponent.cs" />
     <Compile Include="Assets\Scripts\UIToolKit\ScreenSettings.cs" />
     <Compile Include="Assets\Scripts\Interfaces\ISetting.cs" />
     <Compile Include="Assets\Scripts\Interfaces\SettingsLoad\IGameSettingsLoader.cs" />
@@ -201,20 +236,27 @@
     <Compile Include="Assets\Scripts\ControllerAudio.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IPromptMaker.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\NoiseAndScratches.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Components\FogComponent.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextConsoleSimulator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
+    <Compile Include="Assets\QA_InterrogationRoom\Scripts\QADoor_InterrogationRoom.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
     <Compile Include="Assets\Scripts\Caso\Message.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\ImageEffectBase.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Components\BloomComponent.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Models\ColorGradingModel.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
     <Compile Include="Assets\Scripts\Interfaces\SettingsLoad\GraphicsSettingsLoader.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\Bloom.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\Scripts\Door.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Components\ColorGradingComponent.cs" />
     <Compile Include="Assets\Scripts\Util.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Components\DepthOfFieldComponent.cs" />
     <Compile Include="Assets\Scripts\Menu\MenuPersonajes.cs" />
     <Compile Include="Assets\Scripts\CreditsAPIManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Models\EyeAdaptationModel.cs" />
     <Compile Include="Assets\Scripts\VaultTransist.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
@@ -230,11 +272,18 @@
     <Compile Include="Assets\Scripts\Prompt\ConversationPrompt.cs" />
     <Compile Include="Assets\Scripts\Interfaces\Menu\Audio\MicrophoneConfig.cs" />
     <Compile Include="Assets\Scripts\FeatureRequest\CharacterEmotionalState.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Components\DitheringComponent.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Models\BloomModel.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Components\EyeAdaptationComponent.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Attributes\GetSetAttribute.cs" />
     <Compile Include="Assets\Scripts\ControllerMicrphone.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Models\UserLutModel.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\NoiseAndGrain.cs" />
     <Compile Include="Assets\Scripts\UIToolKit\GraphicsSettings.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\CreaseShading.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\Interaction\PressInteraction\IInteraction.cs" />
     <Compile Include="Assets\Scripts\Caso\Cronologia.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Utils\RenderTextureFactory.cs" />
     <Compile Include="Assets\Scripts\Interfaces\CreditsAPIManager\ElevenLabsImpl.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\DepthOfFieldDeprecated.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\CameraMotionBlur.cs" />
@@ -245,6 +294,8 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
     <Compile Include="Assets\Scripts\InternetConnection.cs" />
     <Compile Include="Assets\Scripts\APIRequest.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\Interaction\PressInteraction\SittingChairInteraction.cs" />
+    <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Attributes\TrackballGroupAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\Tonemapper.shader" />
@@ -252,6 +303,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.0\cs\ko\System.Text.Json.SourceGeneration.resources.dll" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.4\cs\pl\System.Text.Json.SourceGeneration.resources.dll" />
+    <None Include="Assets\InterrogationRoom\PostProcessing\Resources\Shaders\ScreenSpaceReflection.shader" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\GlobalFog.shader" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\VortexEffect.shader" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\CinematicEffects(BETA)\DepthOfField\Shaders\MedianFilter.shader" />
@@ -262,6 +314,7 @@
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn3.11\cs\ja\System.Text.Json.SourceGeneration.resources.dll" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.4\cs\fr\System.Text.Json.SourceGeneration.resources.dll" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\Projectors\Shaders\ProjectorLight.shader" />
+    <None Include="Assets\QA_InterrogationRoom\ReadMe.txt" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Roboto-Bold - License.txt" />
     <None Include="Assets\UI Toolkit\ConfigurationMenu\Audio\Audio.uxml" />
     <None Include="Assets\Packages\System.IO.Pipelines.9.0.0\LICENSE.TXT" />
@@ -269,11 +322,17 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile-2-Pass.shader" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\_Antialiasing\DLAA.shader" />
     <None Include="Assets\UI Toolkit\FinalScreen\Lost\LostFinalScreen.uss" />
+    <None Include="Assets\InterrogationRoom\PostProcessing\Resources\Shaders\GrainGen.shader" />
     <None Include="Assets\UI\OptionsMenu\Audio\Style.uss" />
+    <None Include="Assets\InterrogationRoom\PostProcessing\Editor Resources\Monitors\HistogramCompute.compute" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\frag_ao.cginc" />
+    <None Include="Assets\InterrogationRoom\PostProcessing\Resources\Shaders\FXAA3.cginc" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.4\cs\pt-BR\System.Text.Json.SourceGeneration.resources.dll" />
     <None Include="Assets\Packages\System.Diagnostics.DiagnosticSource.6.0.1\LICENSE.TXT" />
+    <None Include="Assets\InterrogationRoom\PostProcessing\Resources\Shaders\EyeAdaptation.shader" />
+    <None Include="Assets\InterrogationRoom\PostProcessing\Utilities\CustomMotionTexture\Shaders\CustomMotionVectorTexture.shader" />
     <None Include="Assets\UI Toolkit\FinalScreen\Winner\WinnerFinalScreen.uss" />
+    <None Include="Assets\InterrogationRoom\PostProcessing\Editor Resources\UI\CurveBackground.shader" />
     <None Include="Assets\Packages\System.Net.Http.Json.9.0.0\lib\netstandard2.0\System.Net.Http.Json.xml" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\_Antialiasing\FXAAPreset3.shader" />
     <None Include="Assets\Packages\System.Net.Http.Json.9.0.0\useSharedDesignerContext.txt" />
@@ -282,11 +341,15 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\VignettingShader.shader" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\ColorCorrectionCurves.shader" />
+    <None Include="Assets\InterrogationRoom\PostProcessing\Resources\Shaders\BuiltinDebugViews.shader" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.4\cs\zh-Hant\System.Text.Json.SourceGeneration.resources.dll" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\Projectors\Guidelines.txt" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn3.11\cs\ru\System.Text.Json.SourceGeneration.resources.dll" />
     <None Include="Assets\Packages\OpenAI.2.1.0\lib\netstandard2.0\OpenAI.xml" />
+    <None Include="Assets\InterrogationRoom\PostProcessing\Resources\Shaders\EyeAdaptation.cginc" />
+    <None Include="Assets\InterrogationRoom\PostProcessing\Resources\Shaders\LutGen.shader" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Oswald-Bold - OFL.txt" />
+    <None Include="Assets\InterrogationRoom\PostProcessing\Resources\Shaders\EyeHistogram.compute" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\MultiPassHollywoodFlares.shader" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.0\cs\fr\System.Text.Json.SourceGeneration.resources.dll" />
     <None Include="Assets\UI Toolkit\ConfigurationMenu\Screen\ScreenMenu.uxml" />
@@ -310,6 +373,8 @@
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\ConvertDepth.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
     <None Include="Assets\Packages\System.Memory.Data.6.0.0\lib\netstandard2.0\System.Memory.Data.xml" />
+    <None Include="Assets\InterrogationRoom\PostProcessing\Resources\Shaders\TAA.cginc" />
+    <None Include="Assets\InterrogationRoom\PostProcessing\Resources\Shaders\AmbientOcclusion.cginc" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\CinematicEffects(ALPHA)\AntiAliasing\Shaders\SMAA.cginc" />
     <None Include="Assets\Packages\System.Text.Encodings.Web.9.0.0\lib\netstandard2.0\System.Text.Encodings.Web.dll" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\TwirlEffect.shader" />
@@ -318,6 +383,7 @@
     <None Include="Assets\Packages\Microsoft.Bcl.AsyncInterfaces.9.0.0\LICENSE.TXT" />
     <None Include="Assets\Packages\System.Text.Encodings.Web.9.0.0\THIRD-PARTY-NOTICES.TXT" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\lib\netstandard2.0\System.Text.Json.dll" />
+    <None Include="Assets\InterrogationRoom\Readme.txt" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\Contrast Stretch\Apply.shader" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ToonShading\Shaders\ToonLitOutline.shader" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.4\cs\ko\System.Text.Json.SourceGeneration.resources.dll" />
@@ -325,6 +391,7 @@
     <None Include="Assets\Packages\System.Diagnostics.DiagnosticSource.6.0.1\THIRD-PARTY-NOTICES.TXT" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\CinematicEffects(ALPHA)\AntiAliasing\Shaders\SMAA.shader" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.4\cs\ru\System.Text.Json.SourceGeneration.resources.dll" />
+    <None Include="Assets\InterrogationRoom\PostProcessing\Editor Resources\Monitors\VectorscopeCompute.compute" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\LensFlareCreate.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\Packages\System.Memory.Data.6.0.0\lib\netstandard2.0\System.Memory.Data.dll" />
@@ -339,6 +406,7 @@
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\RadialBlur.shader" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.4\cs\ja\System.Text.Json.SourceGeneration.resources.dll" />
     <None Include="Assets\UI\PresentationCase\StyleSheet.uss" />
+    <None Include="Assets\InterrogationRoom\PostProcessing\Resources\Shaders\ColorGrading.cginc" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\ScreenSpaceRaytrace.cginc" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\VignetteShader.shader" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\MotionBlurClear.shader" />
@@ -348,8 +416,10 @@
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn3.11\cs\zh-Hant\System.Text.Json.SourceGeneration.resources.dll" />
     <None Include="Assets\Packages\System.ClientModel.1.2.1\lib\netstandard2.0\System.ClientModel.xml" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\CinematicEffects(BETA)\TonemappingColorGrading\Shaders\TonemappingColorGrading.shader" />
+    <None Include="Assets\InterrogationRoom\PostProcessing\Editor Resources\Monitors\HistogramRender.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\SDFFunctions.hlsl" />
     <None Include="Assets\Packages\System.Text.Encodings.Web.9.0.0\lib\netstandard2.0\System.Text.Encodings.Web.xml" />
+    <None Include="Assets\InterrogationRoom\PostProcessing\Resources\Shaders\UberSecondPass.cginc" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\SepiaToneEffect.shader" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\ColorCorrection3DLut.shader" />
     <None Include="Assets\UI Toolkit\ConfigurationMenu\API\APIMenu.uxml" />
@@ -374,26 +444,32 @@
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ToonShading\Shaders\ToonLit.shader" />
+    <None Include="Assets\InterrogationRoom\PostProcessing\Resources\Bluenoise64\LICENSE.txt" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn3.11\cs\pt-BR\System.Text.Json.SourceGeneration.resources.dll" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\MobileBloom.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendForBloom.shader" />
     <None Include="Assets\Packages\Microsoft.Bcl.AsyncInterfaces.9.0.0\THIRD-PARTY-NOTICES.TXT" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\DepthOfField34.shader" />
+    <None Include="Assets\InterrogationRoom\PostProcessing\Resources\Shaders\ACES.cginc" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn3.11\cs\tr\System.Text.Json.SourceGeneration.resources.dll" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
+    <None Include="Assets\InterrogationRoom\PostProcessing\Resources\Shaders\MotionBlur.cginc" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ToonShading\Shaders\ToonBasic.shader" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\DepthOfFieldDX11.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\Packages\System.ClientModel.1.2.1\lib\netstandard2.0\System.ClientModel.dll" />
     <None Include="Assets\UI Toolkit\ConfigurationMenu\MainSettings\MainSettings.uss" />
+    <None Include="Assets\InterrogationRoom\PostProcessing\Resources\Shaders\AmbientOcclusion.shader" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn3.11\cs\it\System.Text.Json.SourceGeneration.resources.dll" />
+    <None Include="Assets\InterrogationRoom\PostProcessing\Resources\Shaders\FXAA.shader" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\TessellationShaders\Shaders\BumpedSpecularSmooth.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.4\cs\it\System.Text.Json.SourceGeneration.resources.dll" />
     <None Include="Assets\Packages\System.IO.Pipelines.9.0.0\useSharedDesignerContext.txt" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn3.11\cs\ko\System.Text.Json.SourceGeneration.resources.dll" />
     <None Include="Assets\UI Toolkit\ConfigurationMenu\API\API.uss" />
+    <None Include="Assets\InterrogationRoom\PostProcessing\Resources\Shaders\ScreenSpaceRaytrace.cginc" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\SeparableBlurPlus.shader" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\CinematicEffects(BETA)\DepthOfField\Shaders\BokehSplatting.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
@@ -403,10 +479,14 @@
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.4\cs\System.Text.Json.SourceGeneration.dll" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\MobileBlur.shader" />
     <None Include="Assets\Packages\System.Text.Encodings.Web.9.0.0\useSharedDesignerContext.txt" />
+    <None Include="Assets\InterrogationRoom\PostProcessing\Resources\Shaders\Tonemapping.cginc" />
     <None Include="Assets\Resources\config.txt" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BrightPassFilter2.shader" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\TessellationShaders\Shaders\BumpedSpecularDisplacement.shader" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn3.11\cs\pl\System.Text.Json.SourceGeneration.resources.dll" />
+    <None Include="Assets\InterrogationRoom\PostProcessing\Resources\Shaders\Fog.shader" />
+    <None Include="Assets\InterrogationRoom\PostProcessing\Editor Resources\Monitors\ParadeRender.shader" />
+    <None Include="Assets\InterrogationRoom\PostProcessing\Resources\Shaders\MotionBlur.shader" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\PrepareSunShaftsBlur.shader" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\CinematicEffects(BETA)\TonemappingColorGrading\Shaders\TonemappingColorGradingHistogram.shader" />
     <None Include="Assets\Packages\System.Diagnostics.DiagnosticSource.6.0.1\lib\netstandard2.0\System.Diagnostics.DiagnosticSource.dll" />
@@ -414,36 +494,50 @@
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\GrayscaleEffect.shader" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.0\cs\cs\System.Text.Json.SourceGeneration.resources.dll" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn3.11\cs\fr\System.Text.Json.SourceGeneration.resources.dll" />
+    <None Include="Assets\InterrogationRoom\PostProcessing\Resources\Shaders\DiskKernels.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\InterrogationRoom\PostProcessing\Resources\Bluenoise64\COPYING.txt" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\ChromaticAberrationShader.shader" />
     <None Include="Assets\UI Toolkit\FinalScreen\Winner\WinnerFinalScreen.uxml" />
+    <None Include="Assets\InterrogationRoom\PostProcessing\Editor Resources\UI\Trackball.shader" />
     <None Include="Assets\Packages\System.Memory.Data.6.0.0\useSharedDesignerContext.txt" />
     <None Include="Assets\Packages\System.Net.Http.Json.9.0.0\lib\netstandard2.0\System.Net.Http.Json.dll" />
     <None Include="Assets\UI Toolkit\ConfigurationMenu\Graphics\Graphics.uss" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\NoiseAndGrainDX11.shader" />
+    <None Include="Assets\InterrogationRoom\PostProcessing\Editor Resources\Monitors\WaveformRender.shader" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\SeparableWeightedBlurDof34.shader" />
     <None Include="Assets\Resources\config_example.txt" />
     <None Include="Assets\UI Toolkit\MainStyles.uss" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn3.11\cs\cs\System.Text.Json.SourceGeneration.resources.dll" />
+    <None Include="Assets\InterrogationRoom\PostProcessing\Resources\Shaders\Common.cginc" />
     <None Include="Assets\Packages\System.IO.Pipelines.9.0.0\lib\netstandard2.0\System.IO.Pipelines.dll" />
+    <None Include="Assets\InterrogationRoom\PostProcessing\Editor Resources\Monitors\VectorscopeRender.shader" />
+    <None Include="Assets\InterrogationRoom\PostProcessing\Resources\Shaders\Bloom.shader" />
     <None Include="Assets\UI Toolkit\GestionPartidas\GestionPartidas.uss" />
+    <None Include="Assets\InterrogationRoom\PostProcessing\Resources\Shaders\Uber.shader" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\BlendModesOverlay.shader" />
     <None Include="Assets\Packages\Microsoft.Bcl.AsyncInterfaces.9.0.0\useSharedDesignerContext.txt" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ToonShading\Shaders\ToonBasicOutline.shader" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\DepthOfFieldScatter.shader" />
+    <None Include="Assets\InterrogationRoom\PostProcessing\Resources\Shaders\DepthOfField.shader" />
     <None Include="Assets\UI Toolkit\ConfigurationMenu\Graphics\GraphicsMenu.uxml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets\InterrogationRoom\PostProcessing\Resources\Shaders\TAA.shader" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\EdgeDetectNormals.shader" />
     <None Include="Assets\UI Toolkit\FinalScreen\Lost\LostFinalScreen.uxml" />
     <None Include="Assets\Packages\System.Net.Http.Json.9.0.0\THIRD-PARTY-NOTICES.TXT" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.0\cs\pl\System.Text.Json.SourceGeneration.resources.dll" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\NoiseEffectShaderRGB.shader" />
     <None Include="Assets\Packages\System.Diagnostics.DiagnosticSource.6.0.1\useSharedDesignerContext.txt" />
+    <None Include="Assets\InterrogationRoom\PostProcessing\Resources\Shaders\Blit.shader" />
+    <None Include="Assets\InterrogationRoom\PostProcessing\Resources\Shaders\Bloom.cginc" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn3.11\cs\System.Text.Json.SourceGeneration.dll" />
     <None Include="Assets\UI Toolkit\GestionPartidas\GestionPartidas.uxml" />
+    <None Include="Assets\InterrogationRoom\PostProcessing\Editor Resources\Monitors\WaveformCompute.compute" />
     <None Include="Assets\UI Toolkit\MenuPrincipal.uxml" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.4\cs\cs\System.Text.Json.SourceGeneration.resources.dll" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\_Antialiasing\FXAA2.shader" />
+    <None Include="Assets\InterrogationRoom\PostProcessing\Resources\Shaders\DepthOfField.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\NoiseEffectShaderYUV.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
@@ -458,6 +552,7 @@
     <None Include="Assets\Packages\System.Text.Json.9.0.0\useSharedDesignerContext.txt" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.0\cs\de\System.Text.Json.SourceGeneration.resources.dll" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\CinematicEffects(BETA)\ScreenSpaceReflection\Shaders\ScreenSpaceReflection.shader" />
+    <None Include="Assets\QA_InterrogationRoom\Shaders\QA_LightBeam.shader" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\Contrast Stretch\Luminance.shader" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlurAndFlares.shader" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\_Antialiasing\NFAA.shader" />
@@ -1544,6 +1639,10 @@
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Flow.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.Postprocessing.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Postprocessing.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.TextMeshPro">
       <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
       <Private>False</Private>
@@ -1608,8 +1707,8 @@
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.State.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Utilities.Encoding.Wav">
-      <HintPath>Library\ScriptAssemblies\Utilities.Encoding.Wav.dll</HintPath>
+    <Reference Include="Unity.Postprocessing.Runtime">
+      <HintPath>Library\ScriptAssemblies\Unity.Postprocessing.Runtime.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.2D.Sprite.Editor">
@@ -1618,6 +1717,10 @@
     </Reference>
     <Reference Include="Unity.Performance.Profile-Analyzer.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Performance.Profile-Analyzer.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Utilities.Encoding.Wav">
+      <HintPath>Library\ScriptAssemblies\Utilities.Encoding.Wav.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">

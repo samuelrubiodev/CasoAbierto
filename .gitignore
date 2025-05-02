@@ -11,6 +11,15 @@
 /[Uu]ser[Ss]ettings/
 Assets/Resources/config.txt
 Assets/Resources/config.txt.meta
+# You will have to buy these assets if you want to be able to play with the latest features
+Assets/QA_InterrogationRoom
+Assets/QA_InterrogationRoom.meta
+Assets/InterrogationRoom
+Assets/InterrogationRoom.meta
+Assets/Scenes/InterrogationGame
+Assets/Scenes/InterrogationGame.meta
+Assets/Scenes/InterrogationGame.unity
+Assets/Scenes/InterrogationGame.unity.meta
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data

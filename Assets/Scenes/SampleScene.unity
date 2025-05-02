@@ -260,6 +260,10 @@ PrefabInstance:
       value: DoorV2
       objectReference: {fileID: 0}
     - target: {fileID: 2457523139892898983, guid: 43eee9f9554092940955b82111321ef9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2457523139892898983, guid: 43eee9f9554092940955b82111321ef9, type: 3}
       propertyPath: m_TagString
       value: Door
       objectReference: {fileID: 0}
@@ -274,6 +278,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2049891174}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2457523139892898983, guid: 43eee9f9554092940955b82111321ef9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1392002007}
     - targetCorrespondingSourceObject: {fileID: 8599225754459074761, guid: 43eee9f9554092940955b82111321ef9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1928654549}
@@ -284,6 +291,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1928654553}
   m_SourcePrefab: {fileID: 100100000, guid: 43eee9f9554092940955b82111321ef9, type: 3}
+--- !u!1 &33878341 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2457523139892898983, guid: 43eee9f9554092940955b82111321ef9, type: 3}
+  m_PrefabInstance: {fileID: 33878340}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &42796836
 GameObject:
   m_ObjectHideFlags: 0
@@ -4614,7 +4626,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1000011419228686, guid: d7b762e2efec15745a46d6a07c9c119e, type: 3}
       propertyPath: m_TagString
-      value: Chair
+      value: PoliceChair
       objectReference: {fileID: 0}
     - target: {fileID: 4000011518684430, guid: d7b762e2efec15745a46d6a07c9c119e, type: 3}
       propertyPath: m_LocalScale.x
@@ -4679,6 +4691,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1000011419228686, guid: d7b762e2efec15745a46d6a07c9c119e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1097734481}
+    - targetCorrespondingSourceObject: {fileID: 1000011419228686, guid: d7b762e2efec15745a46d6a07c9c119e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1097734482}
   m_SourcePrefab: {fileID: 100100000, guid: d7b762e2efec15745a46d6a07c9c119e, type: 3}
 --- !u!1 &780161094
 GameObject:
@@ -7218,6 +7233,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 57.912384, y: 97.208084, z: 51.20799}
   m_Center: {x: 27.029703, y: 48.604042, z: -24.967571}
+--- !u!114 &1097734482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1097734477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac3a6a7d526bf7541acb5be64c2fa130, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  message: Presiona E para sentarse
 --- !u!1001 &1129840914
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7592,7 +7620,6 @@ MonoBehaviour:
   audio7: {fileID: 8300000, guid: 7514cdde7a5beab48ba376a78e5e36c7, type: 3}
   audio8: {fileID: 8300000, guid: 5593eac3594ad474d8a0dc9fea08fc2e, type: 3}
   textoSubtitulos: {fileID: 1800282947}
-  inputField: {fileID: 2002088212}
 --- !u!4 &1186625802
 Transform:
   m_ObjectHideFlags: 0
@@ -8698,6 +8725,19 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2457523139892605063, guid: 43eee9f9554092940955b82111321ef9, type: 3}
   m_PrefabInstance: {fileID: 33878340}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1392002007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33878341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac3a6a7d526bf7541acb5be64c2fa130, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  message: Presiona E para abrir/cerrar la puerta
 --- !u!1 &1392133954
 GameObject:
   m_ObjectHideFlags: 0
@@ -9784,7 +9824,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1771329666
 Transform:
   m_ObjectHideFlags: 0

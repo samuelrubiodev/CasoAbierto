@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/PantallaCarga.unity
     guid: 000b82b17bff11e419eee4d62f7d599f
   - enabled: 1
+    path: Assets/Scenes/InterrogationGame.unity
+    guid: a281c3fbde13e8d45967effa17de35bf
+  - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1

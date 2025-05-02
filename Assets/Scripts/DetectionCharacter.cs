@@ -20,7 +20,6 @@ public class DetectionCharacter : MonoBehaviour
     private List<AudioClip> audioClips = new ();
 
     public TMP_Text textoSubtitulos;
-    public GameObject inputField;
 
     void Start()
     {
@@ -42,7 +41,7 @@ public class DetectionCharacter : MonoBehaviour
 
         textoSubtitulos.gameObject.SetActive(true);
 
-        new MessageStyleManager(textoSubtitulos).SetStyle();
+        new Recomendations(textoSubtitulos).SetStyle();
 
         for (int i = 0; i < subtitulos.subtitles.Count; i++)
         {

@@ -8,9 +8,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Unity.VisualScripting;
+
 
 #if UNITY_EDITOR
-    using UnityEditor;
+using UnityEditor;
     using System.Net;
 #endif
 
@@ -363,122 +365,6 @@ public class FirstPersonController : MonoBehaviour
         if(enableHeadBob)
         {
             HeadBob();
-        }
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            RaycastHit hit;
-            float interactDistance = 2f; 
-
-            if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, interactDistance))
-            {
-                if (hit.collider.CompareTag("Door"))
-                {
-                    hit.collider.transform.GetComponent<Door>().ChangeDoorState();
-                }
-
-                if (hit.collider.CompareTag("Chair"))
-                {
-
-                    GameObject gameObject = this.gameObject;
-
-                    gameObject.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
-
-                    GameObject chairObject = hit.collider.gameObject;
-                    chairObject.GetComponent<BoxCollider>().enabled = false;
-
-                    GameObject table = GameObject.Find("Table");
-                    table.GetComponent<BoxCollider>().enabled = false;
-
-                    this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-
-                    Vector3 chairPosition = chairObject.transform.position;
-                    gameObject.transform.position = new Vector3(chairPosition.x + 0.5f, 1.16f, chairPosition.z + 0.3f);
-
-                    this.playerCanMove = false;
-                }
-            }
-        }
-    }
-
-    private void OnGUI()
-    {
-        RaycastHit hit;
-        float interactDistance = 2f;
-
-        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, interactDistance))
-        {
-            if (hit.collider.CompareTag("Door"))
-            {
-                GUIStyle customStyle = new (GUI.skin.label);
-                customStyle.normal.textColor = Color.white; 
-                customStyle.fontSize = 30; 
-                customStyle.alignment = TextAnchor.MiddleCenter; 
-
-                string message = "Presiona E para abrir/cerrar la puerta";
-
-                float screenCenterX = Screen.width / 2;
-                float screenCenterY = Screen.height / 2;
-
-                float labelWidth = 500;
-                float labelHeight = 50;
-
-                Rect borderRect = new (
-                    screenCenterX - labelWidth / 2 - 2, 
-                    screenCenterY - labelHeight / 2 - 2, 
-                    labelWidth + 4, 
-                    labelHeight + 4 
-                );
-
-                GUI.color = new Color(0.5f, 0.5f, 0.5f, 1f); 
-                GUI.Box(borderRect, "");
-
-                Rect labelRect = new (
-                    screenCenterX - labelWidth / 2,
-                    screenCenterY - labelHeight / 2,
-                    labelWidth,
-                    labelHeight
-                );
-
-                GUI.color = Color.white; 
-                GUI.Label(labelRect, message, customStyle);
-            }
-
-            if (hit.collider.CompareTag("Chair"))
-            {
-                GUIStyle customStyle = new (GUI.skin.label);
-                customStyle.normal.textColor = Color.white;
-                customStyle.fontSize = 30; 
-                customStyle.alignment = TextAnchor.MiddleCenter; 
-
-                string message = "Presiona E para sentarse";
-
-                float screenCenterX = Screen.width / 2;
-                float screenCenterY = Screen.height / 2;
-
-                float labelWidth = 500;
-                float labelHeight = 50;
-
-                Rect borderRect = new (
-                    screenCenterX - labelWidth / 2 - 2, 
-                    screenCenterY - labelHeight / 2 - 2, 
-                    labelWidth + 4, 
-                    labelHeight + 4 
-                );
-
-                GUI.color = new Color(0.5f, 0.5f, 0.5f, 1f); 
-                GUI.Box(borderRect, "");
-
-                Rect labelRect = new (
-                    screenCenterX - labelWidth / 2,
-                    screenCenterY - labelHeight / 2,
-                    labelWidth,
-                    labelHeight
-                );
-
-                GUI.color = Color.white;
-                GUI.Label(labelRect, message, customStyle);
-            }
         }
     }
 
