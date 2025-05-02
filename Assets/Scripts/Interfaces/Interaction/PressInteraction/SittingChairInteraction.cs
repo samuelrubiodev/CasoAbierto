@@ -4,8 +4,14 @@ public class SittingChairInteraction : MonoBehaviour, IInteraction
 {
     public GameObject player;
     private Vector3 originalPosition;
+    private Transform chairPoint;
 
     private bool isSitting = false;
+
+    private void Start()
+    {
+        chairPoint = gameObject.transform;
+    }
 
     void Update()
     {
@@ -16,9 +22,8 @@ public class SittingChairInteraction : MonoBehaviour, IInteraction
     {
         if (!isSitting && Input.GetKeyDown(KeyCode.E))
         {
-            if (Physics.Raycast(player.transform.position, player.transform.forward, out RaycastHit hit, 2f))
+            if (Physics.Raycast(player.transform.position, player.transform.TransformDirection(Vector3.forward), out RaycastHit hit, 2f))
             {
-                Debug.Log("Hit: " + hit.collider.gameObject.name);
                 if (hit.collider.gameObject == gameObject)
                 {
                     SitDown();
@@ -33,13 +38,14 @@ public class SittingChairInteraction : MonoBehaviour, IInteraction
 
     private void SitDown()
     {
+        Vector3 centerPosition = GetSeatCenter();
         player.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
+        
         gameObject.GetComponent<BoxCollider>().enabled = false;
         gameObject.GetComponent<MeshCollider>().enabled = false;
 
         originalPosition = player.transform.position;
-        player.transform.SetPositionAndRotation(gameObject.transform.position, gameObject.transform.rotation);
-
+        player.transform.SetPositionAndRotation(centerPosition, chairPoint.rotation);
         var controller = player.GetComponent<FirstPersonController>();
         controller.playerCanMove = false;
         controller.enableJump = false;
@@ -62,4 +68,16 @@ public class SittingChairInteraction : MonoBehaviour, IInteraction
 
         isSitting = false;
     }
+
+    private Vector3 GetSeatCenter()
+    {
+        var col = GetComponent<Collider>();
+        if (col != null)
+        {
+            Bounds b = col.bounds;
+            return b.center;
+        }
+        return transform.position;
+    }
+
 }

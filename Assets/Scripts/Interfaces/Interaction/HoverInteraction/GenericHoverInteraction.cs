@@ -3,6 +3,7 @@ using UnityEngine;
 public class GenericHoverInteraction : MonoBehaviour, IHoverInteraction
 {
     public string message;
+    public float distance = 2f;
     private bool isActive;
     private BoxCollider boxCollider;
 
@@ -26,7 +27,7 @@ public class GenericHoverInteraction : MonoBehaviour, IHoverInteraction
     {
         RaycastHit hit;
 
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 2f))
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, distance))
         {
             isActive = hit.collider == boxCollider;
         }

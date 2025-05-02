@@ -126,6 +126,7 @@
     <Compile Include="Assets\Scripts\Interfaces\IJsonUtilities.cs" />
     <Compile Include="Assets\Scripts\StyleManager\Recomendations.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\Fisheye.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\Interaction\PressInteraction\CaseInteraction.cs" />
     <Compile Include="Assets\Scripts\Interfaces\Interaction\HoverInteraction\IHoverInteraction.cs" />
     <Compile Include="Assets\Scripts\APIRequestElevenLabs.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\CinematicEffects(BETA)\TonemappingColorGrading\TonemappingColorGrading.cs" />
