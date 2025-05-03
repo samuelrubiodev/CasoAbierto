@@ -31,6 +31,8 @@ public class APIRequest : MonoBehaviour
         groqApiKey = ApiKey.API_KEY_GROQ;
         elevenlabsApiKey = ApiKey.API_KEY_ELEVENLABS;
         togetherApiKey = ApiKey.API_KEY_TOGETHER;
+        OpenRouterImpl.ResetInstance(textoSubtitulos);
+        ElevenLabsImpl.ResetInstance(textoSubtitulos);
     }
 
     private async Task MakeRequestOpenRouter(string prompt, APIRequestElevenLabs aPIRequestElevenLabs)
@@ -38,7 +40,7 @@ public class APIRequest : MonoBehaviour
         RequestOpenRouter requestOpenRouter = new ();
         string message = await Task.Run(async () => await requestOpenRouter.SendRequest(prompt));
 
-        bool isMan = SelectionCharacters.selectedCharacter.sexo.ToLower() == "masculino";
+        bool isMan = SelectionCharacters.selectedCharacter.sexo.ToLower() == "masculino" ? true : false;
         aPIRequestElevenLabs.StreamAudio(message, isMan);
 
         new Recomendations(textoSubtitulos).SetStyle();
@@ -87,6 +89,11 @@ public class APIRequest : MonoBehaviour
             } else {
                 prompt = new ConversationPrompt().CreatePrompt(texto).ToString();
             }
+
+            OpenRouterImpl openRouterImpl = OpenRouterImpl.Instance();
+            ElevenLabsImpl elevenLabsImpl = ElevenLabsImpl.Instance();
+            openRouterImpl.VerifyCreditsBalance();
+            elevenLabsImpl.VerifyCreditsBalance();
 
             try {
                 await MakeRequestOpenRouter(prompt,aPIRequestElevenLabs);

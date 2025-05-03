@@ -15,7 +15,10 @@ public class SittingChairInteraction : MonoBehaviour, IInteraction
 
     void Update()
     {
-        OnInteract();
+        if (!ControllerGame.estaEscribiendo)
+        {
+            OnInteract();
+        }
     }
 
     public void OnInteract()

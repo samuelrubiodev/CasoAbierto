@@ -6,6 +6,7 @@ public class APICreditsManager : MonoBehaviour
 {
     public AudioSource audioSource;
     public bool isGameStarted {get; set;}
+    public static JObject jsonOpenRouterResponse;
 
     private void Start()
     {
@@ -17,22 +18,32 @@ public class APICreditsManager : MonoBehaviour
     {
         if (isGameStarted) 
         {
-            if (audioSource != null && !audioSource.isPlaying)
+            if (audioSource != null && !audioSource.isPlaying && UIMessageManager.isProcessed)
             {
-                UpdateCredits();
+                UpdateElevenLabsCredits();
+                UpdateOpenRouterCredits();
                 isGameStarted = false;
+                UIMessageManager.isProcessed = false;
             }
         }
     }
 
-    private async void UpdateCredits()
+    private async void UpdateElevenLabsCredits()
     {
         ElevenLabsHttpRequest elevenLabsHttpRequest = new ();
         JObject jsonResponse = await elevenLabsHttpRequest.GetAsync("user");
         
-        ElevenLabsImpl elevenLabsImpl = ElevenLabsImpl.Instance;
+        ElevenLabsImpl elevenLabsImpl = ElevenLabsImpl.Instance();
         await elevenLabsImpl.UpdateCreditsBalance(await elevenLabsImpl.GetCostRequest(jsonResponse));
 
         Debug.Log("Caracteres restantes: " + elevenLabsImpl.ActualCharacterCount);
+    }
+
+    private async void UpdateOpenRouterCredits()
+    {
+        OpenRouterImpl openRouterImpl = OpenRouterImpl.Instance();
+        await openRouterImpl.UpdateCreditsBalance(await openRouterImpl.GetCostRequest(jsonOpenRouterResponse));
+
+        Debug.Log("Creditos restantes: " + openRouterImpl.ActualCreditsBalance);
     }
 }

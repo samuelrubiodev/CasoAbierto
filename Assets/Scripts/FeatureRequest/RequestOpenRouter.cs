@@ -71,14 +71,9 @@ namespace FeatureRequest {
             await caseHttpRequest.PostAsync("/players/" + Jugador.jugador.idJugador + "/case/" + Caso.caso.idCaso + "/message", jsonContent);
 
             GenerationIDHttpRequest generationIDHttpRequest = new ();
-
             JObject jsonResponse = await generationIDHttpRequest.GetAsync($"generation?id={completionIdBuilder.ToString()}");
+            APICreditsManager.jsonOpenRouterResponse = jsonResponse;
 
-            OpenRouterImpl openRouterImpl = OpenRouterImpl.Instance;
-            await openRouterImpl.UpdateCreditsBalance(await openRouterImpl.GetCostRequest(jsonResponse));
-
-            Debug.Log("Creditos restantes: " + openRouterImpl.ActualCreditsBalance);
-            
             APIRequest.chatMessages.Add(new AssistantChatMessage(message));
 
             return message;

@@ -27,7 +27,6 @@ public class Recomendations : IStyleManger
         _text.fontMaterial.SetFloat("_UnderlayOffsetY", -1.5f); 
         _text.fontMaterial.SetFloat("_UnderlaySoftness", 0.2f); 
 
-
         _text.alignment = TextAlignmentOptions.Center;             
         _text.textWrappingMode = TextWrappingModes.PreserveWhitespace; 
 

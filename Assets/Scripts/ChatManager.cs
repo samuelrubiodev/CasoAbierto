@@ -15,10 +15,7 @@ public class ChatManager
     private readonly List<ChatMessage> ChatMessages;
     public const string DEFAULT_API_URL = "https://openrouter.ai/api/v1";
     public const string TOGETHER_AI_API_URL = "https://api.together.xyz/v1/";
-    
-    public const string IMAGE_MODEL_FREE = "black-forest-labs/FLUX.1-schnell-Free";
     public const string CHAT_MODEL = "google/gemini-2.0-flash-001";
-    public const string CHAT_MODEL_FREE = "google/gemini-2.5-pro-exp-03-25:free";
 
     public ChatManager(string apiKey, List<ChatMessage> chatMessages)
     {

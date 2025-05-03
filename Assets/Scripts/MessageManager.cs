@@ -7,7 +7,13 @@ using Utilities.Extensions;
 public class UIMessageManager 
 {
     private TMP_Text _text;
-     public static bool isProcessed {get; set;}
+    public static bool isProcessed {get; set;}
+
+    public TMP_Text MessageText
+    {
+        get { return _text; }
+        set { _text = value; }
+    }
 
     public UIMessageManager(TMP_Text text)
     {

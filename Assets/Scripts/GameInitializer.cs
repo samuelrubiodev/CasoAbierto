@@ -43,8 +43,8 @@ public class GameInitializer : MonoBehaviour
             JObject jsonOpenRouterResponse = await generationIDHttpRequest.GetAsync("credits");
             JObject jsonElevenLabsResponse = await elevenLabsHttpRequest.GetAsync("user");
             
-            OpenRouterImpl openRouterImpl = OpenRouterImpl.Instance;
-            ElevenLabsImpl elevenLabsImpl = ElevenLabsImpl.Instance;
+            OpenRouterImpl openRouterImpl = OpenRouterImpl.Instance();
+            ElevenLabsImpl elevenLabsImpl = ElevenLabsImpl.Instance();
 
             await openRouterImpl.GetActualCreditsBalance(jsonOpenRouterResponse);
             await elevenLabsImpl.GetActualCreditsBalance(jsonElevenLabsResponse);
