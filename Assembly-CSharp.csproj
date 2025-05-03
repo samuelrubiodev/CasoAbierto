@@ -427,6 +427,7 @@
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\ColorCorrection3DLut.shader" />
     <None Include="Assets\UI Toolkit\ConfigurationMenu\API\APIMenu.uxml" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.0\cs\it\System.Text.Json.SourceGeneration.resources.dll" />
+    <None Include="Assets\UI Toolkit\PresentationCase\Timeline\Timeline.uss" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\SimpleClear.shader" />
     <None Include="Assets\Packages\System.IO.Pipelines.9.0.0\THIRD-PARTY-NOTICES.TXT" />
     <None Include="Assets\Packages\System.IO.Pipelines.9.0.0\lib\netstandard2.0\System.IO.Pipelines.xml" />
@@ -475,6 +476,7 @@
     <None Include="Assets\InterrogationRoom\PostProcessing\Resources\Shaders\ScreenSpaceRaytrace.cginc" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\SeparableBlurPlus.shader" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\CinematicEffects(BETA)\DepthOfField\Shaders\BokehSplatting.shader" />
+    <None Include="Assets\UI Toolkit\PresentationCase\Main\PresentationCase.uxml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.4\cs\tr\System.Text.Json.SourceGeneration.resources.dll" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\MotionBlur.shader" />
@@ -542,6 +544,7 @@
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\_Antialiasing\FXAA2.shader" />
     <None Include="Assets\InterrogationRoom\PostProcessing\Resources\Shaders\DepthOfField.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
+    <None Include="Assets\UI Toolkit\PresentationCase\Main\PresentationCase.uss" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\NoiseEffectShaderYUV.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\UI Toolkit\ConfigurationMenu\MainSettings\MainSettings.uxml" />
@@ -562,6 +565,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.4\cs\es\System.Text.Json.SourceGeneration.resources.dll" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.0\cs\zh-Hant\System.Text.Json.SourceGeneration.resources.dll" />
+    <None Include="Assets\UI Toolkit\PresentationCase\Timeline\Timeline.uxml" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\CinematicEffects(BETA)\ScreenSpaceReflection\Shaders\ScreenSpaceRaytrace.cginc" />
     <None Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Shaders\_Antialiasing\FXAAPreset2.shader" />
     <None Include="Assets\Packages\System.Text.Json.9.0.0\lib\netstandard2.0\System.Text.Json.xml" />

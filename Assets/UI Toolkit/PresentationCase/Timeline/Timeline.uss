@@ -1,0 +1,56 @@
+.main {
+    background-image: url("project://database/Assets/UI/Game/background.png?fileID=2800000&guid=929ca2743b5235248a26de51e0ce1f8f&type=3#background");
+    flex-grow: 1;
+    color: rgb(171, 124, 63);
+}
+
+.header {
+    font-size: 90px;
+    -unity-text-align: upper-center;
+    -unity-font-definition: url("project://database/Assets/UI/MainMenu/fonts/CinzelDecorative-Bold.ttf?fileID=12800000&guid=582dac3585520094085128812c5ac541&type=3#CinzelDecorative-Bold");
+}
+
+.container-timeline {
+    flex-direction: column;
+    align-self: center;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+.mediumTitle {
+    border-bottom-color: rgb(171, 124, 63);
+    border-bottom-width: 2px;
+    -unity-text-align: upper-center;
+    font-size: 45px;
+    -unity-font-definition: url("project://database/Assets/Fonts/Merriweather/Merriweather-BoldItalic.ttf?fileID=12800000&guid=b9debd5862f21534295094f9ab550350&type=3#Merriweather-BoldItalic");
+}
+
+.small-text {
+    font-size: 25px;
+    white-space: pre-wrap;
+    text-overflow: clip;
+    flex-wrap: wrap;
+}
+
+.timelineScroll {
+    flex-direction: column;
+    justify-content: space-between;
+    height: auto;
+}
+
+.buttons {
+    align-items: center;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    margin-top: 120px;
+}
+
+.backButton {
+    margin-right: 25px;
+}

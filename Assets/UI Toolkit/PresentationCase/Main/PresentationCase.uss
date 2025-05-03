@@ -1,0 +1,102 @@
+.main {
+    background-image: url("project://database/Assets/UI/Game/background.png?fileID=2800000&guid=929ca2743b5235248a26de51e0ce1f8f&type=3#background");
+    flex-grow: 1;
+    color: rgb(171, 124, 63);
+}
+
+.header {
+    font-size: 90px;
+    -unity-text-align: upper-center;
+    -unity-font-definition: url("project://database/Assets/UI/MainMenu/fonts/CinzelDecorative-Bold.ttf?fileID=12800000&guid=582dac3585520094085128812c5ac541&type=3#CinzelDecorative-Bold");
+}
+
+.topTitle {
+    font-size: 80px;
+    -unity-text-align: upper-center;
+    -unity-font-definition: url("project://database/Assets/Fonts/SpecialElite-Regular.ttf?fileID=12800000&guid=075782180ab24fa4f9be002f96db4b05&type=3#SpecialElite-Regular");
+    border-bottom-color: rgb(171, 124, 63);
+    border-bottom-width: 2px;
+    flex-grow: 1;
+}
+
+.data {
+    flex-grow: 0;
+    width: 80%;
+    align-self: center;
+    padding-top: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+    padding-left: 30px;
+}
+
+.large-text {
+    font-size: 40px;
+    -unity-text-align: middle-center;
+    text-overflow: clip;
+    white-space: normal;
+    -unity-font-definition: url("project://database/Assets/Fonts/SpecialElite-Regular.ttf?fileID=12800000&guid=075782180ab24fa4f9be002f96db4b05&type=3#SpecialElite-Regular");
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
+
+.info-data {
+    flex-direction: row;
+    flex-grow: 0;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    justify-content: space-around;
+}
+
+.mediumTitle {
+    border-bottom-color: rgb(171, 124, 63);
+    border-bottom-width: 2px;
+    -unity-text-align: upper-center;
+    font-size: 45px;
+    -unity-font-definition: url("project://database/Assets/Fonts/Merriweather/Merriweather-BoldItalic.ttf?fileID=12800000&guid=b9debd5862f21534295094f9ab550350&type=3#Merriweather-BoldItalic");
+}
+
+.container-data {
+    flex-direction: column;
+    padding-top: 12px;
+    padding-right: 12px;
+    padding-bottom: 12px;
+    padding-left: 12px;
+    align-items: stretch;
+    flex-grow: 0;
+    align-self: stretch;
+    align-content: center;
+}
+
+.small-text {
+    font-size: 25px;
+    white-space: pre-wrap;
+    text-overflow: clip;
+    flex-wrap: wrap;
+    max-width: 500px;
+    min-width: auto;
+}
+
+.buttons {
+    align-items: center;
+    flex-direction: row;
+    align-items: center; 
+    justify-content: center; 
+    align-self: center; 
+    padding-top: 10px; 
+    padding-right: 10px; 
+    padding-bottom: 10px; 
+    padding-left: 10px;
+}
+
+.backButton {
+    margin-right: 25px;
+}
+
+.exitButton {
+    align-self: center; 
+    margin-top: 20px;
+}

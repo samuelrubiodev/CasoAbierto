@@ -1,0 +1,33 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/PresentationCase/Timeline/Timeline.uss?fileID=7433441132597879392&amp;guid=d6ed97a5e3ef60642895620df87cc9be&amp;type=3#Timeline" />
+    <engine:VisualElement name="main" class="main">
+        <engine:VisualElement name="header" class="header">
+            <engine:Label text="CRONOLOGÍA" name="header-title" />
+        </engine:VisualElement>
+        <engine:VisualElement name="separator" style="flex-grow: 0; height: 30%;" />
+        <engine:VisualElement name="container" style="flex-grow: 0;">
+            <engine:ScrollView name="timelineScroll" mode="Horizontal" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="timelineScroll">
+                <engine:VisualElement name="timeline" class="container-timeline">
+                    <engine:Label text="2024-04-12 09:00:00" emoji-fallback-support="false" class="mediumTitle" />
+                    <engine:Label text="El ejecutivo reporta el fraude a la policía." class="small-text" />
+                </engine:VisualElement>
+                <engine:VisualElement name="timeline" class="container-timeline">
+                    <engine:Label text="2024-04-12 10:30:00" emoji-fallback-support="false" class="mediumTitle" style="height: 67px;" />
+                    <engine:Label text="Los agentes recopilan las primeras evidencias en las oficinas." class="small-text" />
+                </engine:VisualElement>
+                <engine:VisualElement name="timeline" class="container-timeline">
+                    <engine:Label text="2024-04-12 14:00:00" emoji-fallback-support="false" class="mediumTitle" />
+                    <engine:Label text="Se revisan las cámaras de seguridad y se encuentran inconsistencias." class="small-text" />
+                </engine:VisualElement>
+                <engine:VisualElement name="timeline" class="container-timeline">
+                    <engine:Label text="2024-04-12 16:00:00" emoji-fallback-support="false" class="mediumTitle" />
+                    <engine:Label text="El detective Samuel empieza las entrevistas con los empleados." class="small-text" />
+                </engine:VisualElement>
+            </engine:ScrollView>
+        </engine:VisualElement>
+        <engine:VisualElement name="buttons" class="buttons">
+            <engine:Button text="Atras" name="back-button" class="button backButton" />
+            <engine:Button text="Salir" name="exit-button" class="button" />
+        </engine:VisualElement>
+    </engine:VisualElement>
+</engine:UXML>
