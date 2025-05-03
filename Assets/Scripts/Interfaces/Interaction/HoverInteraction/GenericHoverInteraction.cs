@@ -59,14 +59,23 @@ public class GenericHoverInteraction : MonoBehaviour, IHoverInteraction
             customStyle.normal.textColor = Color.white; 
             customStyle.fontSize = 30; 
             customStyle.alignment = TextAnchor.MiddleCenter; 
-
+            
             string message = this.message;
+            
+            float baseWidth = 500;
+            float charWidth = 15;
+            float contentWidth = Mathf.Max(baseWidth, message.Length * charWidth);
+            float labelWidth = Mathf.Min(contentWidth, Screen.width * 0.9f);
+            
+            float labelHeight = 50;
+            if (contentWidth > labelWidth)
+            {
+                float lines = Mathf.Ceil(contentWidth / labelWidth);
+                labelHeight = labelHeight * lines;
+            }
 
             float screenCenterX = Screen.width / 2;
             float screenCenterY = Screen.height / 2;
-
-            float labelWidth = 500;
-            float labelHeight = 50;
 
             Rect borderRect = new(
                 screenCenterX - labelWidth / 2 - 2, 

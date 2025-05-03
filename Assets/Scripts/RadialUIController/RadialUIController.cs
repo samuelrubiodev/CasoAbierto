@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
@@ -37,6 +38,7 @@ public class RadialUIController : MonoBehaviour
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        transform.localScale = new Vector3(0, 0, 0);
     }
 
     void Update()
@@ -45,13 +47,44 @@ public class RadialUIController : MonoBehaviour
         {
             if (!Evidencias && !menuPersonajes.Personajes && !ControllerGame.estaEscribiendo)
             {
+                StartCoroutine(RadialIn());
                 ShowRadialMenu();
             }
             else
             {
-                HideRadialMenu();
+                StartCoroutine(RadialOut());
             }
         }
+    }
+
+    IEnumerator RadialIn()
+    {
+        float targetScale = 1f;
+        float scaleSpeed = 0.8f;
+        float currentScale = 0f;
+
+        while (currentScale < targetScale)
+        {
+            currentScale += scaleSpeed * Time.deltaTime;
+            transform.localScale = new Vector3(currentScale, currentScale, currentScale);
+            yield return null;
+        }
+    }
+
+    IEnumerator RadialOut()
+    {
+        float targetScale = 0f;
+        float scaleSpeed = 0.8f;
+        float currentScale = 1f;
+
+        while (currentScale > targetScale)
+        {
+            currentScale -= scaleSpeed * Time.deltaTime;
+            transform.localScale = new Vector3(currentScale, currentScale, currentScale);
+            yield return null;
+        }
+
+        HideRadialMenu();
     }
 
 

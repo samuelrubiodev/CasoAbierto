@@ -244,6 +244,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
     <Compile Include="Assets\Scripts\Caso\Message.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\ImageEffectBase.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\Interaction\PressInteraction\CharacterInteraction.cs" />
     <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Components\BloomComponent.cs" />
     <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Models\ColorGradingModel.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
@@ -294,8 +295,8 @@
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\Grayscale.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
     <Compile Include="Assets\Scripts\InternetConnection.cs" />
-    <Compile Include="Assets\Scripts\APIRequest.cs" />
     <Compile Include="Assets\Scripts\Interfaces\Interaction\PressInteraction\SittingChairInteraction.cs" />
+    <Compile Include="Assets\Scripts\APIRequest.cs" />
     <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Attributes\TrackballGroupAttribute.cs" />
   </ItemGroup>
   <ItemGroup>

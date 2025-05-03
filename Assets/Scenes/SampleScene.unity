@@ -7252,6 +7252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   message: Presiona E para sentarse
+  distance: 2
 --- !u!114 &1097734483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7282,7 +7283,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
@@ -8779,6 +8780,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   message: Presiona E para abrir/cerrar la puerta
+  distance: 0
 --- !u!1 &1392133954
 GameObject:
   m_ObjectHideFlags: 0

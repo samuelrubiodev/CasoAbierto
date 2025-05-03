@@ -13,6 +13,7 @@ public class ControllerCarga : MonoBehaviour
 {
     public static bool tieneCaso = false;
     public TMP_Text text;
+    public TMP_Text loadingText;
 
     private int currentSubtitleIndex;
     private bool isShowingMessage = false;
@@ -22,6 +23,8 @@ public class ControllerCarga : MonoBehaviour
     private float messageTimer = 0f;
     private const float messageDelay = 2f;
     public ErrorOverlayUI errorOverlayUI;   
+    public float fadeInTime = 1f;
+    public float fadeOutTime = 1f;
 
     void Update()
     {
@@ -32,6 +35,30 @@ public class ControllerCarga : MonoBehaviour
             {
                 messageTimer = 0f;
                 ShowNextMessage();
+            }
+        }
+    }
+
+    private IEnumerator FadeOutCR()
+    {
+        while (true)
+        {
+            float currentTime = 0f;
+            while (currentTime < fadeInTime)
+            {
+                float alpha = Mathf.Lerp(0f, 1f, currentTime / fadeInTime);
+                loadingText.color = new Color(loadingText.color.r, loadingText.color.g, loadingText.color.b, alpha);
+                currentTime += Time.deltaTime;
+                yield return null;
+            }
+
+            currentTime = 0f;
+            while (currentTime < fadeOutTime)
+            {
+                float alpha = Mathf.Lerp(1f, 0f, currentTime / fadeOutTime);
+                loadingText.color = new Color(loadingText.color.r, loadingText.color.g, loadingText.color.b, alpha);
+                currentTime += Time.deltaTime;
+                yield return null;
             }
         }
     }
@@ -51,6 +78,7 @@ public class ControllerCarga : MonoBehaviour
 
     async void Start()
     {
+        StartCoroutine(FadeOutCR());
         await Initializer();
     }
 

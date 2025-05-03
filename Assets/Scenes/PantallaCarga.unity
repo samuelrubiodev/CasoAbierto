@@ -400,6 +400,7 @@ GameObject:
   - component: {fileID: 853935918}
   - component: {fileID: 853935920}
   - component: {fileID: 853935919}
+  - component: {fileID: 853935921}
   m_Layer: 5
   m_Name: CargandoTitulo
   m_TagString: Untagged
@@ -525,6 +526,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 853935917}
   m_CullTransparentMesh: 1
+--- !u!95 &853935921
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 853935917}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 217ada3d7c97f734cab7fb405b09fb45, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1009589637
 GameObject:
   m_ObjectHideFlags: 0
@@ -940,6 +963,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 237798991}
+  loadingText: {fileID: 853935919}
   errorOverlayUI: {fileID: 1426804910}
 --- !u!1 &1629728991
 GameObject:

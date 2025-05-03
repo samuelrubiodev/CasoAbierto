@@ -25,24 +25,7 @@ public class SelectionCharacters : MonoBehaviour
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
 
         pathsImage = Personaje.GetRandomImages(Caso.caso.personajes,charactersThatHaveGoneOut);
-
         uiCharacters.SetActive(false);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            if (!Personajes && !radialUIController.Evidencias && !ControllerGame.estaEscribiendo)
-            {
-                Show();
-            }
-            else
-            {
-                Hide();
-            }
-        }
     }
 
     public void Show()
