@@ -2,28 +2,27 @@
     <Style src="project://database/Assets/UI%20Toolkit/PresentationCase/Main/PresentationCase.uss?fileID=7433441132597879392&amp;guid=ed961bca8c4e3c4408a904eaacb82dc0&amp;type=3#PresentationCase" />
     <engine:VisualElement name="main" class="main">
         <engine:VisualElement name="header" class="header">
-            <engine:Label text="Caso asignado" />
+            <engine:Label text="Caso asignado" name="headerTitle" />
         </engine:VisualElement>
         <engine:VisualElement name="data" class="data">
             <engine:Label text="Case Name" name="case-name" class="topTitle" />
-            <engine:Label text="Un reconocido ejecutivo de una empresa tecnológica ha reportado pérdidas millonarias tras firmar unos documentos digitales que luego resultaron ser falsificados. La investigación revela una trama de extorsión y manipulación digital que podría implicar a un empleado interno o un hacker externo." class="large-text" />
+            <engine:Label text="Un reconocido ejecutivo de una empresa tecnológica ha reportado pérdidas millonarias tras firmar unos documentos digitales que luego resultaron ser falsificados. La investigación revela una trama de extorsión y manipulación digital que podría implicar a un empleado interno o un hacker externo." name="description" class="large-text" />
             <engine:VisualElement name="info-data" class="info-data">
-                <engine:VisualElement name="two-data" class="container-data">
+                <engine:VisualElement name="basic-data" class="container-data">
                     <engine:Label text="Información basica" name="title-container" class="mediumTitle" />
-                    <engine:Label text="Ubicación:  Oficinas de TechSolutions, Ciudad de Mexico" name="location" class="small-text" />
-                    <engine:Label text="Dificultad: Medio" name="difficulty" class="small-text" />
+                    <engine:Label text="Ubicación: " name="location" class="small-text" />
+                    <engine:Label text="Dificultad: " name="difficulty" class="small-text" />
                 </engine:VisualElement>
-                <engine:VisualElement name="one-data" class="container-data">
+                <engine:VisualElement name="date-time" class="container-data">
                     <engine:Label text="Fecha y Tiempo" name="title-container" class="mediumTitle" />
-                    <engine:Label text="Fecha del Suceso: 2024-04-15" name="date" class="small-text" />
-                    <engine:Label text="Tiempo restante: 45 min" name="time_remaining" class="small-text" />
+                    <engine:Label text="Fecha del Suceso: " name="date" class="small-text" />
+                    <engine:Label text="Tiempo restante: " name="time-remaining" class="small-text" />
                 </engine:VisualElement>
             </engine:VisualElement>
         </engine:VisualElement>
         <engine:VisualElement name="buttons" class="buttons">
-            <engine:Button text="Atras" name="back-button" class="button backButton" />
+            <engine:Button text="Salir" name="exit-button" class="button" style="margin-right: 20px;" />
             <engine:Button text="Siguiente" name="continue-button" class="button" />
         </engine:VisualElement>
-        <engine:Button text="Salir" name="exit-button" class="button exitButton" />
     </engine:VisualElement>
 </engine:UXML>

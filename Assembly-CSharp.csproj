@@ -96,6 +96,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
     <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Models\DepthOfFieldModel.cs" />
     <Compile Include="Assets\Scripts\Caso\Personaje.cs" />
+    <Compile Include="Assets\Scripts\UIToolKit\PresentationCase\MainPresentation.cs" />
     <Compile Include="Assets\UI Toolkit\Prueba.cs" />
     <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Components\TaaComponent.cs" />
     <Compile Include="Assets\Scripts\GroqApiLibrary-master\IGroqApiClient.cs" />
@@ -293,6 +294,7 @@
     <Compile Include="Assets\Scripts\ErrorOverlayUI.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\EdgeDetection.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\Twirl.cs" />
+    <Compile Include="Assets\Scripts\UIToolKit\PresentationCase\TimelinePresentation.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\Grayscale.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
     <Compile Include="Assets\Scripts\InternetConnection.cs" />

@@ -23,12 +23,7 @@ public class CharacterInteraction : MonoBehaviour, IInteraction
                 if (!showsPlayers)
                 {
                     characters.GetComponent<SelectionCharacters>().Show();
-                    showsPlayers = true;
-                }
-                else
-                {
-                    characters.GetComponent<SelectionCharacters>().Hide();
-                    showsPlayers = false;
+                    GetComponent<BoxCollider>().enabled = false;
                 }
             }
         }

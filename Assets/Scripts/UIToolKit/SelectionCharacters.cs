@@ -70,6 +70,7 @@ public class SelectionCharacters : MonoBehaviour
             buttonAccuse.text = "Acusar";
 
             buttonCharacterSelect.RegisterCallback<ClickEvent>( e => {
+                GameObject.Find("Papers").GetComponent<BoxCollider>().enabled = true;
                 selectedCharacter = personaje;
                 hasChangedCharacter = true;
                 Hide();
@@ -88,8 +89,6 @@ public class SelectionCharacters : MonoBehaviour
             character.Add(buttonCharacterSelect);
             character.Add(buttonAccuse);
         }
-
-
     }
 
     public void Hide()
