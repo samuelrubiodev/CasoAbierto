@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
@@ -50,7 +51,7 @@ public class ElevenLabsImpl : ICreditsAPIManager
         return _instance;
     }
 
-    public void VerifyCreditsBalance() 
+    public IEnumerator VerifyCreditsBalance() 
     {
         // 1. Coste medio por respuesta ElevenLabs (caracteres)
         const int monthlyQuota = 10000;
@@ -69,24 +70,21 @@ public class ElevenLabsImpl : ICreditsAPIManager
         // 3. Umbrales
         if (percentUsed >= 0.9f && percentUsed < 0.98f)
         {
-            CoroutineRunner.Instance
-                .StartCoroutine(messageManager.ShowMessage(
+            yield return messageManager.ShowMessage(
                     $"Has consumido {(percentUsed * 100):0}% de tu cuota de voz ({usedChars}/{monthlyQuota} chars)."
-                ));
+                );
         }
         else if (percentUsed >= 0.98f && remainingChars > 0)
         {
-            CoroutineRunner.Instance
-                .StartCoroutine(messageManager.ShowMessage(
-                    $"¡Quedan solo {remainingChars} chars (~{possibleRequests} síntesis)! Voz reducida."
-                ));
+            yield return messageManager.ShowMessage(
+                    $"¡Quedan solo {remainingChars} chars (~{possibleRequests} síntesis)!"
+                );
         }
         else if (remainingChars <= 0)
         {
-            CoroutineRunner.Instance
-                .StartCoroutine(messageManager.ShowMessage(
-                    "Has agotado tu cuota de voz. No se puede sintetizar voz."
-                ));
+            yield return messageManager.ShowMessage(
+                "Has agotado tu cuota de voz. No se puede sintetizar voz."
+            );
             throw new InsufficientElevenLabsCharactersException(
                 "Suscripción ElevenLabs agotada."
             );
@@ -107,7 +105,6 @@ public class ElevenLabsImpl : ICreditsAPIManager
     public Task UpdateCreditsBalance(double amount)
     {
         double amountRequest = amount -= ActualCharacterCount;
-        UnityEngine.Debug.Log($"Amount Request: {amountRequest}");
         
         ActualCharacterCount += amountRequest;
         return Task.FromResult(ActualCharacterCount);

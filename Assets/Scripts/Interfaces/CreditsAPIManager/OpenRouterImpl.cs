@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using TMPro;
@@ -43,47 +44,53 @@ public class OpenRouterImpl : ICreditsAPIManager
     public static OpenRouterImpl ResetInstance(TMP_Text subtitle = null)
     {
         if (_instance == null) return null;
-        _instance = new OpenRouterImpl(subtitle);
+        if (_instance.ActualCreditsBalance > 0)
+        {
+            double actualCreditsBalance = _instance.ActualCreditsBalance;
+            _instance = new(subtitle)
+            {
+                ActualCreditsBalance = actualCreditsBalance
+            };
+        }
+        
         return _instance;
     }
 
-    public void VerifyCreditsBalance() 
+    public IEnumerator VerifyCreditsBalance() 
     {
-        // 1. Coste medio por petición OpenRouter
-        const float minCostOR = 0.0001409f;
-        const float maxCostOR = 0.0001441f;
-        float avgCostOR = (minCostOR + maxCostOR) / 2f;
+        const double minCostOR = 0.0001409;
+        const double maxCostOR = 0.0001441;
+        double avgCostOR = (minCostOR + maxCostOR) / 2.0;
 
-        // 2. Cálculo de peticiones restantes
-        int remainingOR = (int)(0.002 / avgCostOR);
+        double roughRemaining = ActualCreditsBalance  / avgCostOR;
+        int remainingOR = (int)Math.Floor(roughRemaining);
 
         new AlertMessage(messageManager.MessageText).SetStyle();
 
-        // 3. Umbrales de aviso y degradación
         if (remainingOR <= 20 && remainingOR > 5) {
-            CoroutineRunner.Instance.StartCoroutine(messageManager.ShowMessage($"Quedan ~{remainingOR} peticiones de IA"));
+            yield return messageManager.ShowMessage($"Quedan ~{remainingOR} peticiones de IA");
         }
         else if (remainingOR <= 5 && remainingOR > 0) {
-            CoroutineRunner.Instance.StartCoroutine(messageManager.ShowMessage($"¡Solo ~{remainingOR} peticiones restantes! Diálogos reducidos."));
+            yield return messageManager.ShowMessage($"¡Solo ~{remainingOR} peticiones restantes!");
         }
         else if (remainingOR <= 0) {
-            CoroutineRunner.Instance.StartCoroutine(messageManager.ShowMessage("No quedan peticiones de IA. Diálogos desactivados."));
-            throw new InsufficientOpenRouterCreditsException ("No quedan peticiones de IA. Diálogos desactivados.");
+            yield return messageManager.ShowMessage($"¡No quedan peticiones de IA!");
+            throw new InsufficientOpenRouterCreditsException("No quedan peticiones de IA.");
         }
     }
+
 
     public Task<double> GetCostRequest(JObject jsonResponse)
     {
         JObject data = jsonResponse["data"] as JObject;
-        string totalCost = data["total_cost"].ToString();
-        double totalCostDouble = Double.Parse(totalCost);
+        double totalCostDouble = data["total_cost"].Value<double>();
         return Task.FromResult(totalCostDouble);
     }
 
     public Task UpdateCreditsBalance(double amount)
     {
-        double amountRequest = amount - ActualCreditsBalance;
-        ActualCreditsBalance -= amountRequest;
+        double cost = ActualCreditsBalance - amount;
+        ActualCreditsBalance = cost;
         return Task.FromResult(ActualCreditsBalance);
     }
 

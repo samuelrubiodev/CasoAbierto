@@ -46,7 +46,7 @@ public class APIRequest : MonoBehaviour
         string message = await Task.Run(async () => await requestOpenRouter.SendRequest(prompt));
 
         bool isMan = SelectionCharacters.selectedCharacter.sexo.ToLower() == "masculino" ? true : false;
-        //aPIRequestElevenLabs.StreamAudio(message, isMan);
+        aPIRequestElevenLabs.StreamAudio(message, isMan);
 
         new Recomendations(textoSubtitulos).SetStyle();
         StartCoroutine(new UIMessageManager(textoSubtitulos).ShowMessage(message));
@@ -97,10 +97,6 @@ public class APIRequest : MonoBehaviour
 
             try {
                 await MakeRequestOpenRouter(prompt,aPIRequestElevenLabs);
-
-                OpenRouterImpl openRouterImpl = OpenRouterImpl.Instance();
-                ElevenLabsImpl elevenLabsImpl = ElevenLabsImpl.Instance();
-
                 /*
                 JObject jsonEmotionalState = await RequestEmotionalState();
                 Debug.Log(jsonEmotionalState.ToString()); 
