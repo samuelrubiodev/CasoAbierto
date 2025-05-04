@@ -39,30 +39,6 @@ public class ControllerCarga : MonoBehaviour
         }
     }
 
-    private IEnumerator FadeOutCR()
-    {
-        while (true)
-        {
-            float currentTime = 0f;
-            while (currentTime < fadeInTime)
-            {
-                float alpha = Mathf.Lerp(0f, 1f, currentTime / fadeInTime);
-                loadingText.color = new Color(loadingText.color.r, loadingText.color.g, loadingText.color.b, alpha);
-                currentTime += Time.deltaTime;
-                yield return null;
-            }
-
-            currentTime = 0f;
-            while (currentTime < fadeOutTime)
-            {
-                float alpha = Mathf.Lerp(1f, 0f, currentTime / fadeOutTime);
-                loadingText.color = new Color(loadingText.color.r, loadingText.color.g, loadingText.color.b, alpha);
-                currentTime += Time.deltaTime;
-                yield return null;
-            }
-        }
-    }
-
     private void ShowNextMessage()
     {
         isShowingMessage = true;
@@ -78,7 +54,7 @@ public class ControllerCarga : MonoBehaviour
 
     async void Start()
     {
-        StartCoroutine(FadeOutCR());
+        StartCoroutine(Animations.FadeOutCR(loadingText));
         await Initializer();
     }
 

@@ -8,7 +8,7 @@
                 <ui:Label text="Abierto" name="title-line-2" class="title-h1" />
             </ui:VisualElement>
             <ui:VisualElement name="buttons-panel" class="buttons-panel" style="width: 50%; align-self: auto; align-content: auto; justify-content: space-between; align-items: center; flex-direction: column;">
-                <ui:Label text="NUEVA PARTIDA" name="button-new-game" class="menu-button" style="justify-content: space-between; align-self: auto; align-content: center; align-items: center;" />
+                <ui:Label text="NUEVA PARTIDA" name="button-new-game" class="menu-button" />
                 <ui:Label text="CONTINUAR" name="button-continue" class="menu-button" />
                 <ui:Label text="OPCIONES" name="button-options" class="menu-button" />
             </ui:VisualElement>

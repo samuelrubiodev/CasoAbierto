@@ -152,6 +152,7 @@
     <Compile Include="Assets\Scripts\ControllerGameManager.cs" />
     <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Attributes\TrackballAttribute.cs" />
     <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Models\ChromaticAberrationModel.cs" />
+    <Compile Include="Assets\Scripts\UIToolKit\PauseMenu.cs" />
     <Compile Include="Assets\Scripts\Interfaces\DAOHttpRequest\ImageHttpRequest.cs" />
     <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\PostProcessingBehaviour.cs" />
     <Compile Include="Assets\Scripts\Interfaces\DAOHttpRequest\GenerationIDHttpRequest.cs" />
@@ -159,6 +160,7 @@
     <Compile Include="Assets\Scripts\Interfaces\Interaction\HoverInteraction\GenericHoverInteraction.cs" />
     <Compile Include="Assets\Scripts\Interfaces\SettingsLoad\AudioSettingsLoader.cs" />
     <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\PostProcessingProfile.cs" />
+    <Compile Include="Assets\Scripts\Animations.cs" />
     <Compile Include="Assets\Scripts\Constants\Server.cs" />
     <Compile Include="Assets\Scripts\UIToolKit\SelectionCharacters.cs" />
     <Compile Include="Assets\Scripts\Interfaces\CreditsAPIManager\OpenRouterImpl.cs" />

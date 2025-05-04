@@ -10,6 +10,7 @@ public class MainSettings : MonoBehaviour
     public UIDocument uiAudio;
     public UIDocument uiGraphics;
     public UIDocument uiScreen;
+    public PauseMenu pauseMenu;
 
     void OnEnable()
     {
@@ -17,6 +18,7 @@ public class MainSettings : MonoBehaviour
         VisualElement container = uiDocument.rootVisualElement.Q<VisualElement>("container");
         container.Q<VisualElement>("back-button").Q<Button>("Button").RegisterCallback<ClickEvent>(evt => {
             this.SetActive(false);
+            if (pauseMenu != null) pauseMenu.Show();
             uiMainMenu.SetActive(true);
         });
 
