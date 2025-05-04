@@ -107,7 +107,6 @@ public class ControllerCarga : MonoBehaviour
                     JsonConvert.SerializeObject(jsonData),
                     System.Text.Encoding.UTF8,
                     "application/json");
-
                 JObject responseCase = await caseHttpRequest.PostAsync("/case/" + Caso.caso.idCaso, jsonContent);
                 APIRequest.DATOS_CASO = responseCase.ToString();
                 SceneManager.LoadScene("InterrogationGame"); // Or SampleScene (if you not have QA_InterrogationRoom asset)

@@ -38,7 +38,7 @@ public class AnalysisEvidence : IFeatureRequest<string>
                 }
             }
 
-            APIRequest.chatMessages.Add(new AssistantChatMessage("El investigador ha analizado esta evidencia y se ha concluido lo siguiente:" + message));
+            APIRequest.characters[SelectionCharacters.selectedCharacter.id].chatMessage.Add(new UserChatMessage("El investigador ha analizado esta evidencia y se ha concluido lo siguiente:" + message));
 
             return message;
         } catch (Exception e) {

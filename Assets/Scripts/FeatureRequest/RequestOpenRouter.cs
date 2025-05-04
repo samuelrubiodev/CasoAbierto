@@ -22,15 +22,11 @@ namespace FeatureRequest {
     {
         CaseHttpRequest caseHttpRequest = new ();
 
-        if (!APIRequest.chatMessages.Any(x => x is SystemChatMessage ))
-        {
-            APIRequest.chatMessages.Add(new SystemChatMessage(PromptSystem.PROMPT_SYSTEM_CONVERSATION + " " + APIRequest.DATOS_CASO,Role.SYSTEM));
-        }
-
         var jsonData = new
         {
             message = prompt,
-            role = Role.USER
+            role = Role.USER,
+            characterID = APIRequest.characters[SelectionCharacters.selectedCharacter.id].id.ToString(),
         };
 
         var jsonContent = new StringContent(
@@ -40,11 +36,11 @@ namespace FeatureRequest {
 
         await caseHttpRequest.PostAsync("/players/" + Jugador.jugador.idJugador + "/case/" + Caso.caso.idCaso + "/message", jsonContent);
 
-        APIRequest.chatMessages.Add(new UserChatMessage(prompt));
+        APIRequest.characters[SelectionCharacters.selectedCharacter.id].chatMessage.Add(new UserChatMessage(prompt));
 
         try
         {  
-            ChatManager chatManager = new (openRouterApiKey, APIRequest.chatMessages);
+            ChatManager chatManager = new (openRouterApiKey, APIRequest.characters[SelectionCharacters.selectedCharacter.id].chatMessage);
             ChatCompletionOptions options = chatManager.CreateChatCompletionOptions();
             AsyncCollectionResult<StreamingChatCompletionUpdate> completionUpdates = chatManager.CreateStremingChat(ChatManager.CHAT_MODEL, options);
 
@@ -60,7 +56,8 @@ namespace FeatureRequest {
             jsonData = new
             {
                 message = message,
-                role = Role.ASSISTANT
+                role = Role.ASSISTANT,
+                characterID = APIRequest.characters[SelectionCharacters.selectedCharacter.id].id.ToString(),
             };
 
             jsonContent = new StringContent(
@@ -74,7 +71,7 @@ namespace FeatureRequest {
             JObject jsonResponse = await generationIDHttpRequest.GetAsync($"generation?id={completionIdBuilder.ToString()}");
             APICreditsManager.jsonOpenRouterResponse = jsonResponse;
 
-            APIRequest.chatMessages.Add(new AssistantChatMessage(message));
+            APIRequest.characters[SelectionCharacters.selectedCharacter.id].chatMessage.Add(new AssistantChatMessage(message));
 
             return message;
         }

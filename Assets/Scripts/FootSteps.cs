@@ -1,3 +1,4 @@
+using OpenAI.Chat;
 using UnityEngine;
 
 public class FootSteps : MonoBehaviour

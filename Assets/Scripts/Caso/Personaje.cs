@@ -1,21 +1,25 @@
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
+using OpenAI.Chat;
 
 public class Personaje
 {
+    public int id { get; set; }
     public string nombre { get; set; }
     public string estado { get; set; }
     public string descripcion { get; set; }
     public string estadoEmocional { get; set; }
     public string rol { get; set; }
     public string sexo { get; set; }
+    public List<ChatMessage> chatMessage { get; set; }
 
     public Personaje()
     {
     }
 
-    public Personaje(string nombre, string estado, string descripcion, string estadoEmocional, string rol, string sexo)
+    public Personaje(int id, string nombre, string estado, string descripcion, string estadoEmocional, string rol, string sexo)
     {
+        this.id = id;
         this.nombre = nombre;
         this.estado = estado;
         this.descripcion = descripcion;
@@ -27,6 +31,7 @@ public class Personaje
     public static Personaje FromJSONtoObject(JObject json)
     {
         Personaje personaje = new (
+            int.Parse(json["id"].ToString()),
             json["name"].ToString(),
             json["state"].ToString(),
             json["description"].ToString(),

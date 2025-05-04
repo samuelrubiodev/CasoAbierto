@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
+using OpenAI.Chat;
 
 public class Caso
 {
@@ -57,6 +58,34 @@ public class Caso
             JObject personajeJson = JObject.Parse(personaje.ToString());
             Personaje personajeObj = Personaje.FromJSONtoObject(personajeJson);
             caso.personajes.Add(personajeObj);
+
+            JArray arrayMessages = (JArray)json["messages"];
+
+            List<ChatMessage> messages = new()
+            {
+                new SystemChatMessage(PromptSystem.PROMPT_SYSTEM_CONVERSATION + " " + APIRequest.DATOS_CASO, Role.SYSTEM)
+            };
+            for (int i = 0; i < arrayMessages.Count; i++)
+            {
+                JObject message = (JObject)arrayMessages[i];
+                int characterID = int.Parse(message["character_id"].ToString());
+
+                if (characterID == personajeObj.id)
+                {
+                    string role = message["role"].ToString();
+                    string messsage = message["message"].ToString();
+
+                    if (role == "user")
+                    {
+                        messages.Add(new UserChatMessage(messsage));
+                    }
+                    else if (role == "assistant")
+                    {
+                        messages.Add(new AssistantChatMessage(messsage));
+                    }
+                }
+            }
+            personajeObj.chatMessage = messages;
         }
 
         JArray evidencias = (JArray)json["evidences"];

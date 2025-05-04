@@ -11,6 +11,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using Utilities.Extensions;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class APIRequest : MonoBehaviour
 {
@@ -20,10 +21,9 @@ public class APIRequest : MonoBehaviour
     private string elevenlabsApiKey;
     public TMP_Text textoSubtitulos;
     public ErrorOverlayUI errorOverlayUI;   
+    public static Dictionary<int, Personaje> characters = new ();
 
     public static string DATOS_CASO = "";
-
-    public static List<ChatMessage> chatMessages = new ();
 
     void Start()
     {
@@ -33,6 +33,11 @@ public class APIRequest : MonoBehaviour
         togetherApiKey = ApiKey.API_KEY_TOGETHER;
         OpenRouterImpl.ResetInstance(textoSubtitulos);
         ElevenLabsImpl.ResetInstance(textoSubtitulos);
+
+        for (int i = 0; i < Caso.caso.personajes.Count; i++)
+        {
+            characters.Add(Caso.caso.personajes[i].id, Caso.caso.personajes[i]);
+        }
     }
 
     private async Task MakeRequestOpenRouter(string prompt, APIRequestElevenLabs aPIRequestElevenLabs)
@@ -41,7 +46,7 @@ public class APIRequest : MonoBehaviour
         string message = await Task.Run(async () => await requestOpenRouter.SendRequest(prompt));
 
         bool isMan = SelectionCharacters.selectedCharacter.sexo.ToLower() == "masculino" ? true : false;
-        aPIRequestElevenLabs.StreamAudio(message, isMan);
+        //aPIRequestElevenLabs.StreamAudio(message, isMan);
 
         new Recomendations(textoSubtitulos).SetStyle();
         StartCoroutine(new UIMessageManager(textoSubtitulos).ShowMessage(message));
@@ -90,17 +95,18 @@ public class APIRequest : MonoBehaviour
                 prompt = new ConversationPrompt().CreatePrompt(texto).ToString();
             }
 
-            OpenRouterImpl openRouterImpl = OpenRouterImpl.Instance();
-            ElevenLabsImpl elevenLabsImpl = ElevenLabsImpl.Instance();
-            openRouterImpl.VerifyCreditsBalance();
-            elevenLabsImpl.VerifyCreditsBalance();
-
             try {
                 await MakeRequestOpenRouter(prompt,aPIRequestElevenLabs);
 
+                OpenRouterImpl openRouterImpl = OpenRouterImpl.Instance();
+                ElevenLabsImpl elevenLabsImpl = ElevenLabsImpl.Instance();
+
+                /*
                 JObject jsonEmotionalState = await RequestEmotionalState();
                 Debug.Log(jsonEmotionalState.ToString()); 
-            } catch (Exception) {
+                */
+            } catch (Exception ex) {
+                Debug.Log(ex.Message);
                 this.SetActive(false);
 
                 System.Random random = new ();
@@ -109,7 +115,8 @@ public class APIRequest : MonoBehaviour
 
                 errorOverlayUI.ShowError(errors.ia.titulos[randomTitle], errors.ia.mensajes[randomMessage]);
             }
-        } catch (Exception) {
+        } catch (Exception ex) {
+            Debug.Log(ex.Message);
             this.SetActive(false);
 
             System.Random random = new ();

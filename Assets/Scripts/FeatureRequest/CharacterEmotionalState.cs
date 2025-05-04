@@ -20,7 +20,7 @@ public class CharacterEmotionalState : IFeatureRequest<JObject>
             string jsonSchema = Schemas.CHARACTER_EMOTIONAL_STATE;
             string conversacion = "";
 
-            foreach (var message in APIRequest.chatMessages)
+            foreach (var message in APIRequest.characters[SelectionCharacters.selectedCharacter.id].chatMessage)
             {
                 if (message is UserChatMessage userMessage)
                 {
@@ -38,7 +38,7 @@ public class CharacterEmotionalState : IFeatureRequest<JObject>
                 new UserChatMessage(prompt + conversacion)
             };
 
-            ChatManager chatManager = new (openRouterApiKey, APIRequest.chatMessages);
+            ChatManager chatManager = new (openRouterApiKey, mensajes);
             ChatCompletionOptions options = chatManager.CreateChatCompletionOptions(jsonSchema);
             ChatCompletion completion = chatManager.CreateChat(ChatManager.CHAT_MODEL, options);
 
