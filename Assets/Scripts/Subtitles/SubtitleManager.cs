@@ -40,7 +40,7 @@ public class SubtitleManager : IJsonUtilities<SubtitleList>
 
     public SubtitleList ReadJSON()
     {
-        string json = System.IO.File.ReadAllText(path);
+        string json = Resources.Load<TextAsset>(path).text;
         SubtitleList subtitulos = JsonUtility.FromJson<SubtitleList>(json);
         return subtitulos;
     }

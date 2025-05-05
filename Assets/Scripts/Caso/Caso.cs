@@ -65,26 +65,31 @@ public class Caso
             {
                 new SystemChatMessage(PromptSystem.PROMPT_SYSTEM_CONVERSATION + " " + APIRequest.DATOS_CASO, Role.SYSTEM)
             };
-            for (int i = 0; i < arrayMessages.Count; i++)
-            {
-                JObject message = (JObject)arrayMessages[i];
-                int characterID = int.Parse(message["character_id"].ToString());
 
-                if (characterID == personajeObj.id)
+            if (arrayMessages != null)
+            {   
+                for (int i = 0; i < arrayMessages.Count; i++)
                 {
-                    string role = message["role"].ToString();
-                    string messsage = message["message"].ToString();
+                    JObject message = (JObject)arrayMessages[i];
+                    int characterID = int.Parse(message["character_id"].ToString());
 
-                    if (role == "user")
+                    if (characterID == personajeObj.id)
                     {
-                        messages.Add(new UserChatMessage(messsage));
-                    }
-                    else if (role == "assistant")
-                    {
-                        messages.Add(new AssistantChatMessage(messsage));
+                        string role = message["role"].ToString();
+                        string messsage = message["message"].ToString();
+
+                        if (role == "user")
+                        {
+                            messages.Add(new UserChatMessage(messsage));
+                        }
+                        else if (role == "assistant")
+                        {
+                            messages.Add(new AssistantChatMessage(messsage));
+                        }
                     }
                 }
             }
+            
             personajeObj.chatMessage = messages;
         }
 

@@ -10,7 +10,7 @@ public class GenericSubtitles : ISubtitles
 
     public SubtitleList ReturnSubtitleList()
     {
-        string json = System.IO.File.ReadAllText(path);
-        return JsonUtility.FromJson<SubtitleList>(json);
+        TextAsset textAsset = Resources.Load<TextAsset>(path);
+        return JsonUtility.FromJson<SubtitleList>(textAsset.text);
     }
 }

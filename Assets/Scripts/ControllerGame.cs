@@ -108,9 +108,14 @@ public class ControllerGame : MonoBehaviour
     private void ShowGUICharacter() 
     {
         PrefabCharacter.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = SelectionCharacters.selectedCharacter.nombre;
-        PrefabCharacter.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = SelectionCharacters.selectedCharacter.estado;
-        PrefabCharacter.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text = SelectionCharacters.selectedCharacter.estadoEmocional;
-        PrefabCharacter.transform.GetChild(3).gameObject.GetComponent<TextMeshProUGUI>().text = SelectionCharacters.selectedCharacter.sexo;
+
+        GameObject statusGameObject = PrefabCharacter.transform.GetChild(1).gameObject;
+        GameObject emotionalStatusObject = PrefabCharacter.transform.GetChild(2).gameObject;
+        GameObject genreObject = PrefabCharacter.transform.GetChild(3).gameObject;
+
+        statusGameObject.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = SelectionCharacters.selectedCharacter.estado;
+        emotionalStatusObject.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = SelectionCharacters.selectedCharacter.estadoEmocional;
+        genreObject.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = SelectionCharacters.selectedCharacter.sexo;
 
         PrefabCharacter.SetActive(true);
     }

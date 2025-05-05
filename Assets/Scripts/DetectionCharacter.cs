@@ -70,7 +70,7 @@ public class DetectionCharacter : MonoBehaviour
     {
         if (!isPlaying)
         {
-            SubtitleManager subtitleManager = new (Application.dataPath + "/Sounds/Speechs/JSON_Subtitles/subtitles.json");
+            SubtitleManager subtitleManager = new ("Speechs/JSON_Subtitles/subtitles");
             SubtitleList subtitulos = subtitleManager.ReadJSON();
             AudioSource audio = GetComponent<AudioSource>();
 

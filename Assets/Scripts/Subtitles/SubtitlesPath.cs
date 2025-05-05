@@ -1,11 +1,9 @@
-using UnityEngine;
-
-public class SubtitlesPath 
+public static class SubtitlesPath
 {
-    public static string AMBIENTATION = Application.dataPath + "/Resources/Subtitles/AmbientationPreparation.json";
-    public static string REMINDERS = Application.dataPath + "/Resources/Subtitles/Reminders.json";
-    public static string SHORT_TEXT = Application.dataPath + "/Resources/Subtitles/ShortText.json";
-    public static string TIPS_RESEARCH = Application.dataPath + "/Resources/Subtitles/TipsResearch.json";
-    public static string TIPS_SPECIFIC = Application.dataPath + "/Resources/Subtitles/TipsSpecific.json";     
-    public static string GenericSubtitlesPath = "/Resources/Subtitles/GenericSubtitles.json";
+    public static string AMBIENTATION = "Subtitles/AmbientationPreparation";
+    public static string REMINDERS = "Subtitles/Reminders";
+    public static string SHORT_TEXT = "Subtitles/ShortText";
+    public static string TIPS_RESEARCH = "Subtitles/TipsResearch";
+    public static string TIPS_SPECIFIC = "Subtitles/TipsSpecific";
+    public static string GENERIC = "Subtitles/GenericSubtitles";
 }
