@@ -48,7 +48,7 @@ public class APIRequest : MonoBehaviour
         bool isMan = SelectionCharacters.selectedCharacter.sexo.ToLower() == "masculino" ? true : false;
         aPIRequestElevenLabs.StreamAudio(message, isMan);
 
-        new Recomendations(textoSubtitulos).SetStyle();
+        new MessageStyleManager(textoSubtitulos).SetStyle();
         StartCoroutine(new UIMessageManager(textoSubtitulos).ShowMessage(message));
     }
 

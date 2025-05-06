@@ -46,7 +46,7 @@ public class ControllerGame : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.B))
             {
-                TMP_InputField inputField = texto.GetComponentInChildren<TMP_InputField>();
+                TMP_InputField inputField = texto.transform.GetChild(0).GetComponentInChildren<TMP_InputField>();
                 bool inputFieldTieneFocus = inputField != null && inputField.isFocused;
                 if (!inputFieldTieneFocus) {
                     if (!CajaTexto) {

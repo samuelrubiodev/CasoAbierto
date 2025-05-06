@@ -41,7 +41,7 @@ public class DetectionCharacter : MonoBehaviour
 
         textoSubtitulos.gameObject.SetActive(true);
 
-        new Recomendations(textoSubtitulos).SetStyle();
+        new MessageStyleManager(textoSubtitulos).SetStyle();
 
         for (int i = 0; i < subtitulos.subtitles.Count; i++)
         {

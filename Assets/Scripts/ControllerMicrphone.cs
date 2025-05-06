@@ -44,7 +44,7 @@ public class ControllerMicrophone : MonoBehaviour
         APIRequestElevenLabs aPIRequestElevenLabs = GetComponent<APIRequestElevenLabs>();
         APICreditsManager aPICreditsManager = GetComponent<APICreditsManager>();
 
-        await aPIRequest.RequestAPI(aPIRequestElevenLabs, elementoTexto.GetComponent<TMP_InputField>().text);
+        await aPIRequest.RequestAPI(aPIRequestElevenLabs, elementoTexto.transform.GetChild(0).GetComponentInChildren<TMP_InputField>().text);
         aPICreditsManager.isGameStarted = true;
     }
 }

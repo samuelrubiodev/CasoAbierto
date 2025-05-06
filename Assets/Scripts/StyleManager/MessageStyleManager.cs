@@ -12,29 +12,26 @@ public class MessageStyleManager : IStyleManger
 
     public void SetStyle()
     {
-        messageText.fontSize = 50;                     
-        messageText.fontStyle = FontStyles.Bold;       
-        messageText.characterSpacing = 2f;                 
-        messageText.lineSpacing = -10f;                
+        messageText.fontSize = 60;
+        messageText.fontStyle = FontStyles.Bold;
+        messageText.characterSpacing = 1.0f;
+        messageText.lineSpacing = -2f;
 
+        messageText.faceColor = new Color32(156, 129, 63, 255); 
+        messageText.outlineColor = new Color32(17,29,19,255);
+        messageText.outlineWidth = 0.35f;
 
-        messageText.faceColor = new Color32(255, 255, 255, 255); 
-        messageText.outlineColor = new Color32(20, 20, 20, 255); 
-        messageText.outlineWidth = 0.8f;          
+        messageText.fontMaterial.EnableKeyword("UNDERLAY_ON"); 
+        messageText.fontMaterial.SetColor("_UnderlayColor", new Color32(0, 0, 0, 180));
+        messageText.fontMaterial.SetFloat("_UnderlayOffsetX", 1.5f); 
+        messageText.fontMaterial.SetFloat("_UnderlayOffsetY", -1.5f); 
+        messageText.fontMaterial.SetFloat("_UnderlaySoftness", 0.2f); 
 
+        messageText.alignment = TextAlignmentOptions.Center;
+        messageText.textWrappingMode = TextWrappingModes.PreserveWhitespace;
 
-        messageText.alignment = TextAlignmentOptions.Center;  
-        messageText.textWrappingMode = TextWrappingModes.PreserveWhitespace; 
-        messageText.textWrappingMode = TextWrappingModes.Normal;        
-
-
-        messageText.fontMaterial.EnableKeyword("GLOW_ON"); 
-        messageText.fontMaterial.SetColor("_GlowColor", new Color32(50, 50, 50, 128));
-        messageText.fontMaterial.SetFloat("_GlowPower", 0.5f); 
-
-
-        messageText.richText = true;                     
-        messageText.enableAutoSizing = false;             
-        messageText.isOrthographic = true;                 
+        messageText.richText = true;
+        messageText.enableAutoSizing = false;
+        messageText.isOrthographic = true;                         
     }
 }

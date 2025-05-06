@@ -157,8 +157,10 @@ public class RadialUIController : MonoBehaviour
 
                     evidencia = await AnalyzeEvidence(evidencia);
 
-                    resultPanel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = evidencia.nombre;
-                    resultPanel.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = evidencia.analisis;
+                    GameObject panel = resultPanel.transform.GetChild(0).gameObject;
+
+                    panel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = evidencia.nombre;
+                    panel.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = evidencia.analisis;
                     selectedEvidence = evidencia;
                 }
                 else if (pointerData.button == PointerEventData.InputButton.Right)
