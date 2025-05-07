@@ -6,7 +6,7 @@ public class MicrophoneRecorder : MonoBehaviour
 {
     private AudioClip audioClip;
     private bool isRecording = false;
-    private string microphoneName;
+    public string microphoneName;
 
     void Start()
     {
@@ -33,7 +33,7 @@ public class MicrophoneRecorder : MonoBehaviour
     {
         if (!isRecording)
         {
-            audioClip = Microphone.Start(microphoneName, true, 10, 44100);
+            audioClip = Microphone.Start(microphoneName, true, 300, 44100);
             isRecording = true;
             Debug.Log("Grabación iniciada.");
         }
@@ -58,15 +58,25 @@ public class MicrophoneRecorder : MonoBehaviour
         }
     }
 
-    public void SaveRecording(string filePath)
+    public void SaveRecording(string filePath, int samplesRecorded)
     {
         if (audioClip != null)
         {
-            Debug.Log("Iniciando el guardado del archivo...");
-            var samples = new float[audioClip.samples * audioClip.channels];
+            if (samplesRecorded <= 0)
+            {
+                Debug.LogError("No se grabaron samples.");
+                return;
+            }
+
+            Debug.Log($"Iniciando el guardado del archivo... Samples grabados: {samplesRecorded}");
+
+            int channels = audioClip.channels;
+            float[] samples = new float[samplesRecorded * channels];
             audioClip.GetData(samples, 0);
-            byte[] wavFile = ConvertToWav(samples, audioClip.channels, audioClip.frequency);
+
+            byte[] wavFile = ConvertToWav(samples, channels, audioClip.frequency);
             File.WriteAllBytes(filePath, wavFile);
+
             Debug.Log("Archivo guardado en: " + filePath);
         }
         else

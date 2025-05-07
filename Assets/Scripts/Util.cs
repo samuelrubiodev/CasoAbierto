@@ -21,4 +21,18 @@ public static class Util
             gameObject.transform.GetChild(i).SetActive(values[i]);
         }
     }
+
+    public static void Show()
+    {
+        Time.timeScale = 0;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
+    public static void Hide()
+    {
+        Time.timeScale = 1;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
 }

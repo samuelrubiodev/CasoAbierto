@@ -84,12 +84,6 @@ public class DetectionCharacter : MonoBehaviour
             this.audioSource = audio;
         }
     }
-
-    private void OnTriggerExit(Collider other)
-    {
-        
-    }
-
     void Update()
     {
         if (this.audioSource != null && !this.audioSource.isPlaying && GameObject.Find("ControllerGame") != null)

@@ -20,11 +20,18 @@ public class ControllerGame : MonoBehaviour
     public static bool estaEscribiendo = false;
     public GameObject personajes;
     public GameObject PrefabCharacter;
+    public MessageInputText messageInputText;
 
     void Start()
     {
         coundownTimer = GetComponent<CoundownTimer>();
         controllerMicrophone = GetComponent<ControllerMicrophone>();
+        messageInputText.OnPromptSubmitted += GetPrompt;
+    }
+
+    private void GetPrompt(string prompt)
+    {
+        StartCoroutine(StartRecordingProcess(controllerMicrophone, prompt));
     }
 
     void Update()
@@ -42,59 +49,23 @@ public class ControllerGame : MonoBehaviour
             SceneManager.LoadScene("FinalScene");
         }
 
-        if (PlayerPrefs.GetString("microfono") == "Solo texto") 
-        {
-            if (Input.GetKeyDown(KeyCode.B))
-            {
-                TMP_InputField inputField = texto.transform.GetChild(0).GetComponentInChildren<TMP_InputField>();
-                bool inputFieldTieneFocus = inputField != null && inputField.isFocused;
-                if (!inputFieldTieneFocus) {
-                    if (!CajaTexto) {
-                        Show();
-                    } else {
-                        Hide();
-                    }
-                }
-            } else if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) && isGameInProgress)
-            {
-                Hide();
-                StartCoroutine(StartRecordingProcess(controllerMicrophone));
-            }
-        } else if (Input.GetKey(KeyCode.E) && isGameInProgress && !isProcessing) {
+        if (Input.GetKeyDown(KeyCode.E) && isGameInProgress && !isProcessing) {
             if (!isRecordingStarted)
             {
                 controllerMicrophone = GetComponent<ControllerMicrophone>();
                 if (controllerMicrophone != null)
                 {
-                    StartCoroutine(StartRecordingProcess(controllerMicrophone));
+                    StartCoroutine(StartRecordingProcess(controllerMicrophone,""));
                     isRecordingStarted = true;
                 }
             }
         }
     }
-
-    private void Show() {
-        texto.SetActive(true);
-        FirstPersonController.enabled = false;
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-        estaEscribiendo = true;
-        CajaTexto = true;
-    }
-
-    private void Hide() {
-        texto.SetActive(false);
-        FirstPersonController.enabled = true;
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        estaEscribiendo = false;
-        CajaTexto = false;
-    }
-
-    private IEnumerator StartRecordingProcess(ControllerMicrophone controllerMicrophone)
+    
+    private IEnumerator StartRecordingProcess(ControllerMicrophone controllerMicrophone, string prompt)
     {
         isProcessing = true;
-        yield return StartCoroutine(controllerMicrophone.RecordAudio());
+        yield return StartCoroutine(controllerMicrophone.RecordAudio(prompt));
         isRecordingStarted = false;
         isProcessing = false;
     }

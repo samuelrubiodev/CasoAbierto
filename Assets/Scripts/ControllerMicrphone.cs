@@ -7,31 +7,32 @@ public class ControllerMicrophone : MonoBehaviour
 {
     private MicrophoneRecorder recorder;
     public GameObject elementoTexto;
-    public IEnumerator RecordAudio()
+    public IEnumerator RecordAudio(string prompt)
     {
         recorder = GetComponent<MicrophoneRecorder>();
 
+        yield return new WaitForSeconds(1);
+
         if (recorder != null && recorder.TieneMicrofono())
         {
-            Debug.Log("Iniciando grabación...");
             recorder.StartRecording();
+            while (!Input.GetKeyDown(KeyCode.E))
+            {
+                yield return null;
+            }
 
-            yield return new WaitForSeconds(5);
-
-            Debug.Log("Deteniendo grabación...");
+            int samplesRecorded = Microphone.GetPosition(recorder.microphoneName);
             recorder.StopRecording();
-
-            recorder.SaveRecording(Application.persistentDataPath + "/audio.wav");
-            Debug.Log("Grabación guardada.");
+            recorder.SaveRecording(Application.persistentDataPath + "/audio.wav", samplesRecorded);
 
             APIRequest aPIRequest = GetComponent<APIRequest>();
 
-            LlamarApis(aPIRequest);
+            LlamarApis(aPIRequest, prompt);
         }
         else if (!recorder.TieneMicrofono())
         {
             APIRequest aPIRequest = GetComponent<APIRequest>();
-            LlamarApis(aPIRequest);
+            LlamarApis(aPIRequest, prompt);
         }
         else
         {
@@ -39,12 +40,13 @@ public class ControllerMicrophone : MonoBehaviour
         }
     }
 
-    private async void LlamarApis(APIRequest aPIRequest)
+    private async void LlamarApis(APIRequest aPIRequest, string prompt)
     {
+        Debug.Log(ApiKey.API_KEY_ELEVENLABS);
         APIRequestElevenLabs aPIRequestElevenLabs = GetComponent<APIRequestElevenLabs>();
         APICreditsManager aPICreditsManager = GetComponent<APICreditsManager>();
 
-        await aPIRequest.RequestAPI(aPIRequestElevenLabs, elementoTexto.transform.GetChild(0).GetComponentInChildren<TMP_InputField>().text);
+        await aPIRequest.RequestAPI(aPIRequestElevenLabs, prompt);
         aPICreditsManager.isGameStarted = true;
     }
 }

@@ -225,6 +225,7 @@
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\Quads.cs" />
     <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Models\MotionBlurModel.cs" />
     <Compile Include="Assets\Scripts\GroqApiLibrary-master\GroqLlmProvider.cs" />
+    <Compile Include="Assets\Scripts\Detection.cs" />
     <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Components\ChromaticAberrationComponent.cs" />
     <Compile Include="Assets\Scripts\UIToolKit\ScreenSettings.cs" />
     <Compile Include="Assets\Scripts\Interfaces\ISetting.cs" />
@@ -276,6 +277,7 @@
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\ColorCorrectionRamp.cs" />
     <Compile Include="Assets\Scripts\Caso\Caso.cs" />
     <Compile Include="Assets\Scripts\Prompt\ConversationPrompt.cs" />
+    <Compile Include="Assets\Scripts\Components\MessageInputText.cs" />
     <Compile Include="Assets\Scripts\Interfaces\Menu\Audio\MicrophoneConfig.cs" />
     <Compile Include="Assets\Scripts\FeatureRequest\CharacterEmotionalState.cs" />
     <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Components\DitheringComponent.cs" />

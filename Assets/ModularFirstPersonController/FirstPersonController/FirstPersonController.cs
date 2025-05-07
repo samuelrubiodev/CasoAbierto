@@ -18,7 +18,6 @@ using UnityEditor;
 
 public class FirstPersonController : MonoBehaviour
 {
-    public float test = 0f;
     private Rigidbody rb;
 
     #region Camera Movement Variables
