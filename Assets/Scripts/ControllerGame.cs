@@ -16,7 +16,6 @@ public class ControllerGame : MonoBehaviour
     public GameObject texto;
     private CoundownTimer coundownTimer;
     private bool seHaIniciadoContador = false;
-    private bool CajaTexto = false;
     public static bool estaEscribiendo = false;
     public GameObject personajes;
     public GameObject PrefabCharacter;
@@ -49,15 +48,18 @@ public class ControllerGame : MonoBehaviour
             SceneManager.LoadScene("FinalScene");
         }
 
-        if (Input.GetKeyDown(KeyCode.H) && isGameInProgress && !isProcessing) 
+        if (PlayerPrefs.GetString("microfono") != "Solo texto")
         {
-            if (!isRecordingStarted)
+            if (Input.GetKeyDown(KeyCode.H) && isGameInProgress && !isProcessing) 
             {
-                controllerMicrophone = GetComponent<ControllerMicrophone>();
-                if (controllerMicrophone != null)
+                if (!isRecordingStarted)
                 {
-                    StartCoroutine(StartRecordingProcess(controllerMicrophone,""));
-                    isRecordingStarted = true;
+                    controllerMicrophone = GetComponent<ControllerMicrophone>();
+                    if (controllerMicrophone != null)
+                    {
+                        StartCoroutine(StartRecordingProcess(controllerMicrophone,""));
+                        isRecordingStarted = true;
+                    }
                 }
             }
         }

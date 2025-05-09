@@ -21,52 +21,30 @@ MonoBehaviour:
     value: 0
   color:
     overrideState: 1
-    value: {r: 0, g: 0, b: 0, a: 1}
+    value: {r: 0.6117647, g: 0.5058824, b: 0.24705882, a: 1}
   center:
     overrideState: 1
-    value: {x: 0.5, y: 0.5}
+    value: {x: 3.62, y: 2.74}
   intensity:
     overrideState: 1
-    value: 0.296
+    value: 0.01
   smoothness:
     overrideState: 1
-    value: 0.208
+    value: 1
   roundness:
     overrideState: 1
     value: 1
   rounded:
     overrideState: 1
-    value: 0
+    value: 1
   mask:
     overrideState: 0
     value: {fileID: 0}
     defaultState: 1
   opacity:
-    overrideState: 0
+    overrideState: 1
     value: 1
---- !u!114 &-5473965835902891392
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b94fcd11afffcb142908bfcb1e261fba, type: 3}
-  m_Name: MotionBlur
-  m_EditorClassIdentifier: 
-  active: 1
-  enabled:
-    overrideState: 1
-    value: 0
-  shutterAngle:
-    overrideState: 1
-    value: 360
-  sampleCount:
-    overrideState: 1
-    value: 10
---- !u!114 &-4814451762221463784
+--- !u!114 &-5897542991087410397
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -84,7 +62,7 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 0.45
+    value: 1.84
   threshold:
     overrideState: 0
     value: 1
@@ -96,10 +74,10 @@ MonoBehaviour:
     value: 65472
   diffusion:
     overrideState: 0
-    value: 7
+    value: 7.14
   anamorphicRatio:
     overrideState: 0
-    value: 0
+    value: 0.17
   color:
     overrideState: 0
     value: {r: 1, g: 1, b: 1, a: 1}
@@ -113,6 +91,28 @@ MonoBehaviour:
   dirtIntensity:
     overrideState: 0
     value: 0
+--- !u!114 &-5473965835902891392
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b94fcd11afffcb142908bfcb1e261fba, type: 3}
+  m_Name: MotionBlur
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  shutterAngle:
+    overrideState: 1
+    value: 360
+  sampleCount:
+    overrideState: 1
+    value: 10
 --- !u!114 &-855154241178608362
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -130,14 +130,14 @@ MonoBehaviour:
     overrideState: 1
     value: 1
   mode:
-    overrideState: 0
+    overrideState: 1
     value: 1
   intensity:
     overrideState: 1
-    value: 0.2
+    value: 0.24
   color:
     overrideState: 0
-    value: {r: 0, g: 0, b: 0, a: 1}
+    value: {r: 0.6117647, g: 0.5058824, b: 0.24705882, a: 1}
   ambientOnly:
     overrideState: 0
     value: 1
@@ -155,7 +155,7 @@ MonoBehaviour:
     value: 1
   zBias:
     overrideState: 0
-    value: 0.0001
+    value: 0
   directLightingStrength:
     overrideState: 0
     value: 0
@@ -179,7 +179,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   settings:
   - {fileID: -855154241178608362}
-  - {fileID: -4814451762221463784}
+  - {fileID: -5897542991087410397}
   - {fileID: 21171084130060584}
   - {fileID: -5473965835902891392}
   - {fileID: -8718426325884283294}
@@ -208,25 +208,25 @@ MonoBehaviour:
     defaultState: 1
   tonemapper:
     overrideState: 1
-    value: 2
+    value: 3
   toneCurveToeStrength:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 0.462
   toneCurveToeLength:
-    overrideState: 0
-    value: 0.5
+    overrideState: 1
+    value: 0.809
   toneCurveShoulderStrength:
     overrideState: 0
     value: 0
   toneCurveShoulderLength:
-    overrideState: 0
-    value: 0.5
+    overrideState: 1
+    value: 0
   toneCurveShoulderAngle:
-    overrideState: 0
+    overrideState: 1
     value: 0
   toneCurveGamma:
-    overrideState: 0
-    value: 1
+    overrideState: 1
+    value: 0.76
   ldrLut:
     overrideState: 0
     value: {fileID: 0}
@@ -236,43 +236,43 @@ MonoBehaviour:
     value: 1
   temperature:
     overrideState: 0
-    value: 0
+    value: 54
   tint:
     overrideState: 0
-    value: 0
+    value: -16
   colorFilter:
     overrideState: 0
-    value: {r: 1, g: 1, b: 1, a: 1}
+    value: {r: 0.6117647, g: 0.5058824, b: 0.24705882, a: 1}
   hueShift:
     overrideState: 0
-    value: 0
+    value: 32
   saturation:
     overrideState: 0
-    value: 0
+    value: -13
   brightness:
     overrideState: 0
     value: 0
   postExposure:
-    overrideState: 1
-    value: -0.02
+    overrideState: 0
+    value: -0.1
   contrast:
     overrideState: 0
-    value: 0
+    value: -13
   mixerRedOutRedIn:
     overrideState: 0
-    value: 100
+    value: 156
   mixerRedOutGreenIn:
     overrideState: 0
-    value: 0
+    value: 129
   mixerRedOutBlueIn:
     overrideState: 0
-    value: 0
+    value: 63
   mixerGreenOutRedIn:
     overrideState: 0
     value: 0
   mixerGreenOutGreenIn:
     overrideState: 0
-    value: 100
+    value: 129
   mixerGreenOutBlueIn:
     overrideState: 0
     value: 0
@@ -281,13 +281,13 @@ MonoBehaviour:
     value: 0
   mixerBlueOutGreenIn:
     overrideState: 0
-    value: 0
+    value: 63
   mixerBlueOutBlueIn:
     overrideState: 0
     value: 100
   lift:
     overrideState: 0
-    value: {x: 1, y: 1, z: 1, w: 0}
+    value: {x: 1, y: 0.97118604, z: 0.99279493, w: 0}
   gamma:
     overrideState: 0
     value: {x: 1, y: 1, z: 1, w: 0}

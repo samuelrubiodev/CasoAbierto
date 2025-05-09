@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using Utilities.Extensions;
 
 public class MessageInputText : MonoBehaviour 
 {
@@ -8,14 +9,15 @@ public class MessageInputText : MonoBehaviour
     public bool isSelected = false;
     public string prompt = "";
     public event Action<string> OnPromptSubmitted;
+    public FirstPersonController firstPersonController;
     private bool isMessageInputTextEnabled = false;
     private GameObject inputContainer;
     
-    void Awake()
+    void Start()
     {
         inputContainer = gameObject.transform.GetChild(0).gameObject;
 
-        if (PlayerPrefs.GetString("microfono") == "Solo texto")
+        if (PlayerPrefs.GetString("microfono") != "Solo texto")
         {
             gameObject.SetActive(false);
             inputContainer.SetActive(false);
@@ -26,15 +28,17 @@ public class MessageInputText : MonoBehaviour
     {
         if (canShow && !isMessageInputTextEnabled && Input.GetKeyDown(KeyCode.B))
         {
-            Util.Show();
+            Util.MinShow();
             inputContainer.SetActive(true);
             isMessageInputTextEnabled = true;
+            firstPersonController.enabled = false;
         }
         else if (canShow && isMessageInputTextEnabled && Input.GetKeyDown(KeyCode.B)) 
         {
-            Util.Hide();
+            Util.MinHide();
             inputContainer.SetActive(false);
             isMessageInputTextEnabled = false;
+            firstPersonController.enabled = true;
         }
 
         OnPressEnter();

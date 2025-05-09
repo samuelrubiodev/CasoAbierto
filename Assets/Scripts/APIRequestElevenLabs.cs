@@ -55,12 +55,9 @@ public class APIRequestElevenLabs : MonoBehaviour
 
         try
         {
-            if (voice == null)
-            {
-                voice = isMan 
-                    ?  voiceMan
-                    : voiceWoman;
-            }
+            voice = isMan 
+                ?  voiceMan
+                : voiceWoman;
 
             /// 0 - default mode (no latency optimizations)<br/>
             /// 1 - normal latency optimizations (about 50% of possible latency improvement of option 3)<br/>

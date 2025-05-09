@@ -42,7 +42,6 @@ public class ControllerMicrophone : MonoBehaviour
 
     private async void LlamarApis(APIRequest aPIRequest, string prompt)
     {
-        Debug.Log(ApiKey.API_KEY_ELEVENLABS);
         APIRequestElevenLabs aPIRequestElevenLabs = GetComponent<APIRequestElevenLabs>();
         APICreditsManager aPICreditsManager = GetComponent<APICreditsManager>();
 

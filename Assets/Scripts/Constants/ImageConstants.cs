@@ -5,8 +5,8 @@ public class ImageConstants {
 
     private static string DataPath = "SelectionCharacters/characters";
 
-    public static string DEFAULT_MALE_IMAGE = DataPath + "Mujer2.png";
-    public static string DEFAULT_FEMALE_IMAGE = DataPath + "Hombre2.png";
+    public static string DEFAULT_MALE_IMAGE = DataPath + "/Mujer2";
+    public static string DEFAULT_FEMALE_IMAGE = DataPath + "/Hombre2";
 
     public static List<string> MALE_IMAGES = new () {
         DataPath + "/Hombre1",

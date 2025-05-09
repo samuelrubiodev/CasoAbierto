@@ -22,16 +22,28 @@ public static class Util
         }
     }
 
-    public static void Show()
+    public static void ShowAll()
     {
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
     }
 
-    public static void Hide()
+    public static void HideAll()
     {
         Time.timeScale = 1;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    public static void MinShow()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
+    public static void MinHide()
+    {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
