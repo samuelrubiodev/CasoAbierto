@@ -609,6 +609,7 @@ MonoBehaviour:
   uiAudio: {fileID: 1361584282}
   uiGraphics: {fileID: 952737494}
   uiScreen: {fileID: 1210049640}
+  pauseMenu: {fileID: 0}
 --- !u!1 &1361584280
 GameObject:
   m_ObjectHideFlags: 0

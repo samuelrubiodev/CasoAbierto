@@ -5,33 +5,9 @@ using System.Threading.Tasks;
 
 public class DetectionCharacter : MonoBehaviour
 {
-
-    // Variables de audio
-    public AudioClip audio1;
-    public AudioClip audio2;
-    public AudioClip audio3;
-    public AudioClip audio4;
-    public AudioClip audio5;
-    public AudioClip audio6;
-    public AudioClip audio7;
-    public AudioClip audio8;
+    [SerializeField] private AudioClip[] audioClips;
+    [SerializeField] private TMP_Text textoSubtitulos;
     private AudioSource audioSource;
-
-    private List<AudioClip> audioClips = new ();
-
-    public TMP_Text textoSubtitulos;
-
-    void Start()
-    {
-        audioClips.Add(audio1);
-        audioClips.Add(audio2);
-        audioClips.Add(audio3);
-        audioClips.Add(audio4);
-        audioClips.Add(audio5);
-        audioClips.Add(audio6);
-        audioClips.Add(audio7);
-        audioClips.Add(audio8);
-    }
 
     private bool isPlaying = false;
 
@@ -74,9 +50,9 @@ public class DetectionCharacter : MonoBehaviour
             SubtitleList subtitulos = subtitleManager.ReadJSON();
             AudioSource audio = GetComponent<AudioSource>();
 
-            int numeroAleatorio = Random.Range(1, 9);
+            int numeroAleatorio = Random.Range(0, audioClips.Length);
 
-            audio.clip = audioClips[numeroAleatorio - 1];
+            audio.clip = audioClips[numeroAleatorio];
             audio.Play();
             ShowSubtitle(numeroAleatorio, subtitulos);
 

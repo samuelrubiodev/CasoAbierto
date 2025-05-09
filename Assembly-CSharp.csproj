@@ -84,6 +84,7 @@
     <Compile Include="Assets\Scripts\UIToolKit\UIGameManagerVeredict.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\PostEffectsBase.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\GlobalFog.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\Events\GameEvent.cs" />
     <Compile Include="Assets\Scripts\Interfaces\Menu\Graphics\GraphicsConfig.cs" />
     <Compile Include="Assets\Scripts\Subtitles\GenericSubtitle.cs" />
     <Compile Include="Assets\Scripts\Interfaces\JSONClass\ErrorMessage.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\Command\LoadSceneCommand.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\DepthOfField.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\VignetteAndChromaticAberration.cs" />
     <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Utils\MaterialFactory.cs" />
@@ -160,7 +162,6 @@
     <Compile Include="Assets\Scripts\Interfaces\Interaction\HoverInteraction\GenericHoverInteraction.cs" />
     <Compile Include="Assets\Scripts\Interfaces\SettingsLoad\AudioSettingsLoader.cs" />
     <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\PostProcessingProfile.cs" />
-    <Compile Include="Assets\Scripts\Animations.cs" />
     <Compile Include="Assets\Scripts\Constants\Server.cs" />
     <Compile Include="Assets\Scripts\UIToolKit\SelectionCharacters.cs" />
     <Compile Include="Assets\Scripts\Interfaces\CreditsAPIManager\OpenRouterImpl.cs" />
@@ -200,6 +201,7 @@
     <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Models\FogModel.cs" />
     <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Models\DitheringModel.cs" />
     <Compile Include="Assets\Scripts\FeatureRequest\AnalysisEvidence.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\Command\ICommand.cs" />
     <Compile Include="Assets\Scripts\GroqApiLibrary-master\GroqApiClient.cs" />
     <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Components\UserLutComponent.cs" />
     <Compile Include="Assets\Scripts\Interfaces\Menu\Screen\ModeScreen.cs" />
@@ -210,6 +212,7 @@
     <Compile Include="Assets\Scripts\ConfigEnv.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\Events\MessageAPICredits.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
@@ -259,6 +262,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\Scripts\Door.cs" />
     <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Components\ColorGradingComponent.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\Command\ICommandEnumerator.cs" />
     <Compile Include="Assets\Scripts\Util.cs" />
     <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Components\DepthOfFieldComponent.cs" />
     <Compile Include="Assets\Scripts\Menu\MenuPersonajes.cs" />
@@ -269,6 +273,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
     <Compile Include="Assets\Scripts\DetectionCharacter.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\Command\FadeLoopOutCommand.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\Vortex.cs" />
     <Compile Include="Assets\Scripts\Interfaces\Menu\Screen\ScreenConfig.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\MotionBlur.cs" />
@@ -300,6 +305,7 @@
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\Twirl.cs" />
     <Compile Include="Assets\Scripts\UIToolKit\PresentationCase\TimelinePresentation.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\Grayscale.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\Events\EventManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
     <Compile Include="Assets\Scripts\InternetConnection.cs" />
     <Compile Include="Assets\Scripts\Interfaces\Interaction\PressInteraction\SittingChairInteraction.cs" />

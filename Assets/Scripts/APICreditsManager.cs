@@ -9,24 +9,24 @@ public class APICreditsManager : MonoBehaviour
     public bool isGameStarted {get; set;}
     public static JObject jsonOpenRouterResponse;
 
-    private void Start()
+    private void Awake()
     {
-        isGameStarted = false;
+        EventManager.Subscribe<MessageAPICredits>(OnArrivedMessage);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDestroy()
     {
-        if (isGameStarted) 
-        {
-            if (audioSource != null && !audioSource.isPlaying && UIMessageManager.isProcessed)
-            {
-                ProcessCreditsAsync();
-                StartCoroutine(CreditsFlowRoutine());
+        EventManager.Unsubscribe<MessageAPICredits>(OnArrivedMessage);
+    }
+    
+    public void OnArrivedMessage(MessageAPICredits message)
+    {
+        jsonOpenRouterResponse = message.jsonOpenRouterResponse;
 
-                isGameStarted = false;
-                UIMessageManager.isProcessed = false;
-            }
+        if (audioSource != null && !audioSource.isPlaying)
+        {
+            ProcessCreditsAsync();
+            StartCoroutine(CreditsFlowRoutine());
         }
     }
 

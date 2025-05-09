@@ -5,13 +5,13 @@ using UnityEngine.UIElements;
 public delegate void CallBackButton();
 public class ErrorOverlayUI : MonoBehaviour
 {
-    private UIDocument root;
-    private Label title;
-    private Label description;
+    [SerializeField] private UIDocument root;
+    [SerializeField] private Label title;
+    [SerializeField] private Label description;
+    [SerializeField] public AudioClip errorSound;
+    [SerializeField] public AudioClip bucleAudioSource;
     public Button tryButton { get; private set; }
     public Button mainButton { get; private set; }
-    public AudioClip errorSound;
-    public AudioClip bucleAudioSource;
     public AudioMixer audioMixer;
     public AudioSource audioMusicSource;
     private AudioSource audioSourceErrorSound;
@@ -38,7 +38,7 @@ public class ErrorOverlayUI : MonoBehaviour
         });
 
         mainButton?.RegisterCallback<ClickEvent>(e => {
-                mainButtonDelegate?.Invoke();
+            mainButtonDelegate?.Invoke();
         });
 
         root.rootVisualElement.style.display = DisplayStyle.None;

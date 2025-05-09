@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Linq;
+using FeatureRequest;
 using TMPro;
 using UnityEngine;
 using Utilities.Extensions;
@@ -37,7 +38,7 @@ public class UIMessageManager
             yield return new WaitForSeconds(delay);
         }
 
-        UIMessageManager.isProcessed = true;
+        EventManager.Publish(new MessageAPICredits(RequestOpenRouter.GetInstance().openrouterResponse));
         _text.SetActive(false);
     }
 

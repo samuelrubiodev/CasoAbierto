@@ -23,8 +23,6 @@ public class ControllerCarga : MonoBehaviour
     private float messageTimer = 0f;
     private const float messageDelay = 2f;
     public ErrorOverlayUI errorOverlayUI;   
-    public float fadeInTime = 1f;
-    public float fadeOutTime = 1f;
 
     void Update()
     {
@@ -54,7 +52,7 @@ public class ControllerCarga : MonoBehaviour
 
     async void Start()
     {
-        StartCoroutine(Animations.FadeOutCR(loadingText));
+        StartCoroutine(new FadeLoopOutCommand(loadingText).Execute());
         await Initializer();
     }
 
@@ -85,10 +83,10 @@ public class ControllerCarga : MonoBehaviour
                     "application/json");
                 JObject responseCase = await caseHttpRequest.PostAsync("/case/" + Caso.caso.idCaso, jsonContent);
                 APIRequest.DATOS_CASO = responseCase.ToString();
-                SceneManager.LoadScene("InterrogationGame"); // Or SampleScene (if you not have QA_InterrogationRoom asset)
+                await new LoadSceneCommand("InterrogationGame").Execute();
             } catch (Exception) {
                 this.SetActive(false);
-                UtilitiesErrorMessage errorMessage = new(Application.dataPath + "/Resources/ErrorMessages/ErrorMessage.json");
+                UtilitiesErrorMessage errorMessage = new("ErrorMessages/ErrorMessage");
                 ErrorsMessage errors = errorMessage.ReadJSON();
 
                 System.Random random = new ();
@@ -111,7 +109,7 @@ public class ControllerCarga : MonoBehaviour
             }
             
             await CreateGame(GetJugadorID());
-            SceneManager.LoadScene("InterrogationGame"); // Or SampleScene (if you not have QA_InterrogationRoom asset)
+            await new LoadSceneCommand("InterrogationGame").Execute(); // Or SampleScene (if you not have QA_InterrogationRoom asset)
         }
     }
 

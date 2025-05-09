@@ -42,7 +42,7 @@ public class APIRequest : MonoBehaviour
 
     private async Task MakeRequestOpenRouter(string prompt, APIRequestElevenLabs aPIRequestElevenLabs)
     {
-        RequestOpenRouter requestOpenRouter = new ();
+        RequestOpenRouter requestOpenRouter = RequestOpenRouter.GetInstance();
         string message = await Task.Run(async () => await requestOpenRouter.SendRequest(prompt));
 
         bool isMan = SelectionCharacters.selectedCharacter.sexo.ToLower() == "masculino" ? true : false;

@@ -1,49 +1,49 @@
 {
  "subtitles": [
    {
-	 "id": 1,
+	 "id": 0,
 	 "text": [
 	   "Bien, vamos a empezar,",
 	   "necesito que seas completamente honesto conmigo."
 	 ]
    },
    {
-	 "id": 2,
+	 "id": 1,
 	 "text": [
 	   "Cuéntame lo que sabes,",
 	   "cada detalle es importante."
 	 ]
    },
    {
-	 "id": 3,
+	 "id": 2,
 	 "text": [
 	   "Esto es serio.",
 	   "No quiero más mentiras, ¡HABLA!"
 	 ]
    },
    {
-	 "id": 4,
+	 "id": 3,
 	 "text": [
 	   "Necesito que cooperes y me digas",
 	   "TODO lo que sabes. Esto es importante."
 	 ]
    },
    {
-	 "id": 5,
+	 "id": 4,
 	 "text": [
 	   "No me hagas perder más tiempo,",
 	   "cuéntame lo que sabes."
 	 ]
    },
    {
-	 "id": 6,
+	 "id": 5,
 	 "text": [
 	   "No tengo tiempo para juegos,",
 	   "¡empieza a hablar!"
 	 ]
    },
    {
-	 "id": 7,
+	 "id": 6,
 	 "text": [
 	   "Sé que esto puede ser difícil,",
 	   "pero estoy aquí para ayudarte.",
@@ -51,7 +51,7 @@
 	 ]
    },
    {
-	 "id": 8,
+	 "id": 7,
 	 "text": [
 	   "Vamos a llegar al fondo de esto.",
 	   "Estoy listo para escuchar tu versión."
