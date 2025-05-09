@@ -11,12 +11,12 @@ public class ControllerMicrophone : MonoBehaviour
     {
         recorder = GetComponent<MicrophoneRecorder>();
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.2f);
 
         if (recorder != null && recorder.TieneMicrofono())
         {
             recorder.StartRecording();
-            while (!Input.GetKeyDown(KeyCode.E))
+            while (!Input.GetKeyDown(KeyCode.H))
             {
                 yield return null;
             }

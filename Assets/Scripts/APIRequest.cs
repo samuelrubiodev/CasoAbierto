@@ -75,7 +75,7 @@ public class APIRequest : MonoBehaviour
         CallBackButton mainButton = OnMainMenu;
         errorOverlayUI.SetMainMenuCallBackButtonnDelegate(mainButton);
 
-        UtilitiesErrorMessage errorMessage = new (Application.dataPath + "/Resources/ErrorMessages/ErrorMessage.json");
+        UtilitiesErrorMessage errorMessage = new ("ErrorMessages/ErrorMessage");
         ErrorsMessage errors = errorMessage.ReadJSON();
 
         try {

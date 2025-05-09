@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using UnityEngine;
 
 public class UtilitiesErrorMessage : IJsonUtilities<ErrorsMessage>
 {
@@ -11,10 +12,9 @@ public class UtilitiesErrorMessage : IJsonUtilities<ErrorsMessage>
 
     public ErrorsMessage ReadJSON()
     {
-        string json = System.IO.File
-            .ReadAllText(path);
+        TextAsset json = Resources.Load<TextAsset>(path);
 
-        ErrorsMessage errorMessages = JsonConvert.DeserializeObject<ErrorsMessage>(json);
+        ErrorsMessage errorMessages = JsonConvert.DeserializeObject<ErrorsMessage>(json.text);
         return errorMessages;
     }
 }

@@ -49,7 +49,8 @@ public class ControllerGame : MonoBehaviour
             SceneManager.LoadScene("FinalScene");
         }
 
-        if (Input.GetKeyDown(KeyCode.E) && isGameInProgress && !isProcessing) {
+        if (Input.GetKeyDown(KeyCode.H) && isGameInProgress && !isProcessing) 
+        {
             if (!isRecordingStarted)
             {
                 controllerMicrophone = GetComponent<ControllerMicrophone>();

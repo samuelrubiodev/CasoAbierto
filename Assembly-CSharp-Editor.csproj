@@ -59,7 +59,7 @@
     <UnityVersion>6000.0.36f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Users\Samuel\.vscode\extensions\visualstudiotoolsforunity.vstuc-1.1.1\Analyzers\Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="C:\Users\Samuel\.vscode\extensions\visualstudiotoolsforunity.vstuc-1.1.2\Analyzers\Microsoft.Unity.Analyzers.dll" />
     <Analyzer Include="D:\Documentos\Samuel\Proyectos Unity\CasoAbierto\Juego\CasoAbierto\Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.0\cs\System.Text.Json.SourceGeneration.dll" />
     <Analyzer Include="D:\Documentos\Samuel\Proyectos Unity\CasoAbierto\Juego\CasoAbierto\Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.0\cs\es\System.Text.Json.SourceGeneration.resources.dll" />
     <Analyzer Include="D:\Documentos\Samuel\Proyectos Unity\CasoAbierto\Juego\CasoAbierto\Assets\Packages\System.Text.Json.9.0.0\analyzers\dotnet\roslyn4.0\cs\it\System.Text.Json.SourceGeneration.resources.dll" />

@@ -47,10 +47,7 @@ public class SelectionCharacters : MonoBehaviour
             VisualElement character = new ();
             character.AddToClassList("mainCharacter");
 
-            byte[] image = File.ReadAllBytes(pathsImage[i]);
-
-            Texture2D imageTexture = new (1,1);
-            imageTexture.LoadImage(image);
+            Texture2D imageTexture = Resources.Load<Texture2D>(pathsImage[i]);
 
             VisualElement characterImage = new ();
             characterImage.AddToClassList("character");

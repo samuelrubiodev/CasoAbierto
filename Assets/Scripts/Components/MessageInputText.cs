@@ -14,6 +14,12 @@ public class MessageInputText : MonoBehaviour
     void Awake()
     {
         inputContainer = gameObject.transform.GetChild(0).gameObject;
+
+        if (PlayerPrefs.GetString("microfono") == "Solo texto")
+        {
+            gameObject.SetActive(false);
+            inputContainer.SetActive(false);
+        }
     }
 
     void Update()
