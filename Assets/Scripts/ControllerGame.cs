@@ -7,25 +7,42 @@ using UnityEngine.SceneManagement;
 
 public class ControllerGame : MonoBehaviour
 {
+    private static ControllerGame instance;
     private bool isRecordingStarted = false;
     private bool isProcessing = false;
     public bool isGameInProgress { get; set; }
-
     private ControllerMicrophone controllerMicrophone;  
     public FirstPersonController FirstPersonController;
     public GameObject texto;
-    private CoundownTimer coundownTimer;
+    public CoundownTimer coundownTimer;
     private bool seHaIniciadoContador = false;
     public static bool estaEscribiendo = false;
     public GameObject personajes;
     public GameObject PrefabCharacter;
     public MessageInputText messageInputText;
 
-    void Start()
+    private ControllerGame() 
+    {
+    }
+
+    public static ControllerGame GetInstance()
+    {
+        return instance;
+    }
+
+    void Awake()
     {
         coundownTimer = GetComponent<CoundownTimer>();
+
+        seHaIniciadoContador = true;
+        coundownTimer.EmpezarContador();
+    }
+
+    void Start()
+    {
         controllerMicrophone = GetComponent<ControllerMicrophone>();
         messageInputText.OnPromptSubmitted += GetPrompt;
+        instance = this;
     }
 
     private void GetPrompt(string prompt)
@@ -36,12 +53,6 @@ public class ControllerGame : MonoBehaviour
     void Update()
     {
         CheckGenre();
-
-        if (isGameInProgress && !seHaIniciadoContador)
-        {
-            seHaIniciadoContador = true;
-            coundownTimer.EmpezarContador();
-        }
 
         if (coundownTimer.countdownOver) {
             FinalSceneManager.isUserWin = false;

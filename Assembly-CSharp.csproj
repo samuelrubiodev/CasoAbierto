@@ -110,6 +110,7 @@
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\SunShafts.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\Triangles.cs" />
     <Compile Include="Assets\Scripts\CoroutineRunner.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\Events\GameEvents\MusicEvent.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
     <Compile Include="Assets\Scripts\Menu\MenuEvidencias.cs" />
     <Compile Include="Assets\Scripts\Interfaces\DAOHttpRequest\ElevenLabsHttpRequest.cs" />
@@ -152,6 +153,8 @@
     <Compile Include="Assets\Scripts\Constants\Scene.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
     <Compile Include="Assets\Scripts\ControllerGameManager.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\Events\GameEvents\Music\IntensiveMusic.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\Command\AudioFadeInCommand.cs" />
     <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Attributes\TrackballAttribute.cs" />
     <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Models\ChromaticAberrationModel.cs" />
     <Compile Include="Assets\Scripts\UIToolKit\PauseMenu.cs" />
@@ -204,6 +207,7 @@
     <Compile Include="Assets\Scripts\Interfaces\Command\ICommand.cs" />
     <Compile Include="Assets\Scripts\GroqApiLibrary-master\GroqApiClient.cs" />
     <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Components\UserLutComponent.cs" />
+    <Compile Include="Assets\Scripts\MusicManager.cs" />
     <Compile Include="Assets\Scripts\Interfaces\Menu\Screen\ModeScreen.cs" />
     <Compile Include="Assets\Scripts\Subtitles\SubtitleManager.cs" />
     <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Components\BuiltinDebugViewsComponent.cs" />
@@ -212,7 +216,6 @@
     <Compile Include="Assets\Scripts\ConfigEnv.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
-    <Compile Include="Assets\Scripts\Interfaces\Events\MessageAPICredits.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
@@ -232,6 +235,7 @@
     <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Components\ChromaticAberrationComponent.cs" />
     <Compile Include="Assets\Scripts\UIToolKit\ScreenSettings.cs" />
     <Compile Include="Assets\Scripts\Interfaces\ISetting.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\Events\GameEvents\MessageAPICredits.cs" />
     <Compile Include="Assets\Scripts\Interfaces\SettingsLoad\IGameSettingsLoader.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\PostEffectsHelper.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
@@ -244,6 +248,7 @@
     <Compile Include="Assets\Scripts\Interfaces\DAOHttpRequest\CaseHttpRequest.cs" />
     <Compile Include="Assets\Scripts\ControllerAudio.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IPromptMaker.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\Events\GameEvents\Music\CalmMusic.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\NoiseAndScratches.cs" />
     <Compile Include="Assets\InterrogationRoom\PostProcessing\Runtime\Components\FogComponent.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextConsoleSimulator.cs" />
@@ -281,6 +286,7 @@
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\ScreenSpaceAmbientObscurance.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\ColorCorrectionRamp.cs" />
     <Compile Include="Assets\Scripts\Caso\Caso.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\Command\AudioFadeOutCommandAsync.cs" />
     <Compile Include="Assets\Scripts\Prompt\ConversationPrompt.cs" />
     <Compile Include="Assets\Scripts\Components\MessageInputText.cs" />
     <Compile Include="Assets\Scripts\Interfaces\Menu\Audio\MicrophoneConfig.cs" />
@@ -304,6 +310,8 @@
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\EdgeDetection.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\Twirl.cs" />
     <Compile Include="Assets\Scripts\UIToolKit\PresentationCase\TimelinePresentation.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\Command\AudioFadeOutCommand.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\Command\AudioFadeInCommandAsync.cs" />
     <Compile Include="Assets\Table and chair\Standard Assets\Effects\ImageEffects\Scripts\Grayscale.cs" />
     <Compile Include="Assets\Scripts\Interfaces\Events\EventManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />

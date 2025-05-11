@@ -38,7 +38,7 @@ public class UIMessageManager
             yield return new WaitForSeconds(delay);
         }
 
-        EventManager.Publish(new MessageAPICredits(RequestOpenRouter.GetInstance().openrouterResponse));
+        EventManager.GetInstance().Publish(new MessageAPICredits(RequestOpenRouter.GetInstance().openrouterResponse));
         _text.SetActive(false);
     }
 

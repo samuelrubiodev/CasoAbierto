@@ -7,16 +7,16 @@ public class APICreditsManager : MonoBehaviour
 {
     public AudioSource audioSource;
     public bool isGameStarted {get; set;}
-    public static JObject jsonOpenRouterResponse;
+    public JObject jsonOpenRouterResponse;
 
     private void Awake()
     {
-        EventManager.Subscribe<MessageAPICredits>(OnArrivedMessage);
+        EventManager.GetInstance().Subscribe<MessageAPICredits>(OnArrivedMessage);
     }
 
     private void OnDestroy()
     {
-        EventManager.Unsubscribe<MessageAPICredits>(OnArrivedMessage);
+        EventManager.GetInstance().Unsubscribe<MessageAPICredits>(OnArrivedMessage);
     }
     
     public void OnArrivedMessage(MessageAPICredits message)

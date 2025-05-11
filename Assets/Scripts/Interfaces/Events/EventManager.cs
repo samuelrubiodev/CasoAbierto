@@ -1,11 +1,21 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
-public static class EventManager
+public class EventManager
 {
+    private static EventManager instance;
+    private EventManager() { }
+
+    public static EventManager GetInstance()
+    {
+        instance ??= new EventManager();
+        return instance;
+    }
+
     private static Dictionary<Type, Delegate> eventTable = new ();
 
-    public static void Subscribe<T>(Action<T> listener) where T : GameEvent
+    public void Subscribe<T>(Action<T> listener) where T : GameEvent
     {
         if (eventTable.TryGetValue(typeof(T), out var existingDelegate))
         {
@@ -17,7 +27,7 @@ public static class EventManager
         }
     }
 
-    public static void Unsubscribe<T>(Action<T> listener) where T : GameEvent
+    public void Unsubscribe<T>(Action<T> listener) where T : GameEvent
     {
         if (eventTable.TryGetValue(typeof(T), out var existingDelegate))
         {
@@ -33,7 +43,7 @@ public static class EventManager
         }
     }
 
-    public static void Publish<T>(T publishedEvent) where T : GameEvent
+    public void Publish<T>(T publishedEvent) where T : GameEvent
     {
         if (eventTable.TryGetValue(typeof(T), out var existingDelegate))
         {
