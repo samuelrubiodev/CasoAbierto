@@ -8,25 +8,23 @@ public class PauseMenu : MonoBehaviour
     public UIDocument uiDocument;
     public UIDocument uiMainSettings;
     public FirstPersonController FirstPersonController;
-    public bool isPauseMenu = false;
+    public bool pauseMenu = false;
 
     void Start()
     {
-        Hide();
+        uiDocument.SetActive(false);
     }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (!isPauseMenu)
+           if (!pauseMenu)
             {
                 Show();
-                isPauseMenu = true;
             }
             else
             {
                 Hide();
-                isPauseMenu = false;
             }
         }
     }
@@ -35,6 +33,8 @@ public class PauseMenu : MonoBehaviour
     {
         uiDocument.SetActive(true);
         FirstPersonController.enabled = false;
+        FirstPersonController.GetComponent<FootSteps>().enabled = false;
+        FirstPersonController.crosshairObject.SetActive(false);
         Time.timeScale = 0;
         UnityEngine.Cursor.visible = true;
         UnityEngine.Cursor.lockState = CursorLockMode.None;
@@ -60,8 +60,8 @@ public class PauseMenu : MonoBehaviour
             Hide();
         });
 
-        exit.RegisterCallback<ClickEvent>(evt => {
-            SceneManager.LoadScene("Menu");
+        exit.RegisterCallback<ClickEvent>(async evt => {
+            await new LoadSceneCommand("Menu").Execute();
         });
 
         label.RegisterCallback<ClickEvent>(evt => {
@@ -71,6 +71,7 @@ public class PauseMenu : MonoBehaviour
 
         buttonsPanel.Add(back);
         buttonsPanel.Add(exit);
+        pauseMenu = true;
     }
 
     public void Hide()
@@ -80,5 +81,8 @@ public class PauseMenu : MonoBehaviour
         UnityEngine.Cursor.visible = false;
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         FirstPersonController.enabled = true;
+        FirstPersonController.GetComponent<FootSteps>().enabled = true;
+        FirstPersonController.crosshairObject.SetActive(true);
+        pauseMenu = false;
     }
 }
