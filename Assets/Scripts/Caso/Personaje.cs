@@ -56,58 +56,61 @@ public class Personaje
 
     public static List<string> GetRandomImages(List<Personaje> personajes, List<int> charactersThatHaveGoneOut)
     {
-        List<string> resultImages = new List<string>();
-        int maleImageIndex = 0;
-        int femaleImageIndex = 0;
-        
+        List<string> resultImages = new ();
+        List<string> availableMaleImages = new (ImageConstants.MALE_IMAGES);
+        List<string> availableFemaleImages = new (ImageConstants.FEMALE_IMAGES);
+        charactersThatHaveGoneOut.Clear();
+
         foreach (Personaje personaje in personajes)
         {
-            if (personaje.sexo.ToLower() == "masculino")
+            string selectedImage = null;
+            int originalIndexOfSelectedImage = -1;
+
+            string sexoPersonaje = personaje.sexo.ToLowerInvariant();
+
+            if (sexoPersonaje == "masculino")
             {
-                List<string> availableMaleImages = new List<string>(ImageConstants.MALE_IMAGES);
-                
-                while (maleImageIndex < charactersThatHaveGoneOut.Count && 
-                       charactersThatHaveGoneOut[maleImageIndex] < availableMaleImages.Count)
-                {
-                    availableMaleImages.RemoveAt(charactersThatHaveGoneOut[maleImageIndex]);
-                    maleImageIndex++;
-                }
-                
                 if (availableMaleImages.Count > 0)
                 {
-                    int randomIndex = UnityEngine.Random.Range(0, availableMaleImages.Count);
-                    resultImages.Add(availableMaleImages[randomIndex]);
+                    int randomIndexInAvailableList = UnityEngine.Random.Range(0, availableMaleImages.Count);
+                    selectedImage = availableMaleImages[randomIndexInAvailableList];
                     
-                    charactersThatHaveGoneOut.Add(randomIndex);
+                    originalIndexOfSelectedImage = ImageConstants.MALE_IMAGES.IndexOf(selectedImage);
+                    
+                    availableMaleImages.RemoveAt(randomIndexInAvailableList);
                 }
                 else
                 {
-                    resultImages.Add(ImageConstants.MALE_IMAGES[0]);
+                    selectedImage = ImageConstants.DEFAULT_FEMALE_IMAGE;
+                    if (ImageConstants.MALE_IMAGES.Contains(selectedImage))
+                    {
+                        originalIndexOfSelectedImage = ImageConstants.MALE_IMAGES.IndexOf(selectedImage);
+                    }
                 }
             }
             else
             {
-                List<string> availableFemaleImages = new List<string>(ImageConstants.FEMALE_IMAGES);
-                
-                while (femaleImageIndex < charactersThatHaveGoneOut.Count && 
-                    charactersThatHaveGoneOut[femaleImageIndex] < availableFemaleImages.Count)
-                {
-                    availableFemaleImages.RemoveAt(charactersThatHaveGoneOut[femaleImageIndex]);
-                    femaleImageIndex++;
-                }
-                
                 if (availableFemaleImages.Count > 0)
                 {
-                    int randomIndex = UnityEngine.Random.Range(0, availableFemaleImages.Count);
-                    resultImages.Add(availableFemaleImages[randomIndex]);
+                    int randomIndexInAvailableList = UnityEngine.Random.Range(0, availableFemaleImages.Count);
+                    selectedImage = availableFemaleImages[randomIndexInAvailableList];
                     
-                    charactersThatHaveGoneOut.Add(randomIndex);
+                    originalIndexOfSelectedImage = ImageConstants.FEMALE_IMAGES.IndexOf(selectedImage);
+                    
+                    availableFemaleImages.RemoveAt(randomIndexInAvailableList);
                 }
                 else
                 {
-                    resultImages.Add(ImageConstants.FEMALE_IMAGES[0]);
+                    selectedImage = ImageConstants.DEFAULT_MALE_IMAGE;
+                    if (ImageConstants.FEMALE_IMAGES.Contains(selectedImage))
+                    {
+                        originalIndexOfSelectedImage = ImageConstants.FEMALE_IMAGES.IndexOf(selectedImage);
+                    }
                 }
             }
+
+            resultImages.Add(selectedImage);
+            charactersThatHaveGoneOut.Add(originalIndexOfSelectedImage);
         }
         
         return resultImages;

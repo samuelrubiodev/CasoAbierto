@@ -8,7 +8,6 @@ using System.Text;
 using System.Net.Http;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using UnityEditor.PackageManager.Requests;
 
 namespace FeatureRequest {
     public class RequestOpenRouter : IFeatureRequest<string> {
