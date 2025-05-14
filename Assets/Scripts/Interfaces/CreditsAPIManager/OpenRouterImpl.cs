@@ -68,13 +68,13 @@ public class OpenRouterImpl : ICreditsAPIManager
         new AlertMessage(messageManager.MessageText).SetStyle();
 
         if (remainingOR <= 20 && remainingOR > 5) {
-            yield return messageManager.ShowMessage($"Quedan ~{remainingOR} peticiones de IA");
+            yield return messageManager.ShowMessage($"Quedan ~{remainingOR} peticiones de IA",false);
         }
         else if (remainingOR <= 5 && remainingOR > 0) {
-            yield return messageManager.ShowMessage($"¡Solo ~{remainingOR} peticiones restantes!");
+            yield return messageManager.ShowMessage($"¡Solo ~{remainingOR} peticiones restantes!",false);
         }
         else if (remainingOR <= 0) {
-            yield return messageManager.ShowMessage($"¡No quedan peticiones de IA!");
+            yield return messageManager.ShowMessage($"¡No quedan peticiones de IA!",false);
             throw new InsufficientOpenRouterCreditsException("No quedan peticiones de IA.");
         }
     }

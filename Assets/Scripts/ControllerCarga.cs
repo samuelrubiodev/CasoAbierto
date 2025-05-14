@@ -46,7 +46,7 @@ public class ControllerCarga : MonoBehaviour
 
     private IEnumerator ShowMessageAndWaitForCompletion()
     {
-        yield return StartCoroutine(uiMessageManager.ShowMessage(uiMessageManager.GetMessage(subtitulos.subtitles[currentSubtitleIndex].text)));
+        yield return StartCoroutine(uiMessageManager.ShowMessage(uiMessageManager.GetMessage(subtitulos.subtitles[currentSubtitleIndex].text), false));
         isShowingMessage = false;
     }
 

@@ -49,7 +49,7 @@ public class APIRequest : MonoBehaviour
         aPIRequestElevenLabs.StreamAudio(message, isMan);
 
         new MessageStyleManager(textoSubtitulos).SetStyle();
-        StartCoroutine(new UIMessageManager(textoSubtitulos).ShowMessage(message));
+        StartCoroutine(new UIMessageManager(textoSubtitulos).ShowMessage(message,true));
     }
 
     private async Task<JObject> RequestEmotionalState()

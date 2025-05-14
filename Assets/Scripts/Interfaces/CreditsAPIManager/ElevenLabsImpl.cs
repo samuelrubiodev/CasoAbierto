@@ -71,19 +71,19 @@ public class ElevenLabsImpl : ICreditsAPIManager
         if (percentUsed >= 0.9f && percentUsed < 0.98f)
         {
             yield return messageManager.ShowMessage(
-                    $"Has consumido {(percentUsed * 100):0}% de tu cuota de voz ({usedChars}/{monthlyQuota} chars)."
+                    $"Has consumido {(percentUsed * 100):0}% de tu cuota de voz ({usedChars}/{monthlyQuota} chars).",false
                 );
         }
         else if (percentUsed >= 0.98f && remainingChars > 0)
         {
             yield return messageManager.ShowMessage(
-                    $"¡Quedan solo {remainingChars} chars (~{possibleRequests} síntesis)!"
+                    $"¡Quedan solo {remainingChars} chars (~{possibleRequests} síntesis)!",false
                 );
         }
         else if (remainingChars <= 0)
         {
             yield return messageManager.ShowMessage(
-                "Has agotado tu cuota de voz. No se puede sintetizar voz."
+                "Has agotado tu cuota de voz. No se puede sintetizar voz.",false
             );
             throw new InsufficientElevenLabsCharactersException(
                 "Suscripción ElevenLabs agotada."

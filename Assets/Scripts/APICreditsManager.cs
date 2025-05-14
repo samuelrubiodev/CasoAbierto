@@ -23,11 +23,8 @@ public class APICreditsManager : MonoBehaviour
     {
         jsonOpenRouterResponse = message.jsonOpenRouterResponse;
 
-        if (audioSource != null && !audioSource.isPlaying)
-        {
-            ProcessCreditsAsync();
-            StartCoroutine(CreditsFlowRoutine());
-        }
+        ProcessCreditsAsync();
+        StartCoroutine(CreditsFlowRoutine());
     }
 
     private IEnumerator CreditsFlowRoutine()

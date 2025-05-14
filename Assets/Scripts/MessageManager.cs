@@ -21,7 +21,7 @@ public class UIMessageManager
         _text = text;
     }
 
-    public IEnumerator ShowMessage(string message)
+    public IEnumerator ShowMessage(string message, bool comesFromAPIRequest)
     {
         _text.text = message;
         _text.gameObject.SetActive(true);
@@ -38,7 +38,10 @@ public class UIMessageManager
             yield return new WaitForSeconds(delay);
         }
 
-        EventManager.GetInstance().Publish(new MessageAPICredits(RequestOpenRouter.GetInstance().openrouterResponse));
+        if (comesFromAPIRequest)
+        {
+            EventManager.GetInstance().Publish(new MessageAPICredits(RequestOpenRouter.GetInstance().openrouterResponse));
+        }
         _text.SetActive(false);
     }
 
