@@ -39,7 +39,7 @@ public class FirstPersonController : MonoBehaviour
     // Internal Variables
     private float yaw = 0.0f;
     private float pitch = 0.0f;
-    private Image crosshairObject;
+    public Image crosshairObject;
 
     #region Camera Zoom Variables
 
@@ -205,6 +205,15 @@ public class FirstPersonController : MonoBehaviour
 
     private void Update()
     {
+        if (!crosshair)
+        {
+            crosshairObject.gameObject.SetActive(false);
+        }
+        else
+        {
+            crosshairObject.gameObject.SetActive(true);
+        }
+
         #region Camera
 
         // Control camera movement

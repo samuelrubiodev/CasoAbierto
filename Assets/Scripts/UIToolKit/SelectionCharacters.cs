@@ -33,6 +33,8 @@ public class SelectionCharacters : MonoBehaviour
         Personajes = true;
         uiCharacters.SetActive(true);
         FirstPersonController.enabled = false;
+        FirstPersonController.GetComponent<FootSteps>().enabled = false;
+        FirstPersonController.crosshairObject.SetActive(false);
         Time.timeScale = 0;
         UnityEngine.Cursor.visible = true;
         UnityEngine.Cursor.lockState = CursorLockMode.None;
@@ -97,5 +99,7 @@ public class SelectionCharacters : MonoBehaviour
         UnityEngine.Cursor.visible = false;
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         FirstPersonController.enabled = true;
+        FirstPersonController.GetComponent<FootSteps>().enabled = true;
+        FirstPersonController.crosshairObject.SetActive(true);
     }
 }

@@ -5,7 +5,7 @@ using Utilities.Extensions;
 public class MainPresentation : MonoBehaviour
 {
     public UIDocument uiDocument;
-    public FirstPersonController FirstPersonController;
+    public GameObject FirstPersonController;
     private TimelinePresentation timelinePresentation;
 
     void Start()
@@ -16,14 +16,16 @@ public class MainPresentation : MonoBehaviour
 
     public void Show()
     {
+        FirstPersonController firstPersonController = FirstPersonController.GetComponent<FirstPersonController>();
+        FirstPersonController.GetComponent<FootSteps>().enabled = false;
+        firstPersonController.enabled = false;
+        firstPersonController.crosshairObject.SetActive(false);
+
         uiDocument.SetActive(true);
         Time.timeScale = 0;
         UnityEngine.Cursor.visible = true;
         UnityEngine.Cursor.lockState = CursorLockMode.None;
-        FirstPersonController.enabled = false;
 
-        
-    
         VisualElement root = uiDocument.rootVisualElement.Q<VisualElement>("main");
         VisualElement data = root.Q<VisualElement>("data");
 
@@ -60,6 +62,9 @@ public class MainPresentation : MonoBehaviour
         Time.timeScale = 1;
         UnityEngine.Cursor.visible = false;
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
-        FirstPersonController.enabled = true; 
+        FirstPersonController.GetComponent<FootSteps>().enabled = true;
+        FirstPersonController firstPersonController = FirstPersonController.GetComponent<FirstPersonController>();
+        firstPersonController.enabled = true;
+        firstPersonController.crosshairObject.SetActive(true);
     }
 }
