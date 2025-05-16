@@ -9,13 +9,15 @@ public class MessageInputText : MonoBehaviour
     public bool isSelected = false;
     public string prompt = "";
     public event Action<string> OnPromptSubmitted;
-    public FirstPersonController firstPersonController;
+    public GameObject player;
+    private FirstPersonController firstPersonController;
     private bool isMessageInputTextEnabled = false;
     private GameObject inputContainer;
     
     void Start()
     {
         inputContainer = gameObject.transform.GetChild(0).gameObject;
+        firstPersonController = player.GetComponent<FirstPersonController>();
 
         if (PlayerPrefs.GetString("microfono") != "Solo texto")
         {
@@ -32,13 +34,15 @@ public class MessageInputText : MonoBehaviour
             inputContainer.SetActive(true);
             isMessageInputTextEnabled = true;
             firstPersonController.enabled = false;
+            player.GetComponent<FootSteps>().isEnabled = false;
         }
-        else if (canShow && isMessageInputTextEnabled && Input.GetKeyDown(KeyCode.B)) 
+        else if (canShow && isMessageInputTextEnabled && Input.GetKeyDown(KeyCode.B))
         {
-            Util.MinHide();
             inputContainer.SetActive(false);
-            isMessageInputTextEnabled = false;
+            isMessageInputTextEnabled = false; 
+            Util.MinHide();
             firstPersonController.enabled = true;
+            player.GetComponent<FootSteps>().isEnabled = true;
         }
 
         OnPressEnter();
@@ -56,13 +60,17 @@ public class MessageInputText : MonoBehaviour
 
     public void OnPressEnter()
     {
-        if (isSelected && 
+        if (isSelected &&
             Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
             prompt = inputContainer.GetComponentInChildren<TMP_InputField>().text;
             OnPromptSubmitted?.Invoke(prompt);
             inputContainer.SetActive(false);
             isMessageInputTextEnabled = false;
+            Util.MinHide();
+            
+            firstPersonController.enabled = true;
+            player.GetComponent<FootSteps>().isEnabled = true;
         }
     }
 }

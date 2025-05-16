@@ -23,7 +23,7 @@ public class UIGameManagerVeredict : MonoBehaviour
             details.text = @$"Detalles: 
             - Sospechoso: {MenuPersonajes.personajeSeleccionado.nombre}
             - Veredicto: Culpable
-            - Tiempo restante {CoundownTimer.countdownInternal}";
+            - Tiempo restante {new CoundownTimer().FormatTime(CoundownTimer.countdownInternal, CoundownTimer.CountdownFormatting.MinutesSeconds, false)}";
         }
     }
 

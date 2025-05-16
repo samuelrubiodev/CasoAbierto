@@ -56,7 +56,7 @@ public class GameInitializer : MonoBehaviour
         {
             GetComponent<MainMenu>().SetActive(false);
 
-            UtilitiesErrorMessage errorMessage = new (Application.dataPath + "/Resources/ErrorMessages/ErrorMessage.json");
+            UtilitiesErrorMessage errorMessage = new ("ErrorMessages/ErrorMessage");
             ErrorsMessage errors = errorMessage.ReadJSON();
 
             System.Random random = new ();

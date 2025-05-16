@@ -53,7 +53,7 @@ public class CoundownTimer : MonoBehaviour
         }
     }
 
-    string FormatTime(double time, CountdownFormatting formatting, bool includeMilliseconds)
+    public string FormatTime(double time, CountdownFormatting formatting, bool includeMilliseconds)
     {
         string timeText = "";
 

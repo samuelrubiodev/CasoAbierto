@@ -24,6 +24,7 @@ public class PromptSystem {
         1. EL jugador es el detective, por lo tanto no puede ser el asesino, ni estar involucrado en el crimen, el es el encargado de resolver el caso.
         2. El jugador no debe morir, el es el detective.
         
+        
         Ten en cuenta que el jugador tiene ya los siguientes casos, a si que no se pueden repetir: ";
 
     public const string PROMPT_SYSTEM_CONVERSATION = @"[Contexto del Juego]
@@ -49,7 +50,9 @@ public class PromptSystem {
         3.Si el jugado selecciona una evidencia y te pregunta por ella, debes responder con la información que el personaje tenga sobre esa evidencia.
         4.Solo envía texto, nada de JSON.
         5. El jugador y el personaje seleccionado estan en una sala de interrogatorios.
-       
+        3. Habla siempre en español.
+        4. Evita usar frases en tercera persona y no hables como si fueras un narrador.
+
         Estos son los datos del caso, con todos los personajes, evidencias y detalles relevantes:";
 
     public const string PROMPT_SYSTEM_ANALYSIS = @"

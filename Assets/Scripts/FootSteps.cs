@@ -5,6 +5,7 @@ public class FootSteps : MonoBehaviour
 {
 
     public AudioSource footsteps;
+    public bool isEnabled = true;
 
     void Start()
     {
@@ -15,20 +16,32 @@ public class FootSteps : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) ||
-            Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+        bool isMoving = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) ||
+                        Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D);
+
+        if (isMoving && isEnabled)
         {
-            if (!GetComponent<FirstPersonController>().playerCanMove) 
+            if (GetComponent<FirstPersonController>() != null && !GetComponent<FirstPersonController>().playerCanMove)
             {
-                footsteps.enabled = false;
-            } else
+                if (footsteps.enabled) 
+                {
+                    footsteps.enabled = false;
+                }
+            }
+            else
             {
-                footsteps.enabled = true;
+                if (!footsteps.enabled)
+                {
+                    footsteps.enabled = true;
+                }
             }
         }
-        else 
-        { 
-            footsteps.enabled = false;
+        else
+        {
+            if (footsteps.enabled)
+            {
+                footsteps.enabled = false;
+            }
         }
     }
 }

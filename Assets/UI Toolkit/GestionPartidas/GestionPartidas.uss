@@ -74,11 +74,11 @@
 }
 
 .game-time {
-    font-size: 25px;
+    font-size: 23px;
 }
 
 .game-title {
-    font-size: 50px;
+    font-size: 30px;
     -unity-text-align: upper-left;
 }
 
